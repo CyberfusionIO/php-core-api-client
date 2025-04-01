@@ -295,6 +295,11 @@ class CoreApiConnector extends Connector
     {
         return new Resources\Sites($this);
     }
+    
+    public function sshKeys(): Resources\SSHKeys
+    {
+        return new Resources\SSHKeys($this);
+    }
 
     public function taskCollections(): Resources\TaskCollections
     {
