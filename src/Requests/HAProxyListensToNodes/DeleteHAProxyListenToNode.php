@@ -33,7 +33,7 @@ class DeleteHAProxyListenToNode extends Request implements CoreApiRequestContrac
      * @throws JsonException
      * @returns DetailMessage|Collection<ValidationError>
      */
-    public function createDtoFromResponse(Response $response): DetailMessage|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): DetailMessage|Collection
     {
         return DtoBuilder::for($response, DetailMessage::class)->build();
     }
