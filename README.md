@@ -187,7 +187,7 @@ $connector
     });
     
 $connector
-    ->middelware()    
+    ->middleware()    
     ->onResponse(function (Response $response) {
         // Do something with the response
     });
