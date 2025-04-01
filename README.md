@@ -1,93 +1,297 @@
-# php-core-api-client
+# Cyberfusion Core API client
 
+Client for the [Cyberfusion Core API](https://core-api.cyberfusion.io/).
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://vcs.cyberfusion.nl/core/php-core-api-client.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://vcs.cyberfusion.nl/core/php-core-api-client/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+This client was built for and tested on the **1.239.0** version of the API.
 
 ## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+This client is officially supported by Cyberfusion. If you have any questions, open an issue on GitHub or email
+support@cyberfusion.nl.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+The client was created by @dvdheiden and is built upon the [Saloon package](https://docs.saloon.dev/). Saloon provides a
+lot of standard easy-to-use functionality but also the possibility to give you full control.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+The **Enums, Models, Requests and Resources** are **automatically generated** based on the API spec.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Requirements
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+This client requires PHP 8.1 or higher and uses [Guzzle](https://github.com/guzzle/guzzle) via the [Saloon package](https://docs.saloon.dev/). It also uses some Laravel components, but the Laravel framework is not required.
+
+## Installation
+
+This client can be used in any PHP project and with any framework.
+
+Install the client with Composer:
+
+`composer require cyberfusion/core-api-client`
+
+## Usage
+
+Refer to the [API documentation](https://core-api.cyberfusion.io/) for information about API requests. As the client is partially generated, the Enums, Models, Requests and Resources are completely in line with the Core API (documentation).
+
+### Getting started
+
+To get started, initialize the `CoreApiConnector` with your username and password. The connector will take care of authentication and offers several resources (i.e. `VirtualHosts`) and endpoints (i.e. `listVirtualHosts`) to get started. These are completely in line with the Core API (documentation).
+
+```php
+use Cyberfusion\CoreApi\CoreApiConnector;
+
+$connector = new CoreApiConnector(
+    username: 'username',
+    password: 'password' 
+);
+
+$virtualHosts = $connector
+    ->virtualHosts()
+    ->listVirtualHosts()
+    ->dtoOrFail();
+```
+
+### Authentication
+
+The API is authenticated with a username and password and returns an access token. This client takes care of
+authentication. When the authentication fails, it will throw the `AuthenticationException`. 
+
+To get credentials, contact Cyberfusion.
+
+### Requests
+
+The client uses a fluent interface to build requests. The client uses DTOs to map the API responses to objects. To view
+all possible requests, start with the connector, go to the desired resource and call the desired endpoint. All endpoints use 
+parameters or DTOs to send data to the API.
+
+```php
+use Cyberfusion\CoreApi\CoreApiConnector;
+use Cyberfusion\CoreApi\Models\MailDomainCreateRequest;
+
+$connector = new CoreApiConnector(
+    username: 'username',
+    password: 'password' 
+);
+
+$mailDomainResource = $connector
+    ->mailDomains()
+    ->createMailDomain(new MailDomainCreateRequest(
+        domain: 'cyberfusion.io',
+        unixUserId: 1,
+        isLocal: true,
+    ))
+    ->dto();
+```
+
+#### Filtering/sorting data
+
+Some endpoints support filtering and sorting data. You can use the `Filter` and `Sort` classes to build the desired
+filter or sort. These do not validate if the provided fields exist in the API as the API also ignores those.
+
+```php
+use Cyberfusion\CoreApi\Support\Filter;
+
+$connector
+    ->virtualHosts()
+    ->listVirtualHosts(
+        filter: (new Filter())->add('unix_user_id', 1),
+        sort: (new Sort())->add('name', 'asc')
+    );
+```
+
+### Responses
+
+The client uses DTOs to map the API responses to objects, but you have full access to the response. This means you can
+implement the Core API in your own way when required, or just use the DTOs for the easiest way to get started.
+
+#### Models
+
+To retrieve the model, call the `dto()` method on the response. This will return a `CoreApiModel`, a Collection of models, a `ValidationError` model when validation failed or a `DetailMessage` model when something else failed.
+
+```php
+$virtualHosts = $connector
+    ->virtualHosts()
+    ->listVirtualHosts()
+    ->dto();
+```
+
+There's also the possibility to throw an exception when the request fails. This is done by calling the `dtoOrFail()` method on the response. When the response doesn't have a `2xx` status code, it will throw a `LogicException`.
+
+```php
+$virtualHosts = $connector
+    ->virtualHosts()
+    ->listVirtualHosts()
+    ->dtoOrFail();
+```
+
+#### Actual response
+
+```php
+$response = $connector
+    ->virtualHosts()
+    ->listVirtualHosts();
+
+if ($response->failed()) {
+    echo $response->status();
+}
+```
+
+See the [Responses](https://docs.saloon.dev/the-basics/responses) documentation for more information.
+
+### Models
+
+The DTOs are validated before sending the request and will require all the required parameters. When invalid data is
+provided a `ValidationException` will be thrown.
+
+```php
+use Cyberfusion\CoreApi\Models\MailAliasCreateRequest;
+use Respect\Validation\Exceptions\ValidationException;
+
+$mailAlias = new MailAliasCreateRequest(
+    localPart: '&^@$#^&@$#^&',
+    mailDomainId: 1
+);
+// throw ValidationException
+```
+
+The exception will provide more details about the validation errors.
+
+### Enums
+
+Some properties should contain certain values. These values can be found in the enum classes and are required by the models when the property is required.
+
+### Exceptions
+
+As you are fully in control, the client doesn't throw errors when a request fails. See the "Models" section for more information.
+
+## Deep dive
+
+### Middleware
+
+There are several options to use middleware in the SDK. 
+
+#### Custom middleware
+
+The most common way is to use the `CoreApiConnector` and add middleware to it.
+
+```php
+use Cyberfusion\CoreApi\CoreApiConnector;
+use Saloon\Http\PendingRequest;
+use Saloon\Http\Response;
+
+$connector = new CoreApiConnector(
+    .. // Initialize the connector
+);
+
+$connector
+    ->middleware()
+    ->onRequest(function (PendingRequest $pendingRequest) {
+        // Do something with the request
+    });
+    
+$connector
+    ->middelware()    
+    ->onResponse(function (Response $response) {
+        // Do something with the response
+    });
+```
+
+#### Guzzle Middleware
+
+You can also add middleware to the Guzzle client directly. This is useful when you want to use Guzzle specific 
+middleware.
+
+```php
+$connector
+    ->sender()
+    ->addMiddleware(
+        // Add your Guzzle middleware
+    );
+```
+
+For example when using the [request-response-log package](https://github.com/goedemiddag/request-response-log):
+
+```php
+use Goedemiddag\RequestResponseLog\RequestResponseLogger;
+
+$connector
+    ->sender()
+    ->addMiddleware(
+        RequestResponseLogger::middleware(Moneybird::VENDOR)
+    );
+```
+
+### Manual requests
+
+When you don't want to use the full SDK, but just easily send requests and retrieve response, you can use the 
+`ManualRequest`. Just initialize the connector as usual and send a `ManualRequest` with the desired parameters:
+
+```php
+use Cyberfusion\CoreApi\CoreApiConnector;
+use Cyberfusion\CoreApi\Support\ManualRequest;
+use Saloon\Enums\Method;
+
+$connector = new CoreApiConnector(
+    .. // Initialize the connector
+);
+$response = $connector->send(new ManualRequest(
+    url: '/api/v1/health',
+    method: Method::GET, // optional: defaults to GET
+    data: [], // optional: defaults to []
+));
+```
+
+## Integrations
+
+### Laravel
+
+This client can be easily used in any Laravel application. Add your API credentials to the `.env` file:
+
+```
+CORE_API_USERNAME=username
+CORE_API_PASSWORD=password
+```
+
+Next, create a config file called `core-api.php` in the `config` directory:
+
+```php
+<?php
+
+return [
+    'username' => env('CORE_API_USERNAME'),
+    'password' => env('CORE_API_PASSWORD'),
+];
+```
+
+Use those files to initialize the connector:
+
+```php
+use Cyberfusion\CoreApi\CoreApiConnector;
+
+$connector = new CoreApiConnector(
+    username: config('core-api.username'),
+    password: config('core-api.password'),
+);
+```
+
+## Tests
+
+Unit tests are available in the `tests` directory. Run:
+
+`composer test`
+
+To generate a code coverage report in the `build/report` directory, run:
+
+`composer test-coverage`
+
+## Contribution
+
+Contributions are welcome. See the [contributing guidelines](CONTRIBUTING.md). 
+
+**Be aware: the Enums, Models, Requests and Resource are auto-generated. If something is wrong in those files, please 
+create an issue instead of a pull request.**
+
+## Security
+
+If you discover any security related issues, please email support@cyberfusion.nl instead of using the issue tracker.
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This client is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

@@ -1,0 +1,81 @@
+<?php
+
+namespace Cyberfusion\CoreApi\Models;
+
+use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Support\CoreApiModel;
+use Illuminate\Support\Arr;
+use Respect\Validation\Exceptions\ValidationException;
+use Respect\Validation\Validator;
+
+class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
+{
+    public function __construct(string $name, int $borgArchiveId, bool $existsOnServer, ?string $contentsPath = null)
+    {
+        $this->setName($name);
+        $this->setBorgArchiveId($borgArchiveId);
+        $this->setExistsOnServer($existsOnServer);
+        $this->setContentsPath($contentsPath);
+    }
+
+    public function getName(): string
+    {
+        return $this->getAttribute('name');
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function setName(?string $name = null): self
+    {
+        Validator::create()
+            ->length(min: 1, max: 64)
+            ->regex('/^[a-zA-Z0-9-_]+$/')
+            ->assert($name);
+        $this->setAttribute('name', $name);
+        return $this;
+    }
+
+    public function getBorgArchiveId(): int
+    {
+        return $this->getAttribute('borgArchiveId');
+    }
+
+    public function setBorgArchiveId(?int $borgArchiveId = null): self
+    {
+        $this->setAttribute('borgArchiveId', $borgArchiveId);
+        return $this;
+    }
+
+    public function getExistsOnServer(): bool
+    {
+        return $this->getAttribute('existsOnServer');
+    }
+
+    public function setExistsOnServer(?bool $existsOnServer = null): self
+    {
+        $this->setAttribute('existsOnServer', $existsOnServer);
+        return $this;
+    }
+
+    public function getContentsPath(): string|null
+    {
+        return $this->getAttribute('contentsPath');
+    }
+
+    public function setContentsPath(?string $contentsPath = null): self
+    {
+        $this->setAttribute('contentsPath', $contentsPath);
+        return $this;
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return (new self(
+            name: Arr::get($data, 'name'),
+            borgArchiveId: Arr::get($data, 'borg_archive_id'),
+            existsOnServer: Arr::get($data, 'exists_on_server'),
+            contentsPath: Arr::get($data, 'contents_path'),
+        ));
+    }
+}
