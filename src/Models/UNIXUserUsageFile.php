@@ -10,7 +10,7 @@ use Respect\Validation\Validator;
 
 class UNIXUserUsageFile extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $path, string $size)
+    public function __construct(string $path, float $size)
     {
         $this->setPath($path);
         $this->setSize($size);
@@ -27,12 +27,12 @@ class UNIXUserUsageFile extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getSize(): string
+    public function getSize(): float
     {
         return $this->getAttribute('size');
     }
 
-    public function setSize(?string $size = null): self
+    public function setSize(?float $size = null): self
     {
         $this->setAttribute('size', $size);
         return $this;

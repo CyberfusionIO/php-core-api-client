@@ -18,7 +18,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
         string $uuid,
         string $name,
         IPAddressProductTypeEnum $type,
-        string $price,
+        float $price,
         string $period,
         string $currency,
     ) {
@@ -70,12 +70,12 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getPrice(): string
+    public function getPrice(): float
     {
         return $this->getAttribute('price');
     }
 
-    public function setPrice(?string $price = null): self
+    public function setPrice(?float $price = null): self
     {
         $this->setAttribute('price', $price);
         return $this;

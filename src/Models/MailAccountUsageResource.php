@@ -10,7 +10,7 @@ use Respect\Validation\Validator;
 
 class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $mailAccountId, string $usage, string $timestamp)
+    public function __construct(int $mailAccountId, float $usage, string $timestamp)
     {
         $this->setMailAccountId($mailAccountId);
         $this->setUsage($usage);
@@ -28,12 +28,12 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
-    public function getUsage(): string
+    public function getUsage(): float
     {
         return $this->getAttribute('usage');
     }
 
-    public function setUsage(?string $usage = null): self
+    public function setUsage(?float $usage = null): self
     {
         $this->setAttribute('usage', $usage);
         return $this;

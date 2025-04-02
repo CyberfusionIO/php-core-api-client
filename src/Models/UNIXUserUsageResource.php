@@ -10,7 +10,7 @@ use Respect\Validation\Validator;
 
 class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $unixUserId, string $usage, string $timestamp, ?array $files = null)
+    public function __construct(int $unixUserId, float $usage, string $timestamp, ?array $files = null)
     {
         $this->setUnixUserId($unixUserId);
         $this->setUsage($usage);
@@ -29,12 +29,12 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getUsage(): string
+    public function getUsage(): float
     {
         return $this->getAttribute('usage');
     }
 
-    public function setUsage(?string $usage = null): self
+    public function setUsage(?float $usage = null): self
     {
         $this->setAttribute('usage', $usage);
         return $this;
