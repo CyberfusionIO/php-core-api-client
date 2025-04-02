@@ -59,7 +59,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -70,7 +70,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -92,7 +92,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setVirtualHostId(?int $virtualHostId = null): self
     {
-        $this->setAttribute('virtualHostId', $virtualHostId);
+        $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
     }
 
@@ -103,7 +103,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUrlRedirectId(?int $urlRedirectId = null): self
     {
-        $this->setAttribute('urlRedirectId', $urlRedirectId);
+        $this->setAttribute('url_redirect_id', $urlRedirectId);
         return $this;
     }
 
@@ -125,7 +125,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -136,7 +136,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 
@@ -147,7 +147,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCertificateId(?int $certificateId = null): self
     {
-        $this->setAttribute('certificateId', $certificateId);
+        $this->setAttribute('certificate_id', $certificateId);
         return $this;
     }
 
@@ -158,7 +158,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setSecurityTxtPolicyId(?int $securityTxtPolicyId = null): self
     {
-        $this->setAttribute('securityTxtPolicyId', $securityTxtPolicyId);
+        $this->setAttribute('security_txt_policy_id', $securityTxtPolicyId);
         return $this;
     }
 
@@ -169,7 +169,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setFirewallGroupsIds(?array $firewallGroupsIds = []): self
     {
-        $this->setAttribute('firewallGroupsIds', $firewallGroupsIds);
+        $this->setAttribute('firewall_groups_ids', $firewallGroupsIds);
         return $this;
     }
 
@@ -180,7 +180,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
 
     public function setForceSsl(?bool $forceSsl = null): self
     {
-        $this->setAttribute('forceSsl', $forceSsl);
+        $this->setAttribute('force_ssl', $forceSsl);
         return $this;
     }
 

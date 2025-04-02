@@ -22,7 +22,7 @@ class VirtualHostDocumentRoot extends CoreApiModel implements CoreApiModelContra
 
     public function setContainsFiles(?string $containsFiles = null): self
     {
-        $this->setAttribute('containsFiles', $containsFiles);
+        $this->setAttribute('contains_files', $containsFiles);
         return $this;
     }
 

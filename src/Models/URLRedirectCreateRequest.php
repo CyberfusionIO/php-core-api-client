@@ -48,7 +48,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -65,7 +65,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($serverAliases));
-        $this->setAttribute('serverAliases', $serverAliases);
+        $this->setAttribute('server_aliases', $serverAliases);
         return $this;
     }
 
@@ -82,7 +82,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         Validator::create()
             ->length(min: 1, max: 2083)
             ->assert($destinationUrl);
-        $this->setAttribute('destinationUrl', $destinationUrl);
+        $this->setAttribute('destination_url', $destinationUrl);
         return $this;
     }
 
@@ -93,7 +93,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setStatusCode(?StatusCodeEnum $statusCode = null): self
     {
-        $this->setAttribute('statusCode', $statusCode);
+        $this->setAttribute('status_code', $statusCode);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
     {
-        $this->setAttribute('keepQueryParameters', $keepQueryParameters);
+        $this->setAttribute('keep_query_parameters', $keepQueryParameters);
         return $this;
     }
 
@@ -115,7 +115,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setKeepPath(?bool $keepPath = null): self
     {
-        $this->setAttribute('keepPath', $keepPath);
+        $this->setAttribute('keep_path', $keepPath);
         return $this;
     }
 

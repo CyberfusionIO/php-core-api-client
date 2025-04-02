@@ -106,7 +106,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setFirewallGroups(?array $firewallGroups = []): self
     {
-        $this->setAttribute('firewallGroups', $firewallGroups);
+        $this->setAttribute('firewall_groups', $firewallGroups);
         return $this;
     }
 
@@ -117,7 +117,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setSecurityTxtPolicies(?array $securityTxtPolicies = []): self
     {
-        $this->setAttribute('securityTxtPolicies', $securityTxtPolicies);
+        $this->setAttribute('security_txt_policies', $securityTxtPolicies);
         return $this;
     }
 
@@ -128,7 +128,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixUsers(?array $unixUsers = []): self
     {
-        $this->setAttribute('unixUsers', $unixUsers);
+        $this->setAttribute('unix_users', $unixUsers);
         return $this;
     }
 
@@ -139,7 +139,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setBorgRepositories(?array $borgRepositories = []): self
     {
-        $this->setAttribute('borgRepositories', $borgRepositories);
+        $this->setAttribute('borg_repositories', $borgRepositories);
         return $this;
     }
 
@@ -150,7 +150,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setFtpUsers(?array $ftpUsers = []): self
     {
-        $this->setAttribute('ftpUsers', $ftpUsers);
+        $this->setAttribute('ftp_users', $ftpUsers);
         return $this;
     }
 
@@ -161,7 +161,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setBorgArchives(?array $borgArchives = []): self
     {
-        $this->setAttribute('borgArchives', $borgArchives);
+        $this->setAttribute('borg_archives', $borgArchives);
         return $this;
     }
 
@@ -172,7 +172,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setCustomConfigSnippets(?array $customConfigSnippets = []): self
     {
-        $this->setAttribute('customConfigSnippets', $customConfigSnippets);
+        $this->setAttribute('custom_config_snippets', $customConfigSnippets);
         return $this;
     }
 
@@ -183,7 +183,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setCustomConfigs(?array $customConfigs = []): self
     {
-        $this->setAttribute('customConfigs', $customConfigs);
+        $this->setAttribute('custom_configs', $customConfigs);
         return $this;
     }
 
@@ -194,7 +194,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixUsersRabbitmqCredentials(?array $unixUsersRabbitmqCredentials = []): self
     {
-        $this->setAttribute('unixUsersRabbitmqCredentials', $unixUsersRabbitmqCredentials);
+        $this->setAttribute('unix_users_rabbitmq_credentials', $unixUsersRabbitmqCredentials);
         return $this;
     }
 
@@ -216,7 +216,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setBasicAuthenticationRealms(?array $basicAuthenticationRealms = []): self
     {
-        $this->setAttribute('basicAuthenticationRealms', $basicAuthenticationRealms);
+        $this->setAttribute('basic_authentication_realms', $basicAuthenticationRealms);
         return $this;
     }
 
@@ -227,7 +227,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setHtpasswdUsers(?array $htpasswdUsers = []): self
     {
-        $this->setAttribute('htpasswdUsers', $htpasswdUsers);
+        $this->setAttribute('htpasswd_users', $htpasswdUsers);
         return $this;
     }
 
@@ -260,7 +260,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setMariadbEncryptionKeys(?array $mariadbEncryptionKeys = []): self
     {
-        $this->setAttribute('mariadbEncryptionKeys', $mariadbEncryptionKeys);
+        $this->setAttribute('mariadb_encryption_keys', $mariadbEncryptionKeys);
         return $this;
     }
 
@@ -271,7 +271,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setFirewallRules(?array $firewallRules = []): self
     {
-        $this->setAttribute('firewallRules', $firewallRules);
+        $this->setAttribute('firewall_rules', $firewallRules);
         return $this;
     }
 
@@ -282,7 +282,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setHostsEntries(?array $hostsEntries = []): self
     {
-        $this->setAttribute('hostsEntries', $hostsEntries);
+        $this->setAttribute('hosts_entries', $hostsEntries);
         return $this;
     }
 
@@ -293,7 +293,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setHtpasswdFiles(?array $htpasswdFiles = []): self
     {
-        $this->setAttribute('htpasswdFiles', $htpasswdFiles);
+        $this->setAttribute('htpasswd_files', $htpasswdFiles);
         return $this;
     }
 
@@ -304,7 +304,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setVirtualHosts(?array $virtualHosts = []): self
     {
-        $this->setAttribute('virtualHosts', $virtualHosts);
+        $this->setAttribute('virtual_hosts', $virtualHosts);
         return $this;
     }
 
@@ -315,7 +315,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setDomainRouters(?array $domainRouters = []): self
     {
-        $this->setAttribute('domainRouters', $domainRouters);
+        $this->setAttribute('domain_routers', $domainRouters);
         return $this;
     }
 
@@ -326,7 +326,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setMailHostnames(?array $mailHostnames = []): self
     {
-        $this->setAttribute('mailHostnames', $mailHostnames);
+        $this->setAttribute('mail_hostnames', $mailHostnames);
         return $this;
     }
 
@@ -337,7 +337,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setUrlRedirects(?array $urlRedirects = []): self
     {
-        $this->setAttribute('urlRedirects', $urlRedirects);
+        $this->setAttribute('url_redirects', $urlRedirects);
         return $this;
     }
 
@@ -348,7 +348,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setFpmPools(?array $fpmPools = []): self
     {
-        $this->setAttribute('fpmPools', $fpmPools);
+        $this->setAttribute('fpm_pools', $fpmPools);
         return $this;
     }
 
@@ -359,7 +359,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setRedisInstances(?array $redisInstances = []): self
     {
-        $this->setAttribute('redisInstances', $redisInstances);
+        $this->setAttribute('redis_instances', $redisInstances);
         return $this;
     }
 
@@ -370,7 +370,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setPassengerApps(?array $passengerApps = []): self
     {
-        $this->setAttribute('passengerApps', $passengerApps);
+        $this->setAttribute('passenger_apps', $passengerApps);
         return $this;
     }
 
@@ -392,7 +392,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setHaproxyListens(?array $haproxyListens = []): self
     {
-        $this->setAttribute('haproxyListens', $haproxyListens);
+        $this->setAttribute('haproxy_listens', $haproxyListens);
         return $this;
     }
 
@@ -403,7 +403,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setHaproxyListensToNodes(?array $haproxyListensToNodes = []): self
     {
-        $this->setAttribute('haproxyListensToNodes', $haproxyListensToNodes);
+        $this->setAttribute('haproxy_listens_to_nodes', $haproxyListensToNodes);
         return $this;
     }
 
@@ -414,7 +414,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setSshKeys(?array $sshKeys = []): self
     {
-        $this->setAttribute('sshKeys', $sshKeys);
+        $this->setAttribute('ssh_keys', $sshKeys);
         return $this;
     }
 
@@ -425,7 +425,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setRootSshKeys(?array $rootSshKeys = []): self
     {
-        $this->setAttribute('rootSshKeys', $rootSshKeys);
+        $this->setAttribute('root_ssh_keys', $rootSshKeys);
         return $this;
     }
 
@@ -447,7 +447,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setCertificateManagers(?array $certificateManagers = []): self
     {
-        $this->setAttribute('certificateManagers', $certificateManagers);
+        $this->setAttribute('certificate_managers', $certificateManagers);
         return $this;
     }
 
@@ -469,7 +469,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setDatabaseUsers(?array $databaseUsers = []): self
     {
-        $this->setAttribute('databaseUsers', $databaseUsers);
+        $this->setAttribute('database_users', $databaseUsers);
         return $this;
     }
 
@@ -480,7 +480,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setDatabaseUserGrants(?array $databaseUserGrants = []): self
     {
-        $this->setAttribute('databaseUserGrants', $databaseUserGrants);
+        $this->setAttribute('database_user_grants', $databaseUserGrants);
         return $this;
     }
 
@@ -513,7 +513,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setMailDomains(?array $mailDomains = []): self
     {
-        $this->setAttribute('mailDomains', $mailDomains);
+        $this->setAttribute('mail_domains', $mailDomains);
         return $this;
     }
 
@@ -524,7 +524,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setMailAccounts(?array $mailAccounts = []): self
     {
-        $this->setAttribute('mailAccounts', $mailAccounts);
+        $this->setAttribute('mail_accounts', $mailAccounts);
         return $this;
     }
 
@@ -535,7 +535,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setMailAliases(?array $mailAliases = []): self
     {
-        $this->setAttribute('mailAliases', $mailAliases);
+        $this->setAttribute('mail_aliases', $mailAliases);
         return $this;
     }
 
@@ -546,7 +546,7 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 
     public function setNodeAddOns(?array $nodeAddOns = []): self
     {
-        $this->setAttribute('nodeAddOns', $nodeAddOns);
+        $this->setAttribute('node_add_ons', $nodeAddOns);
         return $this;
     }
 

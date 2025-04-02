@@ -21,7 +21,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMaxChildren(int $maxChildren): self
     {
-        $this->setAttribute('maxChildren', $maxChildren);
+        $this->setAttribute('max_children', $maxChildren);
         return $this;
     }
 
@@ -32,7 +32,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMaxRequests(int $maxRequests): self
     {
-        $this->setAttribute('maxRequests', $maxRequests);
+        $this->setAttribute('max_requests', $maxRequests);
         return $this;
     }
 
@@ -43,7 +43,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setProcessIdleTimeout(int $processIdleTimeout): self
     {
-        $this->setAttribute('processIdleTimeout', $processIdleTimeout);
+        $this->setAttribute('process_idle_timeout', $processIdleTimeout);
         return $this;
     }
 
@@ -54,7 +54,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setCpuLimit(?int $cpuLimit): self
     {
-        $this->setAttribute('cpuLimit', $cpuLimit);
+        $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 
@@ -65,7 +65,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold): self
     {
-        $this->setAttribute('logSlowRequestsThreshold', $logSlowRequestsThreshold);
+        $this->setAttribute('log_slow_requests_threshold', $logSlowRequestsThreshold);
         return $this;
     }
 
@@ -76,7 +76,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setIsNamespaced(bool $isNamespaced): self
     {
-        $this->setAttribute('isNamespaced', $isNamespaced);
+        $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;
     }
 
@@ -87,7 +87,7 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMemoryLimit(?int $memoryLimit): self
     {
-        $this->setAttribute('memoryLimit', $memoryLimit);
+        $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
     }
 

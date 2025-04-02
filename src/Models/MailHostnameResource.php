@@ -44,7 +44,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -55,7 +55,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -77,7 +77,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -88,7 +88,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCertificateId(?int $certificateId = null): self
     {
-        $this->setAttribute('certificateId', $certificateId);
+        $this->setAttribute('certificate_id', $certificateId);
         return $this;
     }
 

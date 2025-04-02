@@ -22,7 +22,7 @@ class NodeRabbitMQGroupProperties extends CoreApiModel implements CoreApiModelCo
 
     public function setIsMaster(?bool $isMaster = null): self
     {
-        $this->setAttribute('isMaster', $isMaster);
+        $this->setAttribute('is_master', $isMaster);
         return $this;
     }
 

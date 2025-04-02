@@ -49,7 +49,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -60,7 +60,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -89,7 +89,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
 
     public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -118,7 +118,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -129,7 +129,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
 
     public function setIsDefault(?bool $isDefault = null): self
     {
-        $this->setAttribute('isDefault', $isDefault);
+        $this->setAttribute('is_default', $isDefault);
         return $this;
     }
 

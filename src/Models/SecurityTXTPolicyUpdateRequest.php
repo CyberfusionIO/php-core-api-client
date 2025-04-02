@@ -22,7 +22,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
 
     public function setExpiresTimestamp(string $expiresTimestamp): self
     {
-        $this->setAttribute('expiresTimestamp', $expiresTimestamp);
+        $this->setAttribute('expires_timestamp', $expiresTimestamp);
         return $this;
     }
 
@@ -39,7 +39,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($emailContacts));
-        $this->setAttribute('emailContacts', $emailContacts);
+        $this->setAttribute('email_contacts', $emailContacts);
         return $this;
     }
 
@@ -56,7 +56,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($urlContacts));
-        $this->setAttribute('urlContacts', $urlContacts);
+        $this->setAttribute('url_contacts', $urlContacts);
         return $this;
     }
 
@@ -73,7 +73,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($encryptionKeyUrls));
-        $this->setAttribute('encryptionKeyUrls', $encryptionKeyUrls);
+        $this->setAttribute('encryption_key_urls', $encryptionKeyUrls);
         return $this;
     }
 
@@ -90,7 +90,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($acknowledgmentUrls));
-        $this->setAttribute('acknowledgmentUrls', $acknowledgmentUrls);
+        $this->setAttribute('acknowledgment_urls', $acknowledgmentUrls);
         return $this;
     }
 
@@ -107,7 +107,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($policyUrls));
-        $this->setAttribute('policyUrls', $policyUrls);
+        $this->setAttribute('policy_urls', $policyUrls);
         return $this;
     }
 
@@ -124,7 +124,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($openingUrls));
-        $this->setAttribute('openingUrls', $openingUrls);
+        $this->setAttribute('opening_urls', $openingUrls);
         return $this;
     }
 
@@ -141,7 +141,7 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($preferredLanguages));
-        $this->setAttribute('preferredLanguages', $preferredLanguages);
+        $this->setAttribute('preferred_languages', $preferredLanguages);
         return $this;
     }
 

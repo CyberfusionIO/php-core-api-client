@@ -35,7 +35,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 
@@ -46,7 +46,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setFirewallGroupId(?int $firewallGroupId = null): self
     {
-        $this->setAttribute('firewallGroupId', $firewallGroupId);
+        $this->setAttribute('firewall_group_id', $firewallGroupId);
         return $this;
     }
 
@@ -57,7 +57,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setExternalProviderName(?FirewallRuleExternalProviderNameEnum $externalProviderName = null): self
     {
-        $this->setAttribute('externalProviderName', $externalProviderName);
+        $this->setAttribute('external_provider_name', $externalProviderName);
         return $this;
     }
 
@@ -68,7 +68,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setServiceName(?FirewallRuleServiceNameEnum $serviceName = null): self
     {
-        $this->setAttribute('serviceName', $serviceName);
+        $this->setAttribute('service_name', $serviceName);
         return $this;
     }
 
@@ -79,7 +79,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setHaproxyListenId(?int $haproxyListenId = null): self
     {
-        $this->setAttribute('haproxyListenId', $haproxyListenId);
+        $this->setAttribute('haproxy_listen_id', $haproxyListenId);
         return $this;
     }
 

@@ -51,7 +51,7 @@ class MailAccountUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
             ->length(min: 1, max: 64)
             ->regex('/^[a-z0-9-.]+$/')
             ->assert($localPart);
-        $this->setAttribute('localPart', $localPart);
+        $this->setAttribute('local_part', $localPart);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class MailAccountUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setMailDomainId(?int $mailDomainId = null): self
     {
-        $this->setAttribute('mailDomainId', $mailDomainId);
+        $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
     }
 
@@ -73,7 +73,7 @@ class MailAccountUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 

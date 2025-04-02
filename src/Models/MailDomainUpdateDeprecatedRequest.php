@@ -45,7 +45,7 @@ class MailDomainUpdateDeprecatedRequest extends CoreApiModel implements CoreApiM
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -67,7 +67,7 @@ class MailDomainUpdateDeprecatedRequest extends CoreApiModel implements CoreApiM
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -84,7 +84,7 @@ class MailDomainUpdateDeprecatedRequest extends CoreApiModel implements CoreApiM
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($catchAllForwardEmailAddresses));
-        $this->setAttribute('catchAllForwardEmailAddresses', $catchAllForwardEmailAddresses);
+        $this->setAttribute('catch_all_forward_email_addresses', $catchAllForwardEmailAddresses);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class MailDomainUpdateDeprecatedRequest extends CoreApiModel implements CoreApiM
 
     public function setIsLocal(?bool $isLocal = null): self
     {
-        $this->setAttribute('isLocal', $isLocal);
+        $this->setAttribute('is_local', $isLocal);
         return $this;
     }
 

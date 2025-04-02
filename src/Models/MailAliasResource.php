@@ -45,7 +45,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -56,7 +56,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -67,7 +67,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -85,7 +85,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
             ->length(min: 1, max: 64)
             ->regex('/^[a-z0-9-.]+$/')
             ->assert($localPart);
-        $this->setAttribute('localPart', $localPart);
+        $this->setAttribute('local_part', $localPart);
         return $this;
     }
 
@@ -96,7 +96,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
 
     public function setMailDomainId(?int $mailDomainId = null): self
     {
-        $this->setAttribute('mailDomainId', $mailDomainId);
+        $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
     }
 
@@ -113,7 +113,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
-        $this->setAttribute('forwardEmailAddresses', $forwardEmailAddresses);
+        $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
     }
 

@@ -67,7 +67,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -125,7 +125,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setRemoteHost(?string $remoteHost = null): self
     {
-        $this->setAttribute('remoteHost', $remoteHost);
+        $this->setAttribute('remote_host', $remoteHost);
         return $this;
     }
 
@@ -136,7 +136,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setRemotePath(?string $remotePath = null): self
     {
-        $this->setAttribute('remotePath', $remotePath);
+        $this->setAttribute('remote_path', $remotePath);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
             ->length(min: 1, max: 32)
             ->regex('/^[a-z0-9-_]+$/')
             ->assert($remoteUsername);
-        $this->setAttribute('remoteUsername', $remoteUsername);
+        $this->setAttribute('remote_username', $remoteUsername);
         return $this;
     }
 
@@ -165,7 +165,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -176,7 +176,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -187,7 +187,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setKeepHourly(?int $keepHourly = null): self
     {
-        $this->setAttribute('keepHourly', $keepHourly);
+        $this->setAttribute('keep_hourly', $keepHourly);
         return $this;
     }
 
@@ -198,7 +198,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setKeepDaily(?int $keepDaily = null): self
     {
-        $this->setAttribute('keepDaily', $keepDaily);
+        $this->setAttribute('keep_daily', $keepDaily);
         return $this;
     }
 
@@ -209,7 +209,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setKeepWeekly(?int $keepWeekly = null): self
     {
-        $this->setAttribute('keepWeekly', $keepWeekly);
+        $this->setAttribute('keep_weekly', $keepWeekly);
         return $this;
     }
 
@@ -220,7 +220,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setKeepMonthly(?int $keepMonthly = null): self
     {
-        $this->setAttribute('keepMonthly', $keepMonthly);
+        $this->setAttribute('keep_monthly', $keepMonthly);
         return $this;
     }
 
@@ -231,7 +231,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setKeepYearly(?int $keepYearly = null): self
     {
-        $this->setAttribute('keepYearly', $keepYearly);
+        $this->setAttribute('keep_yearly', $keepYearly);
         return $this;
     }
 
@@ -242,7 +242,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function setIdentityFilePath(?string $identityFilePath = null): self
     {
-        $this->setAttribute('identityFilePath', $identityFilePath);
+        $this->setAttribute('identity_file_path', $identityFilePath);
         return $this;
     }
 

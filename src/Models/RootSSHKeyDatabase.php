@@ -49,7 +49,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -60,7 +60,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -71,7 +71,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -82,7 +82,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setPublicKey(?string $publicKey = null): self
     {
-        $this->setAttribute('publicKey', $publicKey);
+        $this->setAttribute('public_key', $publicKey);
         return $this;
     }
 
@@ -93,7 +93,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setPrivateKey(?string $privateKey = null): self
     {
-        $this->setAttribute('privateKey', $privateKey);
+        $this->setAttribute('private_key', $privateKey);
         return $this;
     }
 

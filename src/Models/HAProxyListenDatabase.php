@@ -59,7 +59,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -70,7 +70,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -99,7 +99,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -110,7 +110,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setNodesGroup(?NodeGroupEnum $nodesGroup = null): self
     {
-        $this->setAttribute('nodesGroup', $nodesGroup);
+        $this->setAttribute('nodes_group', $nodesGroup);
         return $this;
     }
 
@@ -121,7 +121,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setNodesIds(?array $nodesIds = []): self
     {
-        $this->setAttribute('nodesIds', $nodesIds);
+        $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
     }
 
@@ -143,7 +143,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setSocketPath(?string $socketPath = null): self
     {
-        $this->setAttribute('socketPath', $socketPath);
+        $this->setAttribute('socket_path', $socketPath);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setLoadBalancingMethod(?LoadBalancingMethodEnum $loadBalancingMethod = null): self
     {
-        $this->setAttribute('loadBalancingMethod', $loadBalancingMethod);
+        $this->setAttribute('load_balancing_method', $loadBalancingMethod);
         return $this;
     }
 
@@ -165,7 +165,7 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setDestinationClusterId(?int $destinationClusterId = null): self
     {
-        $this->setAttribute('destinationClusterId', $destinationClusterId);
+        $this->setAttribute('destination_cluster_id', $destinationClusterId);
         return $this;
     }
 

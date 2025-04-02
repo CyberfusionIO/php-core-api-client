@@ -60,7 +60,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -71,7 +71,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -82,7 +82,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setAllowOverrideDirectives(?array $allowOverrideDirectives = []): self
     {
-        $this->setAttribute('allowOverrideDirectives', $allowOverrideDirectives);
+        $this->setAttribute('allow_override_directives', $allowOverrideDirectives);
         return $this;
     }
 
@@ -93,7 +93,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives = []): self
     {
-        $this->setAttribute('allowOverrideOptionDirectives', $allowOverrideOptionDirectives);
+        $this->setAttribute('allow_override_option_directives', $allowOverrideOptionDirectives);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setDomainRoot(?string $domainRoot = null): self
     {
-        $this->setAttribute('domainRoot', $domainRoot);
+        $this->setAttribute('domain_root', $domainRoot);
         return $this;
     }
 
@@ -115,7 +115,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -137,7 +137,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setPublicRoot(?string $publicRoot = null): self
     {
-        $this->setAttribute('publicRoot', $publicRoot);
+        $this->setAttribute('public_root', $publicRoot);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($serverAliases));
-        $this->setAttribute('serverAliases', $serverAliases);
+        $this->setAttribute('server_aliases', $serverAliases);
         return $this;
     }
 
@@ -165,7 +165,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setDocumentRoot(?string $documentRoot = null): self
     {
-        $this->setAttribute('documentRoot', $documentRoot);
+        $this->setAttribute('document_root', $documentRoot);
         return $this;
     }
 
@@ -176,7 +176,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setFpmPoolId(?int $fpmPoolId = null): self
     {
-        $this->setAttribute('fpmPoolId', $fpmPoolId);
+        $this->setAttribute('fpm_pool_id', $fpmPoolId);
         return $this;
     }
 
@@ -187,7 +187,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setPassengerAppId(?int $passengerAppId = null): self
     {
-        $this->setAttribute('passengerAppId', $passengerAppId);
+        $this->setAttribute('passenger_app_id', $passengerAppId);
         return $this;
     }
 
@@ -198,7 +198,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function setCustomConfig(?string $customConfig = null): self
     {
-        $this->setAttribute('customConfig', $customConfig);
+        $this->setAttribute('custom_config', $customConfig);
         return $this;
     }
 

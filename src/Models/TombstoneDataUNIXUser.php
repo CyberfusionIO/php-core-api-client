@@ -22,7 +22,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
 
     public function setDataType(string $dataType): self
     {
-        $this->setAttribute('dataType', $dataType);
+        $this->setAttribute('data_type', $dataType);
         return $this;
     }
 
@@ -33,7 +33,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
 
     public function setHomeDirectory(?string $homeDirectory = null): self
     {
-        $this->setAttribute('homeDirectory', $homeDirectory);
+        $this->setAttribute('home_directory', $homeDirectory);
         return $this;
     }
 
@@ -44,7 +44,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
 
     public function setDeleteOnCluster(bool $deleteOnCluster): self
     {
-        $this->setAttribute('deleteOnCluster', $deleteOnCluster);
+        $this->setAttribute('delete_on_cluster', $deleteOnCluster);
         return $this;
     }
 

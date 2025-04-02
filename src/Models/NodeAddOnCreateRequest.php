@@ -24,7 +24,7 @@ class NodeAddOnCreateRequest extends CoreApiModel implements CoreApiModelContrac
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 

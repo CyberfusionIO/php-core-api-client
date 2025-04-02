@@ -54,7 +54,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
             ->length(min: 1)
             ->regex('/^[a-z0-9.-]+$/')
             ->assert($currentVersion);
-        $this->setAttribute('currentVersion', $currentVersion);
+        $this->setAttribute('current_version', $currentVersion);
         return $this;
     }
 
@@ -65,7 +65,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
 
     public function setAvailableVersion(?string $availableVersion = null): self
     {
-        $this->setAttribute('availableVersion', $availableVersion);
+        $this->setAttribute('available_version', $availableVersion);
         return $this;
     }
 
@@ -76,7 +76,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
 
     public function setIsEnabled(?bool $isEnabled = null): self
     {
-        $this->setAttribute('isEnabled', $isEnabled);
+        $this->setAttribute('is_enabled', $isEnabled);
         return $this;
     }
 

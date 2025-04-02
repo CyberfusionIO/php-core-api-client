@@ -54,7 +54,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -94,7 +94,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -105,7 +105,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setMaxChildren(?int $maxChildren = null): self
     {
-        $this->setAttribute('maxChildren', $maxChildren);
+        $this->setAttribute('max_children', $maxChildren);
         return $this;
     }
 
@@ -116,7 +116,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setMaxRequests(?int $maxRequests = null): self
     {
-        $this->setAttribute('maxRequests', $maxRequests);
+        $this->setAttribute('max_requests', $maxRequests);
         return $this;
     }
 
@@ -127,7 +127,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setProcessIdleTimeout(?int $processIdleTimeout = null): self
     {
-        $this->setAttribute('processIdleTimeout', $processIdleTimeout);
+        $this->setAttribute('process_idle_timeout', $processIdleTimeout);
         return $this;
     }
 
@@ -138,7 +138,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setCpuLimit(?int $cpuLimit = null): self
     {
-        $this->setAttribute('cpuLimit', $cpuLimit);
+        $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 
@@ -149,7 +149,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold = null): self
     {
-        $this->setAttribute('logSlowRequestsThreshold', $logSlowRequestsThreshold);
+        $this->setAttribute('log_slow_requests_threshold', $logSlowRequestsThreshold);
         return $this;
     }
 
@@ -160,7 +160,7 @@ class FPMPoolUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function setIsNamespaced(?bool $isNamespaced = null): self
     {
-        $this->setAttribute('isNamespaced', $isNamespaced);
+        $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;
     }
 

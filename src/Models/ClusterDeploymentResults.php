@@ -23,7 +23,7 @@ class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContr
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -34,7 +34,7 @@ class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContr
 
     public function setTasksResults(?array $tasksResults = []): self
     {
-        $this->setAttribute('tasksResults', $tasksResults);
+        $this->setAttribute('tasks_results', $tasksResults);
         return $this;
     }
 

@@ -43,7 +43,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 63)
             ->regex('/^[a-zA-Z0-9-_]+$/')
             ->assert($databaseName);
-        $this->setAttribute('databaseName', $databaseName);
+        $this->setAttribute('database_name', $databaseName);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 63)
             ->regex('/^[a-zA-Z0-9-_]+$/')
             ->assert($databaseUserName);
-        $this->setAttribute('databaseUserName', $databaseUserName);
+        $this->setAttribute('database_user_name', $databaseUserName);
         return $this;
     }
 
@@ -79,7 +79,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 255)
             ->regex('/^[ -~]+$/')
             ->assert($databaseUserPassword);
-        $this->setAttribute('databaseUserPassword', $databaseUserPassword);
+        $this->setAttribute('database_user_password', $databaseUserPassword);
         return $this;
     }
 
@@ -90,7 +90,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setDatabaseHost(?string $databaseHost = null): self
     {
-        $this->setAttribute('databaseHost', $databaseHost);
+        $this->setAttribute('database_host', $databaseHost);
         return $this;
     }
 
@@ -108,7 +108,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 60)
             ->regex('/^[a-zA-Z0-9-_]+$/')
             ->assert($adminUsername);
-        $this->setAttribute('adminUsername', $adminUsername);
+        $this->setAttribute('admin_username', $adminUsername);
         return $this;
     }
 
@@ -126,7 +126,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 24, max: 255)
             ->regex('/^[ -~]+$/')
             ->assert($adminPassword);
-        $this->setAttribute('adminPassword', $adminPassword);
+        $this->setAttribute('admin_password', $adminPassword);
         return $this;
     }
 

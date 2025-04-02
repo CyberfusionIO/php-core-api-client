@@ -21,7 +21,7 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setNodeId(?int $nodeId): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 
@@ -32,7 +32,7 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setCertificateId(?int $certificateId): self
     {
-        $this->setAttribute('certificateId', $certificateId);
+        $this->setAttribute('certificate_id', $certificateId);
         return $this;
     }
 
@@ -43,7 +43,7 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setSecurityTxtPolicyId(?int $securityTxtPolicyId): self
     {
-        $this->setAttribute('securityTxtPolicyId', $securityTxtPolicyId);
+        $this->setAttribute('security_txt_policy_id', $securityTxtPolicyId);
         return $this;
     }
 
@@ -54,7 +54,7 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setFirewallGroupsIds(?array $firewallGroupsIds): self
     {
-        $this->setAttribute('firewallGroupsIds', $firewallGroupsIds);
+        $this->setAttribute('firewall_groups_ids', $firewallGroupsIds);
         return $this;
     }
 
@@ -65,7 +65,7 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setForceSsl(bool $forceSsl): self
     {
-        $this->setAttribute('forceSsl', $forceSsl);
+        $this->setAttribute('force_ssl', $forceSsl);
         return $this;
     }
 

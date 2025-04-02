@@ -44,7 +44,7 @@ class BasicAuthenticationRealmUpdateDeprecatedRequest extends CoreApiModel imple
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -55,7 +55,7 @@ class BasicAuthenticationRealmUpdateDeprecatedRequest extends CoreApiModel imple
 
     public function setDirectoryPath(?string $directoryPath = null): self
     {
-        $this->setAttribute('directoryPath', $directoryPath);
+        $this->setAttribute('directory_path', $directoryPath);
         return $this;
     }
 
@@ -66,7 +66,7 @@ class BasicAuthenticationRealmUpdateDeprecatedRequest extends CoreApiModel imple
 
     public function setVirtualHostId(?int $virtualHostId = null): self
     {
-        $this->setAttribute('virtualHostId', $virtualHostId);
+        $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class BasicAuthenticationRealmUpdateDeprecatedRequest extends CoreApiModel imple
 
     public function setHtpasswdFileId(?int $htpasswdFileId = null): self
     {
-        $this->setAttribute('htpasswdFileId', $htpasswdFileId);
+        $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;
     }
 

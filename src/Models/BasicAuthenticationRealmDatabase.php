@@ -51,7 +51,7 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -73,7 +73,7 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -84,7 +84,7 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
 
     public function setDirectoryPath(?string $directoryPath = null): self
     {
-        $this->setAttribute('directoryPath', $directoryPath);
+        $this->setAttribute('directory_path', $directoryPath);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
 
     public function setVirtualHostId(?int $virtualHostId = null): self
     {
-        $this->setAttribute('virtualHostId', $virtualHostId);
+        $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
     }
 
@@ -124,7 +124,7 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
 
     public function setHtpasswdFileId(?int $htpasswdFileId = null): self
     {
-        $this->setAttribute('htpasswdFileId', $htpasswdFileId);
+        $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;
     }
 

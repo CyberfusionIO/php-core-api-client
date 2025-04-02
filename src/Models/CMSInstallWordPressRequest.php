@@ -50,7 +50,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 63)
             ->regex('/^[a-zA-Z0-9-_]+$/')
             ->assert($databaseName);
-        $this->setAttribute('databaseName', $databaseName);
+        $this->setAttribute('database_name', $databaseName);
         return $this;
     }
 
@@ -68,7 +68,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 63)
             ->regex('/^[a-zA-Z0-9-_]+$/')
             ->assert($databaseUserName);
-        $this->setAttribute('databaseUserName', $databaseUserName);
+        $this->setAttribute('database_user_name', $databaseUserName);
         return $this;
     }
 
@@ -86,7 +86,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 255)
             ->regex('/^[ -~]+$/')
             ->assert($databaseUserPassword);
-        $this->setAttribute('databaseUserPassword', $databaseUserPassword);
+        $this->setAttribute('database_user_password', $databaseUserPassword);
         return $this;
     }
 
@@ -97,7 +97,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setDatabaseHost(?string $databaseHost = null): self
     {
-        $this->setAttribute('databaseHost', $databaseHost);
+        $this->setAttribute('database_host', $databaseHost);
         return $this;
     }
 
@@ -115,7 +115,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 60)
             ->regex('/^[a-zA-Z0-9-_]+$/')
             ->assert($adminUsername);
-        $this->setAttribute('adminUsername', $adminUsername);
+        $this->setAttribute('admin_username', $adminUsername);
         return $this;
     }
 
@@ -133,7 +133,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 24, max: 255)
             ->regex('/^[ -~]+$/')
             ->assert($adminPassword);
-        $this->setAttribute('adminPassword', $adminPassword);
+        $this->setAttribute('admin_password', $adminPassword);
         return $this;
     }
 
@@ -151,7 +151,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
             ->length(min: 1, max: 253)
             ->regex('/^[a-zA-Z0-9-_ ]+$/')
             ->assert($siteTitle);
-        $this->setAttribute('siteTitle', $siteTitle);
+        $this->setAttribute('site_title', $siteTitle);
         return $this;
     }
 
@@ -168,7 +168,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
         Validator::create()
             ->length(min: 1, max: 2083)
             ->assert($siteUrl);
-        $this->setAttribute('siteUrl', $siteUrl);
+        $this->setAttribute('site_url', $siteUrl);
         return $this;
     }
 
@@ -215,7 +215,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setAdminEmailAddress(?string $adminEmailAddress = null): self
     {
-        $this->setAttribute('adminEmailAddress', $adminEmailAddress);
+        $this->setAttribute('admin_email_address', $adminEmailAddress);
         return $this;
     }
 

@@ -50,7 +50,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -72,7 +72,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -83,7 +83,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setPublicKey(?string $publicKey = null): self
     {
-        $this->setAttribute('publicKey', $publicKey);
+        $this->setAttribute('public_key', $publicKey);
         return $this;
     }
 
@@ -94,7 +94,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setPrivateKey(?string $privateKey = null): self
     {
-        $this->setAttribute('privateKey', $privateKey);
+        $this->setAttribute('private_key', $privateKey);
         return $this;
     }
 
@@ -105,7 +105,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setIdentityFilePath(?string $identityFilePath = null): self
     {
-        $this->setAttribute('identityFilePath', $identityFilePath);
+        $this->setAttribute('identity_file_path', $identityFilePath);
         return $this;
     }
 
@@ -134,7 +134,7 @@ class SSHKeyResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 

@@ -22,7 +22,7 @@ class MariaDBEncryptionKeyCreateRequest extends CoreApiModel implements CoreApiM
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 

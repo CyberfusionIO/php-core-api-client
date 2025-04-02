@@ -66,7 +66,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -88,7 +88,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setAppType(?PassengerAppTypeEnum $appType = null): self
     {
-        $this->setAttribute('appType', $appType);
+        $this->setAttribute('app_type', $appType);
         return $this;
     }
 
@@ -117,7 +117,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setAppRoot(?string $appRoot = null): self
     {
-        $this->setAttribute('appRoot', $appRoot);
+        $this->setAttribute('app_root', $appRoot);
         return $this;
     }
 
@@ -128,7 +128,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -150,7 +150,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setEnvironmentVariables(?string $environmentVariables = null): self
     {
-        $this->setAttribute('environmentVariables', $environmentVariables);
+        $this->setAttribute('environment_variables', $environmentVariables);
         return $this;
     }
 
@@ -161,7 +161,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setMaxPoolSize(?int $maxPoolSize = null): self
     {
-        $this->setAttribute('maxPoolSize', $maxPoolSize);
+        $this->setAttribute('max_pool_size', $maxPoolSize);
         return $this;
     }
 
@@ -172,7 +172,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setMaxRequests(?int $maxRequests = null): self
     {
-        $this->setAttribute('maxRequests', $maxRequests);
+        $this->setAttribute('max_requests', $maxRequests);
         return $this;
     }
 
@@ -183,7 +183,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setPoolIdleTime(?int $poolIdleTime = null): self
     {
-        $this->setAttribute('poolIdleTime', $poolIdleTime);
+        $this->setAttribute('pool_idle_time', $poolIdleTime);
         return $this;
     }
 
@@ -194,7 +194,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setIsNamespaced(?bool $isNamespaced = null): self
     {
-        $this->setAttribute('isNamespaced', $isNamespaced);
+        $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;
     }
 
@@ -205,7 +205,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setCpuLimit(?int $cpuLimit = null): self
     {
-        $this->setAttribute('cpuLimit', $cpuLimit);
+        $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 
@@ -216,7 +216,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setNodejsVersion(?string $nodejsVersion = null): self
     {
-        $this->setAttribute('nodejsVersion', $nodejsVersion);
+        $this->setAttribute('nodejs_version', $nodejsVersion);
         return $this;
     }
 
@@ -227,7 +227,7 @@ class PassengerAppUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setStartupFile(?string $startupFile = null): self
     {
-        $this->setAttribute('startupFile', $startupFile);
+        $this->setAttribute('startup_file', $startupFile);
         return $this;
     }
 

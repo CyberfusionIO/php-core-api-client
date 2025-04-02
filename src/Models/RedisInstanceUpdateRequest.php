@@ -40,7 +40,7 @@ class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setMemoryLimit(int $memoryLimit): self
     {
-        $this->setAttribute('memoryLimit', $memoryLimit);
+        $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
     }
 
@@ -51,7 +51,7 @@ class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setMaxDatabases(int $maxDatabases): self
     {
-        $this->setAttribute('maxDatabases', $maxDatabases);
+        $this->setAttribute('max_databases', $maxDatabases);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setEvictionPolicy(RedisEvictionPolicyEnum $evictionPolicy): self
     {
-        $this->setAttribute('evictionPolicy', $evictionPolicy);
+        $this->setAttribute('eviction_policy', $evictionPolicy);
         return $this;
     }
 

@@ -29,7 +29,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($serverAliases));
-        $this->setAttribute('serverAliases', $serverAliases);
+        $this->setAttribute('server_aliases', $serverAliases);
         return $this;
     }
 
@@ -40,7 +40,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setDocumentRoot(string $documentRoot): self
     {
-        $this->setAttribute('documentRoot', $documentRoot);
+        $this->setAttribute('document_root', $documentRoot);
         return $this;
     }
 
@@ -51,7 +51,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setFpmPoolId(?int $fpmPoolId): self
     {
-        $this->setAttribute('fpmPoolId', $fpmPoolId);
+        $this->setAttribute('fpm_pool_id', $fpmPoolId);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setPassengerAppId(?int $passengerAppId): self
     {
-        $this->setAttribute('passengerAppId', $passengerAppId);
+        $this->setAttribute('passenger_app_id', $passengerAppId);
         return $this;
     }
 
@@ -73,7 +73,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setCustomConfig(?string $customConfig): self
     {
-        $this->setAttribute('customConfig', $customConfig);
+        $this->setAttribute('custom_config', $customConfig);
         return $this;
     }
 
@@ -84,7 +84,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setAllowOverrideDirectives(?array $allowOverrideDirectives): self
     {
-        $this->setAttribute('allowOverrideDirectives', $allowOverrideDirectives);
+        $this->setAttribute('allow_override_directives', $allowOverrideDirectives);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives): self
     {
-        $this->setAttribute('allowOverrideOptionDirectives', $allowOverrideOptionDirectives);
+        $this->setAttribute('allow_override_option_directives', $allowOverrideOptionDirectives);
         return $this;
     }
 
@@ -106,7 +106,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 

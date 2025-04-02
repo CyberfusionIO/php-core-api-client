@@ -22,7 +22,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
 
     public function setDataType(string $dataType): self
     {
-        $this->setAttribute('dataType', $dataType);
+        $this->setAttribute('data_type', $dataType);
         return $this;
     }
 
@@ -40,7 +40,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
             ->length(min: 1, max: 32)
             ->regex('/^[a-z0-9-.]+$/')
             ->assert($rabbitmqVirtualHostName);
-        $this->setAttribute('rabbitmqVirtualHostName', $rabbitmqVirtualHostName);
+        $this->setAttribute('rabbitmq_virtual_host_name', $rabbitmqVirtualHostName);
         return $this;
     }
 

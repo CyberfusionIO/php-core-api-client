@@ -67,7 +67,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -118,7 +118,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixId(?int $unixId = null): self
     {
-        $this->setAttribute('unixId', $unixId);
+        $this->setAttribute('unix_id', $unixId);
         return $this;
     }
 
@@ -129,7 +129,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setHomeDirectory(?string $homeDirectory = null): self
     {
-        $this->setAttribute('homeDirectory', $homeDirectory);
+        $this->setAttribute('home_directory', $homeDirectory);
         return $this;
     }
 
@@ -140,7 +140,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setSshDirectory(?string $sshDirectory = null): self
     {
-        $this->setAttribute('sshDirectory', $sshDirectory);
+        $this->setAttribute('ssh_directory', $sshDirectory);
         return $this;
     }
 
@@ -151,7 +151,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setVirtualHostsDirectory(?string $virtualHostsDirectory = null): self
     {
-        $this->setAttribute('virtualHostsDirectory', $virtualHostsDirectory);
+        $this->setAttribute('virtual_hosts_directory', $virtualHostsDirectory);
         return $this;
     }
 
@@ -162,7 +162,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setMailDomainsDirectory(?string $mailDomainsDirectory = null): self
     {
-        $this->setAttribute('mailDomainsDirectory', $mailDomainsDirectory);
+        $this->setAttribute('mail_domains_directory', $mailDomainsDirectory);
         return $this;
     }
 
@@ -173,7 +173,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setBorgRepositoriesDirectory(?string $borgRepositoriesDirectory = null): self
     {
-        $this->setAttribute('borgRepositoriesDirectory', $borgRepositoriesDirectory);
+        $this->setAttribute('borg_repositories_directory', $borgRepositoriesDirectory);
         return $this;
     }
 
@@ -184,7 +184,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -195,7 +195,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setShellPath(?ShellPathEnum $shellPath = null): self
     {
-        $this->setAttribute('shellPath', $shellPath);
+        $this->setAttribute('shell_path', $shellPath);
         return $this;
     }
 
@@ -206,7 +206,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setRecordUsageFiles(?bool $recordUsageFiles = null): self
     {
-        $this->setAttribute('recordUsageFiles', $recordUsageFiles);
+        $this->setAttribute('record_usage_files', $recordUsageFiles);
         return $this;
     }
 
@@ -217,7 +217,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setDefaultPhpVersion(?string $defaultPhpVersion = null): self
     {
-        $this->setAttribute('defaultPhpVersion', $defaultPhpVersion);
+        $this->setAttribute('default_php_version', $defaultPhpVersion);
         return $this;
     }
 
@@ -228,7 +228,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
 
     public function setDefaultNodejsVersion(?string $defaultNodejsVersion = null): self
     {
-        $this->setAttribute('defaultNodejsVersion', $defaultNodejsVersion);
+        $this->setAttribute('default_nodejs_version', $defaultNodejsVersion);
         return $this;
     }
 

@@ -50,7 +50,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -72,7 +72,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setOptimizingEnabled(?bool $optimizingEnabled = null): self
     {
-        $this->setAttribute('optimizingEnabled', $optimizingEnabled);
+        $this->setAttribute('optimizing_enabled', $optimizingEnabled);
         return $this;
     }
 
@@ -83,7 +83,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setBackupsEnabled(?bool $backupsEnabled = null): self
     {
-        $this->setAttribute('backupsEnabled', $backupsEnabled);
+        $this->setAttribute('backups_enabled', $backupsEnabled);
         return $this;
     }
 

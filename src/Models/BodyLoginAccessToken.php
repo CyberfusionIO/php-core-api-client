@@ -23,7 +23,7 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
 
     public function setGrantType(?string $grantType): self
     {
-        $this->setAttribute('grantType', $grantType);
+        $this->setAttribute('grant_type', $grantType);
         return $this;
     }
 
@@ -67,7 +67,7 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
 
     public function setClientId(?string $clientId): self
     {
-        $this->setAttribute('clientId', $clientId);
+        $this->setAttribute('client_id', $clientId);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
 
     public function setClientSecret(?string $clientSecret): self
     {
-        $this->setAttribute('clientSecret', $clientSecret);
+        $this->setAttribute('client_secret', $clientSecret);
         return $this;
     }
 

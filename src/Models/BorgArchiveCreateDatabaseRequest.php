@@ -24,7 +24,7 @@ class BorgArchiveCreateDatabaseRequest extends CoreApiModel implements CoreApiMo
 
     public function setBorgRepositoryId(?int $borgRepositoryId = null): self
     {
-        $this->setAttribute('borgRepositoryId', $borgRepositoryId);
+        $this->setAttribute('borg_repository_id', $borgRepositoryId);
         return $this;
     }
 
@@ -53,7 +53,7 @@ class BorgArchiveCreateDatabaseRequest extends CoreApiModel implements CoreApiMo
 
     public function setDatabaseId(?int $databaseId = null): self
     {
-        $this->setAttribute('databaseId', $databaseId);
+        $this->setAttribute('database_id', $databaseId);
         return $this;
     }
 

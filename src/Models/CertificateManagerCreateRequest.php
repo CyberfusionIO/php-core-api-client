@@ -35,7 +35,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($commonNames));
-        $this->setAttribute('commonNames', $commonNames);
+        $this->setAttribute('common_names', $commonNames);
         return $this;
     }
 
@@ -46,7 +46,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function setProviderName(?CertificateProviderNameEnum $providerName = null): self
     {
-        $this->setAttribute('providerName', $providerName);
+        $this->setAttribute('provider_name', $providerName);
         return $this;
     }
 
@@ -57,7 +57,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -68,7 +68,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function setRequestCallbackUrl(?string $requestCallbackUrl = null): self
     {
-        $this->setAttribute('requestCallbackUrl', $requestCallbackUrl);
+        $this->setAttribute('request_callback_url', $requestCallbackUrl);
         return $this;
     }
 

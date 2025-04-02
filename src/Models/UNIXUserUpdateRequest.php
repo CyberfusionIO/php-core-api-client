@@ -33,7 +33,7 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setShellPath(ShellPathEnum $shellPath): self
     {
-        $this->setAttribute('shellPath', $shellPath);
+        $this->setAttribute('shell_path', $shellPath);
         return $this;
     }
 
@@ -44,7 +44,7 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRecordUsageFiles(bool $recordUsageFiles): self
     {
-        $this->setAttribute('recordUsageFiles', $recordUsageFiles);
+        $this->setAttribute('record_usage_files', $recordUsageFiles);
         return $this;
     }
 
@@ -55,7 +55,7 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setDefaultPhpVersion(?string $defaultPhpVersion): self
     {
-        $this->setAttribute('defaultPhpVersion', $defaultPhpVersion);
+        $this->setAttribute('default_php_version', $defaultPhpVersion);
         return $this;
     }
 
@@ -66,7 +66,7 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setDefaultNodejsVersion(?string $defaultNodejsVersion): self
     {
-        $this->setAttribute('defaultNodejsVersion', $defaultNodejsVersion);
+        $this->setAttribute('default_nodejs_version', $defaultNodejsVersion);
         return $this;
     }
 

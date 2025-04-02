@@ -26,7 +26,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setApcEnableCli(bool $apcEnableCli): self
     {
-        $this->setAttribute('apcEnableCli', $apcEnableCli);
+        $this->setAttribute('apc_enable_cli', $apcEnableCli);
         return $this;
     }
 
@@ -37,7 +37,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setOpcacheFileCache(bool $opcacheFileCache): self
     {
-        $this->setAttribute('opcacheFileCache', $opcacheFileCache);
+        $this->setAttribute('opcache_file_cache', $opcacheFileCache);
         return $this;
     }
 
@@ -48,7 +48,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setOpcacheValidateTimestamps(bool $opcacheValidateTimestamps): self
     {
-        $this->setAttribute('opcacheValidateTimestamps', $opcacheValidateTimestamps);
+        $this->setAttribute('opcache_validate_timestamps', $opcacheValidateTimestamps);
         return $this;
     }
 
@@ -59,7 +59,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setShortOpenTag(bool $shortOpenTag): self
     {
-        $this->setAttribute('shortOpenTag', $shortOpenTag);
+        $this->setAttribute('short_open_tag', $shortOpenTag);
         return $this;
     }
 
@@ -77,7 +77,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
             ->length(min: 1, max: 255)
             ->regex('/^[A-Z&~_ ]+$/'))
             ->assert($errorReporting);
-        $this->setAttribute('errorReporting', $errorReporting);
+        $this->setAttribute('error_reporting', $errorReporting);
         return $this;
     }
 
@@ -88,7 +88,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setOpcacheMemoryConsumption(int $opcacheMemoryConsumption): self
     {
-        $this->setAttribute('opcacheMemoryConsumption', $opcacheMemoryConsumption);
+        $this->setAttribute('opcache_memory_consumption', $opcacheMemoryConsumption);
         return $this;
     }
 
@@ -99,7 +99,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setMaxExecutionTime(int $maxExecutionTime): self
     {
-        $this->setAttribute('maxExecutionTime', $maxExecutionTime);
+        $this->setAttribute('max_execution_time', $maxExecutionTime);
         return $this;
     }
 
@@ -110,7 +110,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setMaxFileUploads(int $maxFileUploads): self
     {
-        $this->setAttribute('maxFileUploads', $maxFileUploads);
+        $this->setAttribute('max_file_uploads', $maxFileUploads);
         return $this;
     }
 
@@ -121,7 +121,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setMemoryLimit(int $memoryLimit): self
     {
-        $this->setAttribute('memoryLimit', $memoryLimit);
+        $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
     }
 
@@ -132,7 +132,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setPostMaxSize(int $postMaxSize): self
     {
-        $this->setAttribute('postMaxSize', $postMaxSize);
+        $this->setAttribute('post_max_size', $postMaxSize);
         return $this;
     }
 
@@ -143,7 +143,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setUploadMaxFilesize(int $uploadMaxFilesize): self
     {
-        $this->setAttribute('uploadMaxFilesize', $uploadMaxFilesize);
+        $this->setAttribute('upload_max_filesize', $uploadMaxFilesize);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setTidewaysApiKey(?string $tidewaysApiKey): self
     {
-        $this->setAttribute('tidewaysApiKey', $tidewaysApiKey);
+        $this->setAttribute('tideways_api_key', $tidewaysApiKey);
         return $this;
     }
 
@@ -165,7 +165,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setTidewaysSampleRate(?int $tidewaysSampleRate): self
     {
-        $this->setAttribute('tidewaysSampleRate', $tidewaysSampleRate);
+        $this->setAttribute('tideways_sample_rate', $tidewaysSampleRate);
         return $this;
     }
 
@@ -176,7 +176,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function setNewrelicBrowserMonitoringAutoInstrument(bool $newrelicBrowserMonitoringAutoInstrument): self
     {
-        $this->setAttribute('newrelicBrowserMonitoringAutoInstrument', $newrelicBrowserMonitoringAutoInstrument);
+        $this->setAttribute('newrelic_browser_monitoring_auto_instrument', $newrelicBrowserMonitoringAutoInstrument);
         return $this;
     }
 

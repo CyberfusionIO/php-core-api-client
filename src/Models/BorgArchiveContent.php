@@ -38,7 +38,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function setObjectType(?BorgArchiveContentObjectTypeEnum $objectType = null): self
     {
-        $this->setAttribute('objectType', $objectType);
+        $this->setAttribute('object_type', $objectType);
         return $this;
     }
 
@@ -56,7 +56,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
             ->length(min: 10, max: 10)
             ->regex('/^[rwx\+\-dlsStT]+$/')
             ->assert($symbolicMode);
-        $this->setAttribute('symbolicMode', $symbolicMode);
+        $this->setAttribute('symbolic_mode', $symbolicMode);
         return $this;
     }
 
@@ -92,7 +92,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
             ->length(min: 1, max: 32)
             ->regex('/^[a-z0-9-_]+$/')
             ->assert($groupName);
-        $this->setAttribute('groupName', $groupName);
+        $this->setAttribute('group_name', $groupName);
         return $this;
     }
 
@@ -114,7 +114,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function setLinkTarget(?string $linkTarget = null): self
     {
-        $this->setAttribute('linkTarget', $linkTarget);
+        $this->setAttribute('link_target', $linkTarget);
         return $this;
     }
 
@@ -125,7 +125,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function setModificationTime(?string $modificationTime = null): self
     {
-        $this->setAttribute('modificationTime', $modificationTime);
+        $this->setAttribute('modification_time', $modificationTime);
         return $this;
     }
 

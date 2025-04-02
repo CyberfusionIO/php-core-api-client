@@ -23,7 +23,7 @@ class HAProxyListenToNodeCreateRequest extends CoreApiModel implements CoreApiMo
 
     public function setHaproxyListenId(?int $haproxyListenId = null): self
     {
-        $this->setAttribute('haproxyListenId', $haproxyListenId);
+        $this->setAttribute('haproxy_listen_id', $haproxyListenId);
         return $this;
     }
 
@@ -34,7 +34,7 @@ class HAProxyListenToNodeCreateRequest extends CoreApiModel implements CoreApiMo
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 

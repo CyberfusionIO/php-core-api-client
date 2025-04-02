@@ -28,7 +28,7 @@ class MailAliasUpdateRequest extends CoreApiModel implements CoreApiModelContrac
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
-        $this->setAttribute('forwardEmailAddresses', $forwardEmailAddresses);
+        $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
     }
 

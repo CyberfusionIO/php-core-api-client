@@ -65,7 +65,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -76,7 +76,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -87,7 +87,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -98,7 +98,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 
@@ -127,7 +127,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -156,7 +156,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setEmailAddress(?string $emailAddress = null): self
     {
-        $this->setAttribute('emailAddress', $emailAddress);
+        $this->setAttribute('email_address', $emailAddress);
         return $this;
     }
 
@@ -178,7 +178,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setErrorCount(?int $errorCount = null): self
     {
-        $this->setAttribute('errorCount', $errorCount);
+        $this->setAttribute('error_count', $errorCount);
         return $this;
     }
 
@@ -189,7 +189,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setRandomDelayMaxSeconds(?int $randomDelayMaxSeconds = null): self
     {
-        $this->setAttribute('randomDelayMaxSeconds', $randomDelayMaxSeconds);
+        $this->setAttribute('random_delay_max_seconds', $randomDelayMaxSeconds);
         return $this;
     }
 
@@ -200,7 +200,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setTimeoutSeconds(?int $timeoutSeconds = null): self
     {
-        $this->setAttribute('timeoutSeconds', $timeoutSeconds);
+        $this->setAttribute('timeout_seconds', $timeoutSeconds);
         return $this;
     }
 
@@ -211,7 +211,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setLockingEnabled(?bool $lockingEnabled = null): self
     {
-        $this->setAttribute('lockingEnabled', $lockingEnabled);
+        $this->setAttribute('locking_enabled', $lockingEnabled);
         return $this;
     }
 
@@ -222,7 +222,7 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setIsActive(?bool $isActive = null): self
     {
-        $this->setAttribute('isActive', $isActive);
+        $this->setAttribute('is_active', $isActive);
         return $this;
     }
 

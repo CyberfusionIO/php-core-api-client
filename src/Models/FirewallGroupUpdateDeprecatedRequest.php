@@ -54,7 +54,7 @@ class FirewallGroupUpdateDeprecatedRequest extends CoreApiModel implements CoreA
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -71,7 +71,7 @@ class FirewallGroupUpdateDeprecatedRequest extends CoreApiModel implements CoreA
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($ipNetworks));
-        $this->setAttribute('ipNetworks', $ipNetworks);
+        $this->setAttribute('ip_networks', $ipNetworks);
         return $this;
     }
 
