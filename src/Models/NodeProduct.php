@@ -19,7 +19,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         int $ram,
         int $cores,
         int $disk,
-        string $price,
+        float $price,
         string $period,
         string $currency,
         ?array $allowUpgradeTo = null,
@@ -121,12 +121,12 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getPrice(): string
+    public function getPrice(): float
     {
         return $this->getAttribute('price');
     }
 
-    public function setPrice(?string $price = null): self
+    public function setPrice(?float $price = null): self
     {
         $this->setAttribute('price', $price);
         return $this;

@@ -13,7 +13,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
     public function __construct(
         string $uuid,
         string $name,
-        string $price,
+        float $price,
         string $period,
         string $currency,
         ?int $ram = null,
@@ -92,12 +92,12 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getPrice(): string
+    public function getPrice(): float
     {
         return $this->getAttribute('price');
     }
 
-    public function setPrice(?string $price = null): self
+    public function setPrice(?float $price = null): self
     {
         $this->setAttribute('price', $price);
         return $this;
