@@ -26,7 +26,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
 
     public function setRemoteAddress(?string $remoteAddress = null): self
     {
-        $this->setAttribute('remoteAddress', $remoteAddress);
+        $this->setAttribute('remote_address', $remoteAddress);
         return $this;
     }
 
@@ -43,7 +43,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->length(min: 1, max: 65535)
             ->assert($rawMessage);
-        $this->setAttribute('rawMessage', $rawMessage);
+        $this->setAttribute('raw_message', $rawMessage);
         return $this;
     }
 
@@ -93,7 +93,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->length(min: 1, max: 65535)
             ->assert($errorMessage);
-        $this->setAttribute('errorMessage', $errorMessage);
+        $this->setAttribute('error_message', $errorMessage);
         return $this;
     }
 

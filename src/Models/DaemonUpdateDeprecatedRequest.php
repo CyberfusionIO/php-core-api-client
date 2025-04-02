@@ -38,7 +38,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -67,7 +67,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -102,7 +102,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($nodesIds));
-        $this->setAttribute('nodesIds', $nodesIds);
+        $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
     }
 

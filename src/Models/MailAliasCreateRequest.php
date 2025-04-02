@@ -31,7 +31,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
             ->length(min: 1, max: 64)
             ->regex('/^[a-z0-9-.]+$/')
             ->assert($localPart);
-        $this->setAttribute('localPart', $localPart);
+        $this->setAttribute('local_part', $localPart);
         return $this;
     }
 
@@ -42,7 +42,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
 
     public function setMailDomainId(?int $mailDomainId = null): self
     {
-        $this->setAttribute('mailDomainId', $mailDomainId);
+        $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
     }
 
@@ -59,7 +59,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
-        $this->setAttribute('forwardEmailAddresses', $forwardEmailAddresses);
+        $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
     }
 

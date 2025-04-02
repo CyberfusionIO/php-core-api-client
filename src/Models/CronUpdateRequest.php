@@ -39,7 +39,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setEmailAddress(?string $emailAddress): self
     {
-        $this->setAttribute('emailAddress', $emailAddress);
+        $this->setAttribute('email_address', $emailAddress);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setErrorCount(int $errorCount): self
     {
-        $this->setAttribute('errorCount', $errorCount);
+        $this->setAttribute('error_count', $errorCount);
         return $this;
     }
 
@@ -72,7 +72,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRandomDelayMaxSeconds(int $randomDelayMaxSeconds): self
     {
-        $this->setAttribute('randomDelayMaxSeconds', $randomDelayMaxSeconds);
+        $this->setAttribute('random_delay_max_seconds', $randomDelayMaxSeconds);
         return $this;
     }
 
@@ -83,7 +83,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setTimeoutSeconds(?int $timeoutSeconds): self
     {
-        $this->setAttribute('timeoutSeconds', $timeoutSeconds);
+        $this->setAttribute('timeout_seconds', $timeoutSeconds);
         return $this;
     }
 
@@ -94,7 +94,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setLockingEnabled(bool $lockingEnabled): self
     {
-        $this->setAttribute('lockingEnabled', $lockingEnabled);
+        $this->setAttribute('locking_enabled', $lockingEnabled);
         return $this;
     }
 
@@ -105,7 +105,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setIsActive(bool $isActive): self
     {
-        $this->setAttribute('isActive', $isActive);
+        $this->setAttribute('is_active', $isActive);
         return $this;
     }
 

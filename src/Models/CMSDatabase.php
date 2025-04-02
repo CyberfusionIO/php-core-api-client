@@ -50,7 +50,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -72,7 +72,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -83,7 +83,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setSoftwareName(?CMSSoftwareNameEnum $softwareName = null): self
     {
-        $this->setAttribute('softwareName', $softwareName);
+        $this->setAttribute('software_name', $softwareName);
         return $this;
     }
 
@@ -94,7 +94,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setIsManuallyCreated(?bool $isManuallyCreated = null): self
     {
-        $this->setAttribute('isManuallyCreated', $isManuallyCreated);
+        $this->setAttribute('is_manually_created', $isManuallyCreated);
         return $this;
     }
 
@@ -105,7 +105,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setVirtualHostId(?int $virtualHostId = null): self
     {
-        $this->setAttribute('virtualHostId', $virtualHostId);
+        $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
     }
 

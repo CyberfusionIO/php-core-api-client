@@ -41,7 +41,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -58,7 +58,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($catchAllForwardEmailAddresses));
-        $this->setAttribute('catchAllForwardEmailAddresses', $catchAllForwardEmailAddresses);
+        $this->setAttribute('catch_all_forward_email_addresses', $catchAllForwardEmailAddresses);
         return $this;
     }
 
@@ -69,7 +69,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
 
     public function setIsLocal(?bool $isLocal = null): self
     {
-        $this->setAttribute('isLocal', $isLocal);
+        $this->setAttribute('is_local', $isLocal);
         return $this;
     }
 

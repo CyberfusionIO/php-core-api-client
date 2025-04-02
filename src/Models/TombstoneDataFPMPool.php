@@ -23,7 +23,7 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
 
     public function setDataType(string $dataType): self
     {
-        $this->setAttribute('dataType', $dataType);
+        $this->setAttribute('data_type', $dataType);
         return $this;
     }
 

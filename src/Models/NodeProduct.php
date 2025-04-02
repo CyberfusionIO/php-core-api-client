@@ -106,7 +106,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
 
     public function setAllowUpgradeTo(?array $allowUpgradeTo = []): self
     {
-        $this->setAttribute('allowUpgradeTo', $allowUpgradeTo);
+        $this->setAttribute('allow_upgrade_to', $allowUpgradeTo);
         return $this;
     }
 
@@ -117,7 +117,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
 
     public function setAllowDowngradeTo(?array $allowDowngradeTo = []): self
     {
-        $this->setAttribute('allowDowngradeTo', $allowDowngradeTo);
+        $this->setAttribute('allow_downgrade_to', $allowDowngradeTo);
         return $this;
     }
 

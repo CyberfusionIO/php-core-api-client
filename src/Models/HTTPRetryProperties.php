@@ -28,7 +28,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
 
     public function setTriesAmount(?int $triesAmount = null): self
     {
-        $this->setAttribute('triesAmount', $triesAmount);
+        $this->setAttribute('tries_amount', $triesAmount);
         return $this;
     }
 
@@ -39,7 +39,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
 
     public function setTriesFailoverAmount(?int $triesFailoverAmount = null): self
     {
-        $this->setAttribute('triesFailoverAmount', $triesFailoverAmount);
+        $this->setAttribute('tries_failover_amount', $triesFailoverAmount);
         return $this;
     }
 

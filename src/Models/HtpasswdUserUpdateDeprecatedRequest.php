@@ -37,7 +37,7 @@ class HtpasswdUserUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -66,7 +66,7 @@ class HtpasswdUserUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setHtpasswdFileId(?int $htpasswdFileId = null): self
     {
-        $this->setAttribute('htpasswdFileId', $htpasswdFileId);
+        $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;
     }
 

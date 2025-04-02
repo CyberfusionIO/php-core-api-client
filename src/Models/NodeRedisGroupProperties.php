@@ -22,7 +22,7 @@ class NodeRedisGroupProperties extends CoreApiModel implements CoreApiModelContr
 
     public function setIsMaster(?bool $isMaster = null): self
     {
-        $this->setAttribute('isMaster', $isMaster);
+        $this->setAttribute('is_master', $isMaster);
         return $this;
     }
 

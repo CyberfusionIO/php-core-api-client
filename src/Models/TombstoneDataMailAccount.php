@@ -23,7 +23,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
 
     public function setDataType(string $dataType): self
     {
-        $this->setAttribute('dataType', $dataType);
+        $this->setAttribute('data_type', $dataType);
         return $this;
     }
 
@@ -41,7 +41,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
             ->length(min: 1, max: 64)
             ->regex('/^[a-z0-9-.]+$/')
             ->assert($localPart);
-        $this->setAttribute('localPart', $localPart);
+        $this->setAttribute('local_part', $localPart);
         return $this;
     }
 
@@ -52,7 +52,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
 
     public function setMailDomainId(?int $mailDomainId = null): self
     {
-        $this->setAttribute('mailDomainId', $mailDomainId);
+        $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
     }
 
@@ -63,7 +63,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
 
     public function setDeleteOnCluster(bool $deleteOnCluster): self
     {
-        $this->setAttribute('deleteOnCluster', $deleteOnCluster);
+        $this->setAttribute('delete_on_cluster', $deleteOnCluster);
         return $this;
     }
 

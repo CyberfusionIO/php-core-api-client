@@ -24,7 +24,7 @@ class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setDataType(string $dataType): self
     {
-        $this->setAttribute('dataType', $dataType);
+        $this->setAttribute('data_type', $dataType);
         return $this;
     }
 
@@ -53,7 +53,7 @@ class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -64,7 +64,7 @@ class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setDeleteOnCluster(bool $deleteOnCluster): self
     {
-        $this->setAttribute('deleteOnCluster', $deleteOnCluster);
+        $this->setAttribute('delete_on_cluster', $deleteOnCluster);
         return $this;
     }
 

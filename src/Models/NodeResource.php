@@ -53,7 +53,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -64,7 +64,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -143,7 +143,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function setLoadBalancerHealthChecksGroupsPairs(?string $loadBalancerHealthChecksGroupsPairs = null): self
     {
-        $this->setAttribute('loadBalancerHealthChecksGroupsPairs', $loadBalancerHealthChecksGroupsPairs);
+        $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function setGroupsProperties(?NodeGroupsProperties $groupsProperties = null): self
     {
-        $this->setAttribute('groupsProperties', $groupsProperties);
+        $this->setAttribute('groups_properties', $groupsProperties);
         return $this;
     }
 
@@ -165,7 +165,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function setIsReady(?bool $isReady = null): self
     {
-        $this->setAttribute('isReady', $isReady);
+        $this->setAttribute('is_ready', $isReady);
         return $this;
     }
 

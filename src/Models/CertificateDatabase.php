@@ -56,7 +56,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -67,7 +67,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setMainCommonName(?string $mainCommonName = null): self
     {
-        $this->setAttribute('mainCommonName', $mainCommonName);
+        $this->setAttribute('main_common_name', $mainCommonName);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($commonNames));
-        $this->setAttribute('commonNames', $commonNames);
+        $this->setAttribute('common_names', $commonNames);
         return $this;
     }
 
@@ -106,7 +106,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setExpiresAt(?string $expiresAt = null): self
     {
-        $this->setAttribute('expiresAt', $expiresAt);
+        $this->setAttribute('expires_at', $expiresAt);
         return $this;
     }
 
@@ -142,7 +142,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
             ->length(min: 1, max: 65535)
             ->regex('/^[a-zA-Z0-9-_\+\/=\n\\ ]+$/')
             ->assert($caChain);
-        $this->setAttribute('caChain', $caChain);
+        $this->setAttribute('ca_chain', $caChain);
         return $this;
     }
 
@@ -160,7 +160,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
             ->length(min: 1, max: 65535)
             ->regex('/^[a-zA-Z0-9-_\+\/=\n\\ ]+$/')
             ->assert($privateKey);
-        $this->setAttribute('privateKey', $privateKey);
+        $this->setAttribute('private_key', $privateKey);
         return $this;
     }
 
@@ -171,7 +171,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 

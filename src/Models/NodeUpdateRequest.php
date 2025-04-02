@@ -50,7 +50,7 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setLoadBalancerHealthChecksGroupsPairs(string $loadBalancerHealthChecksGroupsPairs): self
     {
-        $this->setAttribute('loadBalancerHealthChecksGroupsPairs', $loadBalancerHealthChecksGroupsPairs);
+        $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
 
@@ -61,7 +61,7 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setGroupsProperties(NodeGroupsProperties $groupsProperties): self
     {
-        $this->setAttribute('groupsProperties', $groupsProperties);
+        $this->setAttribute('groups_properties', $groupsProperties);
         return $this;
     }
 

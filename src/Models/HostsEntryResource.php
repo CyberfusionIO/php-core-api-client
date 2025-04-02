@@ -44,7 +44,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -55,7 +55,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -66,7 +66,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 
@@ -77,7 +77,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
 
     public function setHostName(?string $hostName = null): self
     {
-        $this->setAttribute('hostName', $hostName);
+        $this->setAttribute('host_name', $hostName);
         return $this;
     }
 
@@ -88,7 +88,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 

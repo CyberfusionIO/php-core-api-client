@@ -115,7 +115,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setCustomerId(?int $customerId = null): self
     {
-        $this->setAttribute('customerId', $customerId);
+        $this->setAttribute('customer_id', $customerId);
         return $this;
     }
 
@@ -126,7 +126,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setSiteId(?int $siteId = null): self
     {
-        $this->setAttribute('siteId', $siteId);
+        $this->setAttribute('site_id', $siteId);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixUsersHomeDirectory(?UNIXUserHomeDirectoryEnum $unixUsersHomeDirectory = null): self
     {
-        $this->setAttribute('unixUsersHomeDirectory', $unixUsersHomeDirectory);
+        $this->setAttribute('unix_users_home_directory', $unixUsersHomeDirectory);
         return $this;
     }
 
@@ -171,7 +171,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($phpVersions));
-        $this->setAttribute('phpVersions', $phpVersions);
+        $this->setAttribute('php_versions', $phpVersions);
         return $this;
     }
 
@@ -182,7 +182,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setLoadBalancingMethod(?LoadBalancingMethodEnum $loadBalancingMethod): self
     {
-        $this->setAttribute('loadBalancingMethod', $loadBalancingMethod);
+        $this->setAttribute('load_balancing_method', $loadBalancingMethod);
         return $this;
     }
 
@@ -193,7 +193,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMariadbVersion(?string $mariadbVersion = null): self
     {
-        $this->setAttribute('mariadbVersion', $mariadbVersion);
+        $this->setAttribute('mariadb_version', $mariadbVersion);
         return $this;
     }
 
@@ -204,7 +204,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setNodejsVersion(?int $nodejsVersion = null): self
     {
-        $this->setAttribute('nodejsVersion', $nodejsVersion);
+        $this->setAttribute('nodejs_version', $nodejsVersion);
         return $this;
     }
 
@@ -215,7 +215,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setPostgresqlVersion(?int $postgresqlVersion = null): self
     {
-        $this->setAttribute('postgresqlVersion', $postgresqlVersion);
+        $this->setAttribute('postgresql_version', $postgresqlVersion);
         return $this;
     }
 
@@ -226,7 +226,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMariadbClusterName(?string $mariadbClusterName = null): self
     {
-        $this->setAttribute('mariadbClusterName', $mariadbClusterName);
+        $this->setAttribute('mariadb_cluster_name', $mariadbClusterName);
         return $this;
     }
 
@@ -243,7 +243,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($customPhpModulesNames));
-        $this->setAttribute('customPhpModulesNames', $customPhpModulesNames);
+        $this->setAttribute('custom_php_modules_names', $customPhpModulesNames);
         return $this;
     }
 
@@ -254,7 +254,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setPhpSettings(?PHPSettings $phpSettings = null): self
     {
-        $this->setAttribute('phpSettings', $phpSettings);
+        $this->setAttribute('php_settings', $phpSettings);
         return $this;
     }
 
@@ -265,7 +265,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setPhpIoncubeEnabled(?bool $phpIoncubeEnabled = null): self
     {
-        $this->setAttribute('phpIoncubeEnabled', $phpIoncubeEnabled);
+        $this->setAttribute('php_ioncube_enabled', $phpIoncubeEnabled);
         return $this;
     }
 
@@ -276,7 +276,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setKernelcareLicenseKey(?string $kernelcareLicenseKey = null): self
     {
-        $this->setAttribute('kernelcareLicenseKey', $kernelcareLicenseKey);
+        $this->setAttribute('kernelcare_license_key', $kernelcareLicenseKey);
         return $this;
     }
 
@@ -287,7 +287,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRedisPassword(?string $redisPassword = null): self
     {
-        $this->setAttribute('redisPassword', $redisPassword);
+        $this->setAttribute('redis_password', $redisPassword);
         return $this;
     }
 
@@ -298,7 +298,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRedisMemoryLimit(?int $redisMemoryLimit = null): self
     {
-        $this->setAttribute('redisMemoryLimit', $redisMemoryLimit);
+        $this->setAttribute('redis_memory_limit', $redisMemoryLimit);
         return $this;
     }
 
@@ -309,7 +309,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setPhpSessionsSpreadEnabled(?bool $phpSessionsSpreadEnabled = null): self
     {
-        $this->setAttribute('phpSessionsSpreadEnabled', $phpSessionsSpreadEnabled);
+        $this->setAttribute('php_sessions_spread_enabled', $phpSessionsSpreadEnabled);
         return $this;
     }
 
@@ -326,7 +326,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($nodejsVersions));
-        $this->setAttribute('nodejsVersions', $nodejsVersions);
+        $this->setAttribute('nodejs_versions', $nodejsVersions);
         return $this;
     }
 
@@ -355,7 +355,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setWordpressToolkitEnabled(?bool $wordpressToolkitEnabled = null): self
     {
-        $this->setAttribute('wordpressToolkitEnabled', $wordpressToolkitEnabled);
+        $this->setAttribute('wordpress_toolkit_enabled', $wordpressToolkitEnabled);
         return $this;
     }
 
@@ -367,7 +367,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
     public function setAutomaticBorgRepositoriesPruneEnabled(
         ?bool $automaticBorgRepositoriesPruneEnabled = null,
     ): self {
-        $this->setAttribute('automaticBorgRepositoriesPruneEnabled', $automaticBorgRepositoriesPruneEnabled);
+        $this->setAttribute('automatic_borg_repositories_prune_enabled', $automaticBorgRepositoriesPruneEnabled);
         return $this;
     }
 
@@ -378,7 +378,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setSyncToolkitEnabled(?bool $syncToolkitEnabled = null): self
     {
-        $this->setAttribute('syncToolkitEnabled', $syncToolkitEnabled);
+        $this->setAttribute('sync_toolkit_enabled', $syncToolkitEnabled);
         return $this;
     }
 
@@ -389,7 +389,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setBubblewrapToolkitEnabled(?bool $bubblewrapToolkitEnabled = null): self
     {
-        $this->setAttribute('bubblewrapToolkitEnabled', $bubblewrapToolkitEnabled);
+        $this->setAttribute('bubblewrap_toolkit_enabled', $bubblewrapToolkitEnabled);
         return $this;
     }
 
@@ -400,7 +400,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setAutomaticUpgradesEnabled(?bool $automaticUpgradesEnabled = null): self
     {
-        $this->setAttribute('automaticUpgradesEnabled', $automaticUpgradesEnabled);
+        $this->setAttribute('automatic_upgrades_enabled', $automaticUpgradesEnabled);
         return $this;
     }
 
@@ -412,7 +412,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
     public function setFirewallRulesExternalProvidersEnabled(
         ?bool $firewallRulesExternalProvidersEnabled = null,
     ): self {
-        $this->setAttribute('firewallRulesExternalProvidersEnabled', $firewallRulesExternalProvidersEnabled);
+        $this->setAttribute('firewall_rules_external_providers_enabled', $firewallRulesExternalProvidersEnabled);
         return $this;
     }
 
@@ -423,7 +423,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setDatabaseToolkitEnabled(?bool $databaseToolkitEnabled = null): self
     {
-        $this->setAttribute('databaseToolkitEnabled', $databaseToolkitEnabled);
+        $this->setAttribute('database_toolkit_enabled', $databaseToolkitEnabled);
         return $this;
     }
 
@@ -434,7 +434,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMariadbBackupInterval(?int $mariadbBackupInterval = null): self
     {
-        $this->setAttribute('mariadbBackupInterval', $mariadbBackupInterval);
+        $this->setAttribute('mariadb_backup_interval', $mariadbBackupInterval);
         return $this;
     }
 
@@ -445,7 +445,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMariadbBackupLocalRetention(?int $mariadbBackupLocalRetention = null): self
     {
-        $this->setAttribute('mariadbBackupLocalRetention', $mariadbBackupLocalRetention);
+        $this->setAttribute('mariadb_backup_local_retention', $mariadbBackupLocalRetention);
         return $this;
     }
 
@@ -456,7 +456,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setPostgresqlBackupLocalRetention(?int $postgresqlBackupLocalRetention = null): self
     {
-        $this->setAttribute('postgresqlBackupLocalRetention', $postgresqlBackupLocalRetention);
+        $this->setAttribute('postgresql_backup_local_retention', $postgresqlBackupLocalRetention);
         return $this;
     }
 
@@ -467,7 +467,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMeilisearchBackupLocalRetention(?int $meilisearchBackupLocalRetention = null): self
     {
-        $this->setAttribute('meilisearchBackupLocalRetention', $meilisearchBackupLocalRetention);
+        $this->setAttribute('meilisearch_backup_local_retention', $meilisearchBackupLocalRetention);
         return $this;
     }
 
@@ -478,7 +478,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setNewRelicMariadbPassword(?string $newRelicMariadbPassword = null): self
     {
-        $this->setAttribute('newRelicMariadbPassword', $newRelicMariadbPassword);
+        $this->setAttribute('new_relic_mariadb_password', $newRelicMariadbPassword);
         return $this;
     }
 
@@ -489,7 +489,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setNewRelicApmLicenseKey(?string $newRelicApmLicenseKey = null): self
     {
-        $this->setAttribute('newRelicApmLicenseKey', $newRelicApmLicenseKey);
+        $this->setAttribute('new_relic_apm_license_key', $newRelicApmLicenseKey);
         return $this;
     }
 
@@ -500,7 +500,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setNewRelicInfrastructureLicenseKey(?string $newRelicInfrastructureLicenseKey = null): self
     {
-        $this->setAttribute('newRelicInfrastructureLicenseKey', $newRelicInfrastructureLicenseKey);
+        $this->setAttribute('new_relic_infrastructure_license_key', $newRelicInfrastructureLicenseKey);
         return $this;
     }
 
@@ -511,7 +511,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMeilisearchMasterKey(?string $meilisearchMasterKey = null): self
     {
-        $this->setAttribute('meilisearchMasterKey', $meilisearchMasterKey);
+        $this->setAttribute('meilisearch_master_key', $meilisearchMasterKey);
         return $this;
     }
 
@@ -522,7 +522,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMeilisearchEnvironment(?MeilisearchEnvironmentEnum $meilisearchEnvironment = null): self
     {
-        $this->setAttribute('meilisearchEnvironment', $meilisearchEnvironment);
+        $this->setAttribute('meilisearch_environment', $meilisearchEnvironment);
         return $this;
     }
 
@@ -533,7 +533,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMeilisearchBackupInterval(?int $meilisearchBackupInterval = null): self
     {
-        $this->setAttribute('meilisearchBackupInterval', $meilisearchBackupInterval);
+        $this->setAttribute('meilisearch_backup_interval', $meilisearchBackupInterval);
         return $this;
     }
 
@@ -544,7 +544,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setPostgresqlBackupInterval(?int $postgresqlBackupInterval = null): self
     {
-        $this->setAttribute('postgresqlBackupInterval', $postgresqlBackupInterval);
+        $this->setAttribute('postgresql_backup_interval', $postgresqlBackupInterval);
         return $this;
     }
 
@@ -555,7 +555,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setHttpRetryProperties(?HTTPRetryProperties $httpRetryProperties = null): self
     {
-        $this->setAttribute('httpRetryProperties', $httpRetryProperties);
+        $this->setAttribute('http_retry_properties', $httpRetryProperties);
         return $this;
     }
 
@@ -566,7 +566,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setGrafanaDomain(?string $grafanaDomain = null): self
     {
-        $this->setAttribute('grafanaDomain', $grafanaDomain);
+        $this->setAttribute('grafana_domain', $grafanaDomain);
         return $this;
     }
 
@@ -577,7 +577,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setSinglestoreStudioDomain(?string $singlestoreStudioDomain = null): self
     {
-        $this->setAttribute('singlestoreStudioDomain', $singlestoreStudioDomain);
+        $this->setAttribute('singlestore_studio_domain', $singlestoreStudioDomain);
         return $this;
     }
 
@@ -588,7 +588,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setSinglestoreApiDomain(?string $singlestoreApiDomain = null): self
     {
-        $this->setAttribute('singlestoreApiDomain', $singlestoreApiDomain);
+        $this->setAttribute('singlestore_api_domain', $singlestoreApiDomain);
         return $this;
     }
 
@@ -599,7 +599,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setSinglestoreLicenseKey(?string $singlestoreLicenseKey = null): self
     {
-        $this->setAttribute('singlestoreLicenseKey', $singlestoreLicenseKey);
+        $this->setAttribute('singlestore_license_key', $singlestoreLicenseKey);
         return $this;
     }
 
@@ -610,7 +610,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setSinglestoreRootPassword(?string $singlestoreRootPassword = null): self
     {
-        $this->setAttribute('singlestoreRootPassword', $singlestoreRootPassword);
+        $this->setAttribute('singlestore_root_password', $singlestoreRootPassword);
         return $this;
     }
 
@@ -621,7 +621,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setElasticsearchDefaultUsersPassword(?string $elasticsearchDefaultUsersPassword = null): self
     {
-        $this->setAttribute('elasticsearchDefaultUsersPassword', $elasticsearchDefaultUsersPassword);
+        $this->setAttribute('elasticsearch_default_users_password', $elasticsearchDefaultUsersPassword);
         return $this;
     }
 
@@ -632,7 +632,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRabbitmqErlangCookie(?string $rabbitmqErlangCookie = null): self
     {
-        $this->setAttribute('rabbitmqErlangCookie', $rabbitmqErlangCookie);
+        $this->setAttribute('rabbitmq_erlang_cookie', $rabbitmqErlangCookie);
         return $this;
     }
 
@@ -643,7 +643,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRabbitmqAdminPassword(?string $rabbitmqAdminPassword = null): self
     {
-        $this->setAttribute('rabbitmqAdminPassword', $rabbitmqAdminPassword);
+        $this->setAttribute('rabbitmq_admin_password', $rabbitmqAdminPassword);
         return $this;
     }
 
@@ -654,7 +654,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMetabaseDomain(?string $metabaseDomain = null): self
     {
-        $this->setAttribute('metabaseDomain', $metabaseDomain);
+        $this->setAttribute('metabase_domain', $metabaseDomain);
         return $this;
     }
 
@@ -665,7 +665,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMetabaseDatabasePassword(?string $metabaseDatabasePassword = null): self
     {
-        $this->setAttribute('metabaseDatabasePassword', $metabaseDatabasePassword);
+        $this->setAttribute('metabase_database_password', $metabaseDatabasePassword);
         return $this;
     }
 
@@ -676,7 +676,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setKibanaDomain(?string $kibanaDomain = null): self
     {
-        $this->setAttribute('kibanaDomain', $kibanaDomain);
+        $this->setAttribute('kibana_domain', $kibanaDomain);
         return $this;
     }
 
@@ -687,7 +687,7 @@ class ClusterCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setRabbitmqManagementDomain(?string $rabbitmqManagementDomain = null): self
     {
-        $this->setAttribute('rabbitmqManagementDomain', $rabbitmqManagementDomain);
+        $this->setAttribute('rabbitmq_management_domain', $rabbitmqManagementDomain);
         return $this;
     }
 

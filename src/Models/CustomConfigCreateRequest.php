@@ -48,7 +48,7 @@ class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setServerSoftwareName(?CustomConfigServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -59,7 +59,7 @@ class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 

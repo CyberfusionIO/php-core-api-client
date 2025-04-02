@@ -50,7 +50,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -89,7 +89,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setLoadBalancerHealthChecksGroupsPairs(?string $loadBalancerHealthChecksGroupsPairs = null): self
     {
-        $this->setAttribute('loadBalancerHealthChecksGroupsPairs', $loadBalancerHealthChecksGroupsPairs);
+        $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
 
@@ -100,7 +100,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setGroupsProperties(?NodeGroupsProperties $groupsProperties = null): self
     {
-        $this->setAttribute('groupsProperties', $groupsProperties);
+        $this->setAttribute('groups_properties', $groupsProperties);
         return $this;
     }
 

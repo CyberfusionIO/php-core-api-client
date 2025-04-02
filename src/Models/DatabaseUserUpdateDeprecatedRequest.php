@@ -77,7 +77,7 @@ class DatabaseUserUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -99,7 +99,7 @@ class DatabaseUserUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -110,7 +110,7 @@ class DatabaseUserUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds = []): self
     {
-        $this->setAttribute('phpmyadminFirewallGroupsIds', $phpmyadminFirewallGroupsIds);
+        $this->setAttribute('phpmyadmin_firewall_groups_ids', $phpmyadminFirewallGroupsIds);
         return $this;
     }
 

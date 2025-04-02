@@ -43,7 +43,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
 
     public function setBorgArchiveId(?int $borgArchiveId = null): self
     {
-        $this->setAttribute('borgArchiveId', $borgArchiveId);
+        $this->setAttribute('borg_archive_id', $borgArchiveId);
         return $this;
     }
 
@@ -54,7 +54,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
 
     public function setExistsOnServer(?bool $existsOnServer = null): self
     {
-        $this->setAttribute('existsOnServer', $existsOnServer);
+        $this->setAttribute('exists_on_server', $existsOnServer);
         return $this;
     }
 
@@ -65,7 +65,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
 
     public function setContentsPath(?string $contentsPath = null): self
     {
-        $this->setAttribute('contentsPath', $contentsPath);
+        $this->setAttribute('contents_path', $contentsPath);
         return $this;
     }
 

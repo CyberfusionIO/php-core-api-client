@@ -53,7 +53,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -64,7 +64,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setNodesGroup(?NodeGroupEnum $nodesGroup = null): self
     {
-        $this->setAttribute('nodesGroup', $nodesGroup);
+        $this->setAttribute('nodes_group', $nodesGroup);
         return $this;
     }
 
@@ -75,7 +75,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setNodesIds(?array $nodesIds): self
     {
-        $this->setAttribute('nodesIds', $nodesIds);
+        $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
     }
 
@@ -97,7 +97,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setSocketPath(?string $socketPath = null): self
     {
-        $this->setAttribute('socketPath', $socketPath);
+        $this->setAttribute('socket_path', $socketPath);
         return $this;
     }
 
@@ -108,7 +108,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setLoadBalancingMethod(LoadBalancingMethodEnum $loadBalancingMethod): self
     {
-        $this->setAttribute('loadBalancingMethod', $loadBalancingMethod);
+        $this->setAttribute('load_balancing_method', $loadBalancingMethod);
         return $this;
     }
 
@@ -119,7 +119,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function setDestinationClusterId(?int $destinationClusterId = null): self
     {
-        $this->setAttribute('destinationClusterId', $destinationClusterId);
+        $this->setAttribute('destination_cluster_id', $destinationClusterId);
         return $this;
     }
 

@@ -66,7 +66,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function setIsActive(?bool $isActive = null): self
     {
-        $this->setAttribute('isActive', $isActive);
+        $this->setAttribute('is_active', $isActive);
         return $this;
     }
 
@@ -77,7 +77,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function setIsSuperuser(?bool $isSuperuser = null): self
     {
-        $this->setAttribute('isSuperuser', $isSuperuser);
+        $this->setAttribute('is_superuser', $isSuperuser);
         return $this;
     }
 
@@ -105,7 +105,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function setCustomerId(?int $customerId = null): self
     {
-        $this->setAttribute('customerId', $customerId);
+        $this->setAttribute('customer_id', $customerId);
         return $this;
     }
 
@@ -116,7 +116,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function setAuthenticationMethod(?APIUserAuthenticationMethod $authenticationMethod = null): self
     {
-        $this->setAttribute('authenticationMethod', $authenticationMethod);
+        $this->setAttribute('authentication_method', $authenticationMethod);
         return $this;
     }
 

@@ -49,7 +49,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -60,7 +60,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -71,7 +71,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -82,7 +82,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setDatabaseId(?int $databaseId = null): self
     {
-        $this->setAttribute('databaseId', $databaseId);
+        $this->setAttribute('database_id', $databaseId);
         return $this;
     }
 
@@ -93,7 +93,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setDatabaseUserId(?int $databaseUserId = null): self
     {
-        $this->setAttribute('databaseUserId', $databaseUserId);
+        $this->setAttribute('database_user_id', $databaseUserId);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setTableName(?string $tableName = null): self
     {
-        $this->setAttribute('tableName', $tableName);
+        $this->setAttribute('table_name', $tableName);
         return $this;
     }
 
@@ -115,7 +115,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function setPrivilegeName(?MariaDBPrivilegeEnum $privilegeName = null): self
     {
-        $this->setAttribute('privilegeName', $privilegeName);
+        $this->setAttribute('privilege_name', $privilegeName);
         return $this;
     }
 

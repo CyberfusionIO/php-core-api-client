@@ -66,7 +66,7 @@ class TemporaryFTPUserResource extends CoreApiModel implements CoreApiModelContr
         Validator::create()
             ->length(min: 1, max: 2083)
             ->assert($fileManagerUrl);
-        $this->setAttribute('fileManagerUrl', $fileManagerUrl);
+        $this->setAttribute('file_manager_url', $fileManagerUrl);
         return $this;
     }
 

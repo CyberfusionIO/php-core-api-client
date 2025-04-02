@@ -51,7 +51,7 @@ class CustomConfigSnippetCreateFromTemplateRequest extends CoreApiModel implemen
 
     public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class CustomConfigSnippetCreateFromTemplateRequest extends CoreApiModel implemen
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -73,7 +73,7 @@ class CustomConfigSnippetCreateFromTemplateRequest extends CoreApiModel implemen
 
     public function setIsDefault(?bool $isDefault = null): self
     {
-        $this->setAttribute('isDefault', $isDefault);
+        $this->setAttribute('is_default', $isDefault);
         return $this;
     }
 
@@ -84,7 +84,7 @@ class CustomConfigSnippetCreateFromTemplateRequest extends CoreApiModel implemen
 
     public function setTemplateName(?CustomConfigSnippetTemplateNameEnum $templateName = null): self
     {
-        $this->setAttribute('templateName', $templateName);
+        $this->setAttribute('template_name', $templateName);
         return $this;
     }
 

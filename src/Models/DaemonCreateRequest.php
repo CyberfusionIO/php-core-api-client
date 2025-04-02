@@ -43,7 +43,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($nodesIds));
-        $this->setAttribute('nodesIds', $nodesIds);
+        $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
     }
 
@@ -89,7 +89,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setMemoryLimit(?int $memoryLimit): self
     {
-        $this->setAttribute('memoryLimit', $memoryLimit);
+        $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
     }
 
@@ -100,7 +100,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function setCpuLimit(?int $cpuLimit): self
     {
-        $this->setAttribute('cpuLimit', $cpuLimit);
+        $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 

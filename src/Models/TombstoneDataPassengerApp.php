@@ -22,7 +22,7 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
 
     public function setDataType(string $dataType): self
     {
-        $this->setAttribute('dataType', $dataType);
+        $this->setAttribute('data_type', $dataType);
         return $this;
     }
 

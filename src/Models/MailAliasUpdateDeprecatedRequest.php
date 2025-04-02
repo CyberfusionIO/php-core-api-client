@@ -37,7 +37,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -55,7 +55,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
             ->length(min: 1, max: 64)
             ->regex('/^[a-z0-9-.]+$/')
             ->assert($localPart);
-        $this->setAttribute('localPart', $localPart);
+        $this->setAttribute('local_part', $localPart);
         return $this;
     }
 
@@ -66,7 +66,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
 
     public function setMailDomainId(?int $mailDomainId = null): self
     {
-        $this->setAttribute('mailDomainId', $mailDomainId);
+        $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
     }
 
@@ -83,7 +83,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
-        $this->setAttribute('forwardEmailAddresses', $forwardEmailAddresses);
+        $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
     }
 

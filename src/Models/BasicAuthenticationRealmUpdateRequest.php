@@ -39,7 +39,7 @@ class BasicAuthenticationRealmUpdateRequest extends CoreApiModel implements Core
 
     public function setHtpasswdFileId(int $htpasswdFileId): self
     {
-        $this->setAttribute('htpasswdFileId', $htpasswdFileId);
+        $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;
     }
 

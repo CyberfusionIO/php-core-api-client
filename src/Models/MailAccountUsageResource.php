@@ -24,7 +24,7 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
 
     public function setMailAccountId(?int $mailAccountId = null): self
     {
-        $this->setAttribute('mailAccountId', $mailAccountId);
+        $this->setAttribute('mail_account_id', $mailAccountId);
         return $this;
     }
 

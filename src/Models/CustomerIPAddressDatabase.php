@@ -23,7 +23,7 @@ class CustomerIPAddressDatabase extends CoreApiModel implements CoreApiModelCont
 
     public function setIpAddress(?string $ipAddress = null): self
     {
-        $this->setAttribute('ipAddress', $ipAddress);
+        $this->setAttribute('ip_address', $ipAddress);
         return $this;
     }
 
@@ -34,7 +34,7 @@ class CustomerIPAddressDatabase extends CoreApiModel implements CoreApiModelCont
 
     public function setDnsName(?string $dnsName = null): self
     {
-        $this->setAttribute('dnsName', $dnsName);
+        $this->setAttribute('dns_name', $dnsName);
         return $this;
     }
 

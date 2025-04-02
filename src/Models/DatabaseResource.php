@@ -49,7 +49,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -60,7 +60,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -89,7 +89,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 
     public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
     {
-        $this->setAttribute('serverSoftwareName', $serverSoftwareName);
+        $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
     }
 
@@ -100,7 +100,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -111,7 +111,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 
     public function setOptimizingEnabled(?bool $optimizingEnabled = null): self
     {
-        $this->setAttribute('optimizingEnabled', $optimizingEnabled);
+        $this->setAttribute('optimizing_enabled', $optimizingEnabled);
         return $this;
     }
 
@@ -122,7 +122,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 
     public function setBackupsEnabled(?bool $backupsEnabled = null): self
     {
-        $this->setAttribute('backupsEnabled', $backupsEnabled);
+        $this->setAttribute('backups_enabled', $backupsEnabled);
         return $this;
     }
 

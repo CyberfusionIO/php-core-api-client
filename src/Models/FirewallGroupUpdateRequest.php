@@ -28,7 +28,7 @@ class FirewallGroupUpdateRequest extends CoreApiModel implements CoreApiModelCon
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($ipNetworks));
-        $this->setAttribute('ipNetworks', $ipNetworks);
+        $this->setAttribute('ip_networks', $ipNetworks);
         return $this;
     }
 

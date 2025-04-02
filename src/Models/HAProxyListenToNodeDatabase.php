@@ -47,7 +47,7 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -58,7 +58,7 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -69,7 +69,7 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -80,7 +80,7 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
 
     public function setHaproxyListenId(?int $haproxyListenId = null): self
     {
-        $this->setAttribute('haproxyListenId', $haproxyListenId);
+        $this->setAttribute('haproxy_listen_id', $haproxyListenId);
         return $this;
     }
 
@@ -91,7 +91,7 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 

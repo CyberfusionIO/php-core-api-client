@@ -23,7 +23,7 @@ class TaskCollectionCallback extends CoreApiModel implements CoreApiModelContrac
 
     public function setTaskCollectionUuid(?string $taskCollectionUuid = null): self
     {
-        $this->setAttribute('taskCollectionUuid', $taskCollectionUuid);
+        $this->setAttribute('task_collection_uuid', $taskCollectionUuid);
         return $this;
     }
 

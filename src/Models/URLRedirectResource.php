@@ -54,7 +54,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -65,7 +65,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -87,7 +87,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($serverAliases));
-        $this->setAttribute('serverAliases', $serverAliases);
+        $this->setAttribute('server_aliases', $serverAliases);
         return $this;
     }
 
@@ -121,7 +121,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->length(min: 1, max: 2083)
             ->assert($destinationUrl);
-        $this->setAttribute('destinationUrl', $destinationUrl);
+        $this->setAttribute('destination_url', $destinationUrl);
         return $this;
     }
 
@@ -132,7 +132,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function setStatusCode(?StatusCodeEnum $statusCode = null): self
     {
-        $this->setAttribute('statusCode', $statusCode);
+        $this->setAttribute('status_code', $statusCode);
         return $this;
     }
 
@@ -143,7 +143,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
     {
-        $this->setAttribute('keepQueryParameters', $keepQueryParameters);
+        $this->setAttribute('keep_query_parameters', $keepQueryParameters);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function setKeepPath(?bool $keepPath = null): self
     {
-        $this->setAttribute('keepPath', $keepPath);
+        $this->setAttribute('keep_path', $keepPath);
         return $this;
     }
 

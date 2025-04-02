@@ -36,7 +36,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($identicalTablesNames));
-        $this->setAttribute('identicalTablesNames', $identicalTablesNames);
+        $this->setAttribute('identical_tables_names', $identicalTablesNames);
         return $this;
     }
 
@@ -53,7 +53,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($notIdenticalTablesNames));
-        $this->setAttribute('notIdenticalTablesNames', $notIdenticalTablesNames);
+        $this->setAttribute('not_identical_tables_names', $notIdenticalTablesNames);
         return $this;
     }
 
@@ -70,7 +70,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($onlyLeftTablesNames));
-        $this->setAttribute('onlyLeftTablesNames', $onlyLeftTablesNames);
+        $this->setAttribute('only_left_tables_names', $onlyLeftTablesNames);
         return $this;
     }
 
@@ -87,7 +87,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($onlyRightTablesNames));
-        $this->setAttribute('onlyRightTablesNames', $onlyRightTablesNames);
+        $this->setAttribute('only_right_tables_names', $onlyRightTablesNames);
         return $this;
     }
 

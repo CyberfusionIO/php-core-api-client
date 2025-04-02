@@ -50,7 +50,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
             ->length(min: 1, max: 65535)
             ->regex('/^[a-zA-Z0-9-_\+\/=\n ]+$/')
             ->assert($caChain);
-        $this->setAttribute('caChain', $caChain);
+        $this->setAttribute('ca_chain', $caChain);
         return $this;
     }
 
@@ -68,7 +68,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
             ->length(min: 1, max: 65535)
             ->regex('/^[a-zA-Z0-9-_\+\/=\n ]+$/')
             ->assert($privateKey);
-        $this->setAttribute('privateKey', $privateKey);
+        $this->setAttribute('private_key', $privateKey);
         return $this;
     }
 
@@ -79,7 +79,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 

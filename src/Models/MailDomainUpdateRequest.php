@@ -28,7 +28,7 @@ class MailDomainUpdateRequest extends CoreApiModel implements CoreApiModelContra
         Validator::optional(Validator::create()
             ->unique())
             ->assert(ValidationHelper::prepareArray($catchAllForwardEmailAddresses));
-        $this->setAttribute('catchAllForwardEmailAddresses', $catchAllForwardEmailAddresses);
+        $this->setAttribute('catch_all_forward_email_addresses', $catchAllForwardEmailAddresses);
         return $this;
     }
 
@@ -39,7 +39,7 @@ class MailDomainUpdateRequest extends CoreApiModel implements CoreApiModelContra
 
     public function setIsLocal(bool $isLocal): self
     {
-        $this->setAttribute('isLocal', $isLocal);
+        $this->setAttribute('is_local', $isLocal);
         return $this;
     }
 

@@ -57,7 +57,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setCreatedAt(?string $createdAt = null): self
     {
-        $this->setAttribute('createdAt', $createdAt);
+        $this->setAttribute('created_at', $createdAt);
         return $this;
     }
 
@@ -68,7 +68,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setUpdatedAt(?string $updatedAt = null): self
     {
-        $this->setAttribute('updatedAt', $updatedAt);
+        $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
@@ -79,7 +79,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setMainCommonName(?string $mainCommonName = null): self
     {
-        $this->setAttribute('mainCommonName', $mainCommonName);
+        $this->setAttribute('main_common_name', $mainCommonName);
         return $this;
     }
 
@@ -90,7 +90,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setCertificateId(?int $certificateId = null): self
     {
-        $this->setAttribute('certificateId', $certificateId);
+        $this->setAttribute('certificate_id', $certificateId);
         return $this;
     }
 
@@ -101,7 +101,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setLastRequestTaskCollectionUuid(?string $lastRequestTaskCollectionUuid = null): self
     {
-        $this->setAttribute('lastRequestTaskCollectionUuid', $lastRequestTaskCollectionUuid);
+        $this->setAttribute('last_request_task_collection_uuid', $lastRequestTaskCollectionUuid);
         return $this;
     }
 
@@ -118,7 +118,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($commonNames));
-        $this->setAttribute('commonNames', $commonNames);
+        $this->setAttribute('common_names', $commonNames);
         return $this;
     }
 
@@ -129,7 +129,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setProviderName(?CertificateProviderNameEnum $providerName = null): self
     {
-        $this->setAttribute('providerName', $providerName);
+        $this->setAttribute('provider_name', $providerName);
         return $this;
     }
 
@@ -140,7 +140,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setClusterId(?int $clusterId = null): self
     {
-        $this->setAttribute('clusterId', $clusterId);
+        $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
@@ -151,7 +151,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
 
     public function setRequestCallbackUrl(?string $requestCallbackUrl = null): self
     {
-        $this->setAttribute('requestCallbackUrl', $requestCallbackUrl);
+        $this->setAttribute('request_callback_url', $requestCallbackUrl);
         return $this;
     }
 

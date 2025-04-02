@@ -23,7 +23,7 @@ class TemporaryFTPUserCreateRequest extends CoreApiModel implements CoreApiModel
 
     public function setUnixUserId(?int $unixUserId = null): self
     {
-        $this->setAttribute('unixUserId', $unixUserId);
+        $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
@@ -34,7 +34,7 @@ class TemporaryFTPUserCreateRequest extends CoreApiModel implements CoreApiModel
 
     public function setNodeId(?int $nodeId = null): self
     {
-        $this->setAttribute('nodeId', $nodeId);
+        $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 

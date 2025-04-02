@@ -24,7 +24,7 @@ class ClusterIPAddress extends CoreApiModel implements CoreApiModelContract
 
     public function setIpAddress(?string $ipAddress = null): self
     {
-        $this->setAttribute('ipAddress', $ipAddress);
+        $this->setAttribute('ip_address', $ipAddress);
         return $this;
     }
 
@@ -35,7 +35,7 @@ class ClusterIPAddress extends CoreApiModel implements CoreApiModelContract
 
     public function setDnsName(?string $dnsName = null): self
     {
-        $this->setAttribute('dnsName', $dnsName);
+        $this->setAttribute('dns_name', $dnsName);
         return $this;
     }
 
@@ -46,7 +46,7 @@ class ClusterIPAddress extends CoreApiModel implements CoreApiModelContract
 
     public function setL3DdosProtectionEnabled(?bool $l3DdosProtectionEnabled = null): self
     {
-        $this->setAttribute('l3DdosProtectionEnabled', $l3DdosProtectionEnabled);
+        $this->setAttribute('l3_ddos_protection_enabled', $l3DdosProtectionEnabled);
         return $this;
     }
 
