@@ -18,7 +18,7 @@ class TombstoneDataCron extends CoreApiModel implements CoreApiModelContract
 
     public function getDataType(): string
     {
-        return $this->getAttribute('dataType');
+        return $this->getAttribute('data_type');
     }
 
     public function setDataType(string $dataType): self
@@ -47,7 +47,7 @@ class TombstoneDataCron extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self

@@ -15,7 +15,7 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getGroups(): array|null
+    public function getGroups(): array
     {
         return $this->getAttribute('groups');
     }
@@ -23,7 +23,7 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(?array $groups): self
+    public function setGroups(array $groups): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -43,12 +43,12 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getLoadBalancerHealthChecksGroupsPairs(): string
+    public function getLoadBalancerHealthChecksGroupsPairs(): \ArrayObject
     {
-        return $this->getAttribute('loadBalancerHealthChecksGroupsPairs');
+        return $this->getAttribute('load_balancer_health_checks_groups_pairs');
     }
 
-    public function setLoadBalancerHealthChecksGroupsPairs(string $loadBalancerHealthChecksGroupsPairs): self
+    public function setLoadBalancerHealthChecksGroupsPairs(\ArrayObject $loadBalancerHealthChecksGroupsPairs): self
     {
         $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
@@ -56,7 +56,7 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getGroupsProperties(): NodeGroupsProperties
     {
-        return $this->getAttribute('groupsProperties');
+        return $this->getAttribute('groups_properties');
     }
 
     public function setGroupsProperties(NodeGroupsProperties $groupsProperties): self

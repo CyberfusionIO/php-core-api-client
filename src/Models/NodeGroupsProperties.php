@@ -22,7 +22,7 @@ class NodeGroupsProperties extends CoreApiModel implements CoreApiModelContract
 
     public function getRedis(): NodeRedisGroupProperties|null
     {
-        return $this->getAttribute('redis');
+        return $this->getAttribute('Redis');
     }
 
     public function setRedis(?NodeRedisGroupProperties $redis = null): self
@@ -33,7 +33,7 @@ class NodeGroupsProperties extends CoreApiModel implements CoreApiModelContract
 
     public function getMariaDB(): NodeMariaDBGroupProperties|null
     {
-        return $this->getAttribute('mariaDB');
+        return $this->getAttribute('MariaDB');
     }
 
     public function setMariaDB(?NodeMariaDBGroupProperties $mariaDB = null): self
@@ -44,7 +44,7 @@ class NodeGroupsProperties extends CoreApiModel implements CoreApiModelContract
 
     public function getRabbitMQ(): NodeRabbitMQGroupProperties|null
     {
-        return $this->getAttribute('rabbitMQ');
+        return $this->getAttribute('RabbitMQ');
     }
 
     public function setRabbitMQ(?NodeRabbitMQGroupProperties $rabbitMQ = null): self

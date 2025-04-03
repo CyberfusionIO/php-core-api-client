@@ -21,7 +21,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getApcEnableCli(): bool
     {
-        return $this->getAttribute('apcEnableCli');
+        return $this->getAttribute('apc_enable_cli');
     }
 
     public function setApcEnableCli(bool $apcEnableCli): self
@@ -32,7 +32,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getOpcacheFileCache(): bool
     {
-        return $this->getAttribute('opcacheFileCache');
+        return $this->getAttribute('opcache_file_cache');
     }
 
     public function setOpcacheFileCache(bool $opcacheFileCache): self
@@ -43,7 +43,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getOpcacheValidateTimestamps(): bool
     {
-        return $this->getAttribute('opcacheValidateTimestamps');
+        return $this->getAttribute('opcache_validate_timestamps');
     }
 
     public function setOpcacheValidateTimestamps(bool $opcacheValidateTimestamps): self
@@ -54,7 +54,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getShortOpenTag(): bool
     {
-        return $this->getAttribute('shortOpenTag');
+        return $this->getAttribute('short_open_tag');
     }
 
     public function setShortOpenTag(bool $shortOpenTag): self
@@ -65,7 +65,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getErrorReporting(): string
     {
-        return $this->getAttribute('errorReporting');
+        return $this->getAttribute('error_reporting');
     }
 
     /**
@@ -83,7 +83,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getOpcacheMemoryConsumption(): int
     {
-        return $this->getAttribute('opcacheMemoryConsumption');
+        return $this->getAttribute('opcache_memory_consumption');
     }
 
     public function setOpcacheMemoryConsumption(int $opcacheMemoryConsumption): self
@@ -94,7 +94,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getMaxExecutionTime(): int
     {
-        return $this->getAttribute('maxExecutionTime');
+        return $this->getAttribute('max_execution_time');
     }
 
     public function setMaxExecutionTime(int $maxExecutionTime): self
@@ -105,7 +105,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getMaxFileUploads(): int
     {
-        return $this->getAttribute('maxFileUploads');
+        return $this->getAttribute('max_file_uploads');
     }
 
     public function setMaxFileUploads(int $maxFileUploads): self
@@ -116,7 +116,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getMemoryLimit(): int
     {
-        return $this->getAttribute('memoryLimit');
+        return $this->getAttribute('memory_limit');
     }
 
     public function setMemoryLimit(int $memoryLimit): self
@@ -127,7 +127,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getPostMaxSize(): int
     {
-        return $this->getAttribute('postMaxSize');
+        return $this->getAttribute('post_max_size');
     }
 
     public function setPostMaxSize(int $postMaxSize): self
@@ -138,7 +138,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getUploadMaxFilesize(): int
     {
-        return $this->getAttribute('uploadMaxFilesize');
+        return $this->getAttribute('upload_max_filesize');
     }
 
     public function setUploadMaxFilesize(int $uploadMaxFilesize): self
@@ -149,7 +149,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getTidewaysApiKey(): string|null
     {
-        return $this->getAttribute('tidewaysApiKey');
+        return $this->getAttribute('tideways_api_key');
     }
 
     public function setTidewaysApiKey(?string $tidewaysApiKey): self
@@ -160,7 +160,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getTidewaysSampleRate(): int|null
     {
-        return $this->getAttribute('tidewaysSampleRate');
+        return $this->getAttribute('tideways_sample_rate');
     }
 
     public function setTidewaysSampleRate(?int $tidewaysSampleRate): self
@@ -171,7 +171,7 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
 
     public function getNewrelicBrowserMonitoringAutoInstrument(): bool
     {
-        return $this->getAttribute('newrelicBrowserMonitoringAutoInstrument');
+        return $this->getAttribute('newrelic_browser_monitoring_auto_instrument');
     }
 
     public function setNewrelicBrowserMonitoringAutoInstrument(bool $newrelicBrowserMonitoringAutoInstrument): self

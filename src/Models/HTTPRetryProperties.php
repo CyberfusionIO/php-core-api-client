@@ -14,16 +14,16 @@ use Respect\Validation\Validator;
  */
 class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(?int $triesAmount = null, ?int $triesFailoverAmount = null, ?array $conditions = null)
+    public function __construct(array $conditions, ?int $triesAmount = null, ?int $triesFailoverAmount = null)
     {
+        $this->setConditions($conditions);
         $this->setTriesAmount($triesAmount);
         $this->setTriesFailoverAmount($triesFailoverAmount);
-        $this->setConditions($conditions);
     }
 
     public function getTriesAmount(): int|null
     {
-        return $this->getAttribute('triesAmount');
+        return $this->getAttribute('tries_amount');
     }
 
     public function setTriesAmount(?int $triesAmount = null): self
@@ -34,7 +34,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
 
     public function getTriesFailoverAmount(): int|null
     {
-        return $this->getAttribute('triesFailoverAmount');
+        return $this->getAttribute('tries_failover_amount');
     }
 
     public function setTriesFailoverAmount(?int $triesFailoverAmount = null): self
@@ -43,7 +43,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getConditions(): array|null
+    public function getConditions(): array
     {
         return $this->getAttribute('conditions');
     }
@@ -51,7 +51,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setConditions(?array $conditions = []): self
+    public function setConditions(array $conditions = []): self
     {
         Validator::create()
             ->unique()
@@ -63,9 +63,9 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
+            conditions: Arr::get($data, 'conditions'),
             triesAmount: Arr::get($data, 'tries_amount'),
             triesFailoverAmount: Arr::get($data, 'tries_failover_amount'),
-            conditions: Arr::get($data, 'conditions'),
         ));
     }
 }

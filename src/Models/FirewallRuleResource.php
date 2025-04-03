@@ -49,7 +49,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -60,7 +60,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -71,7 +71,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -82,7 +82,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getNodeId(): int
     {
-        return $this->getAttribute('nodeId');
+        return $this->getAttribute('node_id');
     }
 
     public function setNodeId(?int $nodeId = null): self
@@ -93,7 +93,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getFirewallGroupId(): int|null
     {
-        return $this->getAttribute('firewallGroupId');
+        return $this->getAttribute('firewall_group_id');
     }
 
     public function setFirewallGroupId(?int $firewallGroupId = null): self
@@ -104,7 +104,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getExternalProviderName(): FirewallRuleExternalProviderNameEnum|null
     {
-        return $this->getAttribute('externalProviderName');
+        return $this->getAttribute('external_provider_name');
     }
 
     public function setExternalProviderName(?FirewallRuleExternalProviderNameEnum $externalProviderName = null): self
@@ -115,7 +115,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getServiceName(): FirewallRuleServiceNameEnum|null
     {
-        return $this->getAttribute('serviceName');
+        return $this->getAttribute('service_name');
     }
 
     public function setServiceName(?FirewallRuleServiceNameEnum $serviceName = null): self
@@ -126,7 +126,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 
     public function getHaproxyListenId(): int|null
     {
-        return $this->getAttribute('haproxyListenId');
+        return $this->getAttribute('haproxy_listen_id');
     }
 
     public function setHaproxyListenId(?int $haproxyListenId = null): self

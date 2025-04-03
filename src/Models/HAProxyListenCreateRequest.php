@@ -48,7 +48,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -59,7 +59,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getNodesGroup(): NodeGroupEnum
     {
-        return $this->getAttribute('nodesGroup');
+        return $this->getAttribute('nodes_group');
     }
 
     public function setNodesGroup(?NodeGroupEnum $nodesGroup = null): self
@@ -70,7 +70,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getNodesIds(): array|null
     {
-        return $this->getAttribute('nodesIds');
+        return $this->getAttribute('nodes_ids');
     }
 
     public function setNodesIds(?array $nodesIds): self
@@ -92,7 +92,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getSocketPath(): string|null
     {
-        return $this->getAttribute('socketPath');
+        return $this->getAttribute('socket_path');
     }
 
     public function setSocketPath(?string $socketPath = null): self
@@ -103,7 +103,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getLoadBalancingMethod(): LoadBalancingMethodEnum
     {
-        return $this->getAttribute('loadBalancingMethod');
+        return $this->getAttribute('load_balancing_method');
     }
 
     public function setLoadBalancingMethod(LoadBalancingMethodEnum $loadBalancingMethod): self
@@ -114,7 +114,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDestinationClusterId(): int
     {
-        return $this->getAttribute('destinationClusterId');
+        return $this->getAttribute('destination_cluster_id');
     }
 
     public function setDestinationClusterId(?int $destinationClusterId = null): self

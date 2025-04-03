@@ -19,7 +19,7 @@ class BorgArchiveCreateUNIXUserRequest extends CoreApiModel implements CoreApiMo
 
     public function getBorgRepositoryId(): int
     {
-        return $this->getAttribute('borgRepositoryId');
+        return $this->getAttribute('borg_repository_id');
     }
 
     public function setBorgRepositoryId(?int $borgRepositoryId = null): self
@@ -48,7 +48,7 @@ class BorgArchiveCreateUNIXUserRequest extends CoreApiModel implements CoreApiMo
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self

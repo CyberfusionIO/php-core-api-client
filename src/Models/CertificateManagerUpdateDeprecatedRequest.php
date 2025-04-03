@@ -43,7 +43,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getMainCommonName(): string
     {
-        return $this->getAttribute('mainCommonName');
+        return $this->getAttribute('main_common_name');
     }
 
     public function setMainCommonName(?string $mainCommonName = null): self
@@ -54,7 +54,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getCertificateId(): int|null
     {
-        return $this->getAttribute('certificateId');
+        return $this->getAttribute('certificate_id');
     }
 
     public function setCertificateId(?int $certificateId = null): self
@@ -65,7 +65,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getLastRequestTaskCollectionUuid(): string|null
     {
-        return $this->getAttribute('lastRequestTaskCollectionUuid');
+        return $this->getAttribute('last_request_task_collection_uuid');
     }
 
     public function setLastRequestTaskCollectionUuid(?string $lastRequestTaskCollectionUuid = null): self
@@ -76,7 +76,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getCommonNames(): array
     {
-        return $this->getAttribute('commonNames');
+        return $this->getAttribute('common_names');
     }
 
     /**
@@ -93,7 +93,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getProviderName(): CertificateProviderNameEnum
     {
-        return $this->getAttribute('providerName');
+        return $this->getAttribute('provider_name');
     }
 
     public function setProviderName(?CertificateProviderNameEnum $providerName = null): self
@@ -104,7 +104,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -115,7 +115,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
 
     public function getRequestCallbackUrl(): string|null
     {
-        return $this->getAttribute('requestCallbackUrl');
+        return $this->getAttribute('request_callback_url');
     }
 
     public function setRequestCallbackUrl(?string $requestCallbackUrl = null): self

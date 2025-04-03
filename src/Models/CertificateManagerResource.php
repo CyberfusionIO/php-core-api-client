@@ -47,7 +47,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -58,7 +58,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -69,7 +69,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getMainCommonName(): string
     {
-        return $this->getAttribute('mainCommonName');
+        return $this->getAttribute('main_common_name');
     }
 
     public function setMainCommonName(?string $mainCommonName = null): self
@@ -80,7 +80,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getCertificateId(): int|null
     {
-        return $this->getAttribute('certificateId');
+        return $this->getAttribute('certificate_id');
     }
 
     public function setCertificateId(?int $certificateId = null): self
@@ -91,7 +91,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getLastRequestTaskCollectionUuid(): string|null
     {
-        return $this->getAttribute('lastRequestTaskCollectionUuid');
+        return $this->getAttribute('last_request_task_collection_uuid');
     }
 
     public function setLastRequestTaskCollectionUuid(?string $lastRequestTaskCollectionUuid = null): self
@@ -102,7 +102,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getCommonNames(): array
     {
-        return $this->getAttribute('commonNames');
+        return $this->getAttribute('common_names');
     }
 
     /**
@@ -119,7 +119,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getProviderName(): CertificateProviderNameEnum
     {
-        return $this->getAttribute('providerName');
+        return $this->getAttribute('provider_name');
     }
 
     public function setProviderName(?CertificateProviderNameEnum $providerName = null): self
@@ -130,7 +130,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -141,7 +141,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
 
     public function getRequestCallbackUrl(): string|null
     {
-        return $this->getAttribute('requestCallbackUrl');
+        return $this->getAttribute('request_callback_url');
     }
 
     public function setRequestCallbackUrl(?string $requestCallbackUrl = null): self

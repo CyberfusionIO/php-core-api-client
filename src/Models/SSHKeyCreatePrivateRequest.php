@@ -37,7 +37,7 @@ class SSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -48,7 +48,7 @@ class SSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getPrivateKey(): string
     {
-        return $this->getAttribute('privateKey');
+        return $this->getAttribute('private_key');
     }
 
     public function setPrivateKey(?string $privateKey = null): self

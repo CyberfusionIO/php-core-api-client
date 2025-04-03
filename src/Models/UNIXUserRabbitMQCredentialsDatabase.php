@@ -56,7 +56,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -67,7 +67,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -78,7 +78,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqHost(): string
     {
-        return $this->getAttribute('rabbitmqHost');
+        return $this->getAttribute('rabbitmq_host');
     }
 
     public function setRabbitmqHost(?string $rabbitmqHost = null): self
@@ -89,7 +89,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqSslEnabled(): bool
     {
-        return $this->getAttribute('rabbitmqSslEnabled');
+        return $this->getAttribute('rabbitmq_ssl_enabled');
     }
 
     public function setRabbitmqSslEnabled(?bool $rabbitmqSslEnabled = null): self
@@ -100,7 +100,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqAmqpPort(): int
     {
-        return $this->getAttribute('rabbitmqAmqpPort');
+        return $this->getAttribute('rabbitmq_amqp_port');
     }
 
     public function setRabbitmqAmqpPort(?int $rabbitmqAmqpPort = null): self
@@ -111,7 +111,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqManagementPort(): int
     {
-        return $this->getAttribute('rabbitmqManagementPort');
+        return $this->getAttribute('rabbitmq_management_port');
     }
 
     public function setRabbitmqManagementPort(?int $rabbitmqManagementPort = null): self
@@ -122,7 +122,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqPassword(): string
     {
-        return $this->getAttribute('rabbitmqPassword');
+        return $this->getAttribute('rabbitmq_password');
     }
 
     /**
@@ -140,7 +140,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqEncryptionKey(): string
     {
-        return $this->getAttribute('rabbitmqEncryptionKey');
+        return $this->getAttribute('rabbitmq_encryption_key');
     }
 
     /**
@@ -158,7 +158,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqUsername(): string
     {
-        return $this->getAttribute('rabbitmqUsername');
+        return $this->getAttribute('rabbitmq_username');
     }
 
     /**
@@ -176,7 +176,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getRabbitmqVirtualHostName(): string
     {
-        return $this->getAttribute('rabbitmqVirtualHostName');
+        return $this->getAttribute('rabbitmq_virtual_host_name');
     }
 
     /**
@@ -194,7 +194,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -205,7 +205,7 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

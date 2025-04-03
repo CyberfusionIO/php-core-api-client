@@ -73,7 +73,7 @@ class RedisInstanceUpdateDeprecatedRequest extends CoreApiModel implements CoreA
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -102,7 +102,7 @@ class RedisInstanceUpdateDeprecatedRequest extends CoreApiModel implements CoreA
 
     public function getMemoryLimit(): int
     {
-        return $this->getAttribute('memoryLimit');
+        return $this->getAttribute('memory_limit');
     }
 
     public function setMemoryLimit(?int $memoryLimit = null): self
@@ -113,7 +113,7 @@ class RedisInstanceUpdateDeprecatedRequest extends CoreApiModel implements CoreA
 
     public function getMaxDatabases(): int
     {
-        return $this->getAttribute('maxDatabases');
+        return $this->getAttribute('max_databases');
     }
 
     public function setMaxDatabases(?int $maxDatabases = null): self
@@ -124,7 +124,7 @@ class RedisInstanceUpdateDeprecatedRequest extends CoreApiModel implements CoreA
 
     public function getEvictionPolicy(): RedisEvictionPolicyEnum
     {
-        return $this->getAttribute('evictionPolicy');
+        return $this->getAttribute('eviction_policy');
     }
 
     public function setEvictionPolicy(?RedisEvictionPolicyEnum $evictionPolicy = null): self

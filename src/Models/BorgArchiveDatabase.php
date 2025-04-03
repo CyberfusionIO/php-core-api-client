@@ -46,7 +46,7 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -57,7 +57,7 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -68,7 +68,7 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getDatabaseId(): int|null
     {
-        return $this->getAttribute('databaseId');
+        return $this->getAttribute('database_id');
     }
 
     public function setDatabaseId(?int $databaseId = null): self
@@ -79,7 +79,7 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int|null
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -90,7 +90,7 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -101,7 +101,7 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getBorgRepositoryId(): int
     {
-        return $this->getAttribute('borgRepositoryId');
+        return $this->getAttribute('borg_repository_id');
     }
 
     public function setBorgRepositoryId(?int $borgRepositoryId = null): self

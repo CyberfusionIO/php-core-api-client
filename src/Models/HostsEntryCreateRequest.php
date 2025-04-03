@@ -19,7 +19,7 @@ class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContra
 
     public function getNodeId(): int
     {
-        return $this->getAttribute('nodeId');
+        return $this->getAttribute('node_id');
     }
 
     public function setNodeId(?int $nodeId = null): self
@@ -30,7 +30,7 @@ class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContra
 
     public function getHostName(): string
     {
-        return $this->getAttribute('hostName');
+        return $this->getAttribute('host_name');
     }
 
     public function setHostName(?string $hostName = null): self
@@ -41,7 +41,7 @@ class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContra
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

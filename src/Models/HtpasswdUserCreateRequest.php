@@ -37,7 +37,7 @@ class HtpasswdUserCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getHtpasswdFileId(): int
     {
-        return $this->getAttribute('htpasswdFileId');
+        return $this->getAttribute('htpasswd_file_id');
     }
 
     public function setHtpasswdFileId(?int $htpasswdFileId = null): self

@@ -16,7 +16,7 @@ class DatabaseUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getOptimizingEnabled(): bool
     {
-        return $this->getAttribute('optimizingEnabled');
+        return $this->getAttribute('optimizing_enabled');
     }
 
     public function setOptimizingEnabled(bool $optimizingEnabled): self
@@ -27,7 +27,7 @@ class DatabaseUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getBackupsEnabled(): bool
     {
-        return $this->getAttribute('backupsEnabled');
+        return $this->getAttribute('backups_enabled');
     }
 
     public function setBackupsEnabled(bool $backupsEnabled): self

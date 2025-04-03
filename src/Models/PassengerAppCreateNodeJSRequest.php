@@ -2,6 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Models;
 
+use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\PassengerEnvironmentEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
@@ -16,7 +17,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
         string $appRoot,
         int $unixUserId,
         PassengerEnvironmentEnum $environment,
-        string $environmentVariables,
+        ArrayObject $environmentVariables,
         int $maxPoolSize,
         int $maxRequests,
         int $poolIdleTime,
@@ -59,7 +60,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getAppRoot(): string
     {
-        return $this->getAttribute('appRoot');
+        return $this->getAttribute('app_root');
     }
 
     public function setAppRoot(?string $appRoot = null): self
@@ -70,7 +71,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -90,12 +91,12 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
         return $this;
     }
 
-    public function getEnvironmentVariables(): string
+    public function getEnvironmentVariables(): ArrayObject
     {
-        return $this->getAttribute('environmentVariables');
+        return $this->getAttribute('environment_variables');
     }
 
-    public function setEnvironmentVariables(?string $environmentVariables = null): self
+    public function setEnvironmentVariables(?ArrayObject $environmentVariables = null): self
     {
         $this->setAttribute('environment_variables', $environmentVariables);
         return $this;
@@ -103,7 +104,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getMaxPoolSize(): int
     {
-        return $this->getAttribute('maxPoolSize');
+        return $this->getAttribute('max_pool_size');
     }
 
     public function setMaxPoolSize(?int $maxPoolSize = null): self
@@ -114,7 +115,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getMaxRequests(): int
     {
-        return $this->getAttribute('maxRequests');
+        return $this->getAttribute('max_requests');
     }
 
     public function setMaxRequests(?int $maxRequests = null): self
@@ -125,7 +126,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getPoolIdleTime(): int
     {
-        return $this->getAttribute('poolIdleTime');
+        return $this->getAttribute('pool_idle_time');
     }
 
     public function setPoolIdleTime(?int $poolIdleTime = null): self
@@ -136,7 +137,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getIsNamespaced(): bool
     {
-        return $this->getAttribute('isNamespaced');
+        return $this->getAttribute('is_namespaced');
     }
 
     public function setIsNamespaced(?bool $isNamespaced = null): self
@@ -147,7 +148,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getCpuLimit(): int|null
     {
-        return $this->getAttribute('cpuLimit');
+        return $this->getAttribute('cpu_limit');
     }
 
     public function setCpuLimit(?int $cpuLimit = null): self
@@ -158,7 +159,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getNodejsVersion(): string
     {
-        return $this->getAttribute('nodejsVersion');
+        return $this->getAttribute('nodejs_version');
     }
 
     /**
@@ -175,7 +176,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
 
     public function getStartupFile(): string
     {
-        return $this->getAttribute('startupFile');
+        return $this->getAttribute('startup_file');
     }
 
     public function setStartupFile(?string $startupFile = null): self
@@ -191,7 +192,7 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
             appRoot: Arr::get($data, 'app_root'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             environment: PassengerEnvironmentEnum::tryFrom(Arr::get($data, 'environment')),
-            environmentVariables: Arr::get($data, 'environment_variables'),
+            environmentVariables: new ArrayObject(Arr::get($data, 'environment_variables')),
             maxPoolSize: Arr::get($data, 'max_pool_size'),
             maxRequests: Arr::get($data, 'max_requests'),
             poolIdleTime: Arr::get($data, 'pool_idle_time'),

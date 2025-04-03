@@ -56,7 +56,7 @@ class CustomConfigUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -85,7 +85,7 @@ class CustomConfigUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getServerSoftwareName(): CustomConfigServerSoftwareNameEnum
     {
-        return $this->getAttribute('serverSoftwareName');
+        return $this->getAttribute('server_software_name');
     }
 
     public function setServerSoftwareName(?CustomConfigServerSoftwareNameEnum $serverSoftwareName = null): self

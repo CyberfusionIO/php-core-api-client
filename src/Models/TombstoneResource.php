@@ -42,7 +42,7 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -53,7 +53,7 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -75,7 +75,7 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
 
     public function getObjectId(): int
     {
-        return $this->getAttribute('objectId');
+        return $this->getAttribute('object_id');
     }
 
     public function setObjectId(?int $objectId = null): self
@@ -86,7 +86,7 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
 
     public function getObjectModelName(): ObjectModelNameEnum
     {
-        return $this->getAttribute('objectModelName');
+        return $this->getAttribute('object_model_name');
     }
 
     public function setObjectModelName(?ObjectModelNameEnum $objectModelName = null): self
@@ -97,7 +97,7 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

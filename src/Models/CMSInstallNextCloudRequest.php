@@ -31,7 +31,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseName(): string
     {
-        return $this->getAttribute('databaseName');
+        return $this->getAttribute('database_name');
     }
 
     /**
@@ -49,7 +49,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseUserName(): string
     {
-        return $this->getAttribute('databaseUserName');
+        return $this->getAttribute('database_user_name');
     }
 
     /**
@@ -67,7 +67,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseUserPassword(): string
     {
-        return $this->getAttribute('databaseUserPassword');
+        return $this->getAttribute('database_user_password');
     }
 
     /**
@@ -85,7 +85,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseHost(): string
     {
-        return $this->getAttribute('databaseHost');
+        return $this->getAttribute('database_host');
     }
 
     public function setDatabaseHost(?string $databaseHost = null): self
@@ -96,7 +96,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getAdminUsername(): string
     {
-        return $this->getAttribute('adminUsername');
+        return $this->getAttribute('admin_username');
     }
 
     /**
@@ -114,7 +114,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getAdminPassword(): string
     {
-        return $this->getAttribute('adminPassword');
+        return $this->getAttribute('admin_password');
     }
 
     /**

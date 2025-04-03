@@ -42,7 +42,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
 
     public function getCurrentVersion(): string
     {
-        return $this->getAttribute('currentVersion');
+        return $this->getAttribute('current_version');
     }
 
     /**
@@ -60,7 +60,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
 
     public function getAvailableVersion(): string|null
     {
-        return $this->getAttribute('availableVersion');
+        return $this->getAttribute('available_version');
     }
 
     public function setAvailableVersion(?string $availableVersion = null): self
@@ -71,7 +71,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
 
     public function getIsEnabled(): bool
     {
-        return $this->getAttribute('isEnabled');
+        return $this->getAttribute('is_enabled');
     }
 
     public function setIsEnabled(?bool $isEnabled = null): self

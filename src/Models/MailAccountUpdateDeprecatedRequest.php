@@ -39,7 +39,7 @@ class MailAccountUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getLocalPart(): string
     {
-        return $this->getAttribute('localPart');
+        return $this->getAttribute('local_part');
     }
 
     /**
@@ -57,7 +57,7 @@ class MailAccountUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getMailDomainId(): int
     {
-        return $this->getAttribute('mailDomainId');
+        return $this->getAttribute('mail_domain_id');
     }
 
     public function setMailDomainId(?int $mailDomainId = null): self
@@ -68,7 +68,7 @@ class MailAccountUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

@@ -18,7 +18,7 @@ class CustomerIPAddressDatabase extends CoreApiModel implements CoreApiModelCont
 
     public function getIpAddress(): string
     {
-        return $this->getAttribute('ipAddress');
+        return $this->getAttribute('ip_address');
     }
 
     public function setIpAddress(?string $ipAddress = null): self
@@ -29,7 +29,7 @@ class CustomerIPAddressDatabase extends CoreApiModel implements CoreApiModelCont
 
     public function getDnsName(): string|null
     {
-        return $this->getAttribute('dnsName');
+        return $this->getAttribute('dns_name');
     }
 
     public function setDnsName(?string $dnsName = null): self

@@ -20,7 +20,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
 
     public function getDirectoryPath(): string|null
     {
-        return $this->getAttribute('directoryPath');
+        return $this->getAttribute('directory_path');
     }
 
     public function setDirectoryPath(?string $directoryPath = null): self
@@ -31,7 +31,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
 
     public function getVirtualHostId(): int
     {
-        return $this->getAttribute('virtualHostId');
+        return $this->getAttribute('virtual_host_id');
     }
 
     public function setVirtualHostId(?int $virtualHostId = null): self
@@ -60,7 +60,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
 
     public function getHtpasswdFileId(): int
     {
-        return $this->getAttribute('htpasswdFileId');
+        return $this->getAttribute('htpasswd_file_id');
     }
 
     public function setHtpasswdFileId(?int $htpasswdFileId = null): self

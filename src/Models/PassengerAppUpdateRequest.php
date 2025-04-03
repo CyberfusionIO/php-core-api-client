@@ -26,12 +26,12 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
-    public function getEnvironmentVariables(): string
+    public function getEnvironmentVariables(): \ArrayObject
     {
-        return $this->getAttribute('environmentVariables');
+        return $this->getAttribute('environment_variables');
     }
 
-    public function setEnvironmentVariables(string $environmentVariables): self
+    public function setEnvironmentVariables(\ArrayObject $environmentVariables): self
     {
         $this->setAttribute('environment_variables', $environmentVariables);
         return $this;
@@ -39,7 +39,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getMaxPoolSize(): int
     {
-        return $this->getAttribute('maxPoolSize');
+        return $this->getAttribute('max_pool_size');
     }
 
     public function setMaxPoolSize(int $maxPoolSize): self
@@ -50,7 +50,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getMaxRequests(): int
     {
-        return $this->getAttribute('maxRequests');
+        return $this->getAttribute('max_requests');
     }
 
     public function setMaxRequests(int $maxRequests): self
@@ -61,7 +61,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getPoolIdleTime(): int
     {
-        return $this->getAttribute('poolIdleTime');
+        return $this->getAttribute('pool_idle_time');
     }
 
     public function setPoolIdleTime(int $poolIdleTime): self
@@ -72,7 +72,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getIsNamespaced(): bool
     {
-        return $this->getAttribute('isNamespaced');
+        return $this->getAttribute('is_namespaced');
     }
 
     public function setIsNamespaced(bool $isNamespaced): self
@@ -83,7 +83,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getCpuLimit(): int|null
     {
-        return $this->getAttribute('cpuLimit');
+        return $this->getAttribute('cpu_limit');
     }
 
     public function setCpuLimit(?int $cpuLimit): self
@@ -94,7 +94,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getNodejsVersion(): string|null
     {
-        return $this->getAttribute('nodejsVersion');
+        return $this->getAttribute('nodejs_version');
     }
 
     public function setNodejsVersion(?string $nodejsVersion): self
@@ -105,7 +105,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getStartupFile(): string|null
     {
-        return $this->getAttribute('startupFile');
+        return $this->getAttribute('startup_file');
     }
 
     public function setStartupFile(?string $startupFile): self

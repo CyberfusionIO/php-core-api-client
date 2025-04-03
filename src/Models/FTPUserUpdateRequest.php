@@ -34,7 +34,7 @@ class FTPUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getDirectoryPath(): string
     {
-        return $this->getAttribute('directoryPath');
+        return $this->getAttribute('directory_path');
     }
 
     public function setDirectoryPath(string $directoryPath): self

@@ -17,7 +17,7 @@ class MailAliasUpdateRequest extends CoreApiModel implements CoreApiModelContrac
 
     public function getForwardEmailAddresses(): array
     {
-        return $this->getAttribute('forwardEmailAddresses');
+        return $this->getAttribute('forward_email_addresses');
     }
 
     /**

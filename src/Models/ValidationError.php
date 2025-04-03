@@ -10,19 +10,19 @@ use Respect\Validation\Validator;
 
 class ValidationError extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $msg, string $type, ?array $loc = null)
+    public function __construct(array $loc, string $msg, string $type)
     {
+        $this->setLoc($loc);
         $this->setMsg($msg);
         $this->setType($type);
-        $this->setLoc($loc);
     }
 
-    public function getLoc(): array|null
+    public function getLoc(): array
     {
         return $this->getAttribute('loc');
     }
 
-    public function setLoc(?array $loc = []): self
+    public function setLoc(array $loc = []): self
     {
         $this->setAttribute('loc', $loc);
         return $this;
@@ -53,9 +53,9 @@ class ValidationError extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
+            loc: Arr::get($data, 'loc'),
             msg: Arr::get($data, 'msg'),
             type: Arr::get($data, 'type'),
-            loc: Arr::get($data, 'loc'),
         ));
     }
 }

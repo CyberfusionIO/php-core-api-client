@@ -17,7 +17,7 @@ class NodeMariaDBGroupProperties extends CoreApiModel implements CoreApiModelCon
 
     public function getIsMaster(): bool
     {
-        return $this->getAttribute('isMaster');
+        return $this->getAttribute('is_master');
     }
 
     public function setIsMaster(?bool $isMaster = null): self

@@ -10,7 +10,7 @@ use Respect\Validation\Validator;
 
 class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $createdAt, ?array $tasksResults = null)
+    public function __construct(string $createdAt, array $tasksResults)
     {
         $this->setCreatedAt($createdAt);
         $this->setTasksResults($tasksResults);
@@ -18,7 +18,7 @@ class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContr
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -27,12 +27,12 @@ class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
-    public function getTasksResults(): array|null
+    public function getTasksResults(): array
     {
-        return $this->getAttribute('tasksResults');
+        return $this->getAttribute('tasks_results');
     }
 
-    public function setTasksResults(?array $tasksResults = []): self
+    public function setTasksResults(array $tasksResults = []): self
     {
         $this->setAttribute('tasks_results', $tasksResults);
         return $this;

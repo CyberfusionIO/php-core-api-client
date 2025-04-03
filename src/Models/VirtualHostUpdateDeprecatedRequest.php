@@ -55,7 +55,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -66,7 +66,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getServerSoftwareName(): VirtualHostServerSoftwareNameEnum
     {
-        return $this->getAttribute('serverSoftwareName');
+        return $this->getAttribute('server_software_name');
     }
 
     public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
@@ -77,7 +77,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getAllowOverrideDirectives(): array|null
     {
-        return $this->getAttribute('allowOverrideDirectives');
+        return $this->getAttribute('allow_override_directives');
     }
 
     public function setAllowOverrideDirectives(?array $allowOverrideDirectives = []): self
@@ -88,7 +88,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getAllowOverrideOptionDirectives(): array|null
     {
-        return $this->getAttribute('allowOverrideOptionDirectives');
+        return $this->getAttribute('allow_override_option_directives');
     }
 
     public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives = []): self
@@ -99,7 +99,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getDomainRoot(): string
     {
-        return $this->getAttribute('domainRoot');
+        return $this->getAttribute('domain_root');
     }
 
     public function setDomainRoot(?string $domainRoot = null): self
@@ -110,7 +110,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -132,7 +132,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getPublicRoot(): string
     {
-        return $this->getAttribute('publicRoot');
+        return $this->getAttribute('public_root');
     }
 
     public function setPublicRoot(?string $publicRoot = null): self
@@ -141,15 +141,15 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         return $this;
     }
 
-    public function getServerAliases(): array|null
+    public function getServerAliases(): array
     {
-        return $this->getAttribute('serverAliases');
+        return $this->getAttribute('server_aliases');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(?array $serverAliases): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -160,7 +160,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getDocumentRoot(): string
     {
-        return $this->getAttribute('documentRoot');
+        return $this->getAttribute('document_root');
     }
 
     public function setDocumentRoot(?string $documentRoot = null): self
@@ -171,7 +171,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getFpmPoolId(): int|null
     {
-        return $this->getAttribute('fpmPoolId');
+        return $this->getAttribute('fpm_pool_id');
     }
 
     public function setFpmPoolId(?int $fpmPoolId = null): self
@@ -182,7 +182,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getPassengerAppId(): int|null
     {
-        return $this->getAttribute('passengerAppId');
+        return $this->getAttribute('passenger_app_id');
     }
 
     public function setPassengerAppId(?int $passengerAppId = null): self
@@ -193,7 +193,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getCustomConfig(): string|null
     {
-        return $this->getAttribute('customConfig');
+        return $this->getAttribute('custom_config');
     }
 
     public function setCustomConfig(?string $customConfig = null): self

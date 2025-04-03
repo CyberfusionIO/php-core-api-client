@@ -18,8 +18,8 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $domain,
         int $unixUserId,
+        array $catchAllForwardEmailAddresses,
         bool $isLocal,
-        ?array $catchAllForwardEmailAddresses = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -27,8 +27,8 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setDomain($domain);
         $this->setUnixUserId($unixUserId);
-        $this->setIsLocal($isLocal);
         $this->setCatchAllForwardEmailAddresses($catchAllForwardEmailAddresses);
+        $this->setIsLocal($isLocal);
     }
 
     public function getId(): int
@@ -44,7 +44,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -55,7 +55,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -66,7 +66,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -88,7 +88,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -97,15 +97,15 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getCatchAllForwardEmailAddresses(): array|null
+    public function getCatchAllForwardEmailAddresses(): array
     {
-        return $this->getAttribute('catchAllForwardEmailAddresses');
+        return $this->getAttribute('catch_all_forward_email_addresses');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setCatchAllForwardEmailAddresses(?array $catchAllForwardEmailAddresses = []): self
+    public function setCatchAllForwardEmailAddresses(array $catchAllForwardEmailAddresses = []): self
     {
         Validator::create()
             ->unique()
@@ -116,7 +116,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
 
     public function getIsLocal(): bool
     {
-        return $this->getAttribute('isLocal');
+        return $this->getAttribute('is_local');
     }
 
     public function setIsLocal(?bool $isLocal = null): self
@@ -134,8 +134,8 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             domain: Arr::get($data, 'domain'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-            isLocal: Arr::get($data, 'is_local'),
             catchAllForwardEmailAddresses: Arr::get($data, 'catch_all_forward_email_addresses'),
+            isLocal: Arr::get($data, 'is_local'),
         ));
     }
 }

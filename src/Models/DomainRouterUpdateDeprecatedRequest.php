@@ -61,7 +61,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getVirtualHostId(): int|null
     {
-        return $this->getAttribute('virtualHostId');
+        return $this->getAttribute('virtual_host_id');
     }
 
     public function setVirtualHostId(?int $virtualHostId = null): self
@@ -72,7 +72,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getUrlRedirectId(): int|null
     {
-        return $this->getAttribute('urlRedirectId');
+        return $this->getAttribute('url_redirect_id');
     }
 
     public function setUrlRedirectId(?int $urlRedirectId = null): self
@@ -94,7 +94,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -105,7 +105,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getNodeId(): int|null
     {
-        return $this->getAttribute('nodeId');
+        return $this->getAttribute('node_id');
     }
 
     public function setNodeId(?int $nodeId = null): self
@@ -116,7 +116,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getCertificateId(): int|null
     {
-        return $this->getAttribute('certificateId');
+        return $this->getAttribute('certificate_id');
     }
 
     public function setCertificateId(?int $certificateId = null): self
@@ -127,7 +127,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getSecurityTxtPolicyId(): int|null
     {
-        return $this->getAttribute('securityTxtPolicyId');
+        return $this->getAttribute('security_txt_policy_id');
     }
 
     public function setSecurityTxtPolicyId(?int $securityTxtPolicyId = null): self
@@ -138,7 +138,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getFirewallGroupsIds(): array|null
     {
-        return $this->getAttribute('firewallGroupsIds');
+        return $this->getAttribute('firewall_groups_ids');
     }
 
     public function setFirewallGroupsIds(?array $firewallGroupsIds = []): self
@@ -149,7 +149,7 @@ class DomainRouterUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getForceSsl(): bool
     {
-        return $this->getAttribute('forceSsl');
+        return $this->getAttribute('force_ssl');
     }
 
     public function setForceSsl(?bool $forceSsl = null): self

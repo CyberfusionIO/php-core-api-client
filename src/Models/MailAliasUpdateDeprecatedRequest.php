@@ -32,7 +32,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -43,7 +43,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
 
     public function getLocalPart(): string
     {
-        return $this->getAttribute('localPart');
+        return $this->getAttribute('local_part');
     }
 
     /**
@@ -61,7 +61,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
 
     public function getMailDomainId(): int
     {
-        return $this->getAttribute('mailDomainId');
+        return $this->getAttribute('mail_domain_id');
     }
 
     public function setMailDomainId(?int $mailDomainId = null): self
@@ -72,7 +72,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
 
     public function getForwardEmailAddresses(): array
     {
-        return $this->getAttribute('forwardEmailAddresses');
+        return $this->getAttribute('forward_email_addresses');
     }
 
     /**

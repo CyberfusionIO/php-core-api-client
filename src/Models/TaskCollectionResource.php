@@ -49,7 +49,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -60,7 +60,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -71,7 +71,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
 
     public function getObjectId(): int|null
     {
-        return $this->getAttribute('objectId');
+        return $this->getAttribute('object_id');
     }
 
     public function setObjectId(?int $objectId = null): self
@@ -82,7 +82,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
 
     public function getObjectModelName(): ObjectModelNameEnum
     {
-        return $this->getAttribute('objectModelName');
+        return $this->getAttribute('object_model_name');
     }
 
     public function setObjectModelName(?ObjectModelNameEnum $objectModelName = null): self
@@ -122,7 +122,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
 
     public function getCollectionType(): TaskCollectionTypeEnum
     {
-        return $this->getAttribute('collectionType');
+        return $this->getAttribute('collection_type');
     }
 
     public function setCollectionType(?TaskCollectionTypeEnum $collectionType = null): self
@@ -133,7 +133,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
 
     public function getClusterId(): int|null
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

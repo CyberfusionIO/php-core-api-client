@@ -16,7 +16,7 @@ class MailHostnameUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getCertificateId(): int|null
     {
-        return $this->getAttribute('certificateId');
+        return $this->getAttribute('certificate_id');
     }
 
     public function setCertificateId(?int $certificateId): self

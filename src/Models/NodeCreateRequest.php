@@ -2,6 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Models;
 
+use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Cyberfusion\CoreApi\Support\ValidationHelper;
@@ -14,7 +15,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
     public function __construct(
         string $product,
         int $clusterId,
-        string $loadBalancerHealthChecksGroupsPairs,
+        ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         ?string $comment = null,
     ) {
@@ -45,7 +46,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -54,7 +55,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getGroups(): array|null
+    public function getGroups(): array
     {
         return $this->getAttribute('groups');
     }
@@ -62,7 +63,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(?array $groups): self
+    public function setGroups(array $groups): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -82,20 +83,21 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getLoadBalancerHealthChecksGroupsPairs(): string
+    public function getLoadBalancerHealthChecksGroupsPairs(): ArrayObject
     {
-        return $this->getAttribute('loadBalancerHealthChecksGroupsPairs');
+        return $this->getAttribute('load_balancer_health_checks_groups_pairs');
     }
 
-    public function setLoadBalancerHealthChecksGroupsPairs(?string $loadBalancerHealthChecksGroupsPairs = null): self
-    {
+    public function setLoadBalancerHealthChecksGroupsPairs(
+        ?ArrayObject $loadBalancerHealthChecksGroupsPairs = null,
+    ): self {
         $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
 
     public function getGroupsProperties(): NodeGroupsProperties
     {
-        return $this->getAttribute('groupsProperties');
+        return $this->getAttribute('groups_properties');
     }
 
     public function setGroupsProperties(?NodeGroupsProperties $groupsProperties = null): self
@@ -109,7 +111,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return (new self(
             product: Arr::get($data, 'product'),
             clusterId: Arr::get($data, 'cluster_id'),
-            loadBalancerHealthChecksGroupsPairs: Arr::get($data, 'load_balancer_health_checks_groups_pairs'),
+            loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             comment: Arr::get($data, 'comment'),
         ))

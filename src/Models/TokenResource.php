@@ -20,7 +20,7 @@ class TokenResource extends CoreApiModel implements CoreApiModelContract
 
     public function getAccessToken(): string
     {
-        return $this->getAttribute('accessToken');
+        return $this->getAttribute('access_token');
     }
 
     /**
@@ -38,7 +38,7 @@ class TokenResource extends CoreApiModel implements CoreApiModelContract
 
     public function getTokenType(): TokenTypeEnum
     {
-        return $this->getAttribute('tokenType');
+        return $this->getAttribute('token_type');
     }
 
     public function setTokenType(?TokenTypeEnum $tokenType = null): self
@@ -49,7 +49,7 @@ class TokenResource extends CoreApiModel implements CoreApiModelContract
 
     public function getExpiresIn(): int
     {
-        return $this->getAttribute('expiresIn');
+        return $this->getAttribute('expires_in');
     }
 
     public function setExpiresIn(?int $expiresIn = null): self

@@ -21,11 +21,11 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         string $domain,
         int $clusterId,
+        array $serverAliases,
         string $destinationUrl,
         StatusCodeEnum $statusCode,
         bool $keepQueryParameters,
         bool $keepPath,
-        ?array $serverAliases = null,
         ?string $description = null,
     ) {
         $this->setId($id);
@@ -33,11 +33,11 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
+        $this->setServerAliases($serverAliases);
         $this->setDestinationUrl($destinationUrl);
         $this->setStatusCode($statusCode);
         $this->setKeepQueryParameters($keepQueryParameters);
         $this->setKeepPath($keepPath);
-        $this->setServerAliases($serverAliases);
         $this->setDescription($description);
     }
 
@@ -54,7 +54,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -65,7 +65,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -87,7 +87,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -96,15 +96,15 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getServerAliases(): array|null
+    public function getServerAliases(): array
     {
-        return $this->getAttribute('serverAliases');
+        return $this->getAttribute('server_aliases');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(?array $serverAliases = []): self
+    public function setServerAliases(array $serverAliases = []): self
     {
         Validator::create()
             ->unique()
@@ -115,7 +115,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getDestinationUrl(): string
     {
-        return $this->getAttribute('destinationUrl');
+        return $this->getAttribute('destination_url');
     }
 
     /**
@@ -132,7 +132,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getStatusCode(): StatusCodeEnum
     {
-        return $this->getAttribute('statusCode');
+        return $this->getAttribute('status_code');
     }
 
     public function setStatusCode(?StatusCodeEnum $statusCode = null): self
@@ -143,7 +143,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getKeepQueryParameters(): bool
     {
-        return $this->getAttribute('keepQueryParameters');
+        return $this->getAttribute('keep_query_parameters');
     }
 
     public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
@@ -154,7 +154,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getKeepPath(): bool
     {
-        return $this->getAttribute('keepPath');
+        return $this->getAttribute('keep_path');
     }
 
     public function setKeepPath(?bool $keepPath = null): self
@@ -182,11 +182,11 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            serverAliases: Arr::get($data, 'server_aliases'),
             destinationUrl: Arr::get($data, 'destination_url'),
             statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
             keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
             keepPath: Arr::get($data, 'keep_path'),
-            serverAliases: Arr::get($data, 'server_aliases'),
             description: Arr::get($data, 'description'),
         ));
     }

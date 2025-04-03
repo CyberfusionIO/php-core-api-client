@@ -2,6 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Models;
 
+use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Cyberfusion\CoreApi\Support\ValidationHelper;
@@ -18,7 +19,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         string $hostname,
         string $product,
         int $clusterId,
-        string $loadBalancerHealthChecksGroupsPairs,
+        ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         bool $isReady,
         ?string $comment = null,
@@ -48,7 +49,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -59,7 +60,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -99,7 +100,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -108,7 +109,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getGroups(): array|null
+    public function getGroups(): array
     {
         return $this->getAttribute('groups');
     }
@@ -116,7 +117,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(?array $groups): self
+    public function setGroups(array $groups): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -136,20 +137,21 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getLoadBalancerHealthChecksGroupsPairs(): string
+    public function getLoadBalancerHealthChecksGroupsPairs(): ArrayObject
     {
-        return $this->getAttribute('loadBalancerHealthChecksGroupsPairs');
+        return $this->getAttribute('load_balancer_health_checks_groups_pairs');
     }
 
-    public function setLoadBalancerHealthChecksGroupsPairs(?string $loadBalancerHealthChecksGroupsPairs = null): self
-    {
+    public function setLoadBalancerHealthChecksGroupsPairs(
+        ?ArrayObject $loadBalancerHealthChecksGroupsPairs = null,
+    ): self {
         $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
 
     public function getGroupsProperties(): NodeGroupsProperties
     {
-        return $this->getAttribute('groupsProperties');
+        return $this->getAttribute('groups_properties');
     }
 
     public function setGroupsProperties(?NodeGroupsProperties $groupsProperties = null): self
@@ -160,7 +162,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
 
     public function getIsReady(): bool
     {
-        return $this->getAttribute('isReady');
+        return $this->getAttribute('is_ready');
     }
 
     public function setIsReady(?bool $isReady = null): self
@@ -178,7 +180,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
             hostname: Arr::get($data, 'hostname'),
             product: Arr::get($data, 'product'),
             clusterId: Arr::get($data, 'cluster_id'),
-            loadBalancerHealthChecksGroupsPairs: Arr::get($data, 'load_balancer_health_checks_groups_pairs'),
+            loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             isReady: Arr::get($data, 'is_ready'),
             comment: Arr::get($data, 'comment'),

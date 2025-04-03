@@ -14,11 +14,11 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     public function __construct(
         int $clusterId,
         string $expiresTimestamp,
-        ?array $encryptionKeyUrls = null,
-        ?array $acknowledgmentUrls = null,
-        ?array $policyUrls = null,
-        ?array $openingUrls = null,
-        ?array $preferredLanguages = null,
+        array $encryptionKeyUrls,
+        array $acknowledgmentUrls,
+        array $policyUrls,
+        array $openingUrls,
+        array $preferredLanguages,
     ) {
         $this->setClusterId($clusterId);
         $this->setExpiresTimestamp($expiresTimestamp);
@@ -31,7 +31,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -42,7 +42,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
 
     public function getExpiresTimestamp(): string
     {
-        return $this->getAttribute('expiresTimestamp');
+        return $this->getAttribute('expires_timestamp');
     }
 
     public function setExpiresTimestamp(?string $expiresTimestamp = null): self
@@ -51,15 +51,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getEmailContacts(): array|null
+    public function getEmailContacts(): array
     {
-        return $this->getAttribute('emailContacts');
+        return $this->getAttribute('email_contacts');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setEmailContacts(?array $emailContacts): self
+    public function setEmailContacts(array $emailContacts): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -68,15 +68,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getUrlContacts(): array|null
+    public function getUrlContacts(): array
     {
-        return $this->getAttribute('urlContacts');
+        return $this->getAttribute('url_contacts');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setUrlContacts(?array $urlContacts): self
+    public function setUrlContacts(array $urlContacts): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -85,15 +85,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getEncryptionKeyUrls(): array|null
+    public function getEncryptionKeyUrls(): array
     {
-        return $this->getAttribute('encryptionKeyUrls');
+        return $this->getAttribute('encryption_key_urls');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setEncryptionKeyUrls(?array $encryptionKeyUrls = []): self
+    public function setEncryptionKeyUrls(array $encryptionKeyUrls = []): self
     {
         Validator::create()
             ->unique()
@@ -102,15 +102,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getAcknowledgmentUrls(): array|null
+    public function getAcknowledgmentUrls(): array
     {
-        return $this->getAttribute('acknowledgmentUrls');
+        return $this->getAttribute('acknowledgment_urls');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setAcknowledgmentUrls(?array $acknowledgmentUrls = []): self
+    public function setAcknowledgmentUrls(array $acknowledgmentUrls = []): self
     {
         Validator::create()
             ->unique()
@@ -119,15 +119,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getPolicyUrls(): array|null
+    public function getPolicyUrls(): array
     {
-        return $this->getAttribute('policyUrls');
+        return $this->getAttribute('policy_urls');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setPolicyUrls(?array $policyUrls = []): self
+    public function setPolicyUrls(array $policyUrls = []): self
     {
         Validator::create()
             ->unique()
@@ -136,15 +136,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getOpeningUrls(): array|null
+    public function getOpeningUrls(): array
     {
-        return $this->getAttribute('openingUrls');
+        return $this->getAttribute('opening_urls');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setOpeningUrls(?array $openingUrls = []): self
+    public function setOpeningUrls(array $openingUrls = []): self
     {
         Validator::create()
             ->unique()
@@ -153,15 +153,15 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getPreferredLanguages(): array|null
+    public function getPreferredLanguages(): array
     {
-        return $this->getAttribute('preferredLanguages');
+        return $this->getAttribute('preferred_languages');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setPreferredLanguages(?array $preferredLanguages = []): self
+    public function setPreferredLanguages(array $preferredLanguages = []): self
     {
         Validator::create()
             ->unique()

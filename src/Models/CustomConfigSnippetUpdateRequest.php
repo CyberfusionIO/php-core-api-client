@@ -34,7 +34,7 @@ class CustomConfigSnippetUpdateRequest extends CoreApiModel implements CoreApiMo
 
     public function getIsDefault(): bool
     {
-        return $this->getAttribute('isDefault');
+        return $this->getAttribute('is_default');
     }
 
     public function setIsDefault(bool $isDefault): self

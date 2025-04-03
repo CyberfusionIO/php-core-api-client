@@ -33,7 +33,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function getObjectType(): BorgArchiveContentObjectTypeEnum
     {
-        return $this->getAttribute('objectType');
+        return $this->getAttribute('object_type');
     }
 
     public function setObjectType(?BorgArchiveContentObjectTypeEnum $objectType = null): self
@@ -44,7 +44,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function getSymbolicMode(): string
     {
-        return $this->getAttribute('symbolicMode');
+        return $this->getAttribute('symbolic_mode');
     }
 
     /**
@@ -80,7 +80,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function getGroupName(): string
     {
-        return $this->getAttribute('groupName');
+        return $this->getAttribute('group_name');
     }
 
     /**
@@ -109,7 +109,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function getLinkTarget(): string|null
     {
-        return $this->getAttribute('linkTarget');
+        return $this->getAttribute('link_target');
     }
 
     public function setLinkTarget(?string $linkTarget = null): self
@@ -120,7 +120,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 
     public function getModificationTime(): string
     {
-        return $this->getAttribute('modificationTime');
+        return $this->getAttribute('modification_time');
     }
 
     public function setModificationTime(?string $modificationTime = null): self

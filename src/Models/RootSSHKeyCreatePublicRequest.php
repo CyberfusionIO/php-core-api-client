@@ -37,7 +37,7 @@ class RootSSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModel
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -48,7 +48,7 @@ class RootSSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModel
 
     public function getPublicKey(): string
     {
-        return $this->getAttribute('publicKey');
+        return $this->getAttribute('public_key');
     }
 
     public function setPublicKey(?string $publicKey = null): self

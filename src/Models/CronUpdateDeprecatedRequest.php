@@ -53,7 +53,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -64,7 +64,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getNodeId(): int
     {
-        return $this->getAttribute('nodeId');
+        return $this->getAttribute('node_id');
     }
 
     public function setNodeId(?int $nodeId = null): self
@@ -93,7 +93,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -122,7 +122,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getEmailAddress(): string|null
     {
-        return $this->getAttribute('emailAddress');
+        return $this->getAttribute('email_address');
     }
 
     public function setEmailAddress(?string $emailAddress = null): self
@@ -144,7 +144,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getErrorCount(): int
     {
-        return $this->getAttribute('errorCount');
+        return $this->getAttribute('error_count');
     }
 
     public function setErrorCount(?int $errorCount = null): self
@@ -155,7 +155,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getRandomDelayMaxSeconds(): int
     {
-        return $this->getAttribute('randomDelayMaxSeconds');
+        return $this->getAttribute('random_delay_max_seconds');
     }
 
     public function setRandomDelayMaxSeconds(?int $randomDelayMaxSeconds = null): self
@@ -166,7 +166,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getTimeoutSeconds(): int|null
     {
-        return $this->getAttribute('timeoutSeconds');
+        return $this->getAttribute('timeout_seconds');
     }
 
     public function setTimeoutSeconds(?int $timeoutSeconds = null): self
@@ -177,7 +177,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getLockingEnabled(): bool
     {
-        return $this->getAttribute('lockingEnabled');
+        return $this->getAttribute('locking_enabled');
     }
 
     public function setLockingEnabled(?bool $lockingEnabled = null): self
@@ -188,7 +188,7 @@ class CronUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getIsActive(): bool
     {
-        return $this->getAttribute('isActive');
+        return $this->getAttribute('is_active');
     }
 
     public function setIsActive(?bool $isActive = null): self

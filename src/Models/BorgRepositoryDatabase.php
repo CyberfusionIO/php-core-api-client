@@ -62,7 +62,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -73,7 +73,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -120,7 +120,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getRemoteHost(): string
     {
-        return $this->getAttribute('remoteHost');
+        return $this->getAttribute('remote_host');
     }
 
     public function setRemoteHost(?string $remoteHost = null): self
@@ -131,7 +131,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getRemotePath(): string
     {
-        return $this->getAttribute('remotePath');
+        return $this->getAttribute('remote_path');
     }
 
     public function setRemotePath(?string $remotePath = null): self
@@ -142,7 +142,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getRemoteUsername(): string
     {
-        return $this->getAttribute('remoteUsername');
+        return $this->getAttribute('remote_username');
     }
 
     /**
@@ -160,7 +160,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getUnixUserId(): int|null
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -171,7 +171,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -182,7 +182,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getKeepHourly(): int|null
     {
-        return $this->getAttribute('keepHourly');
+        return $this->getAttribute('keep_hourly');
     }
 
     public function setKeepHourly(?int $keepHourly = null): self
@@ -193,7 +193,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getKeepDaily(): int|null
     {
-        return $this->getAttribute('keepDaily');
+        return $this->getAttribute('keep_daily');
     }
 
     public function setKeepDaily(?int $keepDaily = null): self
@@ -204,7 +204,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getKeepWeekly(): int|null
     {
-        return $this->getAttribute('keepWeekly');
+        return $this->getAttribute('keep_weekly');
     }
 
     public function setKeepWeekly(?int $keepWeekly = null): self
@@ -215,7 +215,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getKeepMonthly(): int|null
     {
-        return $this->getAttribute('keepMonthly');
+        return $this->getAttribute('keep_monthly');
     }
 
     public function setKeepMonthly(?int $keepMonthly = null): self
@@ -226,7 +226,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getKeepYearly(): int|null
     {
-        return $this->getAttribute('keepYearly');
+        return $this->getAttribute('keep_yearly');
     }
 
     public function setKeepYearly(?int $keepYearly = null): self
@@ -237,7 +237,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
 
     public function getIdentityFilePath(): string|null
     {
-        return $this->getAttribute('identityFilePath');
+        return $this->getAttribute('identity_file_path');
     }
 
     public function setIdentityFilePath(?string $identityFilePath = null): self

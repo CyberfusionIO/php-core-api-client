@@ -38,7 +38,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -67,7 +67,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getDirectoryPath(): string
     {
-        return $this->getAttribute('directoryPath');
+        return $this->getAttribute('directory_path');
     }
 
     public function setDirectoryPath(?string $directoryPath = null): self

@@ -44,7 +44,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -55,7 +55,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -66,7 +66,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -77,7 +77,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getDatabaseId(): int
     {
-        return $this->getAttribute('databaseId');
+        return $this->getAttribute('database_id');
     }
 
     public function setDatabaseId(?int $databaseId = null): self
@@ -88,7 +88,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getDatabaseUserId(): int
     {
-        return $this->getAttribute('databaseUserId');
+        return $this->getAttribute('database_user_id');
     }
 
     public function setDatabaseUserId(?int $databaseUserId = null): self
@@ -99,7 +99,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getTableName(): string|null
     {
-        return $this->getAttribute('tableName');
+        return $this->getAttribute('table_name');
     }
 
     public function setTableName(?string $tableName = null): self
@@ -110,7 +110,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
 
     public function getPrivilegeName(): MariaDBPrivilegeEnum
     {
-        return $this->getAttribute('privilegeName');
+        return $this->getAttribute('privilege_name');
     }
 
     public function setPrivilegeName(?MariaDBPrivilegeEnum $privilegeName = null): self

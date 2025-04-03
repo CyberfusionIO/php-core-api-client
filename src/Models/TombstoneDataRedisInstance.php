@@ -17,7 +17,7 @@ class TombstoneDataRedisInstance extends CoreApiModel implements CoreApiModelCon
 
     public function getDataType(): string
     {
-        return $this->getAttribute('dataType');
+        return $this->getAttribute('data_type');
     }
 
     public function setDataType(string $dataType): self
@@ -46,7 +46,7 @@ class TombstoneDataRedisInstance extends CoreApiModel implements CoreApiModelCon
 
     public function getDeleteOnCluster(): bool
     {
-        return $this->getAttribute('deleteOnCluster');
+        return $this->getAttribute('delete_on_cluster');
     }
 
     public function setDeleteOnCluster(bool $deleteOnCluster): self

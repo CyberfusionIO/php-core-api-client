@@ -14,47 +14,47 @@ use Respect\Validation\Validator;
 class ClusterChildren extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
-        ?array $firewallGroups = null,
-        ?array $securityTxtPolicies = null,
-        ?array $unixUsers = null,
-        ?array $borgRepositories = null,
-        ?array $ftpUsers = null,
-        ?array $borgArchives = null,
-        ?array $customConfigSnippets = null,
-        ?array $customConfigs = null,
-        ?array $unixUsersRabbitmqCredentials = null,
-        ?array $tombstones = null,
-        ?array $basicAuthenticationRealms = null,
-        ?array $htpasswdUsers = null,
-        ?array $crons = null,
-        ?array $daemons = null,
-        ?array $mariadbEncryptionKeys = null,
-        ?array $firewallRules = null,
-        ?array $hostsEntries = null,
-        ?array $htpasswdFiles = null,
-        ?array $virtualHosts = null,
-        ?array $domainRouters = null,
-        ?array $mailHostnames = null,
-        ?array $urlRedirects = null,
-        ?array $fpmPools = null,
-        ?array $redisInstances = null,
-        ?array $passengerApps = null,
-        ?array $nodes = null,
-        ?array $haproxyListens = null,
-        ?array $haproxyListensToNodes = null,
-        ?array $sshKeys = null,
-        ?array $rootSshKeys = null,
-        ?array $certificates = null,
-        ?array $certificateManagers = null,
-        ?array $databases = null,
-        ?array $databaseUsers = null,
-        ?array $databaseUserGrants = null,
-        ?array $malwares = null,
-        ?array $cmses = null,
-        ?array $mailDomains = null,
-        ?array $mailAccounts = null,
-        ?array $mailAliases = null,
-        ?array $nodeAddOns = null,
+        array $firewallGroups,
+        array $securityTxtPolicies,
+        array $unixUsers,
+        array $borgRepositories,
+        array $ftpUsers,
+        array $borgArchives,
+        array $customConfigSnippets,
+        array $customConfigs,
+        array $unixUsersRabbitmqCredentials,
+        array $tombstones,
+        array $basicAuthenticationRealms,
+        array $htpasswdUsers,
+        array $crons,
+        array $daemons,
+        array $mariadbEncryptionKeys,
+        array $firewallRules,
+        array $hostsEntries,
+        array $htpasswdFiles,
+        array $virtualHosts,
+        array $domainRouters,
+        array $mailHostnames,
+        array $urlRedirects,
+        array $fpmPools,
+        array $redisInstances,
+        array $passengerApps,
+        array $nodes,
+        array $haproxyListens,
+        array $haproxyListensToNodes,
+        array $sshKeys,
+        array $rootSshKeys,
+        array $certificates,
+        array $certificateManagers,
+        array $databases,
+        array $databaseUsers,
+        array $databaseUserGrants,
+        array $malwares,
+        array $cmses,
+        array $mailDomains,
+        array $mailAccounts,
+        array $mailAliases,
+        array $nodeAddOns,
     ) {
         $this->setFirewallGroups($firewallGroups);
         $this->setSecurityTxtPolicies($securityTxtPolicies);
@@ -99,452 +99,452 @@ class ClusterChildren extends CoreApiModel implements CoreApiModelContract
         $this->setNodeAddOns($nodeAddOns);
     }
 
-    public function getFirewallGroups(): array|null
+    public function getFirewallGroups(): array
     {
-        return $this->getAttribute('firewallGroups');
+        return $this->getAttribute('firewall_groups');
     }
 
-    public function setFirewallGroups(?array $firewallGroups = []): self
+    public function setFirewallGroups(array $firewallGroups = []): self
     {
         $this->setAttribute('firewall_groups', $firewallGroups);
         return $this;
     }
 
-    public function getSecurityTxtPolicies(): array|null
+    public function getSecurityTxtPolicies(): array
     {
-        return $this->getAttribute('securityTxtPolicies');
+        return $this->getAttribute('security_txt_policies');
     }
 
-    public function setSecurityTxtPolicies(?array $securityTxtPolicies = []): self
+    public function setSecurityTxtPolicies(array $securityTxtPolicies = []): self
     {
         $this->setAttribute('security_txt_policies', $securityTxtPolicies);
         return $this;
     }
 
-    public function getUnixUsers(): array|null
+    public function getUnixUsers(): array
     {
-        return $this->getAttribute('unixUsers');
+        return $this->getAttribute('unix_users');
     }
 
-    public function setUnixUsers(?array $unixUsers = []): self
+    public function setUnixUsers(array $unixUsers = []): self
     {
         $this->setAttribute('unix_users', $unixUsers);
         return $this;
     }
 
-    public function getBorgRepositories(): array|null
+    public function getBorgRepositories(): array
     {
-        return $this->getAttribute('borgRepositories');
+        return $this->getAttribute('borg_repositories');
     }
 
-    public function setBorgRepositories(?array $borgRepositories = []): self
+    public function setBorgRepositories(array $borgRepositories = []): self
     {
         $this->setAttribute('borg_repositories', $borgRepositories);
         return $this;
     }
 
-    public function getFtpUsers(): array|null
+    public function getFtpUsers(): array
     {
-        return $this->getAttribute('ftpUsers');
+        return $this->getAttribute('ftp_users');
     }
 
-    public function setFtpUsers(?array $ftpUsers = []): self
+    public function setFtpUsers(array $ftpUsers = []): self
     {
         $this->setAttribute('ftp_users', $ftpUsers);
         return $this;
     }
 
-    public function getBorgArchives(): array|null
+    public function getBorgArchives(): array
     {
-        return $this->getAttribute('borgArchives');
+        return $this->getAttribute('borg_archives');
     }
 
-    public function setBorgArchives(?array $borgArchives = []): self
+    public function setBorgArchives(array $borgArchives = []): self
     {
         $this->setAttribute('borg_archives', $borgArchives);
         return $this;
     }
 
-    public function getCustomConfigSnippets(): array|null
+    public function getCustomConfigSnippets(): array
     {
-        return $this->getAttribute('customConfigSnippets');
+        return $this->getAttribute('custom_config_snippets');
     }
 
-    public function setCustomConfigSnippets(?array $customConfigSnippets = []): self
+    public function setCustomConfigSnippets(array $customConfigSnippets = []): self
     {
         $this->setAttribute('custom_config_snippets', $customConfigSnippets);
         return $this;
     }
 
-    public function getCustomConfigs(): array|null
+    public function getCustomConfigs(): array
     {
-        return $this->getAttribute('customConfigs');
+        return $this->getAttribute('custom_configs');
     }
 
-    public function setCustomConfigs(?array $customConfigs = []): self
+    public function setCustomConfigs(array $customConfigs = []): self
     {
         $this->setAttribute('custom_configs', $customConfigs);
         return $this;
     }
 
-    public function getUnixUsersRabbitmqCredentials(): array|null
+    public function getUnixUsersRabbitmqCredentials(): array
     {
-        return $this->getAttribute('unixUsersRabbitmqCredentials');
+        return $this->getAttribute('unix_users_rabbitmq_credentials');
     }
 
-    public function setUnixUsersRabbitmqCredentials(?array $unixUsersRabbitmqCredentials = []): self
+    public function setUnixUsersRabbitmqCredentials(array $unixUsersRabbitmqCredentials = []): self
     {
         $this->setAttribute('unix_users_rabbitmq_credentials', $unixUsersRabbitmqCredentials);
         return $this;
     }
 
-    public function getTombstones(): array|null
+    public function getTombstones(): array
     {
         return $this->getAttribute('tombstones');
     }
 
-    public function setTombstones(?array $tombstones = []): self
+    public function setTombstones(array $tombstones = []): self
     {
         $this->setAttribute('tombstones', $tombstones);
         return $this;
     }
 
-    public function getBasicAuthenticationRealms(): array|null
+    public function getBasicAuthenticationRealms(): array
     {
-        return $this->getAttribute('basicAuthenticationRealms');
+        return $this->getAttribute('basic_authentication_realms');
     }
 
-    public function setBasicAuthenticationRealms(?array $basicAuthenticationRealms = []): self
+    public function setBasicAuthenticationRealms(array $basicAuthenticationRealms = []): self
     {
         $this->setAttribute('basic_authentication_realms', $basicAuthenticationRealms);
         return $this;
     }
 
-    public function getHtpasswdUsers(): array|null
+    public function getHtpasswdUsers(): array
     {
-        return $this->getAttribute('htpasswdUsers');
+        return $this->getAttribute('htpasswd_users');
     }
 
-    public function setHtpasswdUsers(?array $htpasswdUsers = []): self
+    public function setHtpasswdUsers(array $htpasswdUsers = []): self
     {
         $this->setAttribute('htpasswd_users', $htpasswdUsers);
         return $this;
     }
 
-    public function getCrons(): array|null
+    public function getCrons(): array
     {
         return $this->getAttribute('crons');
     }
 
-    public function setCrons(?array $crons = []): self
+    public function setCrons(array $crons = []): self
     {
         $this->setAttribute('crons', $crons);
         return $this;
     }
 
-    public function getDaemons(): array|null
+    public function getDaemons(): array
     {
         return $this->getAttribute('daemons');
     }
 
-    public function setDaemons(?array $daemons = []): self
+    public function setDaemons(array $daemons = []): self
     {
         $this->setAttribute('daemons', $daemons);
         return $this;
     }
 
-    public function getMariadbEncryptionKeys(): array|null
+    public function getMariadbEncryptionKeys(): array
     {
-        return $this->getAttribute('mariadbEncryptionKeys');
+        return $this->getAttribute('mariadb_encryption_keys');
     }
 
-    public function setMariadbEncryptionKeys(?array $mariadbEncryptionKeys = []): self
+    public function setMariadbEncryptionKeys(array $mariadbEncryptionKeys = []): self
     {
         $this->setAttribute('mariadb_encryption_keys', $mariadbEncryptionKeys);
         return $this;
     }
 
-    public function getFirewallRules(): array|null
+    public function getFirewallRules(): array
     {
-        return $this->getAttribute('firewallRules');
+        return $this->getAttribute('firewall_rules');
     }
 
-    public function setFirewallRules(?array $firewallRules = []): self
+    public function setFirewallRules(array $firewallRules = []): self
     {
         $this->setAttribute('firewall_rules', $firewallRules);
         return $this;
     }
 
-    public function getHostsEntries(): array|null
+    public function getHostsEntries(): array
     {
-        return $this->getAttribute('hostsEntries');
+        return $this->getAttribute('hosts_entries');
     }
 
-    public function setHostsEntries(?array $hostsEntries = []): self
+    public function setHostsEntries(array $hostsEntries = []): self
     {
         $this->setAttribute('hosts_entries', $hostsEntries);
         return $this;
     }
 
-    public function getHtpasswdFiles(): array|null
+    public function getHtpasswdFiles(): array
     {
-        return $this->getAttribute('htpasswdFiles');
+        return $this->getAttribute('htpasswd_files');
     }
 
-    public function setHtpasswdFiles(?array $htpasswdFiles = []): self
+    public function setHtpasswdFiles(array $htpasswdFiles = []): self
     {
         $this->setAttribute('htpasswd_files', $htpasswdFiles);
         return $this;
     }
 
-    public function getVirtualHosts(): array|null
+    public function getVirtualHosts(): array
     {
-        return $this->getAttribute('virtualHosts');
+        return $this->getAttribute('virtual_hosts');
     }
 
-    public function setVirtualHosts(?array $virtualHosts = []): self
+    public function setVirtualHosts(array $virtualHosts = []): self
     {
         $this->setAttribute('virtual_hosts', $virtualHosts);
         return $this;
     }
 
-    public function getDomainRouters(): array|null
+    public function getDomainRouters(): array
     {
-        return $this->getAttribute('domainRouters');
+        return $this->getAttribute('domain_routers');
     }
 
-    public function setDomainRouters(?array $domainRouters = []): self
+    public function setDomainRouters(array $domainRouters = []): self
     {
         $this->setAttribute('domain_routers', $domainRouters);
         return $this;
     }
 
-    public function getMailHostnames(): array|null
+    public function getMailHostnames(): array
     {
-        return $this->getAttribute('mailHostnames');
+        return $this->getAttribute('mail_hostnames');
     }
 
-    public function setMailHostnames(?array $mailHostnames = []): self
+    public function setMailHostnames(array $mailHostnames = []): self
     {
         $this->setAttribute('mail_hostnames', $mailHostnames);
         return $this;
     }
 
-    public function getUrlRedirects(): array|null
+    public function getUrlRedirects(): array
     {
-        return $this->getAttribute('urlRedirects');
+        return $this->getAttribute('url_redirects');
     }
 
-    public function setUrlRedirects(?array $urlRedirects = []): self
+    public function setUrlRedirects(array $urlRedirects = []): self
     {
         $this->setAttribute('url_redirects', $urlRedirects);
         return $this;
     }
 
-    public function getFpmPools(): array|null
+    public function getFpmPools(): array
     {
-        return $this->getAttribute('fpmPools');
+        return $this->getAttribute('fpm_pools');
     }
 
-    public function setFpmPools(?array $fpmPools = []): self
+    public function setFpmPools(array $fpmPools = []): self
     {
         $this->setAttribute('fpm_pools', $fpmPools);
         return $this;
     }
 
-    public function getRedisInstances(): array|null
+    public function getRedisInstances(): array
     {
-        return $this->getAttribute('redisInstances');
+        return $this->getAttribute('redis_instances');
     }
 
-    public function setRedisInstances(?array $redisInstances = []): self
+    public function setRedisInstances(array $redisInstances = []): self
     {
         $this->setAttribute('redis_instances', $redisInstances);
         return $this;
     }
 
-    public function getPassengerApps(): array|null
+    public function getPassengerApps(): array
     {
-        return $this->getAttribute('passengerApps');
+        return $this->getAttribute('passenger_apps');
     }
 
-    public function setPassengerApps(?array $passengerApps = []): self
+    public function setPassengerApps(array $passengerApps = []): self
     {
         $this->setAttribute('passenger_apps', $passengerApps);
         return $this;
     }
 
-    public function getNodes(): array|null
+    public function getNodes(): array
     {
         return $this->getAttribute('nodes');
     }
 
-    public function setNodes(?array $nodes = []): self
+    public function setNodes(array $nodes = []): self
     {
         $this->setAttribute('nodes', $nodes);
         return $this;
     }
 
-    public function getHaproxyListens(): array|null
+    public function getHaproxyListens(): array
     {
-        return $this->getAttribute('haproxyListens');
+        return $this->getAttribute('haproxy_listens');
     }
 
-    public function setHaproxyListens(?array $haproxyListens = []): self
+    public function setHaproxyListens(array $haproxyListens = []): self
     {
         $this->setAttribute('haproxy_listens', $haproxyListens);
         return $this;
     }
 
-    public function getHaproxyListensToNodes(): array|null
+    public function getHaproxyListensToNodes(): array
     {
-        return $this->getAttribute('haproxyListensToNodes');
+        return $this->getAttribute('haproxy_listens_to_nodes');
     }
 
-    public function setHaproxyListensToNodes(?array $haproxyListensToNodes = []): self
+    public function setHaproxyListensToNodes(array $haproxyListensToNodes = []): self
     {
         $this->setAttribute('haproxy_listens_to_nodes', $haproxyListensToNodes);
         return $this;
     }
 
-    public function getSshKeys(): array|null
+    public function getSshKeys(): array
     {
-        return $this->getAttribute('sshKeys');
+        return $this->getAttribute('ssh_keys');
     }
 
-    public function setSshKeys(?array $sshKeys = []): self
+    public function setSshKeys(array $sshKeys = []): self
     {
         $this->setAttribute('ssh_keys', $sshKeys);
         return $this;
     }
 
-    public function getRootSshKeys(): array|null
+    public function getRootSshKeys(): array
     {
-        return $this->getAttribute('rootSshKeys');
+        return $this->getAttribute('root_ssh_keys');
     }
 
-    public function setRootSshKeys(?array $rootSshKeys = []): self
+    public function setRootSshKeys(array $rootSshKeys = []): self
     {
         $this->setAttribute('root_ssh_keys', $rootSshKeys);
         return $this;
     }
 
-    public function getCertificates(): array|null
+    public function getCertificates(): array
     {
         return $this->getAttribute('certificates');
     }
 
-    public function setCertificates(?array $certificates = []): self
+    public function setCertificates(array $certificates = []): self
     {
         $this->setAttribute('certificates', $certificates);
         return $this;
     }
 
-    public function getCertificateManagers(): array|null
+    public function getCertificateManagers(): array
     {
-        return $this->getAttribute('certificateManagers');
+        return $this->getAttribute('certificate_managers');
     }
 
-    public function setCertificateManagers(?array $certificateManagers = []): self
+    public function setCertificateManagers(array $certificateManagers = []): self
     {
         $this->setAttribute('certificate_managers', $certificateManagers);
         return $this;
     }
 
-    public function getDatabases(): array|null
+    public function getDatabases(): array
     {
         return $this->getAttribute('databases');
     }
 
-    public function setDatabases(?array $databases = []): self
+    public function setDatabases(array $databases = []): self
     {
         $this->setAttribute('databases', $databases);
         return $this;
     }
 
-    public function getDatabaseUsers(): array|null
+    public function getDatabaseUsers(): array
     {
-        return $this->getAttribute('databaseUsers');
+        return $this->getAttribute('database_users');
     }
 
-    public function setDatabaseUsers(?array $databaseUsers = []): self
+    public function setDatabaseUsers(array $databaseUsers = []): self
     {
         $this->setAttribute('database_users', $databaseUsers);
         return $this;
     }
 
-    public function getDatabaseUserGrants(): array|null
+    public function getDatabaseUserGrants(): array
     {
-        return $this->getAttribute('databaseUserGrants');
+        return $this->getAttribute('database_user_grants');
     }
 
-    public function setDatabaseUserGrants(?array $databaseUserGrants = []): self
+    public function setDatabaseUserGrants(array $databaseUserGrants = []): self
     {
         $this->setAttribute('database_user_grants', $databaseUserGrants);
         return $this;
     }
 
-    public function getMalwares(): array|null
+    public function getMalwares(): array
     {
         return $this->getAttribute('malwares');
     }
 
-    public function setMalwares(?array $malwares = []): self
+    public function setMalwares(array $malwares = []): self
     {
         $this->setAttribute('malwares', $malwares);
         return $this;
     }
 
-    public function getCmses(): array|null
+    public function getCmses(): array
     {
         return $this->getAttribute('cmses');
     }
 
-    public function setCmses(?array $cmses = []): self
+    public function setCmses(array $cmses = []): self
     {
         $this->setAttribute('cmses', $cmses);
         return $this;
     }
 
-    public function getMailDomains(): array|null
+    public function getMailDomains(): array
     {
-        return $this->getAttribute('mailDomains');
+        return $this->getAttribute('mail_domains');
     }
 
-    public function setMailDomains(?array $mailDomains = []): self
+    public function setMailDomains(array $mailDomains = []): self
     {
         $this->setAttribute('mail_domains', $mailDomains);
         return $this;
     }
 
-    public function getMailAccounts(): array|null
+    public function getMailAccounts(): array
     {
-        return $this->getAttribute('mailAccounts');
+        return $this->getAttribute('mail_accounts');
     }
 
-    public function setMailAccounts(?array $mailAccounts = []): self
+    public function setMailAccounts(array $mailAccounts = []): self
     {
         $this->setAttribute('mail_accounts', $mailAccounts);
         return $this;
     }
 
-    public function getMailAliases(): array|null
+    public function getMailAliases(): array
     {
-        return $this->getAttribute('mailAliases');
+        return $this->getAttribute('mail_aliases');
     }
 
-    public function setMailAliases(?array $mailAliases = []): self
+    public function setMailAliases(array $mailAliases = []): self
     {
         $this->setAttribute('mail_aliases', $mailAliases);
         return $this;
     }
 
-    public function getNodeAddOns(): array|null
+    public function getNodeAddOns(): array
     {
-        return $this->getAttribute('nodeAddOns');
+        return $this->getAttribute('node_add_ons');
     }
 
-    public function setNodeAddOns(?array $nodeAddOns = []): self
+    public function setNodeAddOns(array $nodeAddOns = []): self
     {
         $this->setAttribute('node_add_ons', $nodeAddOns);
         return $this;

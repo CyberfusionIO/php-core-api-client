@@ -14,12 +14,12 @@ class HTTPValidationError extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getDetail(): array|null
+    public function getDetail(): array
     {
         return $this->getAttribute('detail');
     }
 
-    public function setDetail(?array $detail): self
+    public function setDetail(array $detail): self
     {
         $this->setAttribute('detail', $detail);
         return $this;

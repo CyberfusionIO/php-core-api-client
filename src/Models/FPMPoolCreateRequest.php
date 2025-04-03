@@ -63,7 +63,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -74,7 +74,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getMaxChildren(): int
     {
-        return $this->getAttribute('maxChildren');
+        return $this->getAttribute('max_children');
     }
 
     public function setMaxChildren(?int $maxChildren = null): self
@@ -85,7 +85,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getMaxRequests(): int
     {
-        return $this->getAttribute('maxRequests');
+        return $this->getAttribute('max_requests');
     }
 
     public function setMaxRequests(?int $maxRequests = null): self
@@ -96,7 +96,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getProcessIdleTimeout(): int
     {
-        return $this->getAttribute('processIdleTimeout');
+        return $this->getAttribute('process_idle_timeout');
     }
 
     public function setProcessIdleTimeout(?int $processIdleTimeout = null): self
@@ -107,7 +107,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getCpuLimit(): int|null
     {
-        return $this->getAttribute('cpuLimit');
+        return $this->getAttribute('cpu_limit');
     }
 
     public function setCpuLimit(?int $cpuLimit = null): self
@@ -118,7 +118,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getLogSlowRequestsThreshold(): int|null
     {
-        return $this->getAttribute('logSlowRequestsThreshold');
+        return $this->getAttribute('log_slow_requests_threshold');
     }
 
     public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold = null): self
@@ -129,7 +129,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getIsNamespaced(): bool
     {
-        return $this->getAttribute('isNamespaced');
+        return $this->getAttribute('is_namespaced');
     }
 
     public function setIsNamespaced(?bool $isNamespaced = null): self
@@ -140,7 +140,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getMemoryLimit(): int|null
     {
-        return $this->getAttribute('memoryLimit');
+        return $this->getAttribute('memory_limit');
     }
 
     public function setMemoryLimit(?int $memoryLimit): self

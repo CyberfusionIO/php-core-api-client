@@ -37,7 +37,7 @@ class FirewallGroupCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -48,7 +48,7 @@ class FirewallGroupCreateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getIpNetworks(): array
     {
-        return $this->getAttribute('ipNetworks');
+        return $this->getAttribute('ip_networks');
     }
 
     /**

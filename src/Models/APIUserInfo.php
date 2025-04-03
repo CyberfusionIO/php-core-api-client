@@ -17,16 +17,16 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         string $username,
         bool $isActive,
         bool $isSuperuser,
+        array $clusters,
         APIUserAuthenticationMethod $authenticationMethod,
-        ?array $clusters = null,
         ?int $customerId = null,
     ) {
         $this->setId($id);
         $this->setUsername($username);
         $this->setIsActive($isActive);
         $this->setIsSuperuser($isSuperuser);
-        $this->setAuthenticationMethod($authenticationMethod);
         $this->setClusters($clusters);
+        $this->setAuthenticationMethod($authenticationMethod);
         $this->setCustomerId($customerId);
     }
 
@@ -61,7 +61,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function getIsActive(): bool
     {
-        return $this->getAttribute('isActive');
+        return $this->getAttribute('is_active');
     }
 
     public function setIsActive(?bool $isActive = null): self
@@ -72,7 +72,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function getIsSuperuser(): bool
     {
-        return $this->getAttribute('isSuperuser');
+        return $this->getAttribute('is_superuser');
     }
 
     public function setIsSuperuser(?bool $isSuperuser = null): self
@@ -81,7 +81,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getClusters(): array|null
+    public function getClusters(): array
     {
         return $this->getAttribute('clusters');
     }
@@ -89,7 +89,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setClusters(?array $clusters = []): self
+    public function setClusters(array $clusters = []): self
     {
         Validator::create()
             ->unique()
@@ -100,7 +100,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function getCustomerId(): int|null
     {
-        return $this->getAttribute('customerId');
+        return $this->getAttribute('customer_id');
     }
 
     public function setCustomerId(?int $customerId = null): self
@@ -111,7 +111,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 
     public function getAuthenticationMethod(): APIUserAuthenticationMethod
     {
-        return $this->getAttribute('authenticationMethod');
+        return $this->getAttribute('authentication_method');
     }
 
     public function setAuthenticationMethod(?APIUserAuthenticationMethod $authenticationMethod = null): self
@@ -127,8 +127,8 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
             username: Arr::get($data, 'username'),
             isActive: Arr::get($data, 'is_active'),
             isSuperuser: Arr::get($data, 'is_superuser'),
-            authenticationMethod: APIUserAuthenticationMethod::tryFrom(Arr::get($data, 'authentication_method')),
             clusters: Arr::get($data, 'clusters'),
+            authenticationMethod: APIUserAuthenticationMethod::tryFrom(Arr::get($data, 'authentication_method')),
             customerId: Arr::get($data, 'customer_id'),
         ));
     }

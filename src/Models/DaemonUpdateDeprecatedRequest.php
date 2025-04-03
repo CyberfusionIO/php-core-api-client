@@ -33,7 +33,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -62,7 +62,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -91,7 +91,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
 
     public function getNodesIds(): array
     {
-        return $this->getAttribute('nodesIds');
+        return $this->getAttribute('nodes_ids');
     }
 
     /**

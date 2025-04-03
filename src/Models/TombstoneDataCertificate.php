@@ -16,7 +16,7 @@ class TombstoneDataCertificate extends CoreApiModel implements CoreApiModelContr
 
     public function getDataType(): string
     {
-        return $this->getAttribute('dataType');
+        return $this->getAttribute('data_type');
     }
 
     public function setDataType(string $dataType): self

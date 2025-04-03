@@ -45,7 +45,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -56,7 +56,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -67,7 +67,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -78,7 +78,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getSoftwareName(): CMSSoftwareNameEnum
     {
-        return $this->getAttribute('softwareName');
+        return $this->getAttribute('software_name');
     }
 
     public function setSoftwareName(?CMSSoftwareNameEnum $softwareName = null): self
@@ -89,7 +89,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getIsManuallyCreated(): bool
     {
-        return $this->getAttribute('isManuallyCreated');
+        return $this->getAttribute('is_manually_created');
     }
 
     public function setIsManuallyCreated(?bool $isManuallyCreated = null): self
@@ -100,7 +100,7 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getVirtualHostId(): int
     {
-        return $this->getAttribute('virtualHostId');
+        return $this->getAttribute('virtual_host_id');
     }
 
     public function setVirtualHostId(?int $virtualHostId = null): self
