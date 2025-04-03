@@ -16,7 +16,7 @@ class CertificateManagerUpdateRequest extends CoreApiModel implements CoreApiMod
 
     public function getRequestCallbackUrl(): string|null
     {
-        return $this->getAttribute('requestCallbackUrl');
+        return $this->getAttribute('request_callback_url');
     }
 
     public function setRequestCallbackUrl(?string $requestCallbackUrl): self

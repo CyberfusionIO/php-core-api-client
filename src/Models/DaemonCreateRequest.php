@@ -38,7 +38,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -67,7 +67,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getNodesIds(): array
     {
-        return $this->getAttribute('nodesIds');
+        return $this->getAttribute('nodes_ids');
     }
 
     /**
@@ -84,7 +84,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getMemoryLimit(): int|null
     {
-        return $this->getAttribute('memoryLimit');
+        return $this->getAttribute('memory_limit');
     }
 
     public function setMemoryLimit(?int $memoryLimit): self
@@ -95,7 +95,7 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getCpuLimit(): int|null
     {
-        return $this->getAttribute('cpuLimit');
+        return $this->getAttribute('cpu_limit');
     }
 
     public function setCpuLimit(?int $cpuLimit): self

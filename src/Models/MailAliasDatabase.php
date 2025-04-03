@@ -45,7 +45,7 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -56,7 +56,7 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -67,7 +67,7 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -78,7 +78,7 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getLocalPart(): string
     {
-        return $this->getAttribute('localPart');
+        return $this->getAttribute('local_part');
     }
 
     /**
@@ -96,7 +96,7 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getMailDomainId(): int
     {
-        return $this->getAttribute('mailDomainId');
+        return $this->getAttribute('mail_domain_id');
     }
 
     public function setMailDomainId(?int $mailDomainId = null): self
@@ -107,7 +107,7 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getForwardEmailAddresses(): array
     {
-        return $this->getAttribute('forwardEmailAddresses');
+        return $this->getAttribute('forward_email_addresses');
     }
 
     /**

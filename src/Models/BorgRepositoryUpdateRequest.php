@@ -16,7 +16,7 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepHourly(): int|null
     {
-        return $this->getAttribute('keepHourly');
+        return $this->getAttribute('keep_hourly');
     }
 
     public function setKeepHourly(?int $keepHourly): self
@@ -27,7 +27,7 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepDaily(): int|null
     {
-        return $this->getAttribute('keepDaily');
+        return $this->getAttribute('keep_daily');
     }
 
     public function setKeepDaily(?int $keepDaily): self
@@ -38,7 +38,7 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepWeekly(): int|null
     {
-        return $this->getAttribute('keepWeekly');
+        return $this->getAttribute('keep_weekly');
     }
 
     public function setKeepWeekly(?int $keepWeekly): self
@@ -49,7 +49,7 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepMonthly(): int|null
     {
-        return $this->getAttribute('keepMonthly');
+        return $this->getAttribute('keep_monthly');
     }
 
     public function setKeepMonthly(?int $keepMonthly): self
@@ -60,7 +60,7 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepYearly(): int|null
     {
-        return $this->getAttribute('keepYearly');
+        return $this->getAttribute('keep_yearly');
     }
 
     public function setKeepYearly(?int $keepYearly): self
@@ -71,7 +71,7 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getIdentityFilePath(): string|null
     {
-        return $this->getAttribute('identityFilePath');
+        return $this->getAttribute('identity_file_path');
     }
 
     public function setIdentityFilePath(?string $identityFilePath): self

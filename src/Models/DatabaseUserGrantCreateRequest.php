@@ -25,7 +25,7 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
 
     public function getDatabaseId(): int
     {
-        return $this->getAttribute('databaseId');
+        return $this->getAttribute('database_id');
     }
 
     public function setDatabaseId(?int $databaseId = null): self
@@ -36,7 +36,7 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
 
     public function getDatabaseUserId(): int
     {
-        return $this->getAttribute('databaseUserId');
+        return $this->getAttribute('database_user_id');
     }
 
     public function setDatabaseUserId(?int $databaseUserId = null): self
@@ -47,7 +47,7 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
 
     public function getTableName(): string|null
     {
-        return $this->getAttribute('tableName');
+        return $this->getAttribute('table_name');
     }
 
     public function setTableName(?string $tableName = null): self
@@ -58,7 +58,7 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
 
     public function getPrivilegeName(): MariaDBPrivilegeEnum
     {
-        return $this->getAttribute('privilegeName');
+        return $this->getAttribute('privilege_name');
     }
 
     public function setPrivilegeName(?MariaDBPrivilegeEnum $privilegeName = null): self

@@ -21,7 +21,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
 
     public function getRemoteAddress(): string
     {
-        return $this->getAttribute('remoteAddress');
+        return $this->getAttribute('remote_address');
     }
 
     public function setRemoteAddress(?string $remoteAddress = null): self
@@ -32,7 +32,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
 
     public function getRawMessage(): string
     {
-        return $this->getAttribute('rawMessage');
+        return $this->getAttribute('raw_message');
     }
 
     /**
@@ -82,7 +82,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
 
     public function getErrorMessage(): string
     {
-        return $this->getAttribute('errorMessage');
+        return $this->getAttribute('error_message');
     }
 
     /**

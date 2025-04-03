@@ -19,7 +19,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
 
     public function getLocalPart(): string
     {
-        return $this->getAttribute('localPart');
+        return $this->getAttribute('local_part');
     }
 
     /**
@@ -37,7 +37,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
 
     public function getMailDomainId(): int
     {
-        return $this->getAttribute('mailDomainId');
+        return $this->getAttribute('mail_domain_id');
     }
 
     public function setMailDomainId(?int $mailDomainId = null): self
@@ -48,7 +48,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
 
     public function getForwardEmailAddresses(): array
     {
-        return $this->getAttribute('forwardEmailAddresses');
+        return $this->getAttribute('forward_email_addresses');
     }
 
     /**

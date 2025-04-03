@@ -24,7 +24,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function getCommonNames(): array
     {
-        return $this->getAttribute('commonNames');
+        return $this->getAttribute('common_names');
     }
 
     /**
@@ -41,7 +41,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function getProviderName(): CertificateProviderNameEnum
     {
-        return $this->getAttribute('providerName');
+        return $this->getAttribute('provider_name');
     }
 
     public function setProviderName(?CertificateProviderNameEnum $providerName = null): self
@@ -52,7 +52,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -63,7 +63,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 
     public function getRequestCallbackUrl(): string|null
     {
-        return $this->getAttribute('requestCallbackUrl');
+        return $this->getAttribute('request_callback_url');
     }
 
     public function setRequestCallbackUrl(?string $requestCallbackUrl = null): self

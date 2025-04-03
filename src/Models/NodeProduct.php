@@ -19,22 +19,22 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         int $ram,
         int $cores,
         int $disk,
+        array $allowUpgradeTo,
+        array $allowDowngradeTo,
         float $price,
         string $period,
         string $currency,
-        ?array $allowUpgradeTo = null,
-        ?array $allowDowngradeTo = null,
     ) {
         $this->setUuid($uuid);
         $this->setName($name);
         $this->setRam($ram);
         $this->setCores($cores);
         $this->setDisk($disk);
+        $this->setAllowUpgradeTo($allowUpgradeTo);
+        $this->setAllowDowngradeTo($allowDowngradeTo);
         $this->setPrice($price);
         $this->setPeriod($period);
         $this->setCurrency($currency);
-        $this->setAllowUpgradeTo($allowUpgradeTo);
-        $this->setAllowDowngradeTo($allowDowngradeTo);
     }
 
     public function getUuid(): string
@@ -99,23 +99,23 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getAllowUpgradeTo(): array|null
+    public function getAllowUpgradeTo(): array
     {
-        return $this->getAttribute('allowUpgradeTo');
+        return $this->getAttribute('allow_upgrade_to');
     }
 
-    public function setAllowUpgradeTo(?array $allowUpgradeTo = []): self
+    public function setAllowUpgradeTo(array $allowUpgradeTo = []): self
     {
         $this->setAttribute('allow_upgrade_to', $allowUpgradeTo);
         return $this;
     }
 
-    public function getAllowDowngradeTo(): array|null
+    public function getAllowDowngradeTo(): array
     {
-        return $this->getAttribute('allowDowngradeTo');
+        return $this->getAttribute('allow_downgrade_to');
     }
 
-    public function setAllowDowngradeTo(?array $allowDowngradeTo = []): self
+    public function setAllowDowngradeTo(array $allowDowngradeTo = []): self
     {
         $this->setAttribute('allow_downgrade_to', $allowDowngradeTo);
         return $this;
@@ -176,11 +176,11 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
             ram: Arr::get($data, 'ram'),
             cores: Arr::get($data, 'cores'),
             disk: Arr::get($data, 'disk'),
+            allowUpgradeTo: Arr::get($data, 'allow_upgrade_to'),
+            allowDowngradeTo: Arr::get($data, 'allow_downgrade_to'),
             price: Arr::get($data, 'price'),
             period: Arr::get($data, 'period'),
             currency: Arr::get($data, 'currency'),
-            allowUpgradeTo: Arr::get($data, 'allow_upgrade_to'),
-            allowDowngradeTo: Arr::get($data, 'allow_downgrade_to'),
         ));
     }
 }

@@ -19,7 +19,7 @@ class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
 
     public function getDatabaseId(): int
     {
-        return $this->getAttribute('databaseId');
+        return $this->getAttribute('database_id');
     }
 
     public function setDatabaseId(?int $databaseId = null): self

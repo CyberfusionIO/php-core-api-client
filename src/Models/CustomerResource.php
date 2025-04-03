@@ -41,7 +41,7 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -52,7 +52,7 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -81,7 +81,7 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
 
     public function getDnsSubdomain(): string
     {
-        return $this->getAttribute('dnsSubdomain');
+        return $this->getAttribute('dns_subdomain');
     }
 
     public function setDnsSubdomain(?string $dnsSubdomain = null): self
@@ -92,7 +92,7 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
 
     public function getIsInternal(): bool
     {
-        return $this->getAttribute('isInternal');
+        return $this->getAttribute('is_internal');
     }
 
     public function setIsInternal(?bool $isInternal = null): self
@@ -103,7 +103,7 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
 
     public function getTeamCode(): string
     {
-        return $this->getAttribute('teamCode');
+        return $this->getAttribute('team_code');
     }
 
     /**

@@ -46,7 +46,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -57,7 +57,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -68,7 +68,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getMainCommonName(): string
     {
-        return $this->getAttribute('mainCommonName');
+        return $this->getAttribute('main_common_name');
     }
 
     public function setMainCommonName(?string $mainCommonName = null): self
@@ -79,7 +79,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCommonNames(): array
     {
-        return $this->getAttribute('commonNames');
+        return $this->getAttribute('common_names');
     }
 
     /**
@@ -96,7 +96,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getExpiresAt(): string
     {
-        return $this->getAttribute('expiresAt');
+        return $this->getAttribute('expires_at');
     }
 
     public function setExpiresAt(?string $expiresAt = null): self
@@ -125,7 +125,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCaChain(): string
     {
-        return $this->getAttribute('caChain');
+        return $this->getAttribute('ca_chain');
     }
 
     /**
@@ -143,7 +143,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getPrivateKey(): string
     {
-        return $this->getAttribute('privateKey');
+        return $this->getAttribute('private_key');
     }
 
     /**
@@ -161,7 +161,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

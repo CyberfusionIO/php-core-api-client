@@ -91,7 +91,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getRemoteHost(): string
     {
-        return $this->getAttribute('remoteHost');
+        return $this->getAttribute('remote_host');
     }
 
     public function setRemoteHost(?string $remoteHost = null): self
@@ -102,7 +102,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getRemotePath(): string
     {
-        return $this->getAttribute('remotePath');
+        return $this->getAttribute('remote_path');
     }
 
     public function setRemotePath(?string $remotePath = null): self
@@ -113,7 +113,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getRemoteUsername(): string
     {
-        return $this->getAttribute('remoteUsername');
+        return $this->getAttribute('remote_username');
     }
 
     /**
@@ -131,7 +131,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -142,7 +142,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getKeepHourly(): int|null
     {
-        return $this->getAttribute('keepHourly');
+        return $this->getAttribute('keep_hourly');
     }
 
     public function setKeepHourly(?int $keepHourly = null): self
@@ -153,7 +153,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getKeepDaily(): int|null
     {
-        return $this->getAttribute('keepDaily');
+        return $this->getAttribute('keep_daily');
     }
 
     public function setKeepDaily(?int $keepDaily = null): self
@@ -164,7 +164,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getKeepWeekly(): int|null
     {
-        return $this->getAttribute('keepWeekly');
+        return $this->getAttribute('keep_weekly');
     }
 
     public function setKeepWeekly(?int $keepWeekly = null): self
@@ -175,7 +175,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getKeepMonthly(): int|null
     {
-        return $this->getAttribute('keepMonthly');
+        return $this->getAttribute('keep_monthly');
     }
 
     public function setKeepMonthly(?int $keepMonthly = null): self
@@ -186,7 +186,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getKeepYearly(): int|null
     {
-        return $this->getAttribute('keepYearly');
+        return $this->getAttribute('keep_yearly');
     }
 
     public function setKeepYearly(?int $keepYearly = null): self
@@ -197,7 +197,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getIdentityFilePath(): string|null
     {
-        return $this->getAttribute('identityFilePath');
+        return $this->getAttribute('identity_file_path');
     }
 
     public function setIdentityFilePath(?string $identityFilePath = null): self
@@ -208,7 +208,7 @@ class BorgRepositoryUpdateDeprecatedRequest extends CoreApiModel implements Core
 
     public function getUnixUserId(): int|null
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self

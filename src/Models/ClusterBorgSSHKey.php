@@ -17,7 +17,7 @@ class ClusterBorgSSHKey extends CoreApiModel implements CoreApiModelContract
 
     public function getPublicKey(): string
     {
-        return $this->getAttribute('publicKey');
+        return $this->getAttribute('public_key');
     }
 
     public function setPublicKey(?string $publicKey = null): self

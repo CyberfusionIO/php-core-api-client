@@ -33,7 +33,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -44,7 +44,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -73,7 +73,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -84,7 +84,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
 
     public function getIpNetworks(): array
     {
-        return $this->getAttribute('ipNetworks');
+        return $this->getAttribute('ip_networks');
     }
 
     /**

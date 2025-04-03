@@ -37,7 +37,7 @@ class RootSSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiMode
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -48,7 +48,7 @@ class RootSSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiMode
 
     public function getPrivateKey(): string
     {
-        return $this->getAttribute('privateKey');
+        return $this->getAttribute('private_key');
     }
 
     public function setPrivateKey(?string $privateKey = null): self

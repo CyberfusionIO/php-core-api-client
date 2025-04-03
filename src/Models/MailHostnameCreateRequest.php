@@ -30,7 +30,7 @@ class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -41,7 +41,7 @@ class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getCertificateId(): int|null
     {
-        return $this->getAttribute('certificateId');
+        return $this->getAttribute('certificate_id');
     }
 
     public function setCertificateId(?int $certificateId = null): self

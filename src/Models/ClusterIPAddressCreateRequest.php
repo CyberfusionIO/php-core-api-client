@@ -20,7 +20,7 @@ class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModel
 
     public function getServiceAccountName(): string
     {
-        return $this->getAttribute('serviceAccountName');
+        return $this->getAttribute('service_account_name');
     }
 
     public function setServiceAccountName(?string $serviceAccountName = null): self
@@ -31,7 +31,7 @@ class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModel
 
     public function getDnsName(): string
     {
-        return $this->getAttribute('dnsName');
+        return $this->getAttribute('dns_name');
     }
 
     public function setDnsName(?string $dnsName = null): self
@@ -42,7 +42,7 @@ class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModel
 
     public function getAddressFamily(): IPAddressFamilyEnum
     {
-        return $this->getAttribute('addressFamily');
+        return $this->getAttribute('address_family');
     }
 
     public function setAddressFamily(?IPAddressFamilyEnum $addressFamily = null): self

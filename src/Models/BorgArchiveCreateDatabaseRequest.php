@@ -19,7 +19,7 @@ class BorgArchiveCreateDatabaseRequest extends CoreApiModel implements CoreApiMo
 
     public function getBorgRepositoryId(): int
     {
-        return $this->getAttribute('borgRepositoryId');
+        return $this->getAttribute('borg_repository_id');
     }
 
     public function setBorgRepositoryId(?int $borgRepositoryId = null): self
@@ -48,7 +48,7 @@ class BorgArchiveCreateDatabaseRequest extends CoreApiModel implements CoreApiMo
 
     public function getDatabaseId(): int
     {
-        return $this->getAttribute('databaseId');
+        return $this->getAttribute('database_id');
     }
 
     public function setDatabaseId(?int $databaseId = null): self

@@ -37,7 +37,7 @@ class SSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -48,7 +48,7 @@ class SSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getPublicKey(): string
     {
-        return $this->getAttribute('publicKey');
+        return $this->getAttribute('public_key');
     }
 
     public function setPublicKey(?string $publicKey = null): self

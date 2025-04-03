@@ -142,7 +142,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getCustomerId(): int
     {
-        return $this->getAttribute('customerId');
+        return $this->getAttribute('customer_id');
     }
 
     public function setCustomerId(?int $customerId = null): self
@@ -153,7 +153,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getSiteId(): int
     {
-        return $this->getAttribute('siteId');
+        return $this->getAttribute('site_id');
     }
 
     public function setSiteId(?int $siteId = null): self
@@ -162,7 +162,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getGroups(): array|null
+    public function getGroups(): array
     {
         return $this->getAttribute('groups');
     }
@@ -170,7 +170,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setGroups(?array $groups): self
+    public function setGroups(array $groups): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -181,7 +181,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getUnixUsersHomeDirectory(): UNIXUserHomeDirectoryEnum|null
     {
-        return $this->getAttribute('unixUsersHomeDirectory');
+        return $this->getAttribute('unix_users_home_directory');
     }
 
     public function setUnixUsersHomeDirectory(?UNIXUserHomeDirectoryEnum $unixUsersHomeDirectory = null): self
@@ -190,15 +190,15 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getPhpVersions(): array|null
+    public function getPhpVersions(): array
     {
-        return $this->getAttribute('phpVersions');
+        return $this->getAttribute('php_versions');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setPhpVersions(?array $phpVersions): self
+    public function setPhpVersions(array $phpVersions): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -209,7 +209,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMariadbVersion(): string|null
     {
-        return $this->getAttribute('mariadbVersion');
+        return $this->getAttribute('mariadb_version');
     }
 
     public function setMariadbVersion(?string $mariadbVersion = null): self
@@ -220,7 +220,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getNodejsVersion(): int|null
     {
-        return $this->getAttribute('nodejsVersion');
+        return $this->getAttribute('nodejs_version');
     }
 
     public function setNodejsVersion(?int $nodejsVersion = null): self
@@ -231,7 +231,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getPostgresqlVersion(): int|null
     {
-        return $this->getAttribute('postgresqlVersion');
+        return $this->getAttribute('postgresql_version');
     }
 
     public function setPostgresqlVersion(?int $postgresqlVersion = null): self
@@ -242,7 +242,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMariadbClusterName(): string|null
     {
-        return $this->getAttribute('mariadbClusterName');
+        return $this->getAttribute('mariadb_cluster_name');
     }
 
     public function setMariadbClusterName(?string $mariadbClusterName = null): self
@@ -251,15 +251,15 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getCustomPhpModulesNames(): array|null
+    public function getCustomPhpModulesNames(): array
     {
-        return $this->getAttribute('customPhpModulesNames');
+        return $this->getAttribute('custom_php_modules_names');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setCustomPhpModulesNames(?array $customPhpModulesNames): self
+    public function setCustomPhpModulesNames(array $customPhpModulesNames): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -270,7 +270,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getPhpSettings(): PHPSettings
     {
-        return $this->getAttribute('phpSettings');
+        return $this->getAttribute('php_settings');
     }
 
     public function setPhpSettings(?PHPSettings $phpSettings = null): self
@@ -281,7 +281,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getPhpIoncubeEnabled(): bool
     {
-        return $this->getAttribute('phpIoncubeEnabled');
+        return $this->getAttribute('php_ioncube_enabled');
     }
 
     public function setPhpIoncubeEnabled(?bool $phpIoncubeEnabled = null): self
@@ -292,7 +292,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getKernelcareLicenseKey(): string|null
     {
-        return $this->getAttribute('kernelcareLicenseKey');
+        return $this->getAttribute('kernelcare_license_key');
     }
 
     public function setKernelcareLicenseKey(?string $kernelcareLicenseKey = null): self
@@ -303,7 +303,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getRedisPassword(): string|null
     {
-        return $this->getAttribute('redisPassword');
+        return $this->getAttribute('redis_password');
     }
 
     public function setRedisPassword(?string $redisPassword = null): self
@@ -314,7 +314,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getRedisMemoryLimit(): int|null
     {
-        return $this->getAttribute('redisMemoryLimit');
+        return $this->getAttribute('redis_memory_limit');
     }
 
     public function setRedisMemoryLimit(?int $redisMemoryLimit = null): self
@@ -325,7 +325,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getPhpSessionsSpreadEnabled(): bool
     {
-        return $this->getAttribute('phpSessionsSpreadEnabled');
+        return $this->getAttribute('php_sessions_spread_enabled');
     }
 
     public function setPhpSessionsSpreadEnabled(?bool $phpSessionsSpreadEnabled = null): self
@@ -334,15 +334,15 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getNodejsVersions(): array|null
+    public function getNodejsVersions(): array
     {
-        return $this->getAttribute('nodejsVersions');
+        return $this->getAttribute('nodejs_versions');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setNodejsVersions(?array $nodejsVersions): self
+    public function setNodejsVersions(array $nodejsVersions): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -371,7 +371,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getWordpressToolkitEnabled(): bool
     {
-        return $this->getAttribute('wordpressToolkitEnabled');
+        return $this->getAttribute('wordpress_toolkit_enabled');
     }
 
     public function setWordpressToolkitEnabled(?bool $wordpressToolkitEnabled = null): self
@@ -382,7 +382,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getAutomaticBorgRepositoriesPruneEnabled(): bool
     {
-        return $this->getAttribute('automaticBorgRepositoriesPruneEnabled');
+        return $this->getAttribute('automatic_borg_repositories_prune_enabled');
     }
 
     public function setAutomaticBorgRepositoriesPruneEnabled(
@@ -394,7 +394,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getSyncToolkitEnabled(): bool
     {
-        return $this->getAttribute('syncToolkitEnabled');
+        return $this->getAttribute('sync_toolkit_enabled');
     }
 
     public function setSyncToolkitEnabled(?bool $syncToolkitEnabled = null): self
@@ -405,7 +405,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getBubblewrapToolkitEnabled(): bool
     {
-        return $this->getAttribute('bubblewrapToolkitEnabled');
+        return $this->getAttribute('bubblewrap_toolkit_enabled');
     }
 
     public function setBubblewrapToolkitEnabled(?bool $bubblewrapToolkitEnabled = null): self
@@ -416,7 +416,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getAutomaticUpgradesEnabled(): bool
     {
-        return $this->getAttribute('automaticUpgradesEnabled');
+        return $this->getAttribute('automatic_upgrades_enabled');
     }
 
     public function setAutomaticUpgradesEnabled(?bool $automaticUpgradesEnabled = null): self
@@ -427,7 +427,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getFirewallRulesExternalProvidersEnabled(): bool
     {
-        return $this->getAttribute('firewallRulesExternalProvidersEnabled');
+        return $this->getAttribute('firewall_rules_external_providers_enabled');
     }
 
     public function setFirewallRulesExternalProvidersEnabled(
@@ -439,7 +439,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getDatabaseToolkitEnabled(): bool
     {
-        return $this->getAttribute('databaseToolkitEnabled');
+        return $this->getAttribute('database_toolkit_enabled');
     }
 
     public function setDatabaseToolkitEnabled(?bool $databaseToolkitEnabled = null): self
@@ -450,7 +450,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMariadbBackupInterval(): int|null
     {
-        return $this->getAttribute('mariadbBackupInterval');
+        return $this->getAttribute('mariadb_backup_interval');
     }
 
     public function setMariadbBackupInterval(?int $mariadbBackupInterval = null): self
@@ -461,7 +461,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMariadbBackupLocalRetention(): int|null
     {
-        return $this->getAttribute('mariadbBackupLocalRetention');
+        return $this->getAttribute('mariadb_backup_local_retention');
     }
 
     public function setMariadbBackupLocalRetention(?int $mariadbBackupLocalRetention = null): self
@@ -472,7 +472,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getPostgresqlBackupLocalRetention(): int|null
     {
-        return $this->getAttribute('postgresqlBackupLocalRetention');
+        return $this->getAttribute('postgresql_backup_local_retention');
     }
 
     public function setPostgresqlBackupLocalRetention(?int $postgresqlBackupLocalRetention = null): self
@@ -483,7 +483,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMeilisearchBackupLocalRetention(): int|null
     {
-        return $this->getAttribute('meilisearchBackupLocalRetention');
+        return $this->getAttribute('meilisearch_backup_local_retention');
     }
 
     public function setMeilisearchBackupLocalRetention(?int $meilisearchBackupLocalRetention = null): self
@@ -494,7 +494,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getNewRelicMariadbPassword(): string|null
     {
-        return $this->getAttribute('newRelicMariadbPassword');
+        return $this->getAttribute('new_relic_mariadb_password');
     }
 
     public function setNewRelicMariadbPassword(?string $newRelicMariadbPassword = null): self
@@ -505,7 +505,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getNewRelicApmLicenseKey(): string|null
     {
-        return $this->getAttribute('newRelicApmLicenseKey');
+        return $this->getAttribute('new_relic_apm_license_key');
     }
 
     public function setNewRelicApmLicenseKey(?string $newRelicApmLicenseKey = null): self
@@ -516,7 +516,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getNewRelicInfrastructureLicenseKey(): string|null
     {
-        return $this->getAttribute('newRelicInfrastructureLicenseKey');
+        return $this->getAttribute('new_relic_infrastructure_license_key');
     }
 
     public function setNewRelicInfrastructureLicenseKey(?string $newRelicInfrastructureLicenseKey = null): self
@@ -527,7 +527,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMeilisearchMasterKey(): string|null
     {
-        return $this->getAttribute('meilisearchMasterKey');
+        return $this->getAttribute('meilisearch_master_key');
     }
 
     public function setMeilisearchMasterKey(?string $meilisearchMasterKey = null): self
@@ -538,7 +538,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMeilisearchEnvironment(): MeilisearchEnvironmentEnum|null
     {
-        return $this->getAttribute('meilisearchEnvironment');
+        return $this->getAttribute('meilisearch_environment');
     }
 
     public function setMeilisearchEnvironment(?MeilisearchEnvironmentEnum $meilisearchEnvironment = null): self
@@ -549,7 +549,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMeilisearchBackupInterval(): int|null
     {
-        return $this->getAttribute('meilisearchBackupInterval');
+        return $this->getAttribute('meilisearch_backup_interval');
     }
 
     public function setMeilisearchBackupInterval(?int $meilisearchBackupInterval = null): self
@@ -560,7 +560,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getPostgresqlBackupInterval(): int|null
     {
-        return $this->getAttribute('postgresqlBackupInterval');
+        return $this->getAttribute('postgresql_backup_interval');
     }
 
     public function setPostgresqlBackupInterval(?int $postgresqlBackupInterval = null): self
@@ -571,7 +571,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getHttpRetryProperties(): HTTPRetryProperties|null
     {
-        return $this->getAttribute('httpRetryProperties');
+        return $this->getAttribute('http_retry_properties');
     }
 
     public function setHttpRetryProperties(?HTTPRetryProperties $httpRetryProperties = null): self
@@ -582,7 +582,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getGrafanaDomain(): string|null
     {
-        return $this->getAttribute('grafanaDomain');
+        return $this->getAttribute('grafana_domain');
     }
 
     public function setGrafanaDomain(?string $grafanaDomain = null): self
@@ -593,7 +593,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getSinglestoreStudioDomain(): string|null
     {
-        return $this->getAttribute('singlestoreStudioDomain');
+        return $this->getAttribute('singlestore_studio_domain');
     }
 
     public function setSinglestoreStudioDomain(?string $singlestoreStudioDomain = null): self
@@ -604,7 +604,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getSinglestoreApiDomain(): string|null
     {
-        return $this->getAttribute('singlestoreApiDomain');
+        return $this->getAttribute('singlestore_api_domain');
     }
 
     public function setSinglestoreApiDomain(?string $singlestoreApiDomain = null): self
@@ -615,7 +615,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getSinglestoreLicenseKey(): string|null
     {
-        return $this->getAttribute('singlestoreLicenseKey');
+        return $this->getAttribute('singlestore_license_key');
     }
 
     public function setSinglestoreLicenseKey(?string $singlestoreLicenseKey = null): self
@@ -626,7 +626,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getSinglestoreRootPassword(): string|null
     {
-        return $this->getAttribute('singlestoreRootPassword');
+        return $this->getAttribute('singlestore_root_password');
     }
 
     public function setSinglestoreRootPassword(?string $singlestoreRootPassword = null): self
@@ -637,7 +637,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getElasticsearchDefaultUsersPassword(): string|null
     {
-        return $this->getAttribute('elasticsearchDefaultUsersPassword');
+        return $this->getAttribute('elasticsearch_default_users_password');
     }
 
     public function setElasticsearchDefaultUsersPassword(?string $elasticsearchDefaultUsersPassword = null): self
@@ -648,7 +648,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getRabbitmqErlangCookie(): string|null
     {
-        return $this->getAttribute('rabbitmqErlangCookie');
+        return $this->getAttribute('rabbitmq_erlang_cookie');
     }
 
     public function setRabbitmqErlangCookie(?string $rabbitmqErlangCookie = null): self
@@ -659,7 +659,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getRabbitmqAdminPassword(): string|null
     {
-        return $this->getAttribute('rabbitmqAdminPassword');
+        return $this->getAttribute('rabbitmq_admin_password');
     }
 
     public function setRabbitmqAdminPassword(?string $rabbitmqAdminPassword = null): self
@@ -670,7 +670,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMetabaseDomain(): string|null
     {
-        return $this->getAttribute('metabaseDomain');
+        return $this->getAttribute('metabase_domain');
     }
 
     public function setMetabaseDomain(?string $metabaseDomain = null): self
@@ -681,7 +681,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getMetabaseDatabasePassword(): string|null
     {
-        return $this->getAttribute('metabaseDatabasePassword');
+        return $this->getAttribute('metabase_database_password');
     }
 
     public function setMetabaseDatabasePassword(?string $metabaseDatabasePassword = null): self
@@ -692,7 +692,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getKibanaDomain(): string|null
     {
-        return $this->getAttribute('kibanaDomain');
+        return $this->getAttribute('kibana_domain');
     }
 
     public function setKibanaDomain(?string $kibanaDomain = null): self
@@ -703,7 +703,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getRabbitmqManagementDomain(): string|null
     {
-        return $this->getAttribute('rabbitmqManagementDomain');
+        return $this->getAttribute('rabbitmq_management_domain');
     }
 
     public function setRabbitmqManagementDomain(?string $rabbitmqManagementDomain = null): self

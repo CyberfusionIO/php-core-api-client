@@ -58,7 +58,7 @@ class CustomConfigSnippetUpdateDeprecatedRequest extends CoreApiModel implements
 
     public function getServerSoftwareName(): VirtualHostServerSoftwareNameEnum
     {
-        return $this->getAttribute('serverSoftwareName');
+        return $this->getAttribute('server_software_name');
     }
 
     public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
@@ -87,7 +87,7 @@ class CustomConfigSnippetUpdateDeprecatedRequest extends CoreApiModel implements
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -98,7 +98,7 @@ class CustomConfigSnippetUpdateDeprecatedRequest extends CoreApiModel implements
 
     public function getIsDefault(): bool
     {
-        return $this->getAttribute('isDefault');
+        return $this->getAttribute('is_default');
     }
 
     public function setIsDefault(?bool $isDefault = null): self

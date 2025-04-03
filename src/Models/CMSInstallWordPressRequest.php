@@ -38,7 +38,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseName(): string
     {
-        return $this->getAttribute('databaseName');
+        return $this->getAttribute('database_name');
     }
 
     /**
@@ -56,7 +56,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseUserName(): string
     {
-        return $this->getAttribute('databaseUserName');
+        return $this->getAttribute('database_user_name');
     }
 
     /**
@@ -74,7 +74,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseUserPassword(): string
     {
-        return $this->getAttribute('databaseUserPassword');
+        return $this->getAttribute('database_user_password');
     }
 
     /**
@@ -92,7 +92,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getDatabaseHost(): string
     {
-        return $this->getAttribute('databaseHost');
+        return $this->getAttribute('database_host');
     }
 
     public function setDatabaseHost(?string $databaseHost = null): self
@@ -103,7 +103,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getAdminUsername(): string
     {
-        return $this->getAttribute('adminUsername');
+        return $this->getAttribute('admin_username');
     }
 
     /**
@@ -121,7 +121,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getAdminPassword(): string
     {
-        return $this->getAttribute('adminPassword');
+        return $this->getAttribute('admin_password');
     }
 
     /**
@@ -139,7 +139,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getSiteTitle(): string
     {
-        return $this->getAttribute('siteTitle');
+        return $this->getAttribute('site_title');
     }
 
     /**
@@ -157,7 +157,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getSiteUrl(): string
     {
-        return $this->getAttribute('siteUrl');
+        return $this->getAttribute('site_url');
     }
 
     /**
@@ -210,7 +210,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getAdminEmailAddress(): string
     {
-        return $this->getAttribute('adminEmailAddress');
+        return $this->getAttribute('admin_email_address');
     }
 
     public function setAdminEmailAddress(?string $adminEmailAddress = null): self

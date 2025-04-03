@@ -20,7 +20,7 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getSoftwareName(): CMSSoftwareNameEnum
     {
-        return $this->getAttribute('softwareName');
+        return $this->getAttribute('software_name');
     }
 
     public function setSoftwareName(?CMSSoftwareNameEnum $softwareName = null): self
@@ -31,7 +31,7 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getIsManuallyCreated(): bool
     {
-        return $this->getAttribute('isManuallyCreated');
+        return $this->getAttribute('is_manually_created');
     }
 
     public function setIsManuallyCreated(?bool $isManuallyCreated = null): self
@@ -42,7 +42,7 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function getVirtualHostId(): int
     {
-        return $this->getAttribute('virtualHostId');
+        return $this->getAttribute('virtual_host_id');
     }
 
     public function setVirtualHostId(?int $virtualHostId = null): self

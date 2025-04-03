@@ -12,10 +12,10 @@ use Respect\Validation\Validator;
 class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
-        ?array $identicalTablesNames = null,
-        ?array $notIdenticalTablesNames = null,
-        ?array $onlyLeftTablesNames = null,
-        ?array $onlyRightTablesNames = null,
+        array $identicalTablesNames,
+        array $notIdenticalTablesNames,
+        array $onlyLeftTablesNames,
+        array $onlyRightTablesNames,
     ) {
         $this->setIdenticalTablesNames($identicalTablesNames);
         $this->setNotIdenticalTablesNames($notIdenticalTablesNames);
@@ -23,15 +23,15 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         $this->setOnlyRightTablesNames($onlyRightTablesNames);
     }
 
-    public function getIdenticalTablesNames(): array|null
+    public function getIdenticalTablesNames(): array
     {
-        return $this->getAttribute('identicalTablesNames');
+        return $this->getAttribute('identical_tables_names');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setIdenticalTablesNames(?array $identicalTablesNames = []): self
+    public function setIdenticalTablesNames(array $identicalTablesNames = []): self
     {
         Validator::create()
             ->unique()
@@ -40,15 +40,15 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getNotIdenticalTablesNames(): array|null
+    public function getNotIdenticalTablesNames(): array
     {
-        return $this->getAttribute('notIdenticalTablesNames');
+        return $this->getAttribute('not_identical_tables_names');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setNotIdenticalTablesNames(?array $notIdenticalTablesNames = []): self
+    public function setNotIdenticalTablesNames(array $notIdenticalTablesNames = []): self
     {
         Validator::create()
             ->unique()
@@ -57,15 +57,15 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getOnlyLeftTablesNames(): array|null
+    public function getOnlyLeftTablesNames(): array
     {
-        return $this->getAttribute('onlyLeftTablesNames');
+        return $this->getAttribute('only_left_tables_names');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setOnlyLeftTablesNames(?array $onlyLeftTablesNames = []): self
+    public function setOnlyLeftTablesNames(array $onlyLeftTablesNames = []): self
     {
         Validator::create()
             ->unique()
@@ -74,15 +74,15 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getOnlyRightTablesNames(): array|null
+    public function getOnlyRightTablesNames(): array
     {
-        return $this->getAttribute('onlyRightTablesNames');
+        return $this->getAttribute('only_right_tables_names');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setOnlyRightTablesNames(?array $onlyRightTablesNames = []): self
+    public function setOnlyRightTablesNames(array $onlyRightTablesNames = []): self
     {
         Validator::create()
             ->unique()

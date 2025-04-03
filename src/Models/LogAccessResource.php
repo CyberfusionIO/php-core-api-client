@@ -27,7 +27,7 @@ class LogAccessResource extends CoreApiModel implements CoreApiModelContract
 
     public function getRemoteAddress(): string
     {
-        return $this->getAttribute('remoteAddress');
+        return $this->getAttribute('remote_address');
     }
 
     public function setRemoteAddress(?string $remoteAddress = null): self
@@ -38,7 +38,7 @@ class LogAccessResource extends CoreApiModel implements CoreApiModelContract
 
     public function getRawMessage(): string
     {
-        return $this->getAttribute('rawMessage');
+        return $this->getAttribute('raw_message');
     }
 
     /**
@@ -88,7 +88,7 @@ class LogAccessResource extends CoreApiModel implements CoreApiModelContract
 
     public function getStatusCode(): int
     {
-        return $this->getAttribute('statusCode');
+        return $this->getAttribute('status_code');
     }
 
     public function setStatusCode(?int $statusCode = null): self
@@ -99,7 +99,7 @@ class LogAccessResource extends CoreApiModel implements CoreApiModelContract
 
     public function getBytesSent(): int
     {
-        return $this->getAttribute('bytesSent');
+        return $this->getAttribute('bytes_sent');
     }
 
     public function setBytesSent(?int $bytesSent = null): self

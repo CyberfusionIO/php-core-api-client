@@ -49,7 +49,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -60,7 +60,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -82,7 +82,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -91,15 +91,15 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getServerAliases(): array|null
+    public function getServerAliases(): array
     {
-        return $this->getAttribute('serverAliases');
+        return $this->getAttribute('server_aliases');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(?array $serverAliases): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -110,7 +110,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getDestinationUrl(): string
     {
-        return $this->getAttribute('destinationUrl');
+        return $this->getAttribute('destination_url');
     }
 
     /**
@@ -127,7 +127,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getStatusCode(): StatusCodeEnum
     {
-        return $this->getAttribute('statusCode');
+        return $this->getAttribute('status_code');
     }
 
     public function setStatusCode(?StatusCodeEnum $statusCode = null): self
@@ -138,7 +138,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getKeepQueryParameters(): bool
     {
-        return $this->getAttribute('keepQueryParameters');
+        return $this->getAttribute('keep_query_parameters');
     }
 
     public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
@@ -149,7 +149,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 
     public function getKeepPath(): bool
     {
-        return $this->getAttribute('keepPath');
+        return $this->getAttribute('keep_path');
     }
 
     public function setKeepPath(?bool $keepPath = null): self

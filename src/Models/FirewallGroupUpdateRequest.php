@@ -17,7 +17,7 @@ class FirewallGroupUpdateRequest extends CoreApiModel implements CoreApiModelCon
 
     public function getIpNetworks(): array
     {
-        return $this->getAttribute('ipNetworks');
+        return $this->getAttribute('ip_networks');
     }
 
     /**

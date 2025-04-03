@@ -20,7 +20,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function getLocalPart(): string
     {
-        return $this->getAttribute('localPart');
+        return $this->getAttribute('local_part');
     }
 
     /**
@@ -38,7 +38,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function getMailDomainId(): int
     {
-        return $this->getAttribute('mailDomainId');
+        return $this->getAttribute('mail_domain_id');
     }
 
     public function setMailDomainId(?int $mailDomainId = null): self

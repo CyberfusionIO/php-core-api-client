@@ -50,7 +50,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -61,7 +61,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -101,7 +101,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getServerSoftwareName(): DatabaseServerSoftwareNameEnum
     {
-        return $this->getAttribute('serverSoftwareName');
+        return $this->getAttribute('server_software_name');
     }
 
     public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
@@ -123,7 +123,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -134,7 +134,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getPhpmyadminFirewallGroupsIds(): array|null
     {
-        return $this->getAttribute('phpmyadminFirewallGroupsIds');
+        return $this->getAttribute('phpmyadmin_firewall_groups_ids');
     }
 
     public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds = []): self

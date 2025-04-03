@@ -39,7 +39,7 @@ class FTPUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -68,7 +68,7 @@ class FTPUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -79,7 +79,7 @@ class FTPUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
 
     public function getDirectoryPath(): string
     {
-        return $this->getAttribute('directoryPath');
+        return $this->getAttribute('directory_path');
     }
 
     public function setDirectoryPath(?string $directoryPath = null): self

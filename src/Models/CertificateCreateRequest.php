@@ -38,7 +38,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function getCaChain(): string
     {
-        return $this->getAttribute('caChain');
+        return $this->getAttribute('ca_chain');
     }
 
     /**
@@ -56,7 +56,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function getPrivateKey(): string
     {
-        return $this->getAttribute('privateKey');
+        return $this->getAttribute('private_key');
     }
 
     /**
@@ -74,7 +74,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

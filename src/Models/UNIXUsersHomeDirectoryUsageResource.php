@@ -19,7 +19,7 @@ class UNIXUsersHomeDirectoryUsageResource extends CoreApiModel implements CoreAp
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self

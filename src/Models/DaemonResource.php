@@ -46,7 +46,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -57,7 +57,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -68,7 +68,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -97,7 +97,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -126,7 +126,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getNodesIds(): array
     {
-        return $this->getAttribute('nodesIds');
+        return $this->getAttribute('nodes_ids');
     }
 
     /**
@@ -143,7 +143,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getMemoryLimit(): int|null
     {
-        return $this->getAttribute('memoryLimit');
+        return $this->getAttribute('memory_limit');
     }
 
     public function setMemoryLimit(?int $memoryLimit = null): self
@@ -154,7 +154,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
 
     public function getCpuLimit(): int|null
     {
-        return $this->getAttribute('cpuLimit');
+        return $this->getAttribute('cpu_limit');
     }
 
     public function setCpuLimit(?int $cpuLimit = null): self

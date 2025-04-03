@@ -78,7 +78,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getRemoteHost(): string
     {
-        return $this->getAttribute('remoteHost');
+        return $this->getAttribute('remote_host');
     }
 
     public function setRemoteHost(?string $remoteHost = null): self
@@ -89,7 +89,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getRemotePath(): string
     {
-        return $this->getAttribute('remotePath');
+        return $this->getAttribute('remote_path');
     }
 
     public function setRemotePath(?string $remotePath = null): self
@@ -100,7 +100,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getRemoteUsername(): string
     {
-        return $this->getAttribute('remoteUsername');
+        return $this->getAttribute('remote_username');
     }
 
     /**
@@ -118,7 +118,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getUnixUserId(): int|null
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self
@@ -129,7 +129,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -140,7 +140,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepHourly(): int|null
     {
-        return $this->getAttribute('keepHourly');
+        return $this->getAttribute('keep_hourly');
     }
 
     public function setKeepHourly(?int $keepHourly = null): self
@@ -151,7 +151,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepDaily(): int|null
     {
-        return $this->getAttribute('keepDaily');
+        return $this->getAttribute('keep_daily');
     }
 
     public function setKeepDaily(?int $keepDaily = null): self
@@ -162,7 +162,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepWeekly(): int|null
     {
-        return $this->getAttribute('keepWeekly');
+        return $this->getAttribute('keep_weekly');
     }
 
     public function setKeepWeekly(?int $keepWeekly = null): self
@@ -173,7 +173,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepMonthly(): int|null
     {
-        return $this->getAttribute('keepMonthly');
+        return $this->getAttribute('keep_monthly');
     }
 
     public function setKeepMonthly(?int $keepMonthly = null): self
@@ -184,7 +184,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getKeepYearly(): int|null
     {
-        return $this->getAttribute('keepYearly');
+        return $this->getAttribute('keep_yearly');
     }
 
     public function setKeepYearly(?int $keepYearly = null): self
@@ -195,7 +195,7 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function getIdentityFilePath(): string|null
     {
-        return $this->getAttribute('identityFilePath');
+        return $this->getAttribute('identity_file_path');
     }
 
     public function setIdentityFilePath(?string $identityFilePath = null): self

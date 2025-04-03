@@ -42,7 +42,7 @@ class MailHostnameUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -53,7 +53,7 @@ class MailHostnameUpdateDeprecatedRequest extends CoreApiModel implements CoreAp
 
     public function getCertificateId(): int|null
     {
-        return $this->getAttribute('certificateId');
+        return $this->getAttribute('certificate_id');
     }
 
     public function setCertificateId(?int $certificateId = null): self

@@ -56,7 +56,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -65,15 +65,15 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         return $this;
     }
 
-    public function getServerAliases(): array|null
+    public function getServerAliases(): array
     {
-        return $this->getAttribute('serverAliases');
+        return $this->getAttribute('server_aliases');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(?array $serverAliases): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::optional(Validator::create()
             ->unique())
@@ -84,7 +84,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getDestinationUrl(): string
     {
-        return $this->getAttribute('destinationUrl');
+        return $this->getAttribute('destination_url');
     }
 
     /**
@@ -101,7 +101,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getStatusCode(): StatusCodeEnum
     {
-        return $this->getAttribute('statusCode');
+        return $this->getAttribute('status_code');
     }
 
     public function setStatusCode(?StatusCodeEnum $statusCode = null): self
@@ -112,7 +112,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getKeepQueryParameters(): bool
     {
-        return $this->getAttribute('keepQueryParameters');
+        return $this->getAttribute('keep_query_parameters');
     }
 
     public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
@@ -123,7 +123,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
 
     public function getKeepPath(): bool
     {
-        return $this->getAttribute('keepPath');
+        return $this->getAttribute('keep_path');
     }
 
     public function setKeepPath(?bool $keepPath = null): self

@@ -17,7 +17,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
 
     public function getDataType(): string
     {
-        return $this->getAttribute('dataType');
+        return $this->getAttribute('data_type');
     }
 
     public function setDataType(string $dataType): self
@@ -28,7 +28,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
 
     public function getRabbitmqVirtualHostName(): string
     {
-        return $this->getAttribute('rabbitmqVirtualHostName');
+        return $this->getAttribute('rabbitmq_virtual_host_name');
     }
 
     /**

@@ -55,7 +55,7 @@ class TemporaryFTPUserResource extends CoreApiModel implements CoreApiModelContr
 
     public function getFileManagerUrl(): string
     {
-        return $this->getAttribute('fileManagerUrl');
+        return $this->getAttribute('file_manager_url');
     }
 
     /**

@@ -17,7 +17,7 @@ class TombstoneDataVirtualHost extends CoreApiModel implements CoreApiModelContr
 
     public function getDataType(): string
     {
-        return $this->getAttribute('dataType');
+        return $this->getAttribute('data_type');
     }
 
     public function setDataType(string $dataType): self
@@ -28,7 +28,7 @@ class TombstoneDataVirtualHost extends CoreApiModel implements CoreApiModelContr
 
     public function getDomainRoot(): string
     {
-        return $this->getAttribute('domainRoot');
+        return $this->getAttribute('domain_root');
     }
 
     public function setDomainRoot(?string $domainRoot = null): self
@@ -39,7 +39,7 @@ class TombstoneDataVirtualHost extends CoreApiModel implements CoreApiModelContr
 
     public function getDeleteOnCluster(): bool
     {
-        return $this->getAttribute('deleteOnCluster');
+        return $this->getAttribute('delete_on_cluster');
     }
 
     public function setDeleteOnCluster(bool $deleteOnCluster): self

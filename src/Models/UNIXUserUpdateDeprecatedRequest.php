@@ -76,7 +76,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getUnixId(): int
     {
-        return $this->getAttribute('unixId');
+        return $this->getAttribute('unix_id');
     }
 
     public function setUnixId(?int $unixId = null): self
@@ -87,7 +87,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getHomeDirectory(): string
     {
-        return $this->getAttribute('homeDirectory');
+        return $this->getAttribute('home_directory');
     }
 
     public function setHomeDirectory(?string $homeDirectory = null): self
@@ -98,7 +98,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getSshDirectory(): string
     {
-        return $this->getAttribute('sshDirectory');
+        return $this->getAttribute('ssh_directory');
     }
 
     public function setSshDirectory(?string $sshDirectory = null): self
@@ -109,7 +109,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getVirtualHostsDirectory(): string|null
     {
-        return $this->getAttribute('virtualHostsDirectory');
+        return $this->getAttribute('virtual_hosts_directory');
     }
 
     public function setVirtualHostsDirectory(?string $virtualHostsDirectory = null): self
@@ -120,7 +120,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getMailDomainsDirectory(): string|null
     {
-        return $this->getAttribute('mailDomainsDirectory');
+        return $this->getAttribute('mail_domains_directory');
     }
 
     public function setMailDomainsDirectory(?string $mailDomainsDirectory = null): self
@@ -131,7 +131,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getBorgRepositoriesDirectory(): string|null
     {
-        return $this->getAttribute('borgRepositoriesDirectory');
+        return $this->getAttribute('borg_repositories_directory');
     }
 
     public function setBorgRepositoriesDirectory(?string $borgRepositoriesDirectory = null): self
@@ -142,7 +142,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -153,7 +153,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getShellPath(): ShellPathEnum
     {
-        return $this->getAttribute('shellPath');
+        return $this->getAttribute('shell_path');
     }
 
     public function setShellPath(?ShellPathEnum $shellPath = null): self
@@ -164,7 +164,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getRecordUsageFiles(): bool
     {
-        return $this->getAttribute('recordUsageFiles');
+        return $this->getAttribute('record_usage_files');
     }
 
     public function setRecordUsageFiles(?bool $recordUsageFiles = null): self
@@ -175,7 +175,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getDefaultPhpVersion(): string|null
     {
-        return $this->getAttribute('defaultPhpVersion');
+        return $this->getAttribute('default_php_version');
     }
 
     public function setDefaultPhpVersion(?string $defaultPhpVersion = null): self
@@ -186,7 +186,7 @@ class UNIXUserUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMod
 
     public function getDefaultNodejsVersion(): string|null
     {
-        return $this->getAttribute('defaultNodejsVersion');
+        return $this->getAttribute('default_nodejs_version');
     }
 
     public function setDefaultNodejsVersion(?string $defaultNodejsVersion = null): self

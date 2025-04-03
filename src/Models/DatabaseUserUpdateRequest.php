@@ -16,7 +16,7 @@ class DatabaseUserUpdateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getPhpmyadminFirewallGroupsIds(): array|null
     {
-        return $this->getAttribute('phpmyadminFirewallGroupsIds');
+        return $this->getAttribute('phpmyadmin_firewall_groups_ids');
     }
 
     public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds): self

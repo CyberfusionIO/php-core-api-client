@@ -17,7 +17,7 @@ class HtpasswdFileCreateRequest extends CoreApiModel implements CoreApiModelCont
 
     public function getUnixUserId(): int
     {
-        return $this->getAttribute('unixUserId');
+        return $this->getAttribute('unix_user_id');
     }
 
     public function setUnixUserId(?int $unixUserId = null): self

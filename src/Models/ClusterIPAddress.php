@@ -19,7 +19,7 @@ class ClusterIPAddress extends CoreApiModel implements CoreApiModelContract
 
     public function getIpAddress(): string
     {
-        return $this->getAttribute('ipAddress');
+        return $this->getAttribute('ip_address');
     }
 
     public function setIpAddress(?string $ipAddress = null): self
@@ -30,7 +30,7 @@ class ClusterIPAddress extends CoreApiModel implements CoreApiModelContract
 
     public function getDnsName(): string|null
     {
-        return $this->getAttribute('dnsName');
+        return $this->getAttribute('dns_name');
     }
 
     public function setDnsName(?string $dnsName = null): self
@@ -41,7 +41,7 @@ class ClusterIPAddress extends CoreApiModel implements CoreApiModelContract
 
     public function getL3DdosProtectionEnabled(): bool
     {
-        return $this->getAttribute('l3DdosProtectionEnabled');
+        return $this->getAttribute('l3_ddos_protection_enabled');
     }
 
     public function setL3DdosProtectionEnabled(?bool $l3DdosProtectionEnabled = null): self

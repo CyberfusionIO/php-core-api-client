@@ -51,7 +51,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getCreatedAt(): string
     {
-        return $this->getAttribute('createdAt');
+        return $this->getAttribute('created_at');
     }
 
     public function setCreatedAt(?string $createdAt = null): self
@@ -62,7 +62,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getUpdatedAt(): string
     {
-        return $this->getAttribute('updatedAt');
+        return $this->getAttribute('updated_at');
     }
 
     public function setUpdatedAt(?string $updatedAt = null): self
@@ -102,7 +102,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getClusterId(): int
     {
-        return $this->getAttribute('clusterId');
+        return $this->getAttribute('cluster_id');
     }
 
     public function setClusterId(?int $clusterId = null): self
@@ -131,7 +131,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getMemoryLimit(): int
     {
-        return $this->getAttribute('memoryLimit');
+        return $this->getAttribute('memory_limit');
     }
 
     public function setMemoryLimit(?int $memoryLimit = null): self
@@ -142,7 +142,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getMaxDatabases(): int
     {
-        return $this->getAttribute('maxDatabases');
+        return $this->getAttribute('max_databases');
     }
 
     public function setMaxDatabases(?int $maxDatabases = null): self
@@ -153,7 +153,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 
     public function getEvictionPolicy(): RedisEvictionPolicyEnum
     {
-        return $this->getAttribute('evictionPolicy');
+        return $this->getAttribute('eviction_policy');
     }
 
     public function setEvictionPolicy(?RedisEvictionPolicyEnum $evictionPolicy = null): self
