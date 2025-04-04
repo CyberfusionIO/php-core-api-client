@@ -26,7 +26,7 @@ class ManualRequestTestCase extends RequestTestCase
                 'token_type' => 'bearer',
                 'expires_in' => 3600,
             ]),
-            'https://core-api.cyberfusion.nl/v1/manual-request' => MockResponse::make([
+            'https://core-api.cyberfusion.io/v1/manual-request' => MockResponse::make([
                 'success' => true,
             ]),
         ]);
@@ -38,7 +38,7 @@ class ManualRequestTestCase extends RequestTestCase
         $connector->withMockClient($mockClient);
 
         $response = $connector->send(new ManualRequest(
-            url: 'https://core-api.cyberfusion.nl/v1/manual-request',
+            url: 'https://core-api.cyberfusion.io/v1/manual-request',
             method: Method::POST,
             data: [
                 'key' => 'value',
