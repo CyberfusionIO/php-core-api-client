@@ -25,8 +25,9 @@ class CoreApiConnector extends Connector
     public function __construct(
         public readonly string $username,
         public readonly string $password,
-        public readonly string $baseUrl = 'https://core-api.cyberfusion.nl/',
+        public string $baseUrl = 'https://core-api.cyberfusion.io',
     ) {
+        $this->baseUrl = rtrim($this->baseUrl, '/');
     }
 
     public function resolveBaseUrl(): string
