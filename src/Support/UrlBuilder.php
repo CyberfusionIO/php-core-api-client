@@ -22,7 +22,10 @@ class UrlBuilder
     {
         $endpoint = sprintf($this->url, ...array_filter($this->pathParameters));
 
-        $queryParameters = array_filter($this->queryParameters);
+        $queryParameters = array_filter(
+            $this->queryParameters,
+            static fn (mixed $value): bool => $value !== null
+        );
 
         $nextSeparator = '?';
         if (count($queryParameters) !== 0) {
