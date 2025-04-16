@@ -20,20 +20,25 @@ class UrlBuilder
 
     public function getEndpoint(): string
     {
-        $url = sprintf($this->url, ...array_filter($this->pathParameters));
+        $endpoint = sprintf($this->url, ...array_filter($this->pathParameters));
 
         $queryParameters = array_filter($this->queryParameters);
-        if (count($queryParameters) === 0) {
-            return $url;
-        }
 
-        $endpoint = $url . '?' . http_build_query($queryParameters);
+        $nextSeparator = '?';
+        if (count($queryParameters) !== 0) {
+            $endpoint .= $nextSeparator . http_build_query($queryParameters);
+
+            $nextSeparator = '&';
+        }
 
         if ($this->filter !== null) {
-            $endpoint .= '&' . $this->filter->toQuery();
+            $endpoint .= $nextSeparator . $this->filter->toQuery();
+
+            $nextSeparator = '&';
         }
+
         if ($this->sorter !== null) {
-            $endpoint .= '&' . $this->sorter->toQuery();
+            $endpoint .= $nextSeparator . $this->sorter->toQuery();
         }
 
         return $endpoint;
