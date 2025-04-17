@@ -8,7 +8,6 @@ use Cyberfusion\CoreApi\Exceptions\AuthenticationException;
 use Cyberfusion\CoreApi\Models\BodyLoginAccessToken;
 use Cyberfusion\CoreApi\Models\TokenResource;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
-use GuzzleHttp\Psr7\Query;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
