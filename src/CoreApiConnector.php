@@ -8,8 +8,11 @@ use Cyberfusion\CoreApi\Exceptions\AuthenticationException;
 use Cyberfusion\CoreApi\Models\BodyLoginAccessToken;
 use Cyberfusion\CoreApi\Models\TokenResource;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
+use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Connector;
+use Saloon\Http\PendingRequest;
 use Saloon\Traits\Plugins\HasTimeout;
 
 class CoreApiConnector extends Connector
@@ -28,6 +31,11 @@ class CoreApiConnector extends Connector
         public string $baseUrl = 'https://core-api.cyberfusion.io',
     ) {
         $this->baseUrl = rtrim($this->baseUrl, '/');
+    }
+
+    public function handlePsrRequest(RequestInterface $request, PendingRequest $pendingRequest): RequestInterface
+    {
+        return $request->withUri(new Uri($pendingRequest->getUrl()));
     }
 
     public function resolveBaseUrl(): string
