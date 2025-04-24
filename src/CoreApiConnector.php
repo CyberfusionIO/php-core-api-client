@@ -19,6 +19,10 @@ class CoreApiConnector extends Connector
 {
     use HasTimeout;
 
+    private const VERSION = '2.0.0';
+
+    private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
+
     protected int $connectTimeout = 10;
 
     protected int $requestTimeout = 30;
@@ -48,6 +52,7 @@ class CoreApiConnector extends Connector
         return [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
+            'User-Agent' => self::USER_AGENT,
         ];
     }
 
