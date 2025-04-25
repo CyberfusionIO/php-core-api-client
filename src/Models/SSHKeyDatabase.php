@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class SSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -20,6 +17,8 @@ class SSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $name,
         int $unixUserId,
+        UNIXUserDatabase $unixUser,
+        ClusterDatabase $cluster,
         ?string $publicKey = null,
         ?string $privateKey = null,
         ?string $identityFilePath = null,
@@ -30,6 +29,8 @@ class SSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setName($name);
         $this->setUnixUserId($unixUserId);
+        $this->setUnixUser($unixUser);
+        $this->setCluster($cluster);
         $this->setPublicKey($publicKey);
         $this->setPrivateKey($privateKey);
         $this->setIdentityFilePath($identityFilePath);
@@ -141,6 +142,28 @@ class SSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -150,6 +173,8 @@ class SSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             name: Arr::get($data, 'name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             publicKey: Arr::get($data, 'public_key'),
             privateKey: Arr::get($data, 'private_key'),
             identityFilePath: Arr::get($data, 'identity_file_path'),

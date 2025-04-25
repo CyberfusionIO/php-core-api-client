@@ -11,13 +11,20 @@ use Respect\Validation\Validator;
 
 class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $id, string $createdAt, string $updatedAt, string $name, int $clusterId)
-    {
+    public function __construct(
+        int $id,
+        string $createdAt,
+        string $updatedAt,
+        string $name,
+        int $clusterId,
+        array $ipNetworks,
+    ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setName($name);
         $this->setClusterId($clusterId);
+        $this->setIpNetworks($ipNetworks);
     }
 
     public function getId(): int
@@ -90,12 +97,23 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setIpNetworks(array $ipNetworks): self
+    public function setIpNetworks(array $ipNetworks = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($ipNetworks));
         $this->setAttribute('ip_networks', $ipNetworks);
+        return $this;
+    }
+
+    public function getIncludes(): FirewallGroupIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?FirewallGroupIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
         return $this;
     }
 
@@ -107,7 +125,8 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             name: Arr::get($data, 'name'),
             clusterId: Arr::get($data, 'cluster_id'),
+            ipNetworks: Arr::get($data, 'ip_networks'),
         ))
-            ->setIpNetworks(Arr::get($data, 'ip_networks'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? FirewallGroupIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

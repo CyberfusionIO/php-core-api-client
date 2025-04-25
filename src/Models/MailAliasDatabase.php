@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -22,6 +19,8 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
         string $localPart,
         int $mailDomainId,
         array $forwardEmailAddresses,
+        MailDomainDatabase $mailDomain,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -30,6 +29,8 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setForwardEmailAddresses($forwardEmailAddresses);
+        $this->setMailDomain($mailDomain);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -113,12 +114,34 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setForwardEmailAddresses(?array $forwardEmailAddresses = null): self
+    public function setForwardEmailAddresses(array $forwardEmailAddresses = []): self
     {
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
         $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
+        return $this;
+    }
+
+    public function getMailDomain(): MailDomainDatabase
+    {
+        return $this->getAttribute('mail_domain');
+    }
+
+    public function setMailDomain(?MailDomainDatabase $mailDomain = null): self
+    {
+        $this->setAttribute('mail_domain', $mailDomain);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
         return $this;
     }
 
@@ -132,6 +155,8 @@ class MailAliasDatabase extends CoreApiModel implements CoreApiModelContract
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             forwardEmailAddresses: Arr::get($data, 'forward_email_addresses'),
+            mailDomain: MailDomainDatabase::fromArray(Arr::get($data, 'mail_domain')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

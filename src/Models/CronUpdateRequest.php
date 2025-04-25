@@ -14,20 +14,13 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getCommand(): string
+    public function getCommand(): string|null
     {
         return $this->getAttribute('command');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setCommand(string $command): self
+    public function setCommand(?string $command): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 1, max: 65535)
-            ->regex('/^[ -~]+$/'))
-            ->assert($command);
         $this->setAttribute('command', $command);
         return $this;
     }
@@ -43,34 +36,34 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getSchedule(): string
+    public function getSchedule(): string|null
     {
         return $this->getAttribute('schedule');
     }
 
-    public function setSchedule(string $schedule): self
+    public function setSchedule(?string $schedule): self
     {
         $this->setAttribute('schedule', $schedule);
         return $this;
     }
 
-    public function getErrorCount(): int
+    public function getErrorCount(): int|null
     {
         return $this->getAttribute('error_count');
     }
 
-    public function setErrorCount(int $errorCount): self
+    public function setErrorCount(?int $errorCount): self
     {
         $this->setAttribute('error_count', $errorCount);
         return $this;
     }
 
-    public function getRandomDelayMaxSeconds(): int
+    public function getRandomDelayMaxSeconds(): int|null
     {
         return $this->getAttribute('random_delay_max_seconds');
     }
 
-    public function setRandomDelayMaxSeconds(int $randomDelayMaxSeconds): self
+    public function setRandomDelayMaxSeconds(?int $randomDelayMaxSeconds): self
     {
         $this->setAttribute('random_delay_max_seconds', $randomDelayMaxSeconds);
         return $this;
@@ -87,25 +80,47 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getLockingEnabled(): bool
+    public function getLockingEnabled(): bool|null
     {
         return $this->getAttribute('locking_enabled');
     }
 
-    public function setLockingEnabled(bool $lockingEnabled): self
+    public function setLockingEnabled(?bool $lockingEnabled): self
     {
         $this->setAttribute('locking_enabled', $lockingEnabled);
         return $this;
     }
 
-    public function getIsActive(): bool
+    public function getIsActive(): bool|null
     {
         return $this->getAttribute('is_active');
     }
 
-    public function setIsActive(bool $isActive): self
+    public function setIsActive(?bool $isActive): self
     {
         $this->setAttribute('is_active', $isActive);
+        return $this;
+    }
+
+    public function getMemoryLimit(): int|null
+    {
+        return $this->getAttribute('memory_limit');
+    }
+
+    public function setMemoryLimit(?int $memoryLimit): self
+    {
+        $this->setAttribute('memory_limit', $memoryLimit);
+        return $this;
+    }
+
+    public function getCpuLimit(): int|null
+    {
+        return $this->getAttribute('cpu_limit');
+    }
+
+    public function setCpuLimit(?int $cpuLimit): self
+    {
+        $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 
@@ -120,6 +135,8 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
             ->setRandomDelayMaxSeconds(Arr::get($data, 'random_delay_max_seconds'))
             ->setTimeoutSeconds(Arr::get($data, 'timeout_seconds'))
             ->setLockingEnabled(Arr::get($data, 'locking_enabled'))
-            ->setIsActive(Arr::get($data, 'is_active'));
+            ->setIsActive(Arr::get($data, 'is_active'))
+            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
+            ->setCpuLimit(Arr::get($data, 'cpu_limit'));
     }
 }

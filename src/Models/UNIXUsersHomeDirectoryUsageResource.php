@@ -50,12 +50,24 @@ class UNIXUsersHomeDirectoryUsageResource extends CoreApiModel implements CoreAp
         return $this;
     }
 
+    public function getIncludes(): UNIXUsersHomeDirectoryUsageIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?UNIXUsersHomeDirectoryUsageIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
             clusterId: Arr::get($data, 'cluster_id'),
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? UNIXUsersHomeDirectoryUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

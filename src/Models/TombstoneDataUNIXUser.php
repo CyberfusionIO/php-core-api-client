@@ -53,7 +53,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return (new self(
             homeDirectory: Arr::get($data, 'home_directory'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster'));
+            ->setDataType(Arr::get($data, 'data_type', 'unix_user'))
+            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
     }
 }

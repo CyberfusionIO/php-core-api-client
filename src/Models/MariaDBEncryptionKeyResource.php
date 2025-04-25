@@ -99,6 +99,17 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this;
     }
 
+    public function getIncludes(): MariaDBEncryptionKeyIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?MariaDBEncryptionKeyIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -108,6 +119,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
             identifier: Arr::get($data, 'identifier'),
             key: Arr::get($data, 'key'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? MariaDBEncryptionKeyIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

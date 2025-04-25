@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class FPMPoolDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -25,6 +22,8 @@ class FPMPoolDatabase extends CoreApiModel implements CoreApiModelContract
         int $maxRequests,
         int $processIdleTimeout,
         bool $isNamespaced,
+        UNIXUserDatabase $unixUser,
+        ClusterDatabase $cluster,
         ?int $cpuLimit = null,
         ?int $logSlowRequestsThreshold = null,
         ?int $memoryLimit = null,
@@ -40,6 +39,8 @@ class FPMPoolDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setMaxRequests($maxRequests);
         $this->setProcessIdleTimeout($processIdleTimeout);
         $this->setIsNamespaced($isNamespaced);
+        $this->setUnixUser($unixUser);
+        $this->setCluster($cluster);
         $this->setCpuLimit($cpuLimit);
         $this->setLogSlowRequestsThreshold($logSlowRequestsThreshold);
         $this->setMemoryLimit($memoryLimit);
@@ -206,6 +207,28 @@ class FPMPoolDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -220,6 +243,8 @@ class FPMPoolDatabase extends CoreApiModel implements CoreApiModelContract
             maxRequests: Arr::get($data, 'max_requests'),
             processIdleTimeout: Arr::get($data, 'process_idle_timeout'),
             isNamespaced: Arr::get($data, 'is_namespaced'),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             cpuLimit: Arr::get($data, 'cpu_limit'),
             logSlowRequestsThreshold: Arr::get($data, 'log_slow_requests_threshold'),
             memoryLimit: Arr::get($data, 'memory_limit'),

@@ -16,6 +16,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         string $domain,
         string $publicRoot,
         int $unixUserId,
+        array $serverAliases,
         string $documentRoot,
         ?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null,
         ?array $allowOverrideDirectives = null,
@@ -27,6 +28,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         $this->setDomain($domain);
         $this->setPublicRoot($publicRoot);
         $this->setUnixUserId($unixUserId);
+        $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setAllowOverrideDirectives($allowOverrideDirectives);
@@ -110,10 +112,10 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases): self
+    public function setServerAliases(array $serverAliases = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($serverAliases));
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
@@ -169,6 +171,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
             domain: Arr::get($data, 'domain'),
             publicRoot: Arr::get($data, 'public_root'),
             unixUserId: Arr::get($data, 'unix_user_id'),
+            serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
             serverSoftwareName: Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null,
             allowOverrideDirectives: Arr::get($data, 'allow_override_directives'),
@@ -176,7 +179,6 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
             fpmPoolId: Arr::get($data, 'fpm_pool_id'),
             passengerAppId: Arr::get($data, 'passenger_app_id'),
             customConfig: Arr::get($data, 'custom_config'),
-        ))
-            ->setServerAliases(Arr::get($data, 'server_aliases'));
+        ));
     }
 }

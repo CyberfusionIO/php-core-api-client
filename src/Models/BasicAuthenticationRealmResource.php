@@ -125,6 +125,17 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this;
     }
 
+    public function getIncludes(): BasicAuthenticationRealmIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?BasicAuthenticationRealmIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -136,6 +147,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
             name: Arr::get($data, 'name'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
             directoryPath: Arr::get($data, 'directory_path'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? BasicAuthenticationRealmIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

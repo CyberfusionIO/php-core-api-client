@@ -45,11 +45,23 @@ class SiteResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): SiteIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?SiteIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
             id: Arr::get($data, 'id'),
             name: Arr::get($data, 'name'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? SiteIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

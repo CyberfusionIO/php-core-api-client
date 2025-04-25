@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class DatabaseUserGrantDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -22,6 +19,9 @@ class DatabaseUserGrantDatabase extends CoreApiModel implements CoreApiModelCont
         int $databaseId,
         int $databaseUserId,
         MariaDBPrivilegeEnum $privilegeName,
+        DatabaseDatabase $database,
+        DatabaseUserDatabase $databaseUser,
+        ClusterDatabase $cluster,
         ?string $tableName = null,
     ) {
         $this->setId($id);
@@ -31,6 +31,9 @@ class DatabaseUserGrantDatabase extends CoreApiModel implements CoreApiModelCont
         $this->setDatabaseId($databaseId);
         $this->setDatabaseUserId($databaseUserId);
         $this->setPrivilegeName($privilegeName);
+        $this->setDatabase($database);
+        $this->setDatabaseUser($databaseUser);
+        $this->setCluster($cluster);
         $this->setTableName($tableName);
     }
 
@@ -122,6 +125,39 @@ class DatabaseUserGrantDatabase extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getDatabase(): DatabaseDatabase
+    {
+        return $this->getAttribute('database');
+    }
+
+    public function setDatabase(?DatabaseDatabase $database = null): self
+    {
+        $this->setAttribute('database', $database);
+        return $this;
+    }
+
+    public function getDatabaseUser(): DatabaseUserDatabase
+    {
+        return $this->getAttribute('database_user');
+    }
+
+    public function setDatabaseUser(?DatabaseUserDatabase $databaseUser = null): self
+    {
+        $this->setAttribute('database_user', $databaseUser);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -132,6 +168,9 @@ class DatabaseUserGrantDatabase extends CoreApiModel implements CoreApiModelCont
             databaseId: Arr::get($data, 'database_id'),
             databaseUserId: Arr::get($data, 'database_user_id'),
             privilegeName: MariaDBPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')),
+            database: DatabaseDatabase::fromArray(Arr::get($data, 'database')),
+            databaseUser: DatabaseUserDatabase::fromArray(Arr::get($data, 'database_user')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             tableName: Arr::get($data, 'table_name'),
         ));
     }

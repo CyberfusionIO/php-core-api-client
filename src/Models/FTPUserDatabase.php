@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class FTPUserDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -22,6 +19,8 @@ class FTPUserDatabase extends CoreApiModel implements CoreApiModelContract
         string $username,
         int $unixUserId,
         string $directoryPath,
+        ClusterDatabase $cluster,
+        UNIXUserDatabase $unixUser,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -31,6 +30,8 @@ class FTPUserDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setUsername($username);
         $this->setUnixUserId($unixUserId);
         $this->setDirectoryPath($directoryPath);
+        $this->setCluster($cluster);
+        $this->setUnixUser($unixUser);
     }
 
     public function getId(): int
@@ -135,6 +136,28 @@ class FTPUserDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -146,6 +169,8 @@ class FTPUserDatabase extends CoreApiModel implements CoreApiModelContract
             username: Arr::get($data, 'username'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             directoryPath: Arr::get($data, 'directory_path'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
         ));
     }
 }

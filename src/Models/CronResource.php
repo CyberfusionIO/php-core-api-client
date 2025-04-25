@@ -26,6 +26,8 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         bool $isActive,
         ?string $emailAddress = null,
         ?int $timeoutSeconds = null,
+        ?int $memoryLimit = null,
+        ?int $cpuLimit = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -42,6 +44,8 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         $this->setIsActive($isActive);
         $this->setEmailAddress($emailAddress);
         $this->setTimeoutSeconds($timeoutSeconds);
+        $this->setMemoryLimit($memoryLimit);
+        $this->setCpuLimit($cpuLimit);
     }
 
     public function getId(): int
@@ -223,6 +227,39 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getMemoryLimit(): int|null
+    {
+        return $this->getAttribute('memory_limit');
+    }
+
+    public function setMemoryLimit(?int $memoryLimit = null): self
+    {
+        $this->setAttribute('memory_limit', $memoryLimit);
+        return $this;
+    }
+
+    public function getCpuLimit(): int|null
+    {
+        return $this->getAttribute('cpu_limit');
+    }
+
+    public function setCpuLimit(?int $cpuLimit = null): self
+    {
+        $this->setAttribute('cpu_limit', $cpuLimit);
+        return $this;
+    }
+
+    public function getIncludes(): CronIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CronIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -241,6 +278,9 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
             isActive: Arr::get($data, 'is_active'),
             emailAddress: Arr::get($data, 'email_address'),
             timeoutSeconds: Arr::get($data, 'timeout_seconds'),
-        ));
+            memoryLimit: Arr::get($data, 'memory_limit'),
+            cpuLimit: Arr::get($data, 'cpu_limit'),
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CronIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

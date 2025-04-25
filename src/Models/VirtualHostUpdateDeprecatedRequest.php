@@ -20,6 +20,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         int $clusterId,
         string $domain,
         string $publicRoot,
+        array $serverAliases,
         string $documentRoot,
         ?array $allowOverrideDirectives = null,
         ?array $allowOverrideOptionDirectives = null,
@@ -34,6 +35,7 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         $this->setClusterId($clusterId);
         $this->setDomain($domain);
         $this->setPublicRoot($publicRoot);
+        $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
         $this->setAllowOverrideDirectives($allowOverrideDirectives);
         $this->setAllowOverrideOptionDirectives($allowOverrideOptionDirectives);
@@ -149,10 +151,10 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases): self
+    public function setServerAliases(array $serverAliases = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($serverAliases));
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
@@ -212,13 +214,13 @@ class VirtualHostUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
             clusterId: Arr::get($data, 'cluster_id'),
             domain: Arr::get($data, 'domain'),
             publicRoot: Arr::get($data, 'public_root'),
+            serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
             allowOverrideDirectives: Arr::get($data, 'allow_override_directives'),
             allowOverrideOptionDirectives: Arr::get($data, 'allow_override_option_directives'),
             fpmPoolId: Arr::get($data, 'fpm_pool_id'),
             passengerAppId: Arr::get($data, 'passenger_app_id'),
             customConfig: Arr::get($data, 'custom_config'),
-        ))
-            ->setServerAliases(Arr::get($data, 'server_aliases'));
+        ));
     }
 }

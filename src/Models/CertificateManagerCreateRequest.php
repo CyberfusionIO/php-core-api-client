@@ -13,10 +13,12 @@ use Respect\Validation\Validator;
 class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
+        array $commonNames,
         CertificateProviderNameEnum $providerName,
         int $clusterId,
         ?string $requestCallbackUrl = null,
     ) {
+        $this->setCommonNames($commonNames);
         $this->setProviderName($providerName);
         $this->setClusterId($clusterId);
         $this->setRequestCallbackUrl($requestCallbackUrl);
@@ -30,10 +32,10 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(array $commonNames): self
+    public function setCommonNames(array $commonNames = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($commonNames));
         $this->setAttribute('common_names', $commonNames);
         return $this;
@@ -75,10 +77,10 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
     public static function fromArray(array $data): self
     {
         return (new self(
+            commonNames: Arr::get($data, 'common_names'),
             providerName: CertificateProviderNameEnum::tryFrom(Arr::get($data, 'provider_name')),
             clusterId: Arr::get($data, 'cluster_id'),
             requestCallbackUrl: Arr::get($data, 'request_callback_url'),
-        ))
-            ->setCommonNames(Arr::get($data, 'common_names'));
+        ));
     }
 }

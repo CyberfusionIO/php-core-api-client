@@ -17,6 +17,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
         string $createdAt,
         string $updatedAt,
         string $mainCommonName,
+        array $commonNames,
         CertificateProviderNameEnum $providerName,
         int $clusterId,
         ?int $certificateId = null,
@@ -27,6 +28,7 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setMainCommonName($mainCommonName);
+        $this->setCommonNames($commonNames);
         $this->setProviderName($providerName);
         $this->setClusterId($clusterId);
         $this->setCertificateId($certificateId);
@@ -108,10 +110,10 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(array $commonNames): self
+    public function setCommonNames(array $commonNames = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($commonNames));
         $this->setAttribute('common_names', $commonNames);
         return $this;
@@ -150,6 +152,17 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
         return $this;
     }
 
+    public function getIncludes(): CertificateManagerIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CertificateManagerIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -157,12 +170,13 @@ class CertificateManagerResource extends CoreApiModel implements CoreApiModelCon
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             mainCommonName: Arr::get($data, 'main_common_name'),
+            commonNames: Arr::get($data, 'common_names'),
             providerName: CertificateProviderNameEnum::tryFrom(Arr::get($data, 'provider_name')),
             clusterId: Arr::get($data, 'cluster_id'),
             certificateId: Arr::get($data, 'certificate_id'),
             lastRequestTaskCollectionUuid: Arr::get($data, 'last_request_task_collection_uuid'),
             requestCallbackUrl: Arr::get($data, 'request_callback_url'),
         ))
-            ->setCommonNames(Arr::get($data, 'common_names'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CertificateManagerIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

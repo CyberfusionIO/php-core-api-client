@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class HostsEntryDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -20,6 +17,8 @@ class HostsEntryDatabase extends CoreApiModel implements CoreApiModelContract
         int $nodeId,
         string $hostName,
         int $clusterId,
+        NodeDatabase $node,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -27,6 +26,8 @@ class HostsEntryDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setNodeId($nodeId);
         $this->setHostName($hostName);
         $this->setClusterId($clusterId);
+        $this->setNode($node);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -95,6 +96,28 @@ class HostsEntryDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getNode(): NodeDatabase
+    {
+        return $this->getAttribute('node');
+    }
+
+    public function setNode(?NodeDatabase $node = null): self
+    {
+        $this->setAttribute('node', $node);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -104,6 +127,8 @@ class HostsEntryDatabase extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             hostName: Arr::get($data, 'host_name'),
             clusterId: Arr::get($data, 'cluster_id'),
+            node: NodeDatabase::fromArray(Arr::get($data, 'node')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

@@ -243,6 +243,17 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getIncludes(): BorgRepositoryIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?BorgRepositoryIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -262,6 +273,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
             keepYearly: Arr::get($data, 'keep_yearly'),
             identityFilePath: Arr::get($data, 'identity_file_path'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? BorgRepositoryIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

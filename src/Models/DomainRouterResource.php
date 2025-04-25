@@ -184,6 +184,17 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): DomainRouterIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?DomainRouterIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -200,6 +211,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
             certificateId: Arr::get($data, 'certificate_id'),
             securityTxtPolicyId: Arr::get($data, 'security_txt_policy_id'),
             firewallGroupsIds: Arr::get($data, 'firewall_groups_ids'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? DomainRouterIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

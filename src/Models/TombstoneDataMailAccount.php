@@ -73,7 +73,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster'));
+            ->setDataType(Arr::get($data, 'data_type', 'mail_account'))
+            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
     }
 }

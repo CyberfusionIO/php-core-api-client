@@ -125,6 +125,17 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): MailDomainIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?MailDomainIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -136,6 +147,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             catchAllForwardEmailAddresses: Arr::get($data, 'catch_all_forward_email_addresses'),
             isLocal: Arr::get($data, 'is_local'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? MailDomainIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

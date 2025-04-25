@@ -18,9 +18,13 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
         string $name,
         int $customerId,
         int $siteId,
+        array $groups,
+        array $phpVersions,
+        array $customPhpModulesNames,
         PHPSettings $phpSettings,
         bool $phpIoncubeEnabled,
         bool $phpSessionsSpreadEnabled,
+        array $nodejsVersions,
         string $description,
         bool $wordpressToolkitEnabled,
         bool $automaticBorgRepositoriesPruneEnabled,
@@ -66,9 +70,13 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
         $this->setName($name);
         $this->setCustomerId($customerId);
         $this->setSiteId($siteId);
+        $this->setGroups($groups);
+        $this->setPhpVersions($phpVersions);
+        $this->setCustomPhpModulesNames($customPhpModulesNames);
         $this->setPhpSettings($phpSettings);
         $this->setPhpIoncubeEnabled($phpIoncubeEnabled);
         $this->setPhpSessionsSpreadEnabled($phpSessionsSpreadEnabled);
+        $this->setNodejsVersions($nodejsVersions);
         $this->setDescription($description);
         $this->setWordpressToolkitEnabled($wordpressToolkitEnabled);
         $this->setAutomaticBorgRepositoriesPruneEnabled($automaticBorgRepositoriesPruneEnabled);
@@ -170,10 +178,10 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setGroups(array $groups): self
+    public function setGroups(array $groups = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($groups));
         $this->setAttribute('groups', $groups);
         return $this;
@@ -198,10 +206,10 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setPhpVersions(array $phpVersions): self
+    public function setPhpVersions(array $phpVersions = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($phpVersions));
         $this->setAttribute('php_versions', $phpVersions);
         return $this;
@@ -259,10 +267,10 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setCustomPhpModulesNames(array $customPhpModulesNames): self
+    public function setCustomPhpModulesNames(array $customPhpModulesNames = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($customPhpModulesNames));
         $this->setAttribute('custom_php_modules_names', $customPhpModulesNames);
         return $this;
@@ -342,10 +350,10 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setNodejsVersions(array $nodejsVersions): self
+    public function setNodejsVersions(array $nodejsVersions = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($nodejsVersions));
         $this->setAttribute('nodejs_versions', $nodejsVersions);
         return $this;
@@ -719,9 +727,13 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
             name: Arr::get($data, 'name'),
             customerId: Arr::get($data, 'customer_id'),
             siteId: Arr::get($data, 'site_id'),
+            groups: Arr::get($data, 'groups'),
+            phpVersions: Arr::get($data, 'php_versions'),
+            customPhpModulesNames: Arr::get($data, 'custom_php_modules_names'),
             phpSettings: PHPSettings::fromArray(Arr::get($data, 'php_settings')),
             phpIoncubeEnabled: Arr::get($data, 'php_ioncube_enabled'),
             phpSessionsSpreadEnabled: Arr::get($data, 'php_sessions_spread_enabled'),
+            nodejsVersions: Arr::get($data, 'nodejs_versions'),
             description: Arr::get($data, 'description'),
             wordpressToolkitEnabled: Arr::get($data, 'wordpress_toolkit_enabled'),
             automaticBorgRepositoriesPruneEnabled: Arr::get($data, 'automatic_borg_repositories_prune_enabled'),
@@ -762,10 +774,6 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
             metabaseDatabasePassword: Arr::get($data, 'metabase_database_password'),
             kibanaDomain: Arr::get($data, 'kibana_domain'),
             rabbitmqManagementDomain: Arr::get($data, 'rabbitmq_management_domain'),
-        ))
-            ->setGroups(Arr::get($data, 'groups'))
-            ->setPhpVersions(Arr::get($data, 'php_versions'))
-            ->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names'))
-            ->setNodejsVersions(Arr::get($data, 'nodejs_versions'));
+        ));
     }
 }

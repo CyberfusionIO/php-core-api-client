@@ -74,7 +74,7 @@ class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
         ))
-            ->setDataType(Arr::get($data, 'data_type'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster'));
+            ->setDataType(Arr::get($data, 'data_type', 'database'))
+            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
     }
 }

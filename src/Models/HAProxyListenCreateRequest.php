@@ -134,6 +134,6 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
             socketPath: Arr::get($data, 'socket_path'),
         ))
             ->setNodesIds(Arr::get($data, 'nodes_ids'))
-            ->setLoadBalancingMethod(Arr::get($data, 'load_balancing_method'));
+            ->setLoadBalancingMethod(LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method', 'Source IP Address')));
     }
 }

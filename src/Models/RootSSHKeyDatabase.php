@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -19,6 +16,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         int $clusterId,
         string $name,
+        ClusterDatabase $cluster,
         ?string $publicKey = null,
         ?string $privateKey = null,
     ) {
@@ -27,6 +25,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setName($name);
+        $this->setCluster($cluster);
         $this->setPublicKey($publicKey);
         $this->setPrivateKey($privateKey);
     }
@@ -115,6 +114,17 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -123,6 +133,7 @@ class RootSSHKeyDatabase extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             name: Arr::get($data, 'name'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             publicKey: Arr::get($data, 'public_key'),
             privateKey: Arr::get($data, 'private_key'),
         ));

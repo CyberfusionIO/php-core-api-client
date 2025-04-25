@@ -14,30 +14,23 @@ class BasicAuthenticationRealmUpdateRequest extends CoreApiModel implements Core
     {
     }
 
-    public function getName(): string
+    public function getName(): string|null
     {
         return $this->getAttribute('name');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 1, max: 64)
-            ->regex('/^[a-zA-Z0-9-_ ]+$/'))
-            ->assert($name);
         $this->setAttribute('name', $name);
         return $this;
     }
 
-    public function getHtpasswdFileId(): int
+    public function getHtpasswdFileId(): int|null
     {
         return $this->getAttribute('htpasswd_file_id');
     }
 
-    public function setHtpasswdFileId(int $htpasswdFileId): self
+    public function setHtpasswdFileId(?int $htpasswdFileId): self
     {
         $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;

@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class UNIXUserDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -25,6 +22,7 @@ class UNIXUserDatabase extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         ShellPathEnum $shellPath,
         bool $recordUsageFiles,
+        ClusterDatabase $cluster,
         ?string $password = null,
         ?string $virtualHostsDirectory = null,
         ?string $mailDomainsDirectory = null,
@@ -43,6 +41,7 @@ class UNIXUserDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setShellPath($shellPath);
         $this->setRecordUsageFiles($recordUsageFiles);
+        $this->setCluster($cluster);
         $this->setPassword($password);
         $this->setVirtualHostsDirectory($virtualHostsDirectory);
         $this->setMailDomainsDirectory($mailDomainsDirectory);
@@ -246,6 +245,17 @@ class UNIXUserDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -259,6 +269,7 @@ class UNIXUserDatabase extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             shellPath: ShellPathEnum::tryFrom(Arr::get($data, 'shell_path')),
             recordUsageFiles: Arr::get($data, 'record_usage_files'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             password: Arr::get($data, 'password'),
             virtualHostsDirectory: Arr::get($data, 'virtual_hosts_directory'),
             mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),

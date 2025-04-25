@@ -49,6 +49,6 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
         return (new self(
             rabbitmqVirtualHostName: Arr::get($data, 'rabbitmq_virtual_host_name'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'));
+            ->setDataType(Arr::get($data, 'data_type', 'unix_user_rabbitmq_credentials'));
     }
 }

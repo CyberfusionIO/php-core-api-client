@@ -11,13 +11,20 @@ use Respect\Validation\Validator;
 
 class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $id, int $clusterId, string $name, int $unixUserId, string $command)
-    {
+    public function __construct(
+        int $id,
+        int $clusterId,
+        string $name,
+        int $unixUserId,
+        string $command,
+        array $nodesIds,
+    ) {
         $this->setId($id);
         $this->setClusterId($clusterId);
         $this->setName($name);
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
+        $this->setNodesIds($nodesIds);
     }
 
     public function getId(): int
@@ -97,10 +104,10 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
     /**
      * @throws ValidationException
      */
-    public function setNodesIds(array $nodesIds): self
+    public function setNodesIds(array $nodesIds = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($nodesIds));
         $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
@@ -114,7 +121,7 @@ class DaemonUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModel
             name: Arr::get($data, 'name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
-        ))
-            ->setNodesIds(Arr::get($data, 'nodes_ids'));
+            nodesIds: Arr::get($data, 'nodes_ids'),
+        ));
     }
 }

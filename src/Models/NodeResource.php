@@ -19,6 +19,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         string $hostname,
         string $product,
         int $clusterId,
+        array $groups,
         ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         bool $isReady,
@@ -30,6 +31,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         $this->setHostname($hostname);
         $this->setProduct($product);
         $this->setClusterId($clusterId);
+        $this->setGroups($groups);
         $this->setLoadBalancerHealthChecksGroupsPairs($loadBalancerHealthChecksGroupsPairs);
         $this->setGroupsProperties($groupsProperties);
         $this->setIsReady($isReady);
@@ -117,10 +119,10 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(array $groups): self
+    public function setGroups(array $groups = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($groups));
         $this->setAttribute('groups', $groups);
         return $this;
@@ -171,6 +173,17 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): NodeIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?NodeIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -180,11 +193,12 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
             hostname: Arr::get($data, 'hostname'),
             product: Arr::get($data, 'product'),
             clusterId: Arr::get($data, 'cluster_id'),
+            groups: Arr::get($data, 'groups'),
             loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             isReady: Arr::get($data, 'is_ready'),
             comment: Arr::get($data, 'comment'),
         ))
-            ->setGroups(Arr::get($data, 'groups'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? NodeIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

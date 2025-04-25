@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class DatabaseDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -23,6 +20,7 @@ class DatabaseDatabase extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         bool $optimizingEnabled,
         bool $backupsEnabled,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -32,6 +30,7 @@ class DatabaseDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setOptimizingEnabled($optimizingEnabled);
         $this->setBackupsEnabled($backupsEnabled);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -129,6 +128,17 @@ class DatabaseDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -140,6 +150,7 @@ class DatabaseDatabase extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             optimizingEnabled: Arr::get($data, 'optimizing_enabled'),
             backupsEnabled: Arr::get($data, 'backups_enabled'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

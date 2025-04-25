@@ -62,6 +62,17 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): UNIXUserUsageIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?UNIXUserUsageIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -69,6 +80,7 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
             files: Arr::get($data, 'files'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? UNIXUserUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

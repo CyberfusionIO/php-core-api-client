@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -16,29 +15,23 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
     {
     }
 
-    public function getServerAliases(): array
+    public function getServerAliases(): array|null
     {
         return $this->getAttribute('server_aliases');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setServerAliases(array $serverAliases): self
+    public function setServerAliases(?array $serverAliases): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($serverAliases));
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
     }
 
-    public function getDocumentRoot(): string
+    public function getDocumentRoot(): string|null
     {
         return $this->getAttribute('document_root');
     }
 
-    public function setDocumentRoot(string $documentRoot): self
+    public function setDocumentRoot(?string $documentRoot): self
     {
         $this->setAttribute('document_root', $documentRoot);
         return $this;
@@ -121,6 +114,6 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
             ->setCustomConfig(Arr::get($data, 'custom_config'))
             ->setAllowOverrideDirectives(Arr::get($data, 'allow_override_directives'))
             ->setAllowOverrideOptionDirectives(Arr::get($data, 'allow_override_option_directives'))
-            ->setServerSoftwareName(Arr::get($data, 'server_software_name'));
+            ->setServerSoftwareName(Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null);
     }
 }

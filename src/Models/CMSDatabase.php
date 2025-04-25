@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CMSDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -22,6 +19,8 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
         CMSSoftwareNameEnum $softwareName,
         bool $isManuallyCreated,
         int $virtualHostId,
+        VirtualHostDatabase $virtualHost,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -30,6 +29,8 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setSoftwareName($softwareName);
         $this->setIsManuallyCreated($isManuallyCreated);
         $this->setVirtualHostId($virtualHostId);
+        $this->setVirtualHost($virtualHost);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -109,6 +110,28 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getVirtualHost(): VirtualHostDatabase
+    {
+        return $this->getAttribute('virtual_host');
+    }
+
+    public function setVirtualHost(?VirtualHostDatabase $virtualHost = null): self
+    {
+        $this->setAttribute('virtual_host', $virtualHost);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -119,6 +142,8 @@ class CMSDatabase extends CoreApiModel implements CoreApiModelContract
             softwareName: CMSSoftwareNameEnum::tryFrom(Arr::get($data, 'software_name')),
             isManuallyCreated: Arr::get($data, 'is_manually_created'),
             virtualHostId: Arr::get($data, 'virtual_host_id'),
+            virtualHost: VirtualHostDatabase::fromArray(Arr::get($data, 'virtual_host')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

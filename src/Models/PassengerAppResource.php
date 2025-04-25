@@ -236,6 +236,17 @@ class PassengerAppResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): PassengerAppIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?PassengerAppIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public function getNodejsVersion(): string|null
     {
         return $this->getAttribute('nodejs_version');
@@ -279,6 +290,7 @@ class PassengerAppResource extends CoreApiModel implements CoreApiModelContract
             cpuLimit: Arr::get($data, 'cpu_limit'),
             nodejsVersion: Arr::get($data, 'nodejs_version'),
             startupFile: Arr::get($data, 'startup_file'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? PassengerAppIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

@@ -11,11 +11,12 @@ use Respect\Validation\Validator;
 
 class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $name, int $unixUserId, string $command)
+    public function __construct(string $name, int $unixUserId, string $command, array $nodesIds)
     {
         $this->setName($name);
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
+        $this->setNodesIds($nodesIds);
     }
 
     public function getName(): string
@@ -73,10 +74,10 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setNodesIds(array $nodesIds): self
+    public function setNodesIds(array $nodesIds = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($nodesIds));
         $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
@@ -110,8 +111,8 @@ class DaemonCreateRequest extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
+            nodesIds: Arr::get($data, 'nodes_ids'),
         ))
-            ->setNodesIds(Arr::get($data, 'nodes_ids'))
             ->setMemoryLimit(Arr::get($data, 'memory_limit'))
             ->setCpuLimit(Arr::get($data, 'cpu_limit'));
     }

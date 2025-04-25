@@ -18,6 +18,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         string $domain,
         int $clusterId,
+        array $serverAliases,
         string $destinationUrl,
         StatusCodeEnum $statusCode,
         bool $keepQueryParameters,
@@ -29,6 +30,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
+        $this->setServerAliases($serverAliases);
         $this->setDestinationUrl($destinationUrl);
         $this->setStatusCode($statusCode);
         $this->setKeepQueryParameters($keepQueryParameters);
@@ -99,10 +101,10 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases): self
+    public function setServerAliases(array $serverAliases = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($serverAliases));
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
@@ -169,6 +171,17 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): URLRedirectIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?URLRedirectIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -177,12 +190,13 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            serverAliases: Arr::get($data, 'server_aliases'),
             destinationUrl: Arr::get($data, 'destination_url'),
             statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
             keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
             keepPath: Arr::get($data, 'keep_path'),
             description: Arr::get($data, 'description'),
         ))
-            ->setServerAliases(Arr::get($data, 'server_aliases'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? URLRedirectIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

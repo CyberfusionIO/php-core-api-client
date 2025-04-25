@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -22,6 +19,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
         string $name,
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
+        ClusterDatabase $cluster,
         ?string $password = null,
         ?HostEnum $host = null,
         ?array $phpmyadminFirewallGroupsIds = null,
@@ -32,6 +30,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
         $this->setPassword($password);
         $this->setHost($host);
         $this->setPhpmyadminFirewallGroupsIds($phpmyadminFirewallGroupsIds);
@@ -143,6 +142,17 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -152,6 +162,7 @@ class DatabaseUserDatabase extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             password: Arr::get($data, 'password'),
             host: Arr::get($data, 'host') !== null ? HostEnum::tryFrom(Arr::get($data, 'host')) : null,
             phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),

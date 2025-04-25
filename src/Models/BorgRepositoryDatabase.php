@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -23,6 +20,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
         string $remotePath,
         string $remoteUsername,
         int $clusterId,
+        ClusterDatabase $cluster,
         ?int $unixUserId = null,
         ?int $keepHourly = null,
         ?int $keepDaily = null,
@@ -30,6 +28,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
         ?int $keepMonthly = null,
         ?int $keepYearly = null,
         ?string $identityFilePath = null,
+        ?UNIXUserDatabase $unixUser = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -40,6 +39,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
         $this->setRemotePath($remotePath);
         $this->setRemoteUsername($remoteUsername);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
         $this->setUnixUserId($unixUserId);
         $this->setKeepHourly($keepHourly);
         $this->setKeepDaily($keepDaily);
@@ -47,6 +47,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
         $this->setKeepMonthly($keepMonthly);
         $this->setKeepYearly($keepYearly);
         $this->setIdentityFilePath($identityFilePath);
+        $this->setUnixUser($unixUser);
     }
 
     public function getId(): int
@@ -246,6 +247,28 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getUnixUser(): UNIXUserDatabase|null
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -258,6 +281,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
             remotePath: Arr::get($data, 'remote_path'),
             remoteUsername: Arr::get($data, 'remote_username'),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             unixUserId: Arr::get($data, 'unix_user_id'),
             keepHourly: Arr::get($data, 'keep_hourly'),
             keepDaily: Arr::get($data, 'keep_daily'),
@@ -265,6 +289,7 @@ class BorgRepositoryDatabase extends CoreApiModel implements CoreApiModelContrac
             keepMonthly: Arr::get($data, 'keep_monthly'),
             keepYearly: Arr::get($data, 'keep_yearly'),
             identityFilePath: Arr::get($data, 'identity_file_path'),
+            unixUser: Arr::get($data, 'unix_user') !== null ? UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')) : null,
         ));
     }
 }

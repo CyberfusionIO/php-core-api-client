@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class DaemonDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -23,6 +20,8 @@ class DaemonDatabase extends CoreApiModel implements CoreApiModelContract
         int $unixUserId,
         string $command,
         array $nodesIds,
+        UNIXUserDatabase $unixUser,
+        ClusterDatabase $cluster,
         ?int $memoryLimit = null,
         ?int $cpuLimit = null,
     ) {
@@ -34,6 +33,8 @@ class DaemonDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
         $this->setNodesIds($nodesIds);
+        $this->setUnixUser($unixUser);
+        $this->setCluster($cluster);
         $this->setMemoryLimit($memoryLimit);
         $this->setCpuLimit($cpuLimit);
     }
@@ -137,7 +138,7 @@ class DaemonDatabase extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setNodesIds(?array $nodesIds = null): self
+    public function setNodesIds(array $nodesIds = []): self
     {
         Validator::create()
             ->unique()
@@ -168,6 +169,28 @@ class DaemonDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -179,6 +202,8 @@ class DaemonDatabase extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
             nodesIds: Arr::get($data, 'nodes_ids'),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             memoryLimit: Arr::get($data, 'memory_limit'),
             cpuLimit: Arr::get($data, 'cpu_limit'),
         ));

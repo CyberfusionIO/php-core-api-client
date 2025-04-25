@@ -92,6 +92,17 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): HostsEntryIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?HostsEntryIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -101,6 +112,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             hostName: Arr::get($data, 'host_name'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? HostsEntryIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

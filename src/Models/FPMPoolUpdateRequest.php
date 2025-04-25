@@ -14,34 +14,34 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getMaxChildren(): int
+    public function getMaxChildren(): int|null
     {
         return $this->getAttribute('max_children');
     }
 
-    public function setMaxChildren(int $maxChildren): self
+    public function setMaxChildren(?int $maxChildren): self
     {
         $this->setAttribute('max_children', $maxChildren);
         return $this;
     }
 
-    public function getMaxRequests(): int
+    public function getMaxRequests(): int|null
     {
         return $this->getAttribute('max_requests');
     }
 
-    public function setMaxRequests(int $maxRequests): self
+    public function setMaxRequests(?int $maxRequests): self
     {
         $this->setAttribute('max_requests', $maxRequests);
         return $this;
     }
 
-    public function getProcessIdleTimeout(): int
+    public function getProcessIdleTimeout(): int|null
     {
         return $this->getAttribute('process_idle_timeout');
     }
 
-    public function setProcessIdleTimeout(int $processIdleTimeout): self
+    public function setProcessIdleTimeout(?int $processIdleTimeout): self
     {
         $this->setAttribute('process_idle_timeout', $processIdleTimeout);
         return $this;
@@ -69,12 +69,12 @@ class FPMPoolUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getIsNamespaced(): bool
+    public function getIsNamespaced(): bool|null
     {
         return $this->getAttribute('is_namespaced');
     }
 
-    public function setIsNamespaced(bool $isNamespaced): self
+    public function setIsNamespaced(?bool $isNamespaced): self
     {
         $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;

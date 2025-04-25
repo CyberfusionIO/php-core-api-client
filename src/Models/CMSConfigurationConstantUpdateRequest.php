@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CMSConfigurationConstantUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(string|int|float|bool $value)

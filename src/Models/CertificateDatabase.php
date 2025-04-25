@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -25,6 +22,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
         string $caChain,
         string $privateKey,
         int $clusterId,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -36,6 +34,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setCaChain($caChain);
         $this->setPrivateKey($privateKey);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -90,7 +89,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(?array $commonNames = null): self
+    public function setCommonNames(array $commonNames = []): self
     {
         Validator::create()
             ->unique()
@@ -175,6 +174,17 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -188,6 +198,7 @@ class CertificateDatabase extends CoreApiModel implements CoreApiModelContract
             caChain: Arr::get($data, 'ca_chain'),
             privateKey: Arr::get($data, 'private_key'),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

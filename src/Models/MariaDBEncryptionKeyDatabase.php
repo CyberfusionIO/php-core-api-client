@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class MariaDBEncryptionKeyDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -20,6 +17,7 @@ class MariaDBEncryptionKeyDatabase extends CoreApiModel implements CoreApiModelC
         int $identifier,
         string $key,
         int $clusterId,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -27,6 +25,7 @@ class MariaDBEncryptionKeyDatabase extends CoreApiModel implements CoreApiModelC
         $this->setIdentifier($identifier);
         $this->setKey($key);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -102,6 +101,17 @@ class MariaDBEncryptionKeyDatabase extends CoreApiModel implements CoreApiModelC
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -111,6 +121,7 @@ class MariaDBEncryptionKeyDatabase extends CoreApiModel implements CoreApiModelC
             identifier: Arr::get($data, 'identifier'),
             key: Arr::get($data, 'key'),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

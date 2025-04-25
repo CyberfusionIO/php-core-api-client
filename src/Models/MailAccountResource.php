@@ -132,6 +132,17 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): MailAccountIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?MailAccountIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -143,6 +154,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             clusterId: Arr::get($data, 'cluster_id'),
             quota: Arr::get($data, 'quota'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? MailAccountIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

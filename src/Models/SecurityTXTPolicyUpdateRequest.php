@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -15,132 +14,90 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
     {
     }
 
-    public function getExpiresTimestamp(): string
+    public function getExpiresTimestamp(): string|null
     {
         return $this->getAttribute('expires_timestamp');
     }
 
-    public function setExpiresTimestamp(string $expiresTimestamp): self
+    public function setExpiresTimestamp(?string $expiresTimestamp): self
     {
         $this->setAttribute('expires_timestamp', $expiresTimestamp);
         return $this;
     }
 
-    public function getEmailContacts(): array
+    public function getEmailContacts(): array|null
     {
         return $this->getAttribute('email_contacts');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setEmailContacts(array $emailContacts): self
+    public function setEmailContacts(?array $emailContacts): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($emailContacts));
         $this->setAttribute('email_contacts', $emailContacts);
         return $this;
     }
 
-    public function getUrlContacts(): array
+    public function getUrlContacts(): array|null
     {
         return $this->getAttribute('url_contacts');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setUrlContacts(array $urlContacts): self
+    public function setUrlContacts(?array $urlContacts): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($urlContacts));
         $this->setAttribute('url_contacts', $urlContacts);
         return $this;
     }
 
-    public function getEncryptionKeyUrls(): array
+    public function getEncryptionKeyUrls(): array|null
     {
         return $this->getAttribute('encryption_key_urls');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setEncryptionKeyUrls(array $encryptionKeyUrls): self
+    public function setEncryptionKeyUrls(?array $encryptionKeyUrls): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($encryptionKeyUrls));
         $this->setAttribute('encryption_key_urls', $encryptionKeyUrls);
         return $this;
     }
 
-    public function getAcknowledgmentUrls(): array
+    public function getAcknowledgmentUrls(): array|null
     {
         return $this->getAttribute('acknowledgment_urls');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setAcknowledgmentUrls(array $acknowledgmentUrls): self
+    public function setAcknowledgmentUrls(?array $acknowledgmentUrls): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($acknowledgmentUrls));
         $this->setAttribute('acknowledgment_urls', $acknowledgmentUrls);
         return $this;
     }
 
-    public function getPolicyUrls(): array
+    public function getPolicyUrls(): array|null
     {
         return $this->getAttribute('policy_urls');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setPolicyUrls(array $policyUrls): self
+    public function setPolicyUrls(?array $policyUrls): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($policyUrls));
         $this->setAttribute('policy_urls', $policyUrls);
         return $this;
     }
 
-    public function getOpeningUrls(): array
+    public function getOpeningUrls(): array|null
     {
         return $this->getAttribute('opening_urls');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setOpeningUrls(array $openingUrls): self
+    public function setOpeningUrls(?array $openingUrls): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($openingUrls));
         $this->setAttribute('opening_urls', $openingUrls);
         return $this;
     }
 
-    public function getPreferredLanguages(): array
+    public function getPreferredLanguages(): array|null
     {
         return $this->getAttribute('preferred_languages');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setPreferredLanguages(array $preferredLanguages): self
+    public function setPreferredLanguages(?array $preferredLanguages): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($preferredLanguages));
         $this->setAttribute('preferred_languages', $preferredLanguages);
         return $this;
     }

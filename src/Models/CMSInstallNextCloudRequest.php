@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(

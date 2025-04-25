@@ -11,10 +11,11 @@ use Respect\Validation\Validator;
 
 class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $localPart, int $mailDomainId)
+    public function __construct(string $localPart, int $mailDomainId, array $forwardEmailAddresses)
     {
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
+        $this->setForwardEmailAddresses($forwardEmailAddresses);
     }
 
     public function getLocalPart(): string
@@ -54,10 +55,10 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setForwardEmailAddresses(array $forwardEmailAddresses): self
+    public function setForwardEmailAddresses(array $forwardEmailAddresses = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
         $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
@@ -68,7 +69,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
         return (new self(
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
-        ))
-            ->setForwardEmailAddresses(Arr::get($data, 'forward_email_addresses'));
+            forwardEmailAddresses: Arr::get($data, 'forward_email_addresses'),
+        ));
     }
 }

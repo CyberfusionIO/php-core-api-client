@@ -26,23 +26,23 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getShellPath(): ShellPathEnum
+    public function getShellPath(): ShellPathEnum|null
     {
         return $this->getAttribute('shell_path');
     }
 
-    public function setShellPath(ShellPathEnum $shellPath): self
+    public function setShellPath(?ShellPathEnum $shellPath): self
     {
         $this->setAttribute('shell_path', $shellPath);
         return $this;
     }
 
-    public function getRecordUsageFiles(): bool
+    public function getRecordUsageFiles(): bool|null
     {
         return $this->getAttribute('record_usage_files');
     }
 
-    public function setRecordUsageFiles(bool $recordUsageFiles): self
+    public function setRecordUsageFiles(?bool $recordUsageFiles): self
     {
         $this->setAttribute('record_usage_files', $recordUsageFiles);
         return $this;
@@ -86,7 +86,7 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return (new self(
         ))
             ->setPassword(Arr::get($data, 'password'))
-            ->setShellPath(Arr::get($data, 'shell_path'))
+            ->setShellPath(Arr::get($data, 'shell_path') !== null ? ShellPathEnum::tryFrom(Arr::get($data, 'shell_path')) : null)
             ->setRecordUsageFiles(Arr::get($data, 'record_usage_files'))
             ->setDefaultPhpVersion(Arr::get($data, 'default_php_version'))
             ->setDefaultNodejsVersion(Arr::get($data, 'default_nodejs_version'))

@@ -16,6 +16,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         int $id,
         string $domain,
         int $clusterId,
+        array $serverAliases,
         string $destinationUrl,
         StatusCodeEnum $statusCode,
         bool $keepQueryParameters,
@@ -25,6 +26,7 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
         $this->setId($id);
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
+        $this->setServerAliases($serverAliases);
         $this->setDestinationUrl($destinationUrl);
         $this->setStatusCode($statusCode);
         $this->setKeepQueryParameters($keepQueryParameters);
@@ -73,10 +75,10 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases): self
+    public function setServerAliases(array $serverAliases = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($serverAliases));
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
@@ -149,12 +151,12 @@ class URLRedirectUpdateDeprecatedRequest extends CoreApiModel implements CoreApi
             id: Arr::get($data, 'id'),
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            serverAliases: Arr::get($data, 'server_aliases'),
             destinationUrl: Arr::get($data, 'destination_url'),
             statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
             keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
             keepPath: Arr::get($data, 'keep_path'),
             description: Arr::get($data, 'description'),
-        ))
-            ->setServerAliases(Arr::get($data, 'server_aliases'));
+        ));
     }
 }

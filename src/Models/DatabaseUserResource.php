@@ -140,6 +140,17 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): DatabaseUserIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?DatabaseUserIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -152,6 +163,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
             password: Arr::get($data, 'password'),
             host: Arr::get($data, 'host') !== null ? HostEnum::tryFrom(Arr::get($data, 'host')) : null,
             phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseUserIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

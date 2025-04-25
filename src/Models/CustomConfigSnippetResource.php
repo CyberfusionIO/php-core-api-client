@@ -133,6 +133,17 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getIncludes(): CustomConfigSnippetIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CustomConfigSnippetIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -144,6 +155,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
             contents: Arr::get($data, 'contents'),
             clusterId: Arr::get($data, 'cluster_id'),
             isDefault: Arr::get($data, 'is_default'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CustomConfigSnippetIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

@@ -50,12 +50,24 @@ class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): DatabaseUsageIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?DatabaseUsageIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
             databaseId: Arr::get($data, 'database_id'),
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

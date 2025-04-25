@@ -18,6 +18,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $localPart,
         int $mailDomainId,
+        array $forwardEmailAddresses,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -25,6 +26,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
+        $this->setForwardEmailAddresses($forwardEmailAddresses);
     }
 
     public function getId(): int
@@ -108,12 +110,23 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setForwardEmailAddresses(array $forwardEmailAddresses): self
+    public function setForwardEmailAddresses(array $forwardEmailAddresses = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
         $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
+        return $this;
+    }
+
+    public function getIncludes(): MailAliasIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?MailAliasIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
         return $this;
     }
 
@@ -126,7 +139,8 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
+            forwardEmailAddresses: Arr::get($data, 'forward_email_addresses'),
         ))
-            ->setForwardEmailAddresses(Arr::get($data, 'forward_email_addresses'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? MailAliasIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

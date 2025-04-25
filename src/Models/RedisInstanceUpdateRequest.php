@@ -15,52 +15,45 @@ class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelCon
     {
     }
 
-    public function getPassword(): string
+    public function getPassword(): string|null
     {
         return $this->getAttribute('password');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 24, max: 255)
-            ->regex('/^[a-zA-Z0-9]+$/'))
-            ->assert($password);
         $this->setAttribute('password', $password);
         return $this;
     }
 
-    public function getMemoryLimit(): int
+    public function getMemoryLimit(): int|null
     {
         return $this->getAttribute('memory_limit');
     }
 
-    public function setMemoryLimit(int $memoryLimit): self
+    public function setMemoryLimit(?int $memoryLimit): self
     {
         $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
     }
 
-    public function getMaxDatabases(): int
+    public function getMaxDatabases(): int|null
     {
         return $this->getAttribute('max_databases');
     }
 
-    public function setMaxDatabases(int $maxDatabases): self
+    public function setMaxDatabases(?int $maxDatabases): self
     {
         $this->setAttribute('max_databases', $maxDatabases);
         return $this;
     }
 
-    public function getEvictionPolicy(): RedisEvictionPolicyEnum
+    public function getEvictionPolicy(): RedisEvictionPolicyEnum|null
     {
         return $this->getAttribute('eviction_policy');
     }
 
-    public function setEvictionPolicy(RedisEvictionPolicyEnum $evictionPolicy): self
+    public function setEvictionPolicy(?RedisEvictionPolicyEnum $evictionPolicy): self
     {
         $this->setAttribute('eviction_policy', $evictionPolicy);
         return $this;
@@ -73,6 +66,6 @@ class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelCon
             ->setPassword(Arr::get($data, 'password'))
             ->setMemoryLimit(Arr::get($data, 'memory_limit'))
             ->setMaxDatabases(Arr::get($data, 'max_databases'))
-            ->setEvictionPolicy(Arr::get($data, 'eviction_policy'));
+            ->setEvictionPolicy(Arr::get($data, 'eviction_policy') !== null ? RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')) : null);
     }
 }

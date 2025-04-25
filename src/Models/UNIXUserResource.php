@@ -243,6 +243,17 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): UNIXUserIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?UNIXUserIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -263,6 +274,7 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
             defaultPhpVersion: Arr::get($data, 'default_php_version'),
             defaultNodejsVersion: Arr::get($data, 'default_nodejs_version'),
             description: Arr::get($data, 'description'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? UNIXUserIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

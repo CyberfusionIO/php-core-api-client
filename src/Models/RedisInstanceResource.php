@@ -159,6 +159,17 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): RedisInstanceIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?RedisInstanceIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -172,6 +183,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
             memoryLimit: Arr::get($data, 'memory_limit'),
             maxDatabases: Arr::get($data, 'max_databases'),
             evictionPolicy: RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? RedisInstanceIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

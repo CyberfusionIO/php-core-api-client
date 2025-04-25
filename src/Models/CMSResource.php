@@ -106,6 +106,17 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): CMSIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CMSIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -116,6 +127,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
             softwareName: CMSSoftwareNameEnum::tryFrom(Arr::get($data, 'software_name')),
             isManuallyCreated: Arr::get($data, 'is_manually_created'),
             virtualHostId: Arr::get($data, 'virtual_host_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CMSIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

@@ -11,9 +11,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class PassengerAppDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -32,6 +29,8 @@ class PassengerAppDatabase extends CoreApiModel implements CoreApiModelContract
         int $maxRequests,
         int $poolIdleTime,
         bool $isNamespaced,
+        UNIXUserDatabase $unixUser,
+        ClusterDatabase $cluster,
         ?int $cpuLimit = null,
         ?string $nodejsVersion = null,
         ?string $startupFile = null,
@@ -51,6 +50,8 @@ class PassengerAppDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setMaxRequests($maxRequests);
         $this->setPoolIdleTime($poolIdleTime);
         $this->setIsNamespaced($isNamespaced);
+        $this->setUnixUser($unixUser);
+        $this->setCluster($cluster);
         $this->setCpuLimit($cpuLimit);
         $this->setNodejsVersion($nodejsVersion);
         $this->setStartupFile($startupFile);
@@ -261,6 +262,28 @@ class PassengerAppDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -279,6 +302,8 @@ class PassengerAppDatabase extends CoreApiModel implements CoreApiModelContract
             maxRequests: Arr::get($data, 'max_requests'),
             poolIdleTime: Arr::get($data, 'pool_idle_time'),
             isNamespaced: Arr::get($data, 'is_namespaced'),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             cpuLimit: Arr::get($data, 'cpu_limit'),
             nodejsVersion: Arr::get($data, 'nodejs_version'),
             startupFile: Arr::get($data, 'startup_file'),

@@ -171,6 +171,28 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getMemoryLimit(): int|null
+    {
+        return $this->getAttribute('memory_limit');
+    }
+
+    public function setMemoryLimit(?int $memoryLimit): self
+    {
+        $this->setAttribute('memory_limit', $memoryLimit);
+        return $this;
+    }
+
+    public function getCpuLimit(): int|null
+    {
+        return $this->getAttribute('cpu_limit');
+    }
+
+    public function setCpuLimit(?int $cpuLimit): self
+    {
+        $this->setAttribute('cpu_limit', $cpuLimit);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -185,6 +207,8 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             emailAddress: Arr::get($data, 'email_address'),
             timeoutSeconds: Arr::get($data, 'timeout_seconds'),
-        ));
+        ))
+            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
+            ->setCpuLimit(Arr::get($data, 'cpu_limit'));
     }
 }
