@@ -112,6 +112,17 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): NodeAddOnIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?NodeAddOnIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -122,6 +133,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             product: Arr::get($data, 'product'),
             quantity: Arr::get($data, 'quantity'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? NodeAddOnIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

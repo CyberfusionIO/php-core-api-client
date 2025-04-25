@@ -7,7 +7,6 @@ use Cyberfusion\CoreApi\Enums\LoadBalancingMethodEnum;
 use Cyberfusion\CoreApi\Enums\MeilisearchEnvironmentEnum;
 use Cyberfusion\CoreApi\Enums\UNIXUserHomeDirectoryEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -18,19 +17,13 @@ class ClusterUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getGroups(): array
+    public function getGroups(): array|null
     {
         return $this->getAttribute('groups');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setGroups(array $groups): self
+    public function setGroups(?array $groups): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($groups));
         $this->setAttribute('groups', $groups);
         return $this;
     }
@@ -57,19 +50,13 @@ class ClusterUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getPhpVersions(): array
+    public function getPhpVersions(): array|null
     {
         return $this->getAttribute('php_versions');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setPhpVersions(array $phpVersions): self
+    public function setPhpVersions(?array $phpVersions): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($phpVersions));
         $this->setAttribute('php_versions', $phpVersions);
         return $this;
     }
@@ -118,40 +105,34 @@ class ClusterUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getCustomPhpModulesNames(): array
+    public function getCustomPhpModulesNames(): array|null
     {
         return $this->getAttribute('custom_php_modules_names');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setCustomPhpModulesNames(array $customPhpModulesNames): self
+    public function setCustomPhpModulesNames(?array $customPhpModulesNames): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($customPhpModulesNames));
         $this->setAttribute('custom_php_modules_names', $customPhpModulesNames);
         return $this;
     }
 
-    public function getPhpSettings(): PHPSettings
+    public function getPhpSettings(): PHPSettings|null
     {
         return $this->getAttribute('php_settings');
     }
 
-    public function setPhpSettings(PHPSettings $phpSettings): self
+    public function setPhpSettings(?PHPSettings $phpSettings): self
     {
         $this->setAttribute('php_settings', $phpSettings);
         return $this;
     }
 
-    public function getPhpIoncubeEnabled(): bool
+    public function getPhpIoncubeEnabled(): bool|null
     {
         return $this->getAttribute('php_ioncube_enabled');
     }
 
-    public function setPhpIoncubeEnabled(bool $phpIoncubeEnabled): self
+    public function setPhpIoncubeEnabled(?bool $phpIoncubeEnabled): self
     {
         $this->setAttribute('php_ioncube_enabled', $phpIoncubeEnabled);
         return $this;
@@ -190,124 +171,111 @@ class ClusterUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getPhpSessionsSpreadEnabled(): bool
+    public function getPhpSessionsSpreadEnabled(): bool|null
     {
         return $this->getAttribute('php_sessions_spread_enabled');
     }
 
-    public function setPhpSessionsSpreadEnabled(bool $phpSessionsSpreadEnabled): self
+    public function setPhpSessionsSpreadEnabled(?bool $phpSessionsSpreadEnabled): self
     {
         $this->setAttribute('php_sessions_spread_enabled', $phpSessionsSpreadEnabled);
         return $this;
     }
 
-    public function getNodejsVersions(): array
+    public function getNodejsVersions(): array|null
     {
         return $this->getAttribute('nodejs_versions');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setNodejsVersions(array $nodejsVersions): self
+    public function setNodejsVersions(?array $nodejsVersions): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($nodejsVersions));
         $this->setAttribute('nodejs_versions', $nodejsVersions);
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription(): string|null
     {
         return $this->getAttribute('description');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 1, max: 255)
-            ->regex('/^[a-zA-Z0-9-_. ]+$/'))
-            ->assert($description);
         $this->setAttribute('description', $description);
         return $this;
     }
 
-    public function getWordpressToolkitEnabled(): bool
+    public function getWordpressToolkitEnabled(): bool|null
     {
         return $this->getAttribute('wordpress_toolkit_enabled');
     }
 
-    public function setWordpressToolkitEnabled(bool $wordpressToolkitEnabled): self
+    public function setWordpressToolkitEnabled(?bool $wordpressToolkitEnabled): self
     {
         $this->setAttribute('wordpress_toolkit_enabled', $wordpressToolkitEnabled);
         return $this;
     }
 
-    public function getAutomaticBorgRepositoriesPruneEnabled(): bool
+    public function getAutomaticBorgRepositoriesPruneEnabled(): bool|null
     {
         return $this->getAttribute('automatic_borg_repositories_prune_enabled');
     }
 
-    public function setAutomaticBorgRepositoriesPruneEnabled(bool $automaticBorgRepositoriesPruneEnabled): self
+    public function setAutomaticBorgRepositoriesPruneEnabled(?bool $automaticBorgRepositoriesPruneEnabled): self
     {
         $this->setAttribute('automatic_borg_repositories_prune_enabled', $automaticBorgRepositoriesPruneEnabled);
         return $this;
     }
 
-    public function getSyncToolkitEnabled(): bool
+    public function getSyncToolkitEnabled(): bool|null
     {
         return $this->getAttribute('sync_toolkit_enabled');
     }
 
-    public function setSyncToolkitEnabled(bool $syncToolkitEnabled): self
+    public function setSyncToolkitEnabled(?bool $syncToolkitEnabled): self
     {
         $this->setAttribute('sync_toolkit_enabled', $syncToolkitEnabled);
         return $this;
     }
 
-    public function getBubblewrapToolkitEnabled(): bool
+    public function getBubblewrapToolkitEnabled(): bool|null
     {
         return $this->getAttribute('bubblewrap_toolkit_enabled');
     }
 
-    public function setBubblewrapToolkitEnabled(bool $bubblewrapToolkitEnabled): self
+    public function setBubblewrapToolkitEnabled(?bool $bubblewrapToolkitEnabled): self
     {
         $this->setAttribute('bubblewrap_toolkit_enabled', $bubblewrapToolkitEnabled);
         return $this;
     }
 
-    public function getAutomaticUpgradesEnabled(): bool
+    public function getAutomaticUpgradesEnabled(): bool|null
     {
         return $this->getAttribute('automatic_upgrades_enabled');
     }
 
-    public function setAutomaticUpgradesEnabled(bool $automaticUpgradesEnabled): self
+    public function setAutomaticUpgradesEnabled(?bool $automaticUpgradesEnabled): self
     {
         $this->setAttribute('automatic_upgrades_enabled', $automaticUpgradesEnabled);
         return $this;
     }
 
-    public function getFirewallRulesExternalProvidersEnabled(): bool
+    public function getFirewallRulesExternalProvidersEnabled(): bool|null
     {
         return $this->getAttribute('firewall_rules_external_providers_enabled');
     }
 
-    public function setFirewallRulesExternalProvidersEnabled(bool $firewallRulesExternalProvidersEnabled): self
+    public function setFirewallRulesExternalProvidersEnabled(?bool $firewallRulesExternalProvidersEnabled): self
     {
         $this->setAttribute('firewall_rules_external_providers_enabled', $firewallRulesExternalProvidersEnabled);
         return $this;
     }
 
-    public function getDatabaseToolkitEnabled(): bool
+    public function getDatabaseToolkitEnabled(): bool|null
     {
         return $this->getAttribute('database_toolkit_enabled');
     }
 
-    public function setDatabaseToolkitEnabled(bool $databaseToolkitEnabled): self
+    public function setDatabaseToolkitEnabled(?bool $databaseToolkitEnabled): self
     {
         $this->setAttribute('database_toolkit_enabled', $databaseToolkitEnabled);
         return $this;
@@ -582,15 +550,15 @@ class ClusterUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return (new self(
         ))
             ->setGroups(Arr::get($data, 'groups'))
-            ->setUnixUsersHomeDirectory(Arr::get($data, 'unix_users_home_directory'))
-            ->setLoadBalancingMethod(Arr::get($data, 'load_balancing_method'))
+            ->setUnixUsersHomeDirectory(Arr::get($data, 'unix_users_home_directory') !== null ? UNIXUserHomeDirectoryEnum::tryFrom(Arr::get($data, 'unix_users_home_directory')) : null)
+            ->setLoadBalancingMethod(Arr::get($data, 'load_balancing_method') !== null ? LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method')) : null)
             ->setPhpVersions(Arr::get($data, 'php_versions'))
             ->setMariadbVersion(Arr::get($data, 'mariadb_version'))
             ->setNodejsVersion(Arr::get($data, 'nodejs_version'))
             ->setPostgresqlVersion(Arr::get($data, 'postgresql_version'))
             ->setMariadbClusterName(Arr::get($data, 'mariadb_cluster_name'))
             ->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names'))
-            ->setPhpSettings(Arr::get($data, 'php_settings'))
+            ->setPhpSettings(Arr::get($data, 'php_settings') !== null ? PHPSettings::fromArray(Arr::get($data, 'php_settings')) : null)
             ->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled'))
             ->setKernelcareLicenseKey(Arr::get($data, 'kernelcare_license_key'))
             ->setRedisPassword(Arr::get($data, 'redis_password'))
@@ -613,10 +581,10 @@ class ClusterUpdateRequest extends CoreApiModel implements CoreApiModelContract
             ->setNewRelicApmLicenseKey(Arr::get($data, 'new_relic_apm_license_key'))
             ->setNewRelicInfrastructureLicenseKey(Arr::get($data, 'new_relic_infrastructure_license_key'))
             ->setMeilisearchMasterKey(Arr::get($data, 'meilisearch_master_key'))
-            ->setMeilisearchEnvironment(Arr::get($data, 'meilisearch_environment'))
+            ->setMeilisearchEnvironment(Arr::get($data, 'meilisearch_environment') !== null ? MeilisearchEnvironmentEnum::tryFrom(Arr::get($data, 'meilisearch_environment')) : null)
             ->setMeilisearchBackupInterval(Arr::get($data, 'meilisearch_backup_interval'))
             ->setPostgresqlBackupInterval(Arr::get($data, 'postgresql_backup_interval'))
-            ->setHttpRetryProperties(Arr::get($data, 'http_retry_properties'))
+            ->setHttpRetryProperties(Arr::get($data, 'http_retry_properties') !== null ? HTTPRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')) : null)
             ->setGrafanaDomain(Arr::get($data, 'grafana_domain'))
             ->setSinglestoreStudioDomain(Arr::get($data, 'singlestore_studio_domain'))
             ->setSinglestoreApiDomain(Arr::get($data, 'singlestore_api_domain'))

@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class MailAccountDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -21,6 +18,8 @@ class MailAccountDatabase extends CoreApiModel implements CoreApiModelContract
         string $localPart,
         int $mailDomainId,
         int $clusterId,
+        MailDomainDatabase $mailDomain,
+        ClusterDatabase $cluster,
         ?int $quota = null,
     ) {
         $this->setId($id);
@@ -30,6 +29,8 @@ class MailAccountDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setClusterId($clusterId);
+        $this->setMailDomain($mailDomain);
+        $this->setCluster($cluster);
         $this->setQuota($quota);
     }
 
@@ -135,6 +136,28 @@ class MailAccountDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getMailDomain(): MailDomainDatabase
+    {
+        return $this->getAttribute('mail_domain');
+    }
+
+    public function setMailDomain(?MailDomainDatabase $mailDomain = null): self
+    {
+        $this->setAttribute('mail_domain', $mailDomain);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -145,6 +168,8 @@ class MailAccountDatabase extends CoreApiModel implements CoreApiModelContract
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            mailDomain: MailDomainDatabase::fromArray(Arr::get($data, 'mail_domain')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             quota: Arr::get($data, 'quota'),
         ));
     }

@@ -120,6 +120,17 @@ class CustomConfigResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): CustomConfigIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CustomConfigIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -130,6 +141,7 @@ class CustomConfigResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             contents: Arr::get($data, 'contents'),
             serverSoftwareName: CustomConfigServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CustomConfigIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

@@ -8,6 +8,9 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
+/**
+ * Node add-on product properties.
+ */
 class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(

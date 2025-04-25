@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -21,6 +18,9 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
         int $virtualHostId,
         string $name,
         int $htpasswdFileId,
+        ClusterDatabase $cluster,
+        VirtualHostDatabase $virtualHost,
+        HtpasswdFileDatabase $htpasswdFile,
         ?string $directoryPath = null,
     ) {
         $this->setId($id);
@@ -30,6 +30,9 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
         $this->setVirtualHostId($virtualHostId);
         $this->setName($name);
         $this->setHtpasswdFileId($htpasswdFileId);
+        $this->setCluster($cluster);
+        $this->setVirtualHost($virtualHost);
+        $this->setHtpasswdFile($htpasswdFile);
         $this->setDirectoryPath($directoryPath);
     }
 
@@ -128,6 +131,39 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getVirtualHost(): VirtualHostDatabase
+    {
+        return $this->getAttribute('virtual_host');
+    }
+
+    public function setVirtualHost(?VirtualHostDatabase $virtualHost = null): self
+    {
+        $this->setAttribute('virtual_host', $virtualHost);
+        return $this;
+    }
+
+    public function getHtpasswdFile(): HtpasswdFileDatabase
+    {
+        return $this->getAttribute('htpasswd_file');
+    }
+
+    public function setHtpasswdFile(?HtpasswdFileDatabase $htpasswdFile = null): self
+    {
+        $this->setAttribute('htpasswd_file', $htpasswdFile);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -138,6 +174,9 @@ class BasicAuthenticationRealmDatabase extends CoreApiModel implements CoreApiMo
             virtualHostId: Arr::get($data, 'virtual_host_id'),
             name: Arr::get($data, 'name'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
+            virtualHost: VirtualHostDatabase::fromArray(Arr::get($data, 'virtual_host')),
+            htpasswdFile: HtpasswdFileDatabase::fromArray(Arr::get($data, 'htpasswd_file')),
             directoryPath: Arr::get($data, 'directory_path'),
         ));
     }

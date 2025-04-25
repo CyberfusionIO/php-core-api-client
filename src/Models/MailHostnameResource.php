@@ -92,6 +92,17 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): MailHostnameIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?MailHostnameIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -101,6 +112,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
             certificateId: Arr::get($data, 'certificate_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? MailHostnameIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

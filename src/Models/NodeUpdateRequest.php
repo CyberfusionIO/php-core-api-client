@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -15,19 +14,13 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getGroups(): array
+    public function getGroups(): array|null
     {
         return $this->getAttribute('groups');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setGroups(array $groups): self
+    public function setGroups(?array $groups): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($groups));
         $this->setAttribute('groups', $groups);
         return $this;
     }
@@ -43,23 +36,23 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getLoadBalancerHealthChecksGroupsPairs(): \ArrayObject
+    public function getLoadBalancerHealthChecksGroupsPairs(): \ArrayObject|null
     {
         return $this->getAttribute('load_balancer_health_checks_groups_pairs');
     }
 
-    public function setLoadBalancerHealthChecksGroupsPairs(\ArrayObject $loadBalancerHealthChecksGroupsPairs): self
+    public function setLoadBalancerHealthChecksGroupsPairs(?\ArrayObject $loadBalancerHealthChecksGroupsPairs): self
     {
         $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
 
-    public function getGroupsProperties(): NodeGroupsProperties
+    public function getGroupsProperties(): NodeGroupsProperties|null
     {
         return $this->getAttribute('groups_properties');
     }
 
-    public function setGroupsProperties(NodeGroupsProperties $groupsProperties): self
+    public function setGroupsProperties(?NodeGroupsProperties $groupsProperties): self
     {
         $this->setAttribute('groups_properties', $groupsProperties);
         return $this;
@@ -72,6 +65,6 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
             ->setGroups(Arr::get($data, 'groups'))
             ->setComment(Arr::get($data, 'comment'))
             ->setLoadBalancerHealthChecksGroupsPairs(Arr::get($data, 'load_balancer_health_checks_groups_pairs'))
-            ->setGroupsProperties(Arr::get($data, 'groups_properties'));
+            ->setGroupsProperties(Arr::get($data, 'groups_properties') !== null ? NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')) : null);
     }
 }

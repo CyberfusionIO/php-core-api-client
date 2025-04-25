@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class NodeDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -26,6 +23,7 @@ class NodeDatabase extends CoreApiModel implements CoreApiModelContract
         ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         bool $isReady,
+        ClusterDatabase $cluster,
         ?string $comment = null,
         ?int $netboxId = null,
     ) {
@@ -39,6 +37,7 @@ class NodeDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setLoadBalancerHealthChecksGroupsPairs($loadBalancerHealthChecksGroupsPairs);
         $this->setGroupsProperties($groupsProperties);
         $this->setIsReady($isReady);
+        $this->setCluster($cluster);
         $this->setComment($comment);
         $this->setNetboxId($netboxId);
     }
@@ -189,6 +188,17 @@ class NodeDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -202,6 +212,7 @@ class NodeDatabase extends CoreApiModel implements CoreApiModelContract
             loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             isReady: Arr::get($data, 'is_ready'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             comment: Arr::get($data, 'comment'),
             netboxId: Arr::get($data, 'netbox_id'),
         ));

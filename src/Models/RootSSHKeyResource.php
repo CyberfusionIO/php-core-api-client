@@ -112,6 +112,17 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): RootSSHKeyIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?RootSSHKeyIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -122,6 +133,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             publicKey: Arr::get($data, 'public_key'),
             privateKey: Arr::get($data, 'private_key'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? RootSSHKeyIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -15,37 +14,24 @@ class DaemonUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getCommand(): string
+    public function getCommand(): string|null
     {
         return $this->getAttribute('command');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setCommand(string $command): self
+    public function setCommand(?string $command): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 1, max: 65535)
-            ->regex('/^[ -~]+$/'))
-            ->assert($command);
         $this->setAttribute('command', $command);
         return $this;
     }
 
-    public function getNodesIds(): array
+    public function getNodesIds(): array|null
     {
         return $this->getAttribute('nodes_ids');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setNodesIds(array $nodesIds): self
+    public function setNodesIds(?array $nodesIds): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
-            ->assert(ValidationHelper::prepareArray($nodesIds));
         $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
     }

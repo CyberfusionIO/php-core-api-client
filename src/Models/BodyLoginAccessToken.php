@@ -89,7 +89,7 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
             password: Arr::get($data, 'password'),
         ))
             ->setGrantType(Arr::get($data, 'grant_type'))
-            ->setScope(Arr::get($data, 'scope'))
+            ->setScope(Arr::get($data, 'scope', ''))
             ->setClientId(Arr::get($data, 'client_id'))
             ->setClientSecret(Arr::get($data, 'client_secret'));
     }

@@ -14,30 +14,23 @@ class FTPUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getPassword(): string
+    public function getPassword(): string|null
     {
         return $this->getAttribute('password');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 24, max: 255)
-            ->regex('/^[ -~]+$/'))
-            ->assert($password);
         $this->setAttribute('password', $password);
         return $this;
     }
 
-    public function getDirectoryPath(): string
+    public function getDirectoryPath(): string|null
     {
         return $this->getAttribute('directory_path');
     }
 
-    public function setDirectoryPath(string $directoryPath): self
+    public function setDirectoryPath(?string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
         return $this;

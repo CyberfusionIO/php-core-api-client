@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -26,6 +23,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
         StatusCodeEnum $statusCode,
         bool $keepQueryParameters,
         bool $keepPath,
+        ClusterDatabase $cluster,
         ?string $description = null,
     ) {
         $this->setId($id);
@@ -38,6 +36,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setStatusCode($statusCode);
         $this->setKeepQueryParameters($keepQueryParameters);
         $this->setKeepPath($keepPath);
+        $this->setCluster($cluster);
         $this->setDescription($description);
     }
 
@@ -174,6 +173,17 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -187,6 +197,7 @@ class URLRedirectDatabase extends CoreApiModel implements CoreApiModelContract
             statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
             keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
             keepPath: Arr::get($data, 'keep_path'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             description: Arr::get($data, 'description'),
         ));
     }

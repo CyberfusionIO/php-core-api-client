@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CustomConfigDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -22,6 +19,7 @@ class CustomConfigDatabase extends CoreApiModel implements CoreApiModelContract
         CustomConfigServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
         string $contents,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -30,6 +28,7 @@ class CustomConfigDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
         $this->setContents($contents);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -123,6 +122,17 @@ class CustomConfigDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -133,6 +143,7 @@ class CustomConfigDatabase extends CoreApiModel implements CoreApiModelContract
             serverSoftwareName: CustomConfigServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
             contents: Arr::get($data, 'contents'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

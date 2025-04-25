@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -27,6 +24,8 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
         string $rabbitmqVirtualHostName,
         int $unixUserId,
         int $clusterId,
+        ClusterDatabase $cluster,
+        UNIXUserDatabase $unixUser,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -41,6 +40,8 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
         $this->setRabbitmqVirtualHostName($rabbitmqVirtualHostName);
         $this->setUnixUserId($unixUserId);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
+        $this->setUnixUser($unixUser);
     }
 
     public function getId(): int
@@ -214,6 +215,28 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -230,6 +253,8 @@ class UNIXUserRabbitMQCredentialsDatabase extends CoreApiModel implements CoreAp
             rabbitmqVirtualHostName: Arr::get($data, 'rabbitmq_virtual_host_name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
         ));
     }
 }

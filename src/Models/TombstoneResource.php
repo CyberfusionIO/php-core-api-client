@@ -106,6 +106,17 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): TombstoneIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TombstoneIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -116,6 +127,7 @@ class TombstoneResource extends CoreApiModel implements CoreApiModelContract
             objectId: Arr::get($data, 'object_id'),
             objectModelName: ObjectModelNameEnum::tryFrom(Arr::get($data, 'object_model_name')),
             clusterId: Arr::get($data, 'cluster_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? TombstoneIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

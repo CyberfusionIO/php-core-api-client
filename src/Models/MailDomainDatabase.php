@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class MailDomainDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -23,6 +20,8 @@ class MailDomainDatabase extends CoreApiModel implements CoreApiModelContract
         int $unixUserId,
         array $catchAllForwardEmailAddresses,
         bool $isLocal,
+        UNIXUserDatabase $unixUser,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -32,6 +31,8 @@ class MailDomainDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setUnixUserId($unixUserId);
         $this->setCatchAllForwardEmailAddresses($catchAllForwardEmailAddresses);
         $this->setIsLocal($isLocal);
+        $this->setUnixUser($unixUser);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -128,6 +129,28 @@ class MailDomainDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -139,6 +162,8 @@ class MailDomainDatabase extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             catchAllForwardEmailAddresses: Arr::get($data, 'catch_all_forward_email_addresses'),
             isLocal: Arr::get($data, 'is_local'),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

@@ -105,7 +105,7 @@ class LogErrorResource extends CoreApiModel implements CoreApiModelContract
             timestamp: Arr::get($data, 'timestamp'),
             errorMessage: Arr::get($data, 'error_message'),
         ))
-            ->setMethod(Arr::get($data, 'method'))
+            ->setMethod(Arr::get($data, 'method') !== null ? LogMethodEnum::tryFrom(Arr::get($data, 'method')) : null)
             ->setUri(Arr::get($data, 'uri'));
     }
 }

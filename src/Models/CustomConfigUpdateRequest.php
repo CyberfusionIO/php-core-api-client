@@ -14,20 +14,13 @@ class CustomConfigUpdateRequest extends CoreApiModel implements CoreApiModelCont
     {
     }
 
-    public function getContents(): string
+    public function getContents(): string|null
     {
         return $this->getAttribute('contents');
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function setContents(string $contents): self
+    public function setContents(?string $contents): self
     {
-        Validator::optional(Validator::create()
-            ->length(min: 1, max: 65535)
-            ->regex('/^[ -~\n]+$/'))
-            ->assert($contents);
         $this->setAttribute('contents', $contents);
         return $this;
     }

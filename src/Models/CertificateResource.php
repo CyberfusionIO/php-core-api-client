@@ -16,6 +16,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         string $createdAt,
         string $updatedAt,
         string $mainCommonName,
+        array $commonNames,
         string $expiresAt,
         string $certificate,
         string $caChain,
@@ -26,6 +27,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setMainCommonName($mainCommonName);
+        $this->setCommonNames($commonNames);
         $this->setExpiresAt($expiresAt);
         $this->setCertificate($certificate);
         $this->setCaChain($caChain);
@@ -85,10 +87,10 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(array $commonNames): self
+    public function setCommonNames(array $commonNames = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($commonNames));
         $this->setAttribute('common_names', $commonNames);
         return $this;
@@ -170,6 +172,17 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): CertificateIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CertificateIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -177,12 +190,13 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             mainCommonName: Arr::get($data, 'main_common_name'),
+            commonNames: Arr::get($data, 'common_names'),
             expiresAt: Arr::get($data, 'expires_at'),
             certificate: Arr::get($data, 'certificate'),
             caChain: Arr::get($data, 'ca_chain'),
             privateKey: Arr::get($data, 'private_key'),
             clusterId: Arr::get($data, 'cluster_id'),
         ))
-            ->setCommonNames(Arr::get($data, 'common_names'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CertificateIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

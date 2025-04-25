@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class MailHostnameDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -19,14 +16,18 @@ class MailHostnameDatabase extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         string $domain,
         int $clusterId,
+        ClusterDatabase $cluster,
         ?int $certificateId = null,
+        ?CertificateDatabase $certificate = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
         $this->setCertificateId($certificateId);
+        $this->setCertificate($certificate);
     }
 
     public function getId(): int
@@ -95,6 +96,28 @@ class MailHostnameDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCertificate(): CertificateDatabase|null
+    {
+        return $this->getAttribute('certificate');
+    }
+
+    public function setCertificate(?CertificateDatabase $certificate = null): self
+    {
+        $this->setAttribute('certificate', $certificate);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -103,7 +126,9 @@ class MailHostnameDatabase extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             certificateId: Arr::get($data, 'certificate_id'),
+            certificate: Arr::get($data, 'certificate') !== null ? CertificateDatabase::fromArray(Arr::get($data, 'certificate')) : null,
         ));
     }
 }

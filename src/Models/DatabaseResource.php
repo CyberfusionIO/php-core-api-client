@@ -126,6 +126,17 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): DatabaseIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?DatabaseIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -137,6 +148,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             optimizingEnabled: Arr::get($data, 'optimizing_enabled'),
             backupsEnabled: Arr::get($data, 'backups_enabled'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

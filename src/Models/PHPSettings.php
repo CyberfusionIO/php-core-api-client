@@ -184,19 +184,19 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setApcEnableCli(Arr::get($data, 'apc_enable_cli'))
-            ->setOpcacheFileCache(Arr::get($data, 'opcache_file_cache'))
-            ->setOpcacheValidateTimestamps(Arr::get($data, 'opcache_validate_timestamps'))
-            ->setShortOpenTag(Arr::get($data, 'short_open_tag'))
-            ->setErrorReporting(Arr::get($data, 'error_reporting'))
-            ->setOpcacheMemoryConsumption(Arr::get($data, 'opcache_memory_consumption'))
-            ->setMaxExecutionTime(Arr::get($data, 'max_execution_time'))
-            ->setMaxFileUploads(Arr::get($data, 'max_file_uploads'))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
-            ->setPostMaxSize(Arr::get($data, 'post_max_size'))
-            ->setUploadMaxFilesize(Arr::get($data, 'upload_max_filesize'))
+            ->setApcEnableCli(Arr::get($data, 'apc_enable_cli', false))
+            ->setOpcacheFileCache(Arr::get($data, 'opcache_file_cache', false))
+            ->setOpcacheValidateTimestamps(Arr::get($data, 'opcache_validate_timestamps', true))
+            ->setShortOpenTag(Arr::get($data, 'short_open_tag', false))
+            ->setErrorReporting(Arr::get($data, 'error_reporting', 'E_ALL & ~E_DEPRECATED & ~E_STRICT'))
+            ->setOpcacheMemoryConsumption(Arr::get($data, 'opcache_memory_consumption', 192))
+            ->setMaxExecutionTime(Arr::get($data, 'max_execution_time', 120))
+            ->setMaxFileUploads(Arr::get($data, 'max_file_uploads', 100))
+            ->setMemoryLimit(Arr::get($data, 'memory_limit', 256))
+            ->setPostMaxSize(Arr::get($data, 'post_max_size', 32))
+            ->setUploadMaxFilesize(Arr::get($data, 'upload_max_filesize', 32))
             ->setTidewaysApiKey(Arr::get($data, 'tideways_api_key'))
             ->setTidewaysSampleRate(Arr::get($data, 'tideways_sample_rate'))
-            ->setNewrelicBrowserMonitoringAutoInstrument(Arr::get($data, 'newrelic_browser_monitoring_auto_instrument'));
+            ->setNewrelicBrowserMonitoringAutoInstrument(Arr::get($data, 'newrelic_browser_monitoring_auto_instrument', true));
     }
 }

@@ -11,10 +11,11 @@ use Respect\Validation\Validator;
 
 class FirewallGroupCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $name, int $clusterId)
+    public function __construct(string $name, int $clusterId, array $ipNetworks)
     {
         $this->setName($name);
         $this->setClusterId($clusterId);
+        $this->setIpNetworks($ipNetworks);
     }
 
     public function getName(): string
@@ -54,10 +55,10 @@ class FirewallGroupCreateRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setIpNetworks(array $ipNetworks): self
+    public function setIpNetworks(array $ipNetworks = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($ipNetworks));
         $this->setAttribute('ip_networks', $ipNetworks);
         return $this;
@@ -68,7 +69,7 @@ class FirewallGroupCreateRequest extends CoreApiModel implements CoreApiModelCon
         return (new self(
             name: Arr::get($data, 'name'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIpNetworks(Arr::get($data, 'ip_networks'));
+            ipNetworks: Arr::get($data, 'ip_networks'),
+        ));
     }
 }

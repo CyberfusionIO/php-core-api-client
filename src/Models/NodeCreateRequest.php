@@ -15,12 +15,14 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
     public function __construct(
         string $product,
         int $clusterId,
+        array $groups,
         ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         ?string $comment = null,
     ) {
         $this->setProduct($product);
         $this->setClusterId($clusterId);
+        $this->setGroups($groups);
         $this->setLoadBalancerHealthChecksGroupsPairs($loadBalancerHealthChecksGroupsPairs);
         $this->setGroupsProperties($groupsProperties);
         $this->setComment($comment);
@@ -63,10 +65,10 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(array $groups): self
+    public function setGroups(array $groups = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($groups));
         $this->setAttribute('groups', $groups);
         return $this;
@@ -111,10 +113,10 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return (new self(
             product: Arr::get($data, 'product'),
             clusterId: Arr::get($data, 'cluster_id'),
+            groups: Arr::get($data, 'groups'),
             loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             comment: Arr::get($data, 'comment'),
-        ))
-            ->setGroups(Arr::get($data, 'groups'));
+        ));
     }
 }

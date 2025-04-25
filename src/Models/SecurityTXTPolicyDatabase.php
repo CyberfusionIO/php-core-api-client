@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -27,6 +24,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
         array $policyUrls,
         array $openingUrls,
         array $preferredLanguages,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -40,6 +38,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
         $this->setPolicyUrls($policyUrls);
         $this->setOpeningUrls($openingUrls);
         $this->setPreferredLanguages($preferredLanguages);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -216,6 +215,17 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -231,6 +241,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
             policyUrls: Arr::get($data, 'policy_urls'),
             openingUrls: Arr::get($data, 'opening_urls'),
             preferredLanguages: Arr::get($data, 'preferred_languages'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

@@ -11,12 +11,18 @@ use Respect\Validation\Validator;
 
 class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $id, int $clusterId, string $localPart, int $mailDomainId)
-    {
+    public function __construct(
+        int $id,
+        int $clusterId,
+        string $localPart,
+        int $mailDomainId,
+        array $forwardEmailAddresses,
+    ) {
         $this->setId($id);
         $this->setClusterId($clusterId);
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
+        $this->setForwardEmailAddresses($forwardEmailAddresses);
     }
 
     public function getId(): int
@@ -78,10 +84,10 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
     /**
      * @throws ValidationException
      */
-    public function setForwardEmailAddresses(array $forwardEmailAddresses): self
+    public function setForwardEmailAddresses(array $forwardEmailAddresses = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
         $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
@@ -94,7 +100,7 @@ class MailAliasUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMo
             clusterId: Arr::get($data, 'cluster_id'),
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
-        ))
-            ->setForwardEmailAddresses(Arr::get($data, 'forward_email_addresses'));
+            forwardEmailAddresses: Arr::get($data, 'forward_email_addresses'),
+        ));
     }
 }

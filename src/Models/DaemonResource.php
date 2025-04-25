@@ -19,6 +19,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         string $name,
         int $unixUserId,
         string $command,
+        array $nodesIds,
         ?int $memoryLimit = null,
         ?int $cpuLimit = null,
     ) {
@@ -29,6 +30,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         $this->setName($name);
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
+        $this->setNodesIds($nodesIds);
         $this->setMemoryLimit($memoryLimit);
         $this->setCpuLimit($cpuLimit);
     }
@@ -132,10 +134,10 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setNodesIds(array $nodesIds): self
+    public function setNodesIds(array $nodesIds = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($nodesIds));
         $this->setAttribute('nodes_ids', $nodesIds);
         return $this;
@@ -163,6 +165,17 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): DaemonIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?DaemonIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -173,9 +186,10 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
+            nodesIds: Arr::get($data, 'nodes_ids'),
             memoryLimit: Arr::get($data, 'memory_limit'),
             cpuLimit: Arr::get($data, 'cpu_limit'),
         ))
-            ->setNodesIds(Arr::get($data, 'nodes_ids'));
+            ->setIncludes(Arr::get($data, 'includes') !== null ? DaemonIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

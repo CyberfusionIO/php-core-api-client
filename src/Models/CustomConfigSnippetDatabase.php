@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CustomConfigSnippetDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -23,6 +20,7 @@ class CustomConfigSnippetDatabase extends CoreApiModel implements CoreApiModelCo
         VirtualHostServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
         bool $isDefault,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -32,6 +30,7 @@ class CustomConfigSnippetDatabase extends CoreApiModel implements CoreApiModelCo
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
         $this->setIsDefault($isDefault);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -136,6 +135,17 @@ class CustomConfigSnippetDatabase extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -147,6 +157,7 @@ class CustomConfigSnippetDatabase extends CoreApiModel implements CoreApiModelCo
             serverSoftwareName: VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
             isDefault: Arr::get($data, 'is_default'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

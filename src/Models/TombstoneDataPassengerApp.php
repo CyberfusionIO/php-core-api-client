@@ -49,6 +49,6 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
         return (new self(
             name: Arr::get($data, 'name'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'));
+            ->setDataType(Arr::get($data, 'data_type', 'passenger_app'));
     }
 }

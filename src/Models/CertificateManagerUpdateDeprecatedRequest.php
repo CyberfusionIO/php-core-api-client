@@ -15,6 +15,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
     public function __construct(
         int $id,
         string $mainCommonName,
+        array $commonNames,
         CertificateProviderNameEnum $providerName,
         int $clusterId,
         ?int $certificateId = null,
@@ -23,6 +24,7 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
     ) {
         $this->setId($id);
         $this->setMainCommonName($mainCommonName);
+        $this->setCommonNames($commonNames);
         $this->setProviderName($providerName);
         $this->setClusterId($clusterId);
         $this->setCertificateId($certificateId);
@@ -82,10 +84,10 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(array $commonNames): self
+    public function setCommonNames(array $commonNames = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($commonNames));
         $this->setAttribute('common_names', $commonNames);
         return $this;
@@ -129,12 +131,12 @@ class CertificateManagerUpdateDeprecatedRequest extends CoreApiModel implements 
         return (new self(
             id: Arr::get($data, 'id'),
             mainCommonName: Arr::get($data, 'main_common_name'),
+            commonNames: Arr::get($data, 'common_names'),
             providerName: CertificateProviderNameEnum::tryFrom(Arr::get($data, 'provider_name')),
             clusterId: Arr::get($data, 'cluster_id'),
             certificateId: Arr::get($data, 'certificate_id'),
             lastRequestTaskCollectionUuid: Arr::get($data, 'last_request_task_collection_uuid'),
             requestCallbackUrl: Arr::get($data, 'request_callback_url'),
-        ))
-            ->setCommonNames(Arr::get($data, 'common_names'));
+        ));
     }
 }

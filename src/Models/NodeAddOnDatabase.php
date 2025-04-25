@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class NodeAddOnDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -21,6 +18,8 @@ class NodeAddOnDatabase extends CoreApiModel implements CoreApiModelContract
         int $nodeId,
         string $product,
         int $quantity,
+        NodeDatabase $node,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -29,6 +28,8 @@ class NodeAddOnDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setNodeId($nodeId);
         $this->setProduct($product);
         $this->setQuantity($quantity);
+        $this->setNode($node);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -115,6 +116,28 @@ class NodeAddOnDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getNode(): NodeDatabase
+    {
+        return $this->getAttribute('node');
+    }
+
+    public function setNode(?NodeDatabase $node = null): self
+    {
+        $this->setAttribute('node', $node);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -125,6 +148,8 @@ class NodeAddOnDatabase extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             product: Arr::get($data, 'product'),
             quantity: Arr::get($data, 'quantity'),
+            node: NodeDatabase::fromArray(Arr::get($data, 'node')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

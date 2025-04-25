@@ -230,6 +230,17 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): VirtualHostIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?VirtualHostIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -249,6 +260,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
             fpmPoolId: Arr::get($data, 'fpm_pool_id'),
             passengerAppId: Arr::get($data, 'passenger_app_id'),
             customConfig: Arr::get($data, 'custom_config'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? VirtualHostIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

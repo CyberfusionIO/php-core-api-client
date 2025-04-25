@@ -160,6 +160,17 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getIncludes(): TaskCollectionIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TaskCollectionIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -173,6 +184,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
             reference: Arr::get($data, 'reference'),
             objectId: Arr::get($data, 'object_id'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? TaskCollectionIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

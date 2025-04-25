@@ -125,6 +125,17 @@ class BorgArchiveResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): BorgArchiveIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?BorgArchiveIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -136,6 +147,7 @@ class BorgArchiveResource extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             databaseId: Arr::get($data, 'database_id'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? BorgArchiveIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

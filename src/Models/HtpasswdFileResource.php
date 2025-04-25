@@ -74,6 +74,17 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): HtpasswdFileIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?HtpasswdFileIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -82,6 +93,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? HtpasswdFileIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

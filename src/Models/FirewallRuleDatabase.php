@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class FirewallRuleDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -21,22 +18,30 @@ class FirewallRuleDatabase extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         int $clusterId,
         int $nodeId,
+        NodeDatabase $node,
+        ClusterDatabase $cluster,
         ?int $firewallGroupId = null,
         ?FirewallRuleExternalProviderNameEnum $externalProviderName = null,
         ?FirewallRuleServiceNameEnum $serviceName = null,
         ?int $haproxyListenId = null,
         ?int $port = null,
+        ?FirewallGroupDatabase $firewallGroup = null,
+        ?HAProxyListenDatabase $haproxyListen = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setNodeId($nodeId);
+        $this->setNode($node);
+        $this->setCluster($cluster);
         $this->setFirewallGroupId($firewallGroupId);
         $this->setExternalProviderName($externalProviderName);
         $this->setServiceName($serviceName);
         $this->setHaproxyListenId($haproxyListenId);
         $this->setPort($port);
+        $this->setFirewallGroup($firewallGroup);
+        $this->setHaproxyListen($haproxyListen);
     }
 
     public function getId(): int
@@ -149,6 +154,50 @@ class FirewallRuleDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getNode(): NodeDatabase
+    {
+        return $this->getAttribute('node');
+    }
+
+    public function setNode(?NodeDatabase $node = null): self
+    {
+        $this->setAttribute('node', $node);
+        return $this;
+    }
+
+    public function getFirewallGroup(): FirewallGroupDatabase|null
+    {
+        return $this->getAttribute('firewall_group');
+    }
+
+    public function setFirewallGroup(?FirewallGroupDatabase $firewallGroup = null): self
+    {
+        $this->setAttribute('firewall_group', $firewallGroup);
+        return $this;
+    }
+
+    public function getHaproxyListen(): HAProxyListenDatabase|null
+    {
+        return $this->getAttribute('haproxy_listen');
+    }
+
+    public function setHaproxyListen(?HAProxyListenDatabase $haproxyListen = null): self
+    {
+        $this->setAttribute('haproxy_listen', $haproxyListen);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -157,11 +206,15 @@ class FirewallRuleDatabase extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             nodeId: Arr::get($data, 'node_id'),
+            node: NodeDatabase::fromArray(Arr::get($data, 'node')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             firewallGroupId: Arr::get($data, 'firewall_group_id'),
             externalProviderName: Arr::get($data, 'external_provider_name') !== null ? FirewallRuleExternalProviderNameEnum::tryFrom(Arr::get($data, 'external_provider_name')) : null,
             serviceName: Arr::get($data, 'service_name') !== null ? FirewallRuleServiceNameEnum::tryFrom(Arr::get($data, 'service_name')) : null,
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             port: Arr::get($data, 'port'),
+            firewallGroup: Arr::get($data, 'firewall_group') !== null ? FirewallGroupDatabase::fromArray(Arr::get($data, 'firewall_group')) : null,
+            haproxyListen: Arr::get($data, 'haproxy_listen') !== null ? HAProxyListenDatabase::fromArray(Arr::get($data, 'haproxy_listen')) : null,
         ));
     }
 }

@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class HtpasswdUserDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -21,6 +18,8 @@ class HtpasswdUserDatabase extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $username,
         int $htpasswdFileId,
+        HtpasswdFileDatabase $htpasswdFile,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -29,6 +28,8 @@ class HtpasswdUserDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setUsername($username);
         $this->setHtpasswdFileId($htpasswdFileId);
+        $this->setHtpasswdFile($htpasswdFile);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -122,6 +123,28 @@ class HtpasswdUserDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getHtpasswdFile(): HtpasswdFileDatabase
+    {
+        return $this->getAttribute('htpasswd_file');
+    }
+
+    public function setHtpasswdFile(?HtpasswdFileDatabase $htpasswdFile = null): self
+    {
+        $this->setAttribute('htpasswd_file', $htpasswdFile);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -132,6 +155,8 @@ class HtpasswdUserDatabase extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             username: Arr::get($data, 'username'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
+            htpasswdFile: HtpasswdFileDatabase::fromArray(Arr::get($data, 'htpasswd_file')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

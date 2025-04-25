@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class FirewallGroupDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -21,6 +18,7 @@ class FirewallGroupDatabase extends CoreApiModel implements CoreApiModelContract
         string $name,
         int $clusterId,
         array $ipNetworks,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -28,6 +26,7 @@ class FirewallGroupDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setName($name);
         $this->setClusterId($clusterId);
         $this->setIpNetworks($ipNetworks);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -100,12 +99,23 @@ class FirewallGroupDatabase extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setIpNetworks(?array $ipNetworks = null): self
+    public function setIpNetworks(array $ipNetworks = []): self
     {
         Validator::create()
             ->unique()
             ->assert(ValidationHelper::prepareArray($ipNetworks));
         $this->setAttribute('ip_networks', $ipNetworks);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
         return $this;
     }
 
@@ -118,6 +128,7 @@ class FirewallGroupDatabase extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             clusterId: Arr::get($data, 'cluster_id'),
             ipNetworks: Arr::get($data, 'ip_networks'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

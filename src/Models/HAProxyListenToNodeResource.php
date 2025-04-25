@@ -92,6 +92,17 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getIncludes(): HAProxyListenToNodeIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?HAProxyListenToNodeIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -101,6 +112,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
             clusterId: Arr::get($data, 'cluster_id'),
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             nodeId: Arr::get($data, 'node_id'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? HAProxyListenToNodeIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

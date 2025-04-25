@@ -53,7 +53,7 @@ class TombstoneDataVirtualHost extends CoreApiModel implements CoreApiModelContr
         return (new self(
             domainRoot: Arr::get($data, 'domain_root'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster'));
+            ->setDataType(Arr::get($data, 'data_type', 'virtual_host'))
+            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
     }
 }

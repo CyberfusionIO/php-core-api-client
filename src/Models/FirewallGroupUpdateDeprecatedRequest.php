@@ -11,11 +11,12 @@ use Respect\Validation\Validator;
 
 class FirewallGroupUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $id, string $name, int $clusterId)
+    public function __construct(int $id, string $name, int $clusterId, array $ipNetworks)
     {
         $this->setId($id);
         $this->setName($name);
         $this->setClusterId($clusterId);
+        $this->setIpNetworks($ipNetworks);
     }
 
     public function getId(): int
@@ -66,10 +67,10 @@ class FirewallGroupUpdateDeprecatedRequest extends CoreApiModel implements CoreA
     /**
      * @throws ValidationException
      */
-    public function setIpNetworks(array $ipNetworks): self
+    public function setIpNetworks(array $ipNetworks = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($ipNetworks));
         $this->setAttribute('ip_networks', $ipNetworks);
         return $this;
@@ -81,7 +82,7 @@ class FirewallGroupUpdateDeprecatedRequest extends CoreApiModel implements CoreA
             id: Arr::get($data, 'id'),
             name: Arr::get($data, 'name'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIpNetworks(Arr::get($data, 'ip_networks'));
+            ipNetworks: Arr::get($data, 'ip_networks'),
+        ));
     }
 }

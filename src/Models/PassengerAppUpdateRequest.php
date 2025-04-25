@@ -15,67 +15,67 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
     {
     }
 
-    public function getEnvironment(): PassengerEnvironmentEnum
+    public function getEnvironment(): PassengerEnvironmentEnum|null
     {
         return $this->getAttribute('environment');
     }
 
-    public function setEnvironment(PassengerEnvironmentEnum $environment): self
+    public function setEnvironment(?PassengerEnvironmentEnum $environment): self
     {
         $this->setAttribute('environment', $environment);
         return $this;
     }
 
-    public function getEnvironmentVariables(): \ArrayObject
+    public function getEnvironmentVariables(): \ArrayObject|null
     {
         return $this->getAttribute('environment_variables');
     }
 
-    public function setEnvironmentVariables(\ArrayObject $environmentVariables): self
+    public function setEnvironmentVariables(?\ArrayObject $environmentVariables): self
     {
         $this->setAttribute('environment_variables', $environmentVariables);
         return $this;
     }
 
-    public function getMaxPoolSize(): int
+    public function getMaxPoolSize(): int|null
     {
         return $this->getAttribute('max_pool_size');
     }
 
-    public function setMaxPoolSize(int $maxPoolSize): self
+    public function setMaxPoolSize(?int $maxPoolSize): self
     {
         $this->setAttribute('max_pool_size', $maxPoolSize);
         return $this;
     }
 
-    public function getMaxRequests(): int
+    public function getMaxRequests(): int|null
     {
         return $this->getAttribute('max_requests');
     }
 
-    public function setMaxRequests(int $maxRequests): self
+    public function setMaxRequests(?int $maxRequests): self
     {
         $this->setAttribute('max_requests', $maxRequests);
         return $this;
     }
 
-    public function getPoolIdleTime(): int
+    public function getPoolIdleTime(): int|null
     {
         return $this->getAttribute('pool_idle_time');
     }
 
-    public function setPoolIdleTime(int $poolIdleTime): self
+    public function setPoolIdleTime(?int $poolIdleTime): self
     {
         $this->setAttribute('pool_idle_time', $poolIdleTime);
         return $this;
     }
 
-    public function getIsNamespaced(): bool
+    public function getIsNamespaced(): bool|null
     {
         return $this->getAttribute('is_namespaced');
     }
 
-    public function setIsNamespaced(bool $isNamespaced): self
+    public function setIsNamespaced(?bool $isNamespaced): self
     {
         $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;
@@ -118,7 +118,7 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
     {
         return (new self(
         ))
-            ->setEnvironment(Arr::get($data, 'environment'))
+            ->setEnvironment(Arr::get($data, 'environment') !== null ? PassengerEnvironmentEnum::tryFrom(Arr::get($data, 'environment')) : null)
             ->setEnvironmentVariables(Arr::get($data, 'environment_variables'))
             ->setMaxPoolSize(Arr::get($data, 'max_pool_size'))
             ->setMaxRequests(Arr::get($data, 'max_requests'))

@@ -14,23 +14,23 @@ class DatabaseUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
     }
 
-    public function getOptimizingEnabled(): bool
+    public function getOptimizingEnabled(): bool|null
     {
         return $this->getAttribute('optimizing_enabled');
     }
 
-    public function setOptimizingEnabled(bool $optimizingEnabled): self
+    public function setOptimizingEnabled(?bool $optimizingEnabled): self
     {
         $this->setAttribute('optimizing_enabled', $optimizingEnabled);
         return $this;
     }
 
-    public function getBackupsEnabled(): bool
+    public function getBackupsEnabled(): bool|null
     {
         return $this->getAttribute('backups_enabled');
     }
 
-    public function setBackupsEnabled(bool $backupsEnabled): self
+    public function setBackupsEnabled(?bool $backupsEnabled): self
     {
         $this->setAttribute('backups_enabled', $backupsEnabled);
         return $this;

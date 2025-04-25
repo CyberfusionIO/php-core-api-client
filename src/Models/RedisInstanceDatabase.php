@@ -9,9 +9,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -25,6 +22,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
         int $memoryLimit,
         int $maxDatabases,
         RedisEvictionPolicyEnum $evictionPolicy,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -36,6 +34,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setMemoryLimit($memoryLimit);
         $this->setMaxDatabases($maxDatabases);
         $this->setEvictionPolicy($evictionPolicy);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -162,6 +161,17 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -175,6 +185,7 @@ class RedisInstanceDatabase extends CoreApiModel implements CoreApiModelContract
             memoryLimit: Arr::get($data, 'memory_limit'),
             maxDatabases: Arr::get($data, 'max_databases'),
             evictionPolicy: RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

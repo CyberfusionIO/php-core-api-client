@@ -29,6 +29,6 @@ class TombstoneDataCertificate extends CoreApiModel implements CoreApiModelContr
     {
         return (new self(
         ))
-            ->setDataType(Arr::get($data, 'data_type'));
+            ->setDataType(Arr::get($data, 'data_type', 'certificate'));
     }
 }

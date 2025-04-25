@@ -119,6 +119,17 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): CustomerIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?CustomerIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -129,6 +140,7 @@ class CustomerResource extends CoreApiModel implements CoreApiModelContract
             dnsSubdomain: Arr::get($data, 'dns_subdomain'),
             isInternal: Arr::get($data, 'is_internal'),
             teamCode: Arr::get($data, 'team_code'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? CustomerIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

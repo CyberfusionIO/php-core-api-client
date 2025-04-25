@@ -117,7 +117,7 @@ class LogAccessResource extends CoreApiModel implements CoreApiModelContract
             statusCode: Arr::get($data, 'status_code'),
             bytesSent: Arr::get($data, 'bytes_sent'),
         ))
-            ->setMethod(Arr::get($data, 'method'))
+            ->setMethod(Arr::get($data, 'method') !== null ? LogMethodEnum::tryFrom(Arr::get($data, 'method')) : null)
             ->setUri(Arr::get($data, 'uri'));
     }
 }

@@ -62,6 +62,6 @@ class TombstoneDataCron extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'));
+            ->setDataType(Arr::get($data, 'data_type', 'cron'));
     }
 }

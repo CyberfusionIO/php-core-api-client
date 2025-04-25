@@ -49,6 +49,6 @@ class TombstoneDataDaemon extends CoreApiModel implements CoreApiModelContract
         return (new self(
             name: Arr::get($data, 'name'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'));
+            ->setDataType(Arr::get($data, 'data_type', 'daemon'));
     }
 }

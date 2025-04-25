@@ -60,7 +60,7 @@ class TombstoneDataRedisInstance extends CoreApiModel implements CoreApiModelCon
         return (new self(
             name: Arr::get($data, 'name'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster'));
+            ->setDataType(Arr::get($data, 'data_type', 'redis_instance'))
+            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
     }
 }

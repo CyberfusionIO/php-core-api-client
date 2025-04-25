@@ -62,6 +62,6 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
             version: Arr::get($data, 'version'),
             name: Arr::get($data, 'name'),
         ))
-            ->setDataType(Arr::get($data, 'data_type'));
+            ->setDataType(Arr::get($data, 'data_type', 'fpm_pool'));
     }
 }

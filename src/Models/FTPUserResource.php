@@ -132,6 +132,17 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): FTPUserIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?FTPUserIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -143,6 +154,7 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
             username: Arr::get($data, 'username'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             directoryPath: Arr::get($data, 'directory_path'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? FTPUserIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

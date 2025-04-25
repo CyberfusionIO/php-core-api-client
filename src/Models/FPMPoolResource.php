@@ -203,6 +203,17 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): FPMPoolIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?FPMPoolIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -220,6 +231,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
             cpuLimit: Arr::get($data, 'cpu_limit'),
             logSlowRequestsThreshold: Arr::get($data, 'log_slow_requests_threshold'),
             memoryLimit: Arr::get($data, 'memory_limit'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? FPMPoolIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

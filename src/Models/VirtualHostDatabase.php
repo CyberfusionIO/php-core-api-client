@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class VirtualHostDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -27,11 +24,15 @@ class VirtualHostDatabase extends CoreApiModel implements CoreApiModelContract
         string $publicRoot,
         array $serverAliases,
         string $documentRoot,
+        ClusterDatabase $cluster,
+        UNIXUserDatabase $unixUser,
         ?array $allowOverrideDirectives = null,
         ?array $allowOverrideOptionDirectives = null,
         ?int $fpmPoolId = null,
         ?int $passengerAppId = null,
         ?string $customConfig = null,
+        ?FPMPoolDatabase $fpmPool = null,
+        ?PassengerAppDatabase $passengerApp = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -44,11 +45,15 @@ class VirtualHostDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setPublicRoot($publicRoot);
         $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
+        $this->setCluster($cluster);
+        $this->setUnixUser($unixUser);
         $this->setAllowOverrideDirectives($allowOverrideDirectives);
         $this->setAllowOverrideOptionDirectives($allowOverrideOptionDirectives);
         $this->setFpmPoolId($fpmPoolId);
         $this->setPassengerAppId($passengerAppId);
         $this->setCustomConfig($customConfig);
+        $this->setFpmPool($fpmPool);
+        $this->setPassengerApp($passengerApp);
     }
 
     public function getId(): int
@@ -233,6 +238,50 @@ class VirtualHostDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getFpmPool(): FPMPoolDatabase|null
+    {
+        return $this->getAttribute('fpm_pool');
+    }
+
+    public function setFpmPool(?FPMPoolDatabase $fpmPool = null): self
+    {
+        $this->setAttribute('fpm_pool', $fpmPool);
+        return $this;
+    }
+
+    public function getPassengerApp(): PassengerAppDatabase|null
+    {
+        return $this->getAttribute('passenger_app');
+    }
+
+    public function setPassengerApp(?PassengerAppDatabase $passengerApp = null): self
+    {
+        $this->setAttribute('passenger_app', $passengerApp);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -247,11 +296,15 @@ class VirtualHostDatabase extends CoreApiModel implements CoreApiModelContract
             publicRoot: Arr::get($data, 'public_root'),
             serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
             allowOverrideDirectives: Arr::get($data, 'allow_override_directives'),
             allowOverrideOptionDirectives: Arr::get($data, 'allow_override_option_directives'),
             fpmPoolId: Arr::get($data, 'fpm_pool_id'),
             passengerAppId: Arr::get($data, 'passenger_app_id'),
             customConfig: Arr::get($data, 'custom_config'),
+            fpmPool: Arr::get($data, 'fpm_pool') !== null ? FPMPoolDatabase::fromArray(Arr::get($data, 'fpm_pool')) : null,
+            passengerApp: Arr::get($data, 'passenger_app') !== null ? PassengerAppDatabase::fromArray(Arr::get($data, 'passenger_app')) : null,
         ));
     }
 }

@@ -146,6 +146,17 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): FirewallRuleIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?FirewallRuleIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -159,6 +170,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
             serviceName: Arr::get($data, 'service_name') !== null ? FirewallRuleServiceNameEnum::tryFrom(Arr::get($data, 'service_name')) : null,
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             port: Arr::get($data, 'port'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? FirewallRuleIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

@@ -50,12 +50,24 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
+    public function getIncludes(): MailAccountUsageIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?MailAccountUsageIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
             mailAccountId: Arr::get($data, 'mail_account_id'),
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? MailAccountUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

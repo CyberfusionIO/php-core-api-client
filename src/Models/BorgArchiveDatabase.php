@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -20,8 +17,12 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         int $borgRepositoryId,
         string $name,
+        ClusterDatabase $cluster,
+        BorgRepositoryDatabase $borgRepository,
         ?int $databaseId = null,
         ?int $unixUserId = null,
+        ?UNIXUserDatabase $unixUser = null,
+        ?DatabaseDatabase $database = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -29,8 +30,12 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setBorgRepositoryId($borgRepositoryId);
         $this->setName($name);
+        $this->setCluster($cluster);
+        $this->setBorgRepository($borgRepository);
         $this->setDatabaseId($databaseId);
         $this->setUnixUserId($unixUserId);
+        $this->setUnixUser($unixUser);
+        $this->setDatabase($database);
     }
 
     public function getId(): int
@@ -128,6 +133,50 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getBorgRepository(): BorgRepositoryDatabase
+    {
+        return $this->getAttribute('borg_repository');
+    }
+
+    public function setBorgRepository(?BorgRepositoryDatabase $borgRepository = null): self
+    {
+        $this->setAttribute('borg_repository', $borgRepository);
+        return $this;
+    }
+
+    public function getUnixUser(): UNIXUserDatabase|null
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
+    public function getDatabase(): DatabaseDatabase|null
+    {
+        return $this->getAttribute('database');
+    }
+
+    public function setDatabase(?DatabaseDatabase $database = null): self
+    {
+        $this->setAttribute('database', $database);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -137,8 +186,12 @@ class BorgArchiveDatabase extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             borgRepositoryId: Arr::get($data, 'borg_repository_id'),
             name: Arr::get($data, 'name'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
+            borgRepository: BorgRepositoryDatabase::fromArray(Arr::get($data, 'borg_repository')),
             databaseId: Arr::get($data, 'database_id'),
             unixUserId: Arr::get($data, 'unix_user_id'),
+            unixUser: Arr::get($data, 'unix_user') !== null ? UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')) : null,
+            database: Arr::get($data, 'database') !== null ? DatabaseDatabase::fromArray(Arr::get($data, 'database')) : null,
         ));
     }
 }

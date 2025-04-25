@@ -14,6 +14,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     public function __construct(
         int $clusterId,
         string $expiresTimestamp,
+        array $emailContacts,
+        array $urlContacts,
         array $encryptionKeyUrls,
         array $acknowledgmentUrls,
         array $policyUrls,
@@ -22,6 +24,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     ) {
         $this->setClusterId($clusterId);
         $this->setExpiresTimestamp($expiresTimestamp);
+        $this->setEmailContacts($emailContacts);
+        $this->setUrlContacts($urlContacts);
         $this->setEncryptionKeyUrls($encryptionKeyUrls);
         $this->setAcknowledgmentUrls($acknowledgmentUrls);
         $this->setPolicyUrls($policyUrls);
@@ -59,10 +63,10 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setEmailContacts(array $emailContacts): self
+    public function setEmailContacts(array $emailContacts = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($emailContacts));
         $this->setAttribute('email_contacts', $emailContacts);
         return $this;
@@ -76,10 +80,10 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setUrlContacts(array $urlContacts): self
+    public function setUrlContacts(array $urlContacts = []): self
     {
-        Validator::optional(Validator::create()
-            ->unique())
+        Validator::create()
+            ->unique()
             ->assert(ValidationHelper::prepareArray($urlContacts));
         $this->setAttribute('url_contacts', $urlContacts);
         return $this;
@@ -175,13 +179,13 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return (new self(
             clusterId: Arr::get($data, 'cluster_id'),
             expiresTimestamp: Arr::get($data, 'expires_timestamp'),
+            emailContacts: Arr::get($data, 'email_contacts'),
+            urlContacts: Arr::get($data, 'url_contacts'),
             encryptionKeyUrls: Arr::get($data, 'encryption_key_urls'),
             acknowledgmentUrls: Arr::get($data, 'acknowledgment_urls'),
             policyUrls: Arr::get($data, 'policy_urls'),
             openingUrls: Arr::get($data, 'opening_urls'),
             preferredLanguages: Arr::get($data, 'preferred_languages'),
-        ))
-            ->setEmailContacts(Arr::get($data, 'email_contacts'))
-            ->setUrlContacts(Arr::get($data, 'url_contacts'));
+        ));
     }
 }

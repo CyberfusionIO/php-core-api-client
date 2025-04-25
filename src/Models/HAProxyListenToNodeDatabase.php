@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -20,6 +17,9 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
         int $clusterId,
         int $haproxyListenId,
         int $nodeId,
+        HAProxyListenDatabase $haproxyListen,
+        NodeDatabase $node,
+        ClusterDatabase $cluster,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -27,6 +27,9 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
         $this->setClusterId($clusterId);
         $this->setHaproxyListenId($haproxyListenId);
         $this->setNodeId($nodeId);
+        $this->setHaproxyListen($haproxyListen);
+        $this->setNode($node);
+        $this->setCluster($cluster);
     }
 
     public function getId(): int
@@ -95,6 +98,39 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getHaproxyListen(): HAProxyListenDatabase
+    {
+        return $this->getAttribute('haproxy_listen');
+    }
+
+    public function setHaproxyListen(?HAProxyListenDatabase $haproxyListen = null): self
+    {
+        $this->setAttribute('haproxy_listen', $haproxyListen);
+        return $this;
+    }
+
+    public function getNode(): NodeDatabase
+    {
+        return $this->getAttribute('node');
+    }
+
+    public function setNode(?NodeDatabase $node = null): self
+    {
+        $this->setAttribute('node', $node);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -104,6 +140,9 @@ class HAProxyListenToNodeDatabase extends CoreApiModel implements CoreApiModelCo
             clusterId: Arr::get($data, 'cluster_id'),
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             nodeId: Arr::get($data, 'node_id'),
+            haproxyListen: HAProxyListenDatabase::fromArray(Arr::get($data, 'haproxy_listen')),
+            node: NodeDatabase::fromArray(Arr::get($data, 'node')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
         ));
     }
 }

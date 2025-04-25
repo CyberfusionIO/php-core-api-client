@@ -8,9 +8,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CronDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -27,8 +24,13 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
         int $randomDelayMaxSeconds,
         bool $lockingEnabled,
         bool $isActive,
+        ClusterDatabase $cluster,
+        NodeDatabase $node,
+        UNIXUserDatabase $unixUser,
         ?string $emailAddress = null,
         ?int $timeoutSeconds = null,
+        ?int $memoryLimit = null,
+        ?int $cpuLimit = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -43,8 +45,13 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setRandomDelayMaxSeconds($randomDelayMaxSeconds);
         $this->setLockingEnabled($lockingEnabled);
         $this->setIsActive($isActive);
+        $this->setCluster($cluster);
+        $this->setNode($node);
+        $this->setUnixUser($unixUser);
         $this->setEmailAddress($emailAddress);
         $this->setTimeoutSeconds($timeoutSeconds);
+        $this->setMemoryLimit($memoryLimit);
+        $this->setCpuLimit($cpuLimit);
     }
 
     public function getId(): int
@@ -226,6 +233,61 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getMemoryLimit(): int|null
+    {
+        return $this->getAttribute('memory_limit');
+    }
+
+    public function setMemoryLimit(?int $memoryLimit = null): self
+    {
+        $this->setAttribute('memory_limit', $memoryLimit);
+        return $this;
+    }
+
+    public function getCpuLimit(): int|null
+    {
+        return $this->getAttribute('cpu_limit');
+    }
+
+    public function setCpuLimit(?int $cpuLimit = null): self
+    {
+        $this->setAttribute('cpu_limit', $cpuLimit);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
+    public function getNode(): NodeDatabase
+    {
+        return $this->getAttribute('node');
+    }
+
+    public function setNode(?NodeDatabase $node = null): self
+    {
+        $this->setAttribute('node', $node);
+        return $this;
+    }
+
+    public function getUnixUser(): UNIXUserDatabase
+    {
+        return $this->getAttribute('unix_user');
+    }
+
+    public function setUnixUser(?UNIXUserDatabase $unixUser = null): self
+    {
+        $this->setAttribute('unix_user', $unixUser);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -242,8 +304,13 @@ class CronDatabase extends CoreApiModel implements CoreApiModelContract
             randomDelayMaxSeconds: Arr::get($data, 'random_delay_max_seconds'),
             lockingEnabled: Arr::get($data, 'locking_enabled'),
             isActive: Arr::get($data, 'is_active'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
+            node: NodeDatabase::fromArray(Arr::get($data, 'node')),
+            unixUser: UNIXUserDatabase::fromArray(Arr::get($data, 'unix_user')),
             emailAddress: Arr::get($data, 'email_address'),
             timeoutSeconds: Arr::get($data, 'timeout_seconds'),
+            memoryLimit: Arr::get($data, 'memory_limit'),
+            cpuLimit: Arr::get($data, 'cpu_limit'),
         ));
     }
 }

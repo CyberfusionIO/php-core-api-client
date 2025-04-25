@@ -164,6 +164,17 @@ class HAProxyListenResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): HAProxyListenIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?HAProxyListenIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -178,6 +189,7 @@ class HAProxyListenResource extends CoreApiModel implements CoreApiModelContract
             port: Arr::get($data, 'port'),
             socketPath: Arr::get($data, 'socket_path'),
         ))
-            ->setLoadBalancingMethod(Arr::get($data, 'load_balancing_method'));
+            ->setLoadBalancingMethod(LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method', 'Source IP Address')))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? HAProxyListenIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

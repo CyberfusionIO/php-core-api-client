@@ -119,6 +119,17 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getIncludes(): DatabaseUserGrantIncludes|null
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?DatabaseUserGrantIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -130,6 +141,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
             databaseUserId: Arr::get($data, 'database_user_id'),
             privilegeName: MariaDBPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')),
             tableName: Arr::get($data, 'table_name'),
-        ));
+        ))
+            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseUserGrantIncludes::fromArray(Arr::get($data, 'includes')) : null);
     }
 }

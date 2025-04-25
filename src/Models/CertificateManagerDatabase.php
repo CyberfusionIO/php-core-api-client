@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -23,9 +20,11 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
         array $commonNames,
         CertificateProviderNameEnum $providerName,
         int $clusterId,
+        ClusterDatabase $cluster,
         ?int $certificateId = null,
         ?string $lastRequestTaskCollectionUuid = null,
         ?string $requestCallbackUrl = null,
+        ?CertificateDatabase $certificate = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -34,9 +33,11 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
         $this->setCommonNames($commonNames);
         $this->setProviderName($providerName);
         $this->setClusterId($clusterId);
+        $this->setCluster($cluster);
         $this->setCertificateId($certificateId);
         $this->setLastRequestTaskCollectionUuid($lastRequestTaskCollectionUuid);
         $this->setRequestCallbackUrl($requestCallbackUrl);
+        $this->setCertificate($certificate);
     }
 
     public function getId(): int
@@ -113,7 +114,7 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(?array $commonNames = null): self
+    public function setCommonNames(array $commonNames = []): self
     {
         Validator::create()
             ->unique()
@@ -155,6 +156,28 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
         return $this;
     }
 
+    public function getCertificate(): CertificateDatabase|null
+    {
+        return $this->getAttribute('certificate');
+    }
+
+    public function setCertificate(?CertificateDatabase $certificate = null): self
+    {
+        $this->setAttribute('certificate', $certificate);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -165,9 +188,11 @@ class CertificateManagerDatabase extends CoreApiModel implements CoreApiModelCon
             commonNames: Arr::get($data, 'common_names'),
             providerName: CertificateProviderNameEnum::tryFrom(Arr::get($data, 'provider_name')),
             clusterId: Arr::get($data, 'cluster_id'),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             certificateId: Arr::get($data, 'certificate_id'),
             lastRequestTaskCollectionUuid: Arr::get($data, 'last_request_task_collection_uuid'),
             requestCallbackUrl: Arr::get($data, 'request_callback_url'),
+            certificate: Arr::get($data, 'certificate') !== null ? CertificateDatabase::fromArray(Arr::get($data, 'certificate')) : null,
         ));
     }
 }

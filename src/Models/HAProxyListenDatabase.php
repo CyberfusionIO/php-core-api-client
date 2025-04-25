@@ -10,9 +10,6 @@ use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
 {
     public function __construct(
@@ -24,6 +21,8 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
         NodeGroupEnum $nodesGroup,
         LoadBalancingMethodEnum $loadBalancingMethod,
         int $destinationClusterId,
+        ClusterDatabase $destinationCluster,
+        ClusterDatabase $cluster,
         ?array $nodesIds = null,
         ?int $port = null,
         ?string $socketPath = null,
@@ -36,6 +35,8 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
         $this->setNodesGroup($nodesGroup);
         $this->setLoadBalancingMethod($loadBalancingMethod);
         $this->setDestinationClusterId($destinationClusterId);
+        $this->setDestinationCluster($destinationCluster);
+        $this->setCluster($cluster);
         $this->setNodesIds($nodesIds);
         $this->setPort($port);
         $this->setSocketPath($socketPath);
@@ -169,6 +170,28 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDestinationCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('destination_cluster');
+    }
+
+    public function setDestinationCluster(?ClusterDatabase $destinationCluster = null): self
+    {
+        $this->setAttribute('destination_cluster', $destinationCluster);
+        return $this;
+    }
+
+    public function getCluster(): ClusterDatabase
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterDatabase $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -180,6 +203,8 @@ class HAProxyListenDatabase extends CoreApiModel implements CoreApiModelContract
             nodesGroup: NodeGroupEnum::tryFrom(Arr::get($data, 'nodes_group')),
             loadBalancingMethod: LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method')),
             destinationClusterId: Arr::get($data, 'destination_cluster_id'),
+            destinationCluster: ClusterDatabase::fromArray(Arr::get($data, 'destination_cluster')),
+            cluster: ClusterDatabase::fromArray(Arr::get($data, 'cluster')),
             nodesIds: Arr::get($data, 'nodes_ids'),
             port: Arr::get($data, 'port'),
             socketPath: Arr::get($data, 'socket_path'),
