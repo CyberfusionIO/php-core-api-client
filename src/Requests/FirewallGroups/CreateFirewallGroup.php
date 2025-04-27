@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\FirewallGroups;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\FirewallGroupCreateRequest;
 use Cyberfusion\CoreApi\Models\FirewallGroupResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateFirewallGroup extends Request implements CoreApiRequestContract, Has
 
     /**
      * @throws JsonException
-     * @returns FirewallGroupResource|DetailMessage|Collection<ValidationError>
+     * @returns FirewallGroupResource
      */
-    public function createDtoFromResponse(Response $response): FirewallGroupResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): FirewallGroupResource
     {
-        return DtoBuilder::for($response, FirewallGroupResource::class)->build();
+        return FirewallGroupResource::fromArray($response->json());
     }
 }

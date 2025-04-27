@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterIPAddresses;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class ListIPAddressesForCluster extends Request implements CoreApiRequestContrac
 
     /**
      * @throws JsonException
-     * @returns ClusterIPAddresses|DetailMessage|Collection<ValidationError>
+     * @returns ClusterIPAddresses
      */
-    public function createDtoFromResponse(Response $response): ClusterIPAddresses|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): ClusterIPAddresses
     {
-        return DtoBuilder::for($response, ClusterIPAddresses::class)->build();
+        return ClusterIPAddresses::fromArray($response->json());
     }
 }

@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\DomainRouters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\DomainRouterResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListDomainRouters extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<DomainRouterResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<DomainRouterResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, DomainRouterResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => DomainRouterResource::fromArray($item));
     }
 }

@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\FTPUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\TemporaryFTPUserCreateRequest;
 use Cyberfusion\CoreApi\Models\TemporaryFTPUserResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateTemporaryFTPUser extends Request implements CoreApiRequestContract, 
 
     /**
      * @throws JsonException
-     * @returns TemporaryFTPUserResource|DetailMessage|Collection<ValidationError>
+     * @returns TemporaryFTPUserResource
      */
-    public function createDtoFromResponse(Response $response): TemporaryFTPUserResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): TemporaryFTPUserResource
     {
-        return DtoBuilder::for($response, TemporaryFTPUserResource::class)->build();
+        return TemporaryFTPUserResource::fromArray($response->json());
     }
 }

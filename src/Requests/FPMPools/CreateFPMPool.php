@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\FPMPools;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\FPMPoolCreateRequest;
 use Cyberfusion\CoreApi\Models\FPMPoolResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateFPMPool extends Request implements CoreApiRequestContract, HasBody
 
     /**
      * @throws JsonException
-     * @returns FPMPoolResource|DetailMessage|Collection<ValidationError>
+     * @returns FPMPoolResource
      */
-    public function createDtoFromResponse(Response $response): FPMPoolResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): FPMPoolResource
     {
-        return DtoBuilder::for($response, FPMPoolResource::class)->build();
+        return FPMPoolResource::fromArray($response->json());
     }
 }

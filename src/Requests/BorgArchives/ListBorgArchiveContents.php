@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgArchives;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgArchiveContent;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -34,10 +31,10 @@ class ListBorgArchiveContents extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<BorgArchiveContent>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<BorgArchiveContent>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, BorgArchiveContent::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => BorgArchiveContent::fromArray($item));
     }
 }

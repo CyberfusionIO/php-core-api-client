@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\MailHostnames;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MailHostnameResource;
 use Cyberfusion\CoreApi\Models\MailHostnameUpdateDeprecatedRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -46,10 +42,10 @@ class DeprecatedUpdateMailHostname extends Request implements CoreApiRequestCont
 
     /**
      * @throws JsonException
-     * @returns MailHostnameResource|DetailMessage|Collection<ValidationError>
+     * @returns MailHostnameResource
      */
-    public function createDtoFromResponse(Response $response): MailHostnameResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): MailHostnameResource
     {
-        return DtoBuilder::for($response, MailHostnameResource::class)->build();
+        return MailHostnameResource::fromArray($response->json());
     }
 }

@@ -5,11 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\DatabaseUserGrants;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseUserGrantCreateRequest;
 use Cyberfusion\CoreApi\Models\DatabaseUserGrantResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateDatabaseUserGrant extends Request implements CoreApiRequestContract,
 
     /**
      * @throws JsonException
-     * @returns DatabaseUserGrantResource|DetailMessage|Collection<ValidationError>
+     * @returns DatabaseUserGrantResource
      */
-    public function createDtoFromResponse(Response $response): DatabaseUserGrantResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): DatabaseUserGrantResource
     {
-        return DtoBuilder::for($response, DatabaseUserGrantResource::class)->build();
+        return DatabaseUserGrantResource::fromArray($response->json());
     }
 }

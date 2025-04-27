@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Nodes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\NodeResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListNodes extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<NodeResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<NodeResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, NodeResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => NodeResource::fromArray($item));
     }
 }

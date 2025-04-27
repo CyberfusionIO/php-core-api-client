@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Certificates;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CertificateResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListCertificates extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<CertificateResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<CertificateResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, CertificateResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => CertificateResource::fromArray($item));
     }
 }

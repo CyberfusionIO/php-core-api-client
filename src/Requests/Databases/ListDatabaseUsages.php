@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Databases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseUsageResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -39,10 +36,10 @@ class ListDatabaseUsages extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<DatabaseUsageResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<DatabaseUsageResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, DatabaseUsageResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => DatabaseUsageResource::fromArray($item));
     }
 }

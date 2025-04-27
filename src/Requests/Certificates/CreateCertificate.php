@@ -5,11 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\Certificates;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CertificateCreateRequest;
 use Cyberfusion\CoreApi\Models\CertificateResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -40,10 +36,10 @@ class CreateCertificate extends Request implements CoreApiRequestContract, HasBo
 
     /**
      * @throws JsonException
-     * @returns CertificateResource|DetailMessage|Collection<ValidationError>
+     * @returns CertificateResource
      */
-    public function createDtoFromResponse(Response $response): CertificateResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CertificateResource
     {
-        return DtoBuilder::for($response, CertificateResource::class)->build();
+        return CertificateResource::fromArray($response->json());
     }
 }

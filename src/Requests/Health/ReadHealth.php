@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\Health;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HealthResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Response;
@@ -33,10 +29,10 @@ class ReadHealth extends SoloRequest implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns HealthResource|DetailMessage|Collection<ValidationError>
+     * @returns HealthResource
      */
-    public function createDtoFromResponse(Response $response): HealthResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): HealthResource
     {
-        return DtoBuilder::for($response, HealthResource::class)->build();
+        return HealthResource::fromArray($response->json());
     }
 }

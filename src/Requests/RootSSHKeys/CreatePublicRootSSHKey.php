@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\RootSSHKeys;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\RootSSHKeyCreatePublicRequest;
 use Cyberfusion\CoreApi\Models\RootSSHKeyResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreatePublicRootSSHKey extends Request implements CoreApiRequestContract, 
 
     /**
      * @throws JsonException
-     * @returns RootSSHKeyResource|DetailMessage|Collection<ValidationError>
+     * @returns RootSSHKeyResource
      */
-    public function createDtoFromResponse(Response $response): RootSSHKeyResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): RootSSHKeyResource
     {
-        return DtoBuilder::for($response, RootSSHKeyResource::class)->build();
+        return RootSSHKeyResource::fromArray($response->json());
     }
 }

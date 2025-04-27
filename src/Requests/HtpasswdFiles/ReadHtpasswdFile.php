@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\HtpasswdFiles;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HtpasswdFileResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadHtpasswdFile extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns HtpasswdFileResource|DetailMessage|Collection<ValidationError>
+     * @returns HtpasswdFileResource
      */
-    public function createDtoFromResponse(Response $response): HtpasswdFileResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): HtpasswdFileResource
     {
-        return DtoBuilder::for($response, HtpasswdFileResource::class)->build();
+        return HtpasswdFileResource::fromArray($response->json());
     }
 }

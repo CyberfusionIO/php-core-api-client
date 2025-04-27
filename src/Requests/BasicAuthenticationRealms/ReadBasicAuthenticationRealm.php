@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,11 +28,10 @@ class ReadBasicAuthenticationRealm extends Request implements CoreApiRequestCont
 
     /**
      * @throws JsonException
-     * @returns BasicAuthenticationRealmResource|DetailMessage|Collection<ValidationError>
+     * @returns BasicAuthenticationRealmResource
      */
-    public function createDtoFromResponse(
-        Response $response,
-    ): BasicAuthenticationRealmResource|DetailMessage|Collection {
-        return DtoBuilder::for($response, BasicAuthenticationRealmResource::class)->build();
+    public function createDtoFromResponse(Response $response): BasicAuthenticationRealmResource
+    {
+        return BasicAuthenticationRealmResource::fromArray($response->json());
     }
 }

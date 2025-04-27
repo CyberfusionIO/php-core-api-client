@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\FTPUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\FTPUserCreateRequest;
 use Cyberfusion\CoreApi\Models\FTPUserResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateFTPUser extends Request implements CoreApiRequestContract, HasBody
 
     /**
      * @throws JsonException
-     * @returns FTPUserResource|DetailMessage|Collection<ValidationError>
+     * @returns FTPUserResource
      */
-    public function createDtoFromResponse(Response $response): FTPUserResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): FTPUserResource
     {
-        return DtoBuilder::for($response, FTPUserResource::class)->build();
+        return FTPUserResource::fromArray($response->json());
     }
 }

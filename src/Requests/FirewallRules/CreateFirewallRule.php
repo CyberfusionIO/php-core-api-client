@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\FirewallRules;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\FirewallRuleCreateRequest;
 use Cyberfusion\CoreApi\Models\FirewallRuleResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateFirewallRule extends Request implements CoreApiRequestContract, HasB
 
     /**
      * @throws JsonException
-     * @returns FirewallRuleResource|DetailMessage|Collection<ValidationError>
+     * @returns FirewallRuleResource
      */
-    public function createDtoFromResponse(Response $response): FirewallRuleResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): FirewallRuleResource
     {
-        return DtoBuilder::for($response, FirewallRuleResource::class)->build();
+        return FirewallRuleResource::fromArray($response->json());
     }
 }

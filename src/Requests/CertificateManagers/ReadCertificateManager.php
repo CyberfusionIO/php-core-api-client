@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\CertificateManagers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CertificateManagerResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadCertificateManager extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns CertificateManagerResource|DetailMessage|Collection<ValidationError>
+     * @returns CertificateManagerResource
      */
-    public function createDtoFromResponse(Response $response): CertificateManagerResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CertificateManagerResource
     {
-        return DtoBuilder::for($response, CertificateManagerResource::class)->build();
+        return CertificateManagerResource::fromArray($response->json());
     }
 }

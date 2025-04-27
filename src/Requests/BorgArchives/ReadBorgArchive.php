@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\BorgArchives;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgArchiveResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class ReadBorgArchive extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns BorgArchiveResource|DetailMessage|Collection<ValidationError>
+     * @returns BorgArchiveResource
      */
-    public function createDtoFromResponse(Response $response): BorgArchiveResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): BorgArchiveResource
     {
-        return DtoBuilder::for($response, BorgArchiveResource::class)->build();
+        return BorgArchiveResource::fromArray($response->json());
     }
 }

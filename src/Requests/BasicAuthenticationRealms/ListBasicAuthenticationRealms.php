@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListBasicAuthenticationRealms extends Request implements CoreApiRequestCon
 
     /**
      * @throws JsonException
-     * @returns Collection<BasicAuthenticationRealmResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<BasicAuthenticationRealmResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, BasicAuthenticationRealmResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => BasicAuthenticationRealmResource::fromArray($item));
     }
 }

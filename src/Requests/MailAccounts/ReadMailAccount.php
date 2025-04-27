@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\MailAccounts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MailAccountResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadMailAccount extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns MailAccountResource|DetailMessage|Collection<ValidationError>
+     * @returns MailAccountResource
      */
-    public function createDtoFromResponse(Response $response): MailAccountResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): MailAccountResource
     {
-        return DtoBuilder::for($response, MailAccountResource::class)->build();
+        return MailAccountResource::fromArray($response->json());
     }
 }

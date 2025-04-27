@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\UNIXUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\UNIXUserComparison;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -37,10 +33,10 @@ class CompareUNIXUsers extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns UNIXUserComparison|DetailMessage|Collection<ValidationError>
+     * @returns UNIXUserComparison
      */
-    public function createDtoFromResponse(Response $response): UNIXUserComparison|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): UNIXUserComparison
     {
-        return DtoBuilder::for($response, UNIXUserComparison::class)->build();
+        return UNIXUserComparison::fromArray($response->json());
     }
 }

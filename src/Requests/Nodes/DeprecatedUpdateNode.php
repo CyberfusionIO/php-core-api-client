@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\Nodes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\NodeResource;
 use Cyberfusion\CoreApi\Models\NodeUpdateDeprecatedRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -46,10 +42,10 @@ class DeprecatedUpdateNode extends Request implements CoreApiRequestContract, Ha
 
     /**
      * @throws JsonException
-     * @returns NodeResource|DetailMessage|Collection<ValidationError>
+     * @returns NodeResource
      */
-    public function createDtoFromResponse(Response $response): NodeResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): NodeResource
     {
-        return DtoBuilder::for($response, NodeResource::class)->build();
+        return NodeResource::fromArray($response->json());
     }
 }

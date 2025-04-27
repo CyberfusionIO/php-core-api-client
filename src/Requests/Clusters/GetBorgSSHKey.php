@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterBorgSSHKey;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class GetBorgSSHKey extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns ClusterBorgSSHKey|DetailMessage|Collection<ValidationError>
+     * @returns ClusterBorgSSHKey
      */
-    public function createDtoFromResponse(Response $response): ClusterBorgSSHKey|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): ClusterBorgSSHKey
     {
-        return DtoBuilder::for($response, ClusterBorgSSHKey::class)->build();
+        return ClusterBorgSSHKey::fromArray($response->json());
     }
 }

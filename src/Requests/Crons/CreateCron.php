@@ -5,11 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\Crons;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CronCreateRequest;
 use Cyberfusion\CoreApi\Models\CronResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateCron extends Request implements CoreApiRequestContract, HasBody
 
     /**
      * @throws JsonException
-     * @returns CronResource|DetailMessage|Collection<ValidationError>
+     * @returns CronResource
      */
-    public function createDtoFromResponse(Response $response): CronResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CronResource
     {
-        return DtoBuilder::for($response, CronResource::class)->build();
+        return CronResource::fromArray($response->json());
     }
 }

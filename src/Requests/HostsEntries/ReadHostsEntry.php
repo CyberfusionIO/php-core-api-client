@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\HostsEntries;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HostsEntryResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadHostsEntry extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns HostsEntryResource|DetailMessage|Collection<ValidationError>
+     * @returns HostsEntryResource
      */
-    public function createDtoFromResponse(Response $response): HostsEntryResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): HostsEntryResource
     {
-        return DtoBuilder::for($response, HostsEntryResource::class)->build();
+        return HostsEntryResource::fromArray($response->json());
     }
 }

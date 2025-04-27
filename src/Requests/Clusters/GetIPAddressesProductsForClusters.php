@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\IPAddressProduct;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -33,10 +30,10 @@ class GetIPAddressesProductsForClusters extends SoloRequest implements CoreApiRe
 
     /**
      * @throws JsonException
-     * @returns Collection<IPAddressProduct>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<IPAddressProduct>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, IPAddressProduct::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => IPAddressProduct::fromArray($item));
     }
 }

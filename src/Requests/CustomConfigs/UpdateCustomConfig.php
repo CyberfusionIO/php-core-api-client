@@ -5,11 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\CustomConfigs;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomConfigResource;
 use Cyberfusion\CoreApi\Models\CustomConfigUpdateRequest;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class UpdateCustomConfig extends Request implements CoreApiRequestContract, HasB
 
     /**
      * @throws JsonException
-     * @returns CustomConfigResource|DetailMessage|Collection<ValidationError>
+     * @returns CustomConfigResource
      */
-    public function createDtoFromResponse(Response $response): CustomConfigResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CustomConfigResource
     {
-        return DtoBuilder::for($response, CustomConfigResource::class)->build();
+        return CustomConfigResource::fromArray($response->json());
     }
 }

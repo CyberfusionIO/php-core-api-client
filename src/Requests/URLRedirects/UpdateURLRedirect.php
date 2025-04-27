@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\URLRedirects;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\URLRedirectResource;
 use Cyberfusion\CoreApi\Models\URLRedirectUpdateRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class UpdateURLRedirect extends Request implements CoreApiRequestContract, HasBo
 
     /**
      * @throws JsonException
-     * @returns URLRedirectResource|DetailMessage|Collection<ValidationError>
+     * @returns URLRedirectResource
      */
-    public function createDtoFromResponse(Response $response): URLRedirectResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): URLRedirectResource
     {
-        return DtoBuilder::for($response, URLRedirectResource::class)->build();
+        return URLRedirectResource::fromArray($response->json());
     }
 }

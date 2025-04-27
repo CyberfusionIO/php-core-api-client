@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\HAProxyListens;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HAProxyListenResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadHAProxyListen extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns HAProxyListenResource|DetailMessage|Collection<ValidationError>
+     * @returns HAProxyListenResource
      */
-    public function createDtoFromResponse(Response $response): HAProxyListenResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): HAProxyListenResource
     {
-        return DtoBuilder::for($response, HAProxyListenResource::class)->build();
+        return HAProxyListenResource::fromArray($response->json());
     }
 }

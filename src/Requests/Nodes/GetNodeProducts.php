@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Nodes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\NodeProduct;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -33,10 +30,10 @@ class GetNodeProducts extends SoloRequest implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<NodeProduct>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<NodeProduct>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, NodeProduct::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => NodeProduct::fromArray($item));
     }
 }

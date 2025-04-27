@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\HtpasswdUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HtpasswdUserCreateRequest;
 use Cyberfusion\CoreApi\Models\HtpasswdUserResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateHtpasswdUser extends Request implements CoreApiRequestContract, HasB
 
     /**
      * @throws JsonException
-     * @returns HtpasswdUserResource|DetailMessage|Collection<ValidationError>
+     * @returns HtpasswdUserResource
      */
-    public function createDtoFromResponse(Response $response): HtpasswdUserResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): HtpasswdUserResource
     {
-        return DtoBuilder::for($response, HtpasswdUserResource::class)->build();
+        return HtpasswdUserResource::fromArray($response->json());
     }
 }

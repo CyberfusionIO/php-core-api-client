@@ -5,18 +5,26 @@ namespace Cyberfusion\CoreApi;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Cyberfusion\CoreApi\Exceptions\AuthenticationException;
+use Cyberfusion\CoreApi\Exceptions\RequestFailedException;
+use Cyberfusion\CoreApi\Exceptions\RequestValidationException;
 use Cyberfusion\CoreApi\Models\BodyLoginAccessToken;
+use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\TokenResource;
+use Cyberfusion\CoreApi\Models\ValidationError;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Connector;
 use Saloon\Http\PendingRequest;
+use Saloon\Http\Response;
+use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Traits\Plugins\HasTimeout;
+use Throwable;
 
 class CoreApiConnector extends Connector
 {
+    use AlwaysThrowOnErrors;
     use HasTimeout;
 
     private const VERSION = '2.0.0';
@@ -55,6 +63,7 @@ class CoreApiConnector extends Connector
             'User-Agent' => self::USER_AGENT,
         ];
     }
+
 
     private function getAccessTokenExpiration(): CarbonImmutable
     {
@@ -98,6 +107,40 @@ class CoreApiConnector extends Connector
                 ->getAccessToken(),
             expiresAt: $this->getAccessTokenExpiration(),
         );
+    }
+
+    /**
+     * @throws RequestFailedException
+     * @throws RequestValidationException
+     */
+    public function getRequestException(Response $response, ?Throwable $senderException): ?Throwable
+    {
+        try {
+            $dto = match($response->status()) {
+                422 => $response
+                    ->collect('detail')
+                    ->map(fn (array $detail) => ValidationError::fromArray($detail)),
+                default => DetailMessage::fromArray($response->json()),
+            };
+        } catch (Throwable) {
+            throw new RequestFailedException(
+                response: $response,
+                previous: $senderException,
+            );
+        }
+
+        match ($response->status()) {
+            422 => throw new RequestValidationException(
+                response: $response,
+                errors: $dto,
+                previous: $senderException,
+            ),
+            default => throw new RequestFailedException(
+                response: $response,
+                detailMessage: $dto,
+                previous: $senderException,
+            ),
+        };
     }
 
     public function apiUsers(): Resources\APIUsers

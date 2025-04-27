@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\UNIXUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\UNIXUserResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadUNIXUser extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns UNIXUserResource|DetailMessage|Collection<ValidationError>
+     * @returns UNIXUserResource
      */
-    public function createDtoFromResponse(Response $response): UNIXUserResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): UNIXUserResource
     {
-        return DtoBuilder::for($response, UNIXUserResource::class)->build();
+        return UNIXUserResource::fromArray($response->json());
     }
 }

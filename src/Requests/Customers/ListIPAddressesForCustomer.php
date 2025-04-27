@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Customers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomerIPAddresses;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class ListIPAddressesForCustomer extends Request implements CoreApiRequestContra
 
     /**
      * @throws JsonException
-     * @returns CustomerIPAddresses|DetailMessage|Collection<ValidationError>
+     * @returns CustomerIPAddresses
      */
-    public function createDtoFromResponse(Response $response): CustomerIPAddresses|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CustomerIPAddresses
     {
-        return DtoBuilder::for($response, CustomerIPAddresses::class)->build();
+        return CustomerIPAddresses::fromArray($response->json());
     }
 }

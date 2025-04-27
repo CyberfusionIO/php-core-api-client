@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
 use Cyberfusion\CoreApi\Models\VirtualHostResource;
 use Cyberfusion\CoreApi\Models\VirtualHostUpdateDeprecatedRequest;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -46,10 +42,10 @@ class DeprecatedUpdateVirtualHost extends Request implements CoreApiRequestContr
 
     /**
      * @throws JsonException
-     * @returns VirtualHostResource|DetailMessage|Collection<ValidationError>
+     * @returns VirtualHostResource
      */
-    public function createDtoFromResponse(Response $response): VirtualHostResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): VirtualHostResource
     {
-        return DtoBuilder::for($response, VirtualHostResource::class)->build();
+        return VirtualHostResource::fromArray($response->json());
     }
 }

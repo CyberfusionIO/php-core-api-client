@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgRepositories;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgArchiveMetadata;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -35,10 +32,10 @@ class GetBorgArchivesMetadata extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<BorgArchiveMetadata>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<BorgArchiveMetadata>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, BorgArchiveMetadata::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => BorgArchiveMetadata::fromArray($item));
     }
 }
