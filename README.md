@@ -39,7 +39,7 @@ Refer to the [API documentation](https://core-api.cyberfusion.io/) for informati
 
 Initialise the `CoreApiConnector` with your username and password.
 
-The connector takes care of authentication, and offers several resources (such as `VirtualHosts`) and endpoints (i.e. `listVirtualHosts`).
+The connector takes care of authentication, and offers several resources (e.g. `VirtualHosts`) and endpoints (e.g. `listVirtualHosts`).
 
 ```php
 use Cyberfusion\CoreApi\CoreApiConnector;
@@ -66,8 +66,6 @@ Don't have an API user? Contact Cyberfusion.
 ## Requests
 
 The client uses a fluent interface to build requests.
-
-To view all possible requests:
 
 - Start with the connector
 - Go to the desired resource
