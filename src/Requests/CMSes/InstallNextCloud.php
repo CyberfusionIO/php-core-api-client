@@ -4,12 +4,8 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSInstallNextCloudRequest;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -48,10 +44,10 @@ class InstallNextCloud extends Request implements CoreApiRequestContract, HasBod
 
     /**
      * @throws JsonException
-     * @returns TaskCollectionResource|DetailMessage|Collection<ValidationError>
+     * @returns TaskCollectionResource
      */
-    public function createDtoFromResponse(Response $response): TaskCollectionResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): TaskCollectionResource
     {
-        return DtoBuilder::for($response, TaskCollectionResource::class)->build();
+        return TaskCollectionResource::fromArray($response->json());
     }
 }

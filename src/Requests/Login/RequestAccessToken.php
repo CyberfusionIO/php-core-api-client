@@ -4,12 +4,8 @@ namespace Cyberfusion\CoreApi\Requests\Login;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BodyLoginAccessToken;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\TokenResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -44,10 +40,10 @@ class RequestAccessToken extends SoloRequest implements CoreApiRequestContract, 
 
     /**
      * @throws JsonException
-     * @returns TokenResource|DetailMessage|Collection<ValidationError>
+     * @returns TokenResource
      */
-    public function createDtoFromResponse(Response $response): TokenResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): TokenResource
     {
-        return DtoBuilder::for($response, TokenResource::class)->build();
+        return TokenResource::fromArray($response->json());
     }
 }

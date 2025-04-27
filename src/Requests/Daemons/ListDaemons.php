@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Daemons;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DaemonResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListDaemons extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<DaemonResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<DaemonResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, DaemonResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => DaemonResource::fromArray($item));
     }
 }

@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\URLRedirects;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\URLRedirectResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListURLRedirects extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<URLRedirectResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<URLRedirectResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, URLRedirectResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => URLRedirectResource::fromArray($item));
     }
 }

@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterChildren;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class ReadChildren extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns ClusterChildren|DetailMessage|Collection<ValidationError>
+     * @returns ClusterChildren
      */
-    public function createDtoFromResponse(Response $response): ClusterChildren|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): ClusterChildren
     {
-        return DtoBuilder::for($response, ClusterChildren::class)->build();
+        return ClusterChildren::fromArray($response->json());
     }
 }

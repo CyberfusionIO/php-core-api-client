@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClustersCommonProperties;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Response;
@@ -33,10 +29,10 @@ class GetCommonProperties extends SoloRequest implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns ClustersCommonProperties|DetailMessage|Collection<ValidationError>
+     * @returns ClustersCommonProperties
      */
-    public function createDtoFromResponse(Response $response): ClustersCommonProperties|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): ClustersCommonProperties
     {
-        return DtoBuilder::for($response, ClustersCommonProperties::class)->build();
+        return ClustersCommonProperties::fromArray($response->json());
     }
 }

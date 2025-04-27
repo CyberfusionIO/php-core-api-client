@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\PassengerApps;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\PassengerAppResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListPassengerApps extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<PassengerAppResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<PassengerAppResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, PassengerAppResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => PassengerAppResource::fromArray($item));
     }
 }

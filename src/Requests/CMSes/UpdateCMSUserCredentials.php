@@ -5,10 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSUserCredentialsUpdateRequest;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -47,10 +44,10 @@ class UpdateCMSUserCredentials extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns DetailMessage|Collection<ValidationError>
+     * @returns DetailMessage
      */
-    public function createDtoFromResponse(Response $response): DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): DetailMessage
     {
-        return DtoBuilder::for($response, DetailMessage::class)->build();
+        return DetailMessage::fromArray($response->json());
     }
 }

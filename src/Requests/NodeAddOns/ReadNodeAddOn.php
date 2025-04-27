@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\NodeAddOns;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\NodeAddOnResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadNodeAddOn extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns NodeAddOnResource|DetailMessage|Collection<ValidationError>
+     * @returns NodeAddOnResource
      */
-    public function createDtoFromResponse(Response $response): NodeAddOnResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): NodeAddOnResource
     {
-        return DtoBuilder::for($response, NodeAddOnResource::class)->build();
+        return NodeAddOnResource::fromArray($response->json());
     }
 }

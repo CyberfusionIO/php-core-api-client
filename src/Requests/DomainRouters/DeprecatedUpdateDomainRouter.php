@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\DomainRouters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\DomainRouterResource;
 use Cyberfusion\CoreApi\Models\DomainRouterUpdateDeprecatedRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -46,10 +42,10 @@ class DeprecatedUpdateDomainRouter extends Request implements CoreApiRequestCont
 
     /**
      * @throws JsonException
-     * @returns DomainRouterResource|DetailMessage|Collection<ValidationError>
+     * @returns DomainRouterResource
      */
-    public function createDtoFromResponse(Response $response): DomainRouterResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): DomainRouterResource
     {
-        return DtoBuilder::for($response, DomainRouterResource::class)->build();
+        return DomainRouterResource::fromArray($response->json());
     }
 }

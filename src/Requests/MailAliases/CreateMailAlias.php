@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\MailAliases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MailAliasCreateRequest;
 use Cyberfusion\CoreApi\Models\MailAliasResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateMailAlias extends Request implements CoreApiRequestContract, HasBody
 
     /**
      * @throws JsonException
-     * @returns MailAliasResource|DetailMessage|Collection<ValidationError>
+     * @returns MailAliasResource
      */
-    public function createDtoFromResponse(Response $response): MailAliasResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): MailAliasResource
     {
-        return DtoBuilder::for($response, MailAliasResource::class)->build();
+        return MailAliasResource::fromArray($response->json());
     }
 }

@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterDeploymentResults;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -37,10 +34,10 @@ class ListClusterDeploymentsResults extends Request implements CoreApiRequestCon
 
     /**
      * @throws JsonException
-     * @returns Collection<ClusterDeploymentResults>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<ClusterDeploymentResults>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, ClusterDeploymentResults::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => ClusterDeploymentResults::fromArray($item));
     }
 }

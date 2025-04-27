@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\MailAliases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MailAliasResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListMailAliases extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<MailAliasResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<MailAliasResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, MailAliasResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => MailAliasResource::fromArray($item));
     }
 }

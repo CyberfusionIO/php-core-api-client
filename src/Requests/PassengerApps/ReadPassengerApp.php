@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\PassengerApps;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\PassengerAppResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadPassengerApp extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns PassengerAppResource|DetailMessage|Collection<ValidationError>
+     * @returns PassengerAppResource
      */
-    public function createDtoFromResponse(Response $response): PassengerAppResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): PassengerAppResource
     {
-        return DtoBuilder::for($response, PassengerAppResource::class)->build();
+        return PassengerAppResource::fromArray($response->json());
     }
 }

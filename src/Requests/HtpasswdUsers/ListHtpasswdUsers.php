@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\HtpasswdUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HtpasswdUserResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListHtpasswdUsers extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<HtpasswdUserResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<HtpasswdUserResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, HtpasswdUserResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => HtpasswdUserResource::fromArray($item));
     }
 }

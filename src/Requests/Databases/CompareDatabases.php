@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Databases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseComparison;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -37,10 +33,10 @@ class CompareDatabases extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns DatabaseComparison|DetailMessage|Collection<ValidationError>
+     * @returns DatabaseComparison
      */
-    public function createDtoFromResponse(Response $response): DatabaseComparison|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): DatabaseComparison
     {
-        return DtoBuilder::for($response, DatabaseComparison::class)->build();
+        return DatabaseComparison::fromArray($response->json());
     }
 }

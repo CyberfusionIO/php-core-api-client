@@ -3,12 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
 use Cyberfusion\CoreApi\Models\VirtualHostDocumentRoot;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class GetVirtualHostDocumentRoot extends Request implements CoreApiRequestContra
 
     /**
      * @throws JsonException
-     * @returns VirtualHostDocumentRoot|DetailMessage|Collection<ValidationError>
+     * @returns VirtualHostDocumentRoot
      */
-    public function createDtoFromResponse(Response $response): VirtualHostDocumentRoot|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): VirtualHostDocumentRoot
     {
-        return DtoBuilder::for($response, VirtualHostDocumentRoot::class)->build();
+        return VirtualHostDocumentRoot::fromArray($response->json());
     }
 }

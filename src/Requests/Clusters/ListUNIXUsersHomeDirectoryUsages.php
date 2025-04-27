@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\UNIXUsersHomeDirectoryUsageResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -39,10 +36,10 @@ class ListUNIXUsersHomeDirectoryUsages extends Request implements CoreApiRequest
 
     /**
      * @throws JsonException
-     * @returns Collection<UNIXUsersHomeDirectoryUsageResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<UNIXUsersHomeDirectoryUsageResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, UNIXUsersHomeDirectoryUsageResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => UNIXUsersHomeDirectoryUsageResource::fromArray($item));
     }
 }

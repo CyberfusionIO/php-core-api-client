@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Daemons;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DaemonResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadDaemon extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns DaemonResource|DetailMessage|Collection<ValidationError>
+     * @returns DaemonResource
      */
-    public function createDtoFromResponse(Response $response): DaemonResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): DaemonResource
     {
-        return DtoBuilder::for($response, DaemonResource::class)->build();
+        return DaemonResource::fromArray($response->json());
     }
 }

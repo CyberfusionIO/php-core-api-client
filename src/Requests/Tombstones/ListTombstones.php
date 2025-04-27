@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Tombstones;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\TombstoneResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -43,10 +40,10 @@ class ListTombstones extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<TombstoneResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<TombstoneResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, TombstoneResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => TombstoneResource::fromArray($item));
     }
 }

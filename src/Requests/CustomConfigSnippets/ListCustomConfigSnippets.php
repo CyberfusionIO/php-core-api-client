@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\CustomConfigSnippets;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomConfigSnippetResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListCustomConfigSnippets extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<CustomConfigSnippetResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<CustomConfigSnippetResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, CustomConfigSnippetResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => CustomConfigSnippetResource::fromArray($item));
     }
 }

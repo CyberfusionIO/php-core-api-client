@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\HostsEntries;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\HostsEntryResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListHostsEntries extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<HostsEntryResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<HostsEntryResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, HostsEntryResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => HostsEntryResource::fromArray($item));
     }
 }

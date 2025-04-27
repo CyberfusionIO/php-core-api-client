@@ -4,9 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\CertificateManagers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CertificateManagerResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListCertificateManagers extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<CertificateManagerResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<CertificateManagerResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, CertificateManagerResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => CertificateManagerResource::fromArray($item));
     }
 }

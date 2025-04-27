@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Login;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\APIUserInfo;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -28,10 +24,10 @@ class TestAccessToken extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns APIUserInfo|DetailMessage|Collection<ValidationError>
+     * @returns APIUserInfo
      */
-    public function createDtoFromResponse(Response $response): APIUserInfo|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): APIUserInfo
     {
-        return DtoBuilder::for($response, APIUserInfo::class)->build();
+        return APIUserInfo::fromArray($response->json());
     }
 }

@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\MariaDBEncryptionKeys;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MariaDBEncryptionKeyCreateRequest;
 use Cyberfusion\CoreApi\Models\MariaDBEncryptionKeyResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateMariaDBEncryptionKey extends Request implements CoreApiRequestContra
 
     /**
      * @throws JsonException
-     * @returns MariaDBEncryptionKeyResource|DetailMessage|Collection<ValidationError>
+     * @returns MariaDBEncryptionKeyResource
      */
-    public function createDtoFromResponse(Response $response): MariaDBEncryptionKeyResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): MariaDBEncryptionKeyResource
     {
-        return DtoBuilder::for($response, MariaDBEncryptionKeyResource::class)->build();
+        return MariaDBEncryptionKeyResource::fromArray($response->json());
     }
 }

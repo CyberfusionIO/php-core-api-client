@@ -5,11 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterResource;
 use Cyberfusion\CoreApi\Models\ClusterUpdateRequest;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class UpdateCluster extends Request implements CoreApiRequestContract, HasBody
 
     /**
      * @throws JsonException
-     * @returns ClusterResource|DetailMessage|Collection<ValidationError>
+     * @returns ClusterResource
      */
-    public function createDtoFromResponse(Response $response): ClusterResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): ClusterResource
     {
-        return DtoBuilder::for($response, ClusterResource::class)->build();
+        return ClusterResource::fromArray($response->json());
     }
 }

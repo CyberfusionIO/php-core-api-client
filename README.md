@@ -52,7 +52,7 @@ $connector = new CoreApiConnector(
 $virtualHosts = $connector
     ->virtualHosts()
     ->listVirtualHosts()
-    ->dtoOrFail();
+    ->dto();
 ```
 
 ## Authentication
@@ -107,7 +107,24 @@ $mailAlias = new MailAliasCreateRequest(
 // throw ValidationException
 ```
 
-The exception will provide more details about the validation errors.
+The exception contains `ValidationError` objects in the errors collection.
+
+Coe example:
+
+```php
+try {
+    $virtualHost = $connector
+        ->virtualHosts()
+        ->createVirtualHost(...)
+        ->dto();
+} catch (RequestFailedException $exception) {
+    echo $exception->getDetailMessage()->getDetail();
+} catch (ValidationException $exception) {
+    foreach ($exception->errors() as $error) {
+        echo $error->getMsg();
+    }
+}
+```
 
 ## Responses
 
@@ -117,9 +134,8 @@ API responses are mapped to DTOs: all endpoints use parameters or DTOs to send d
 
 To retrieve a model, call `dto()` on the response. This either returns:
 
-- `CoreApiModel` (`Collection` of models)
-- `ValidationError` model when validation failed
-- `DetailMessage` model when something else fails
+- `Collection` of `CoreApiModel` instances
+- `CoreApiModel`
 
 Code example:
 
@@ -132,21 +148,9 @@ $virtualHosts = $connector
 
 ### Throw exception on failure
 
-Want to throw an exception if the request fails?
+If a request returns an unexpected HTTP status code, `RequestFailedException` is thrown.
 
-Call `dtoOrFail()` on the response. This either returns:
-
-- `CoreApiModel` (`Collection` of models)
-- `LogicException` (if the response is not an HTTP 2xx)
-
-Code example:
-
-```php
-$virtualHosts = $connector
-    ->virtualHosts()
-    ->listVirtualHosts()
-    ->dtoOrFail();
-```
+The exception includes the response, and - if returned - a `DetailMessage` object with more information.
 
 ### Get literal response
 

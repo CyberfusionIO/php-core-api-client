@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\UNIXUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\UNIXUserUsageResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
@@ -39,10 +36,10 @@ class ListUNIXUserUsages extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<UNIXUserUsageResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<UNIXUserUsageResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, UNIXUserUsageResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => UNIXUserUsageResource::fromArray($item));
     }
 }

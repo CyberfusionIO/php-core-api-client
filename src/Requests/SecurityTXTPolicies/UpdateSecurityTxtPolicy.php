@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\SecurityTXTPolicies;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\SecurityTXTPolicyResource;
 use Cyberfusion\CoreApi\Models\SecurityTXTPolicyUpdateRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class UpdateSecurityTxtPolicy extends Request implements CoreApiRequestContract,
 
     /**
      * @throws JsonException
-     * @returns SecurityTXTPolicyResource|DetailMessage|Collection<ValidationError>
+     * @returns SecurityTXTPolicyResource
      */
-    public function createDtoFromResponse(Response $response): SecurityTXTPolicyResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): SecurityTXTPolicyResource
     {
-        return DtoBuilder::for($response, SecurityTXTPolicyResource::class)->build();
+        return SecurityTXTPolicyResource::fromArray($response->json());
     }
 }

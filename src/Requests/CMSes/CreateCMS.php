@@ -5,11 +5,7 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSCreateRequest;
 use Cyberfusion\CoreApi\Models\CMSResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -43,10 +39,10 @@ class CreateCMS extends Request implements CoreApiRequestContract, HasBody
 
     /**
      * @throws JsonException
-     * @returns CMSResource|DetailMessage|Collection<ValidationError>
+     * @returns CMSResource
      */
-    public function createDtoFromResponse(Response $response): CMSResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CMSResource
     {
-        return DtoBuilder::for($response, CMSResource::class)->build();
+        return CMSResource::fromArray($response->json());
     }
 }

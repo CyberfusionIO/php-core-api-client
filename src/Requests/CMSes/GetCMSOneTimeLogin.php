@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSOneTimeLogin;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -35,10 +31,10 @@ class GetCMSOneTimeLogin extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns CMSOneTimeLogin|DetailMessage|Collection<ValidationError>
+     * @returns CMSOneTimeLogin
      */
-    public function createDtoFromResponse(Response $response): CMSOneTimeLogin|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CMSOneTimeLogin
     {
-        return DtoBuilder::for($response, CMSOneTimeLogin::class)->build();
+        return CMSOneTimeLogin::fromArray($response->json());
     }
 }

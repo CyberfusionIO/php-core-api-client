@@ -4,11 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Customers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomerResource;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -32,10 +28,10 @@ class ReadCustomer extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns CustomerResource|DetailMessage|Collection<ValidationError>
+     * @returns CustomerResource
      */
-    public function createDtoFromResponse(Response $response): CustomerResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): CustomerResource
     {
-        return DtoBuilder::for($response, CustomerResource::class)->build();
+        return CustomerResource::fromArray($response->json());
     }
 }

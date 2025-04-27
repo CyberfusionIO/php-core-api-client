@@ -3,10 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\MailDomains;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MailDomainResource;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\Filter;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
@@ -40,10 +37,10 @@ class ListMailDomains extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<MailDomainResource>|DetailMessage|Collection<ValidationError>
+     * @returns Collection<MailDomainResource>
      */
-    public function createDtoFromResponse(Response $response): Collection|DetailMessage
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return DtoBuilder::for($response, MailDomainResource::class)->buildCollection();
+        return $response->collect()->map(fn (array $item) => MailDomainResource::fromArray($item));
     }
 }

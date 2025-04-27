@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\MailDomains;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\MailDomainResource;
 use Cyberfusion\CoreApi\Models\MailDomainUpdateDeprecatedRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -46,10 +42,10 @@ class DeprecatedUpdateMailDomain extends Request implements CoreApiRequestContra
 
     /**
      * @throws JsonException
-     * @returns MailDomainResource|DetailMessage|Collection<ValidationError>
+     * @returns MailDomainResource
      */
-    public function createDtoFromResponse(Response $response): MailDomainResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): MailDomainResource
     {
-        return DtoBuilder::for($response, MailDomainResource::class)->build();
+        return MailDomainResource::fromArray($response->json());
     }
 }

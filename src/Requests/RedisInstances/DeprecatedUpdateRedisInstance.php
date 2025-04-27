@@ -3,13 +3,9 @@
 namespace Cyberfusion\CoreApi\Requests\RedisInstances;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\RedisInstanceResource;
 use Cyberfusion\CoreApi\Models\RedisInstanceUpdateDeprecatedRequest;
-use Cyberfusion\CoreApi\Models\ValidationError;
-use Cyberfusion\CoreApi\Support\DtoBuilder;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
-use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -46,10 +42,10 @@ class DeprecatedUpdateRedisInstance extends Request implements CoreApiRequestCon
 
     /**
      * @throws JsonException
-     * @returns RedisInstanceResource|DetailMessage|Collection<ValidationError>
+     * @returns RedisInstanceResource
      */
-    public function createDtoFromResponse(Response $response): RedisInstanceResource|DetailMessage|Collection
+    public function createDtoFromResponse(Response $response): RedisInstanceResource
     {
-        return DtoBuilder::for($response, RedisInstanceResource::class)->build();
+        return RedisInstanceResource::fromArray($response->json());
     }
 }
