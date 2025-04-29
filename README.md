@@ -94,7 +94,7 @@ $mailDomainResource = $connector
 
 DTOs are validated before sending the request. If invalid data is provided, `ValidationException` is thrown.
 
-For example:
+Code example:
 
 ```php
 use Cyberfusion\CoreApi\Models\MailAliasCreateRequest;
@@ -241,7 +241,7 @@ $connector
     );
 ```
 
-For example, when using the [request-response-log package](https://github.com/goedemiddag/request-response-log):
+Code example, when using the [request-response-log package](https://github.com/goedemiddag/request-response-log):
 
 ```php
 use Goedemiddag\RequestResponseLog\RequestResponseLogger;
