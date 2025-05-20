@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -108,7 +107,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($emailContacts));
+            ->assert($emailContacts);
         $this->setAttribute('email_contacts', $emailContacts);
         return $this;
     }
@@ -125,7 +124,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($urlContacts));
+            ->assert($urlContacts);
         $this->setAttribute('url_contacts', $urlContacts);
         return $this;
     }
@@ -142,7 +141,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($encryptionKeyUrls));
+            ->assert($encryptionKeyUrls);
         $this->setAttribute('encryption_key_urls', $encryptionKeyUrls);
         return $this;
     }
@@ -159,7 +158,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($acknowledgmentUrls));
+            ->assert($acknowledgmentUrls);
         $this->setAttribute('acknowledgment_urls', $acknowledgmentUrls);
         return $this;
     }
@@ -176,7 +175,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($policyUrls));
+            ->assert($policyUrls);
         $this->setAttribute('policy_urls', $policyUrls);
         return $this;
     }
@@ -193,7 +192,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($openingUrls));
+            ->assert($openingUrls);
         $this->setAttribute('opening_urls', $openingUrls);
         return $this;
     }
@@ -210,7 +209,7 @@ class SecurityTXTPolicyDatabase extends CoreApiModel implements CoreApiModelCont
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($preferredLanguages));
+            ->assert($preferredLanguages);
         $this->setAttribute('preferred_languages', $preferredLanguages);
         return $this;
     }

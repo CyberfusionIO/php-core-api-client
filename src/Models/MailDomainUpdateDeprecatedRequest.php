@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -83,7 +82,7 @@ class MailDomainUpdateDeprecatedRequest extends CoreApiModel implements CoreApiM
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($catchAllForwardEmailAddresses));
+            ->assert($catchAllForwardEmailAddresses);
         $this->setAttribute('catch_all_forward_email_addresses', $catchAllForwardEmailAddresses);
         return $this;
     }

@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -59,7 +58,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($forwardEmailAddresses));
+            ->assert($forwardEmailAddresses);
         $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
         return $this;
     }

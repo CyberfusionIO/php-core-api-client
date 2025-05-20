@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -35,7 +34,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($identicalTablesNames));
+            ->assert($identicalTablesNames);
         $this->setAttribute('identical_tables_names', $identicalTablesNames);
         return $this;
     }
@@ -52,7 +51,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($notIdenticalTablesNames));
+            ->assert($notIdenticalTablesNames);
         $this->setAttribute('not_identical_tables_names', $notIdenticalTablesNames);
         return $this;
     }
@@ -69,7 +68,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($onlyLeftTablesNames));
+            ->assert($onlyLeftTablesNames);
         $this->setAttribute('only_left_tables_names', $onlyLeftTablesNames);
         return $this;
     }
@@ -86,7 +85,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($onlyRightTablesNames));
+            ->assert($onlyRightTablesNames);
         $this->setAttribute('only_right_tables_names', $onlyRightTablesNames);
         return $this;
     }

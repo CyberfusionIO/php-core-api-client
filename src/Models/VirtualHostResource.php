@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -181,7 +180,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($serverAliases));
+            ->assert($serverAliases);
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
     }

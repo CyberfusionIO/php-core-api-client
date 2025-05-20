@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Models;
 use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -95,7 +94,7 @@ class NodeUpdateDeprecatedRequest extends CoreApiModel implements CoreApiModelCo
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($groups));
+            ->assert($groups);
         $this->setAttribute('groups', $groups);
         return $this;
     }
