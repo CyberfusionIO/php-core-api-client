@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -59,7 +58,7 @@ class FirewallGroupCreateRequest extends CoreApiModel implements CoreApiModelCon
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($ipNetworks));
+            ->assert($ipNetworks);
         $this->setAttribute('ip_networks', $ipNetworks);
         return $this;
     }

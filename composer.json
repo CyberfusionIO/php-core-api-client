@@ -12,7 +12,7 @@
     "php": "^8.1",
     "illuminate/support": "^11.0|^12.0",
     "nesbot/carbon": "^2.0|^3.0",
-    "respect/validation": "^2.3",
+    "respect/validation": "^2.4.3",
     "saloonphp/saloon": "^3.6",
     "vdhicts/http-query-builder": "^1.0"
   },

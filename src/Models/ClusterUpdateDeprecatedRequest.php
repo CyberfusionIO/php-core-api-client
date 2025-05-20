@@ -6,7 +6,6 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\MeilisearchEnvironmentEnum;
 use Cyberfusion\CoreApi\Enums\UNIXUserHomeDirectoryEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
-use Cyberfusion\CoreApi\Support\ValidationHelper;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -182,7 +181,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($groups));
+            ->assert($groups);
         $this->setAttribute('groups', $groups);
         return $this;
     }
@@ -210,7 +209,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($phpVersions));
+            ->assert($phpVersions);
         $this->setAttribute('php_versions', $phpVersions);
         return $this;
     }
@@ -271,7 +270,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($customPhpModulesNames));
+            ->assert($customPhpModulesNames);
         $this->setAttribute('custom_php_modules_names', $customPhpModulesNames);
         return $this;
     }
@@ -354,7 +353,7 @@ class ClusterUpdateDeprecatedRequest extends CoreApiModel implements CoreApiMode
     {
         Validator::create()
             ->unique()
-            ->assert(ValidationHelper::prepareArray($nodejsVersions));
+            ->assert($nodejsVersions);
         $this->setAttribute('nodejs_versions', $nodejsVersions);
         return $this;
     }
