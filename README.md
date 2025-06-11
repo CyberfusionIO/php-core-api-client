@@ -309,6 +309,47 @@ $connector = new CoreApiConnector(
 );
 ```
 
+## Helpers
+
+The client provides several helper functions to make working with the Core API easier and to help you implement in the 
+Core API in your application. 
+
+### Certificates
+
+In case of Certificates, the Core API requires the certificates and private key in a specific format. The client 
+provides a helper to convert those to the required format.
+
+```php
+use Cyberfusion\CoreApi\Support\CertificateHelper;
+
+$rawCertificate = file_get_contents('/path/to/certificate.crt');
+
+$formattedCertificate = CertificateHelper::format($rawCertificate);
+```
+
+The formatted certificates can be used directly in your request to the Core API:
+
+```php
+use Cyberfusion\CoreApi\Support\CertificateHelper;
+
+$connector
+    ->certificates()
+    ->createCertificate(new CertificateCreateRequest(
+        certificate: CertificateHelper::format($rawCertificate),
+        caChain: CertificateHelper::format($rawCaChain),
+        privateKey: CertificateHelper::format($rawPrivateKey),
+        clusterId: 1,
+    ));
+```
+
+It also offers some basic functionality to validate the certificate and private key structure:
+
+```php
+use Cyberfusion\CoreApi\Support\CertificateHelper;
+
+$isValid = CertificateHelper::isValid('-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----');
+```
+
 # Tests
 
 Unit tests are available in the `tests` directory. Run:
