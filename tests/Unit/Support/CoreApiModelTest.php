@@ -2,6 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Tests\Unit\Support;
 
+use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use PHPUnit\Framework\TestCase;
 
@@ -29,13 +30,24 @@ class CoreApiModelTest extends TestCase
             {
                 return $this->getAttribute('missing_property');
             }
+
+            public function getVirtualHostServerSoftwareNameEnum(): ?VirtualHostServerSoftwareNameEnum
+            {
+                return $this->getAttribute('virtual_host_software_name');
+            }
+
+            public function setVirtualHostServerSoftwareNameEnum(?VirtualHostServerSoftwareNameEnum $enum): void
+            {
+                $this->setAttribute('virtual_host_software_name', $enum);
+            }
         };
     }
 
-    public function test_it_behave_like_a_model(): void
+    public function test_it_behaves_like_a_model(): void
     {
         $model = $this->getModel();
         $model->setText('text'); // @phpstan-ignore-line
+        $model->setVirtualHostServerSoftwareNameEnum(VirtualHostServerSoftwareNameEnum::Apache); // @phpstan-ignore-line
 
         $this->assertSame('text', $model->getText()); // @phpstan-ignore-line
         $this->assertTrue($model->hasText()); // @phpstan-ignore-line
@@ -45,5 +57,6 @@ class CoreApiModelTest extends TestCase
 
         $this->assertArrayHasKey('text', $array);
         $this->assertSame('text', $array['text']);
+        $this->assertSame(VirtualHostServerSoftwareNameEnum::Apache->value, $array['virtual_host_software_name']);
     }
 }

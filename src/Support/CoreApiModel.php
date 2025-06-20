@@ -2,6 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Support;
 
+use BackedEnum;
 use JsonSerializable;
 
 abstract class CoreApiModel implements JsonSerializable
@@ -25,7 +26,12 @@ abstract class CoreApiModel implements JsonSerializable
 
     public function toArray(): array
     {
-        return $this->attributes;
+        return array_map(
+            static fn (mixed $value) => $value instanceof BackedEnum
+                ? $value->value
+                : $value,
+            $this->attributes
+        );
     }
 
     public function jsonSerialize(): array
