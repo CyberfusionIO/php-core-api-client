@@ -14,7 +14,7 @@
     "nesbot/carbon": "^2.0|^3.0",
     "respect/validation": "^2.4.3",
     "saloonphp/saloon": "^3.6",
-    "vdhicts/http-query-builder": "^1.0"
+    "vdhicts/http-query-builder": "^1.0|^2.0"
   },
   "require-dev": {
     "phpstan/phpstan": "^1.10",
