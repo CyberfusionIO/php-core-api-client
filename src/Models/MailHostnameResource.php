@@ -16,7 +16,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         string $domain,
         int $clusterId,
-        ?int $certificateId = null,
+        int $certificateId,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -81,7 +81,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getCertificateId(): int|null
+    public function getCertificateId(): int
     {
         return $this->getAttribute('certificate_id');
     }

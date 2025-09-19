@@ -11,7 +11,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Usually used to clone websites/applications to and from separate production and staging environments. The right database (destination) is made identical to the left database (source), except excluded tables (`exclude_tables_names`). Sync Toolkit and Database Toolkit must be enabled on the cluster(s) of the left and right database clusters (`sync_toolkit_enabled`, `database_toolkit_enabled`).
+ * Usually used to clone websites/applications to and from separate production and staging environments. The right database (destination) is made identical to the left database (source), except excluded tables (`exclude_tables_names`).
  */
 class SyncDatabases extends Request implements CoreApiRequestContract
 {

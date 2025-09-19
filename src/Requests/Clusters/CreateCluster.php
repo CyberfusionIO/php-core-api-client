@@ -13,9 +13,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * A 'Site to Customer' must exist for the specified customer and site. The following combinations of attributes are unique: - `description` - `grafana_domain` - `singlestore_studio_domain` - `singlestore_api_domain` - `metabase_domain` - `kibana_domain` - `rabbitmq_management_domain`
- */
 class CreateCluster extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

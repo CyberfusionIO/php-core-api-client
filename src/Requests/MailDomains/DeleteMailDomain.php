@@ -16,6 +16,7 @@ class DeleteMailDomain extends Request implements CoreApiRequestContract
 
     public function __construct(
         private readonly int $id,
+        private readonly ?bool $deleteOnCluster = null,
     ) {
     }
 
@@ -23,6 +24,7 @@ class DeleteMailDomain extends Request implements CoreApiRequestContract
     {
         return UrlBuilder::for('/api/v1/mail-domains/%d')
             ->addPathParameter($this->id)
+            ->addQueryParameter('delete_on_cluster', $this->deleteOnCluster)
             ->getEndpoint();
     }
 

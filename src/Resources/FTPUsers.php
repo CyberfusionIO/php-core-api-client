@@ -3,13 +3,11 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\FTPUserCreateRequest;
-use Cyberfusion\CoreApi\Models\FTPUserUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\FTPUserUpdateRequest;
 use Cyberfusion\CoreApi\Models\TemporaryFTPUserCreateRequest;
 use Cyberfusion\CoreApi\Requests\FTPUsers\CreateFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\CreateTemporaryFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\DeleteFTPUser;
-use Cyberfusion\CoreApi\Requests\FTPUsers\DeprecatedUpdateFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\ListFTPUsers;
 use Cyberfusion\CoreApi\Requests\FTPUsers\ReadFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\UpdateFTPUser;
@@ -37,13 +35,6 @@ class FTPUsers extends BaseResource
     public function readFTPUser(int $id): Response
     {
         return $this->connector->send(new ReadFTPUser($id));
-    }
-
-    public function deprecatedUpdateFTPUser(
-        int $id,
-        FTPUserUpdateDeprecatedRequest $fTPUserUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateFTPUser($id, $fTPUserUpdateDeprecatedRequest));
     }
 
     public function updateFTPUser(int $id, FTPUserUpdateRequest $fTPUserUpdateRequest): Response

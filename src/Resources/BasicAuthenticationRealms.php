@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmCreateRequest;
-use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmUpdateRequest;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\CreateBasicAuthenticationRealm;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\DeleteBasicAuthenticationRealm;
-use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\DeprecatedUpdateBasicAuthenticationRealm;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\ListBasicAuthenticationRealms;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\ReadBasicAuthenticationRealm;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\UpdateBasicAuthenticationRealm;
@@ -36,13 +34,6 @@ class BasicAuthenticationRealms extends BaseResource
     public function readBasicAuthenticationRealm(int $id): Response
     {
         return $this->connector->send(new ReadBasicAuthenticationRealm($id));
-    }
-
-    public function deprecatedUpdateBasicAuthenticationRealm(
-        int $id,
-        BasicAuthenticationRealmUpdateDeprecatedRequest $basicAuthenticationRealmUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateBasicAuthenticationRealm($id, $basicAuthenticationRealmUpdateDeprecatedRequest));
     }
 
     public function updateBasicAuthenticationRealm(

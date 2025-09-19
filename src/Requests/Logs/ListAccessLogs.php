@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Logs;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\LogAccessResource;
+use Cyberfusion\CoreApi\Models\WebServerLogAccessResource;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
@@ -39,10 +39,10 @@ class ListAccessLogs extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<LogAccessResource>
+     * @returns Collection<WebServerLogAccessResource>
      */
     public function createDtoFromResponse(Response $response): Collection
     {
-        return $response->collect()->map(fn (array $item) => LogAccessResource::fromArray($item));
+        return $response->collect()->map(fn (array $item) => WebServerLogAccessResource::fromArray($item));
     }
 }

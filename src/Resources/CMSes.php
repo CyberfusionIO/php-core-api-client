@@ -2,18 +2,14 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
-use Cyberfusion\CoreApi\Models\CMSConfigurationConstantUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\CMSConfigurationConstantUpdateRequest;
 use Cyberfusion\CoreApi\Models\CMSCreateRequest;
 use Cyberfusion\CoreApi\Models\CMSInstallNextCloudRequest;
 use Cyberfusion\CoreApi\Models\CMSInstallWordPressRequest;
-use Cyberfusion\CoreApi\Models\CMSOptionUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\CMSOptionUpdateRequest;
 use Cyberfusion\CoreApi\Models\CMSUserCredentialsUpdateRequest;
 use Cyberfusion\CoreApi\Requests\CMSes\CreateCMS;
 use Cyberfusion\CoreApi\Requests\CMSes\DeleteCMS;
-use Cyberfusion\CoreApi\Requests\CMSes\DeprecatedUpdateCMSConfigurationConstant;
-use Cyberfusion\CoreApi\Requests\CMSes\DeprecatedUpdateCMSOption;
 use Cyberfusion\CoreApi\Requests\CMSes\DisableCMSPlugin;
 use Cyberfusion\CoreApi\Requests\CMSes\EnableCMSPlugin;
 use Cyberfusion\CoreApi\Requests\CMSes\GetCMSOneTimeLogin;
@@ -87,25 +83,9 @@ class CMSes extends BaseResource
         return $this->connector->send(new GetCMSPlugins($id));
     }
 
-    public function deprecatedUpdateCMSOption(
-        int $id,
-        string $name,
-        CMSOptionUpdateDeprecatedRequest $cMSOptionUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateCMSOption($id, $name, $cMSOptionUpdateDeprecatedRequest));
-    }
-
     public function updateCMSOption(int $id, string $name, CMSOptionUpdateRequest $cMSOptionUpdateRequest): Response
     {
         return $this->connector->send(new UpdateCMSOption($id, $name, $cMSOptionUpdateRequest));
-    }
-
-    public function deprecatedUpdateCMSConfigurationConstant(
-        int $id,
-        string $name,
-        CMSConfigurationConstantUpdateDeprecatedRequest $cMSConfigurationConstantUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateCMSConfigurationConstant($id, $name, $cMSConfigurationConstantUpdateDeprecatedRequest));
     }
 
     public function updateCMSConfigurationConstant(

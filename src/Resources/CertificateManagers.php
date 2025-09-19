@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\CertificateManagerCreateRequest;
-use Cyberfusion\CoreApi\Models\CertificateManagerUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\CertificateManagerUpdateRequest;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\CreateCertificateManager;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\DeleteCertificateManager;
-use Cyberfusion\CoreApi\Requests\CertificateManagers\DeprecatedUpdateCertificateManager;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\ListCertificateManagers;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\ReadCertificateManager;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\RequestCertificate;
@@ -37,13 +35,6 @@ class CertificateManagers extends BaseResource
     public function readCertificateManager(int $id): Response
     {
         return $this->connector->send(new ReadCertificateManager($id));
-    }
-
-    public function deprecatedUpdateCertificateManager(
-        int $id,
-        CertificateManagerUpdateDeprecatedRequest $certificateManagerUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateCertificateManager($id, $certificateManagerUpdateDeprecatedRequest));
     }
 
     public function updateCertificateManager(

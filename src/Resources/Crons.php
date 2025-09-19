@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\CronCreateRequest;
-use Cyberfusion\CoreApi\Models\CronUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\CronUpdateRequest;
 use Cyberfusion\CoreApi\Requests\Crons\CreateCron;
 use Cyberfusion\CoreApi\Requests\Crons\DeleteCron;
-use Cyberfusion\CoreApi\Requests\Crons\DeprecatedUpdateCron;
 use Cyberfusion\CoreApi\Requests\Crons\ListCrons;
 use Cyberfusion\CoreApi\Requests\Crons\ReadCron;
 use Cyberfusion\CoreApi\Requests\Crons\UpdateCron;
@@ -35,11 +33,6 @@ class Crons extends BaseResource
     public function readCron(int $id): Response
     {
         return $this->connector->send(new ReadCron($id));
-    }
-
-    public function deprecatedUpdateCron(int $id, CronUpdateDeprecatedRequest $cronUpdateDeprecatedRequest): Response
-    {
-        return $this->connector->send(new DeprecatedUpdateCron($id, $cronUpdateDeprecatedRequest));
     }
 
     public function updateCron(int $id, CronUpdateRequest $cronUpdateRequest): Response

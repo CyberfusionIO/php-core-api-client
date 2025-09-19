@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\FirewallGroupCreateRequest;
-use Cyberfusion\CoreApi\Models\FirewallGroupUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\FirewallGroupUpdateRequest;
 use Cyberfusion\CoreApi\Requests\FirewallGroups\CreateFirewallGroup;
 use Cyberfusion\CoreApi\Requests\FirewallGroups\DeleteFirewallGroup;
-use Cyberfusion\CoreApi\Requests\FirewallGroups\DeprecatedUpdateFirewallGroup;
 use Cyberfusion\CoreApi\Requests\FirewallGroups\ListFirewallGroups;
 use Cyberfusion\CoreApi\Requests\FirewallGroups\ReadFirewallGroup;
 use Cyberfusion\CoreApi\Requests\FirewallGroups\UpdateFirewallGroup;
@@ -35,13 +33,6 @@ class FirewallGroups extends BaseResource
     public function readFirewallGroup(int $id): Response
     {
         return $this->connector->send(new ReadFirewallGroup($id));
-    }
-
-    public function deprecatedUpdateFirewallGroup(
-        int $id,
-        FirewallGroupUpdateDeprecatedRequest $firewallGroupUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateFirewallGroup($id, $firewallGroupUpdateDeprecatedRequest));
     }
 
     public function updateFirewallGroup(int $id, FirewallGroupUpdateRequest $firewallGroupUpdateRequest): Response

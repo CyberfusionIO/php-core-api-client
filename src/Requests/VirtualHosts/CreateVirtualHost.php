@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatible cluster groups: * Web The following combinations of attributes are unique: - `domain`
+ * The following combinations of attributes are unique: - `domain`
  */
 class CreateVirtualHost extends Request implements CoreApiRequestContract, HasBody
 {

@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\NodeCreateRequest;
-use Cyberfusion\CoreApi\Models\NodeUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\NodeUpdateRequest;
 use Cyberfusion\CoreApi\Requests\Nodes\CreateNode;
 use Cyberfusion\CoreApi\Requests\Nodes\DeleteNode;
-use Cyberfusion\CoreApi\Requests\Nodes\DeprecatedUpdateNode;
 use Cyberfusion\CoreApi\Requests\Nodes\GetNodeProducts;
 use Cyberfusion\CoreApi\Requests\Nodes\ListNodes;
 use Cyberfusion\CoreApi\Requests\Nodes\ReadNode;
@@ -42,11 +40,6 @@ class Nodes extends BaseResource
     public function readNode(int $id): Response
     {
         return $this->connector->send(new ReadNode($id));
-    }
-
-    public function deprecatedUpdateNode(int $id, NodeUpdateDeprecatedRequest $nodeUpdateDeprecatedRequest): Response
-    {
-        return $this->connector->send(new DeprecatedUpdateNode($id, $nodeUpdateDeprecatedRequest));
     }
 
     public function updateNode(int $id, NodeUpdateRequest $nodeUpdateRequest): Response

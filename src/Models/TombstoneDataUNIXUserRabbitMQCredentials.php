@@ -10,9 +10,14 @@ use Respect\Validation\Validator;
 
 class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $rabbitmqVirtualHostName)
-    {
+    public function __construct(
+        int $id,
+        string $rabbitmqVirtualHostName,
+        TombstoneDataUNIXUserRabbitMQCredentialsIncludes $includes,
+    ) {
+        $this->setId($id);
         $this->setRabbitmqVirtualHostName($rabbitmqVirtualHostName);
+        $this->setIncludes($includes);
     }
 
     public function getDataType(): string
@@ -23,6 +28,17 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
     public function setDataType(string $dataType): self
     {
         $this->setAttribute('data_type', $dataType);
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->getAttribute('id');
+    }
+
+    public function setId(?int $id = null): self
+    {
+        $this->setAttribute('id', $id);
         return $this;
     }
 
@@ -44,10 +60,23 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
         return $this;
     }
 
+    public function getIncludes(): TombstoneDataUNIXUserRabbitMQCredentialsIncludes
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TombstoneDataUNIXUserRabbitMQCredentialsIncludes $includes = null): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
+            id: Arr::get($data, 'id'),
             rabbitmqVirtualHostName: Arr::get($data, 'rabbitmq_virtual_host_name'),
+            includes: TombstoneDataUNIXUserRabbitMQCredentialsIncludes::fromArray(Arr::get($data, 'includes')),
         ))
             ->setDataType(Arr::get($data, 'data_type', 'unix_user_rabbitmq_credentials'));
     }

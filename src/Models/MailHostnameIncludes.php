@@ -10,13 +10,13 @@ use Respect\Validation\Validator;
 
 class MailHostnameIncludes extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(ClusterResource $cluster, ?CertificateResource $certificate = null)
+    public function __construct(CertificateResource $certificate, ClusterResource $cluster)
     {
-        $this->setCluster($cluster);
         $this->setCertificate($certificate);
+        $this->setCluster($cluster);
     }
 
-    public function getCertificate(): CertificateResource|null
+    public function getCertificate(): CertificateResource
     {
         return $this->getAttribute('certificate');
     }
@@ -41,8 +41,8 @@ class MailHostnameIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
+            certificate: CertificateResource::fromArray(Arr::get($data, 'certificate')),
             cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
-            certificate: Arr::get($data, 'certificate') !== null ? CertificateResource::fromArray(Arr::get($data, 'certificate')) : null,
         ));
     }
 }

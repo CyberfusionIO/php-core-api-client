@@ -3,12 +3,10 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\DatabaseCreateRequest;
-use Cyberfusion\CoreApi\Models\DatabaseUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\DatabaseUpdateRequest;
 use Cyberfusion\CoreApi\Requests\Databases\CompareDatabases;
 use Cyberfusion\CoreApi\Requests\Databases\CreateDatabase;
 use Cyberfusion\CoreApi\Requests\Databases\DeleteDatabase;
-use Cyberfusion\CoreApi\Requests\Databases\DeprecatedUpdateDatabase;
 use Cyberfusion\CoreApi\Requests\Databases\ListDatabaseUsages;
 use Cyberfusion\CoreApi\Requests\Databases\ListDatabases;
 use Cyberfusion\CoreApi\Requests\Databases\ReadDatabase;
@@ -38,13 +36,6 @@ class Databases extends BaseResource
     public function readDatabase(int $id): Response
     {
         return $this->connector->send(new ReadDatabase($id));
-    }
-
-    public function deprecatedUpdateDatabase(
-        int $id,
-        DatabaseUpdateDeprecatedRequest $databaseUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateDatabase($id, $databaseUpdateDeprecatedRequest));
     }
 
     public function updateDatabase(int $id, DatabaseUpdateRequest $databaseUpdateRequest): Response

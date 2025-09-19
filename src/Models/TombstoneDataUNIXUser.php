@@ -10,9 +10,16 @@ use Respect\Validation\Validator;
 
 class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $homeDirectory)
-    {
+    public function __construct(
+        int $id,
+        string $homeDirectory,
+        TombstoneDataUNIXUserIncludes $includes,
+        ?string $mailDomainsDirectory = null,
+    ) {
+        $this->setId($id);
         $this->setHomeDirectory($homeDirectory);
+        $this->setIncludes($includes);
+        $this->setMailDomainsDirectory($mailDomainsDirectory);
     }
 
     public function getDataType(): string
@@ -23,6 +30,17 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
     public function setDataType(string $dataType): self
     {
         $this->setAttribute('data_type', $dataType);
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->getAttribute('id');
+    }
+
+    public function setId(?int $id = null): self
+    {
+        $this->setAttribute('id', $id);
         return $this;
     }
 
@@ -37,6 +55,17 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getMailDomainsDirectory(): string|null
+    {
+        return $this->getAttribute('mail_domains_directory');
+    }
+
+    public function setMailDomainsDirectory(?string $mailDomainsDirectory = null): self
+    {
+        $this->setAttribute('mail_domains_directory', $mailDomainsDirectory);
+        return $this;
+    }
+
     public function getDeleteOnCluster(): bool
     {
         return $this->getAttribute('delete_on_cluster');
@@ -48,10 +77,24 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): TombstoneDataUNIXUserIncludes
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TombstoneDataUNIXUserIncludes $includes = null): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
+            id: Arr::get($data, 'id'),
             homeDirectory: Arr::get($data, 'home_directory'),
+            includes: TombstoneDataUNIXUserIncludes::fromArray(Arr::get($data, 'includes')),
+            mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),
         ))
             ->setDataType(Arr::get($data, 'data_type', 'unix_user'))
             ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));

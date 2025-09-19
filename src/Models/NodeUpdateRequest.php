@@ -47,24 +47,12 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getGroupsProperties(): NodeGroupsProperties|null
-    {
-        return $this->getAttribute('groups_properties');
-    }
-
-    public function setGroupsProperties(?NodeGroupsProperties $groupsProperties): self
-    {
-        $this->setAttribute('groups_properties', $groupsProperties);
-        return $this;
-    }
-
     public static function fromArray(array $data): self
     {
         return (new self(
         ))
             ->setGroups(Arr::get($data, 'groups'))
             ->setComment(Arr::get($data, 'comment'))
-            ->setLoadBalancerHealthChecksGroupsPairs(Arr::get($data, 'load_balancer_health_checks_groups_pairs'))
-            ->setGroupsProperties(Arr::get($data, 'groups_properties') !== null ? NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')) : null);
+            ->setLoadBalancerHealthChecksGroupsPairs(Arr::get($data, 'load_balancer_health_checks_groups_pairs'));
     }
 }

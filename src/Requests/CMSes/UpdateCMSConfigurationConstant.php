@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * For WordPress, WordPress Toolkit must be enabled on cluster (`wordpress_toolkit_enabled`). Refer to the CMS documentation: - WordPress: https://developer.wordpress.org/apis/wp-config-php/ - NextCloud: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html
+ * Refer to the CMS documentation: - WordPress: https://developer.wordpress.org/apis/wp-config-php/ - NextCloud: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html
  */
 class UpdateCMSConfigurationConstant extends Request implements CoreApiRequestContract, HasBody
 {

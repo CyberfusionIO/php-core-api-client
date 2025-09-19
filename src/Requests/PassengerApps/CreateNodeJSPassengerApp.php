@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatible cluster groups: * Web The following combinations of attributes are unique: - `name` - `app_root`
+ * The following combinations of attributes are unique: - `name` - `app_root`
  */
 class CreateNodeJSPassengerApp extends Request implements CoreApiRequestContract, HasBody
 {

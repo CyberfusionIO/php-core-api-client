@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatible cluster groups: * Mail The following combinations of attributes are unique: - `domain`
+ * The following combinations of attributes are unique: - `domain`
  */
 class CreateMailHostname extends Request implements CoreApiRequestContract, HasBody
 {

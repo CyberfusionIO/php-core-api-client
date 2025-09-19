@@ -2,11 +2,9 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
-use Cyberfusion\CoreApi\Models\CustomConfigSnippetUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\CustomConfigSnippetUpdateRequest;
 use Cyberfusion\CoreApi\Requests\CustomConfigSnippets\CreateCustomConfigSnippet;
 use Cyberfusion\CoreApi\Requests\CustomConfigSnippets\DeleteCustomConfigSnippet;
-use Cyberfusion\CoreApi\Requests\CustomConfigSnippets\DeprecatedUpdateCustomConfigSnippet;
 use Cyberfusion\CoreApi\Requests\CustomConfigSnippets\ListCustomConfigSnippets;
 use Cyberfusion\CoreApi\Requests\CustomConfigSnippets\ReadCustomConfigSnippet;
 use Cyberfusion\CoreApi\Requests\CustomConfigSnippets\UpdateCustomConfigSnippet;
@@ -34,13 +32,6 @@ class CustomConfigSnippets extends BaseResource
     public function readCustomConfigSnippet(int $id): Response
     {
         return $this->connector->send(new ReadCustomConfigSnippet($id));
-    }
-
-    public function deprecatedUpdateCustomConfigSnippet(
-        int $id,
-        CustomConfigSnippetUpdateDeprecatedRequest $customConfigSnippetUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateCustomConfigSnippet($id, $customConfigSnippetUpdateDeprecatedRequest));
     }
 
     public function updateCustomConfigSnippet(

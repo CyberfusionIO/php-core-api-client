@@ -10,10 +10,16 @@ use Respect\Validation\Validator;
 
 class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $localPart, int $mailDomainId)
-    {
+    public function __construct(
+        int $id,
+        string $localPart,
+        int $mailDomainId,
+        TombstoneDataMailAccountIncludes $includes,
+    ) {
+        $this->setId($id);
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
+        $this->setIncludes($includes);
     }
 
     public function getDataType(): string
@@ -24,6 +30,17 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
     public function setDataType(string $dataType): self
     {
         $this->setAttribute('data_type', $dataType);
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->getAttribute('id');
+    }
+
+    public function setId(?int $id = null): self
+    {
+        $this->setAttribute('id', $id);
         return $this;
     }
 
@@ -67,11 +84,24 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
+    public function getIncludes(): TombstoneDataMailAccountIncludes
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TombstoneDataMailAccountIncludes $includes = null): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
+            id: Arr::get($data, 'id'),
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
+            includes: TombstoneDataMailAccountIncludes::fromArray(Arr::get($data, 'includes')),
         ))
             ->setDataType(Arr::get($data, 'data_type', 'mail_account'))
             ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));

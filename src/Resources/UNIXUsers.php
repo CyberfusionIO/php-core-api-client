@@ -3,12 +3,10 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\UNIXUserCreateRequest;
-use Cyberfusion\CoreApi\Models\UNIXUserUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\UNIXUserUpdateRequest;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\CompareUNIXUsers;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\CreateUNIXUser;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\DeleteUNIXUser;
-use Cyberfusion\CoreApi\Requests\UNIXUsers\DeprecatedUpdateUNIXUser;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\ListUNIXUserUsages;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\ListUNIXUsers;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\ReadUNIXUser;
@@ -37,13 +35,6 @@ class UNIXUsers extends BaseResource
     public function readUNIXUser(int $id): Response
     {
         return $this->connector->send(new ReadUNIXUser($id));
-    }
-
-    public function deprecatedUpdateUNIXUser(
-        int $id,
-        UNIXUserUpdateDeprecatedRequest $uNIXUserUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateUNIXUser($id, $uNIXUserUpdateDeprecatedRequest));
     }
 
     public function updateUNIXUser(int $id, UNIXUserUpdateRequest $uNIXUserUpdateRequest): Response

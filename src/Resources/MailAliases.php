@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\MailAliasCreateRequest;
-use Cyberfusion\CoreApi\Models\MailAliasUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\MailAliasUpdateRequest;
 use Cyberfusion\CoreApi\Requests\MailAliases\CreateMailAlias;
 use Cyberfusion\CoreApi\Requests\MailAliases\DeleteMailAlias;
-use Cyberfusion\CoreApi\Requests\MailAliases\DeprecatedUpdateMailAlias;
 use Cyberfusion\CoreApi\Requests\MailAliases\ListMailAliases;
 use Cyberfusion\CoreApi\Requests\MailAliases\ReadMailAlias;
 use Cyberfusion\CoreApi\Requests\MailAliases\UpdateMailAlias;
@@ -35,13 +33,6 @@ class MailAliases extends BaseResource
     public function readMailAlias(int $id): Response
     {
         return $this->connector->send(new ReadMailAlias($id));
-    }
-
-    public function deprecatedUpdateMailAlias(
-        int $id,
-        MailAliasUpdateDeprecatedRequest $mailAliasUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateMailAlias($id, $mailAliasUpdateDeprecatedRequest));
     }
 
     public function updateMailAlias(int $id, MailAliasUpdateRequest $mailAliasUpdateRequest): Response

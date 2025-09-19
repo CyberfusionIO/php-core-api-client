@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\CustomConfigCreateRequest;
-use Cyberfusion\CoreApi\Models\CustomConfigUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\CustomConfigUpdateRequest;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\CreateCustomConfig;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\DeleteCustomConfig;
-use Cyberfusion\CoreApi\Requests\CustomConfigs\DeprecatedUpdateCustomConfig;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\ListCustomConfigs;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\ReadCustomConfig;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\UpdateCustomConfig;
@@ -35,13 +33,6 @@ class CustomConfigs extends BaseResource
     public function readCustomConfig(int $id): Response
     {
         return $this->connector->send(new ReadCustomConfig($id));
-    }
-
-    public function deprecatedUpdateCustomConfig(
-        int $id,
-        CustomConfigUpdateDeprecatedRequest $customConfigUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateCustomConfig($id, $customConfigUpdateDeprecatedRequest));
     }
 
     public function updateCustomConfig(int $id, CustomConfigUpdateRequest $customConfigUpdateRequest): Response

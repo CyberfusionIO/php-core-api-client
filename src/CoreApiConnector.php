@@ -143,11 +143,6 @@ class CoreApiConnector extends Connector
         };
     }
 
-    public function apiUsers(): Resources\APIUsers
-    {
-        return new Resources\APIUsers($this);
-    }
-
     public function basicAuthenticationRealms(): Resources\BasicAuthenticationRealms
     {
         return new Resources\BasicAuthenticationRealms($this);

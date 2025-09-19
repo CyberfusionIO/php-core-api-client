@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\APIUserAuthenticationMethod;
+use Cyberfusion\CoreApi\Enums\APIUserAuthenticationMethodEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Respect\Validation\Exceptions\ValidationException;
@@ -17,7 +17,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         bool $isActive,
         bool $isSuperuser,
         array $clusters,
-        APIUserAuthenticationMethod $authenticationMethod,
+        APIUserAuthenticationMethodEnum $authenticationMethod,
         ?int $customerId = null,
     ) {
         $this->setId($id);
@@ -108,12 +108,12 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getAuthenticationMethod(): APIUserAuthenticationMethod
+    public function getAuthenticationMethod(): APIUserAuthenticationMethodEnum
     {
         return $this->getAttribute('authentication_method');
     }
 
-    public function setAuthenticationMethod(?APIUserAuthenticationMethod $authenticationMethod = null): self
+    public function setAuthenticationMethod(?APIUserAuthenticationMethodEnum $authenticationMethod = null): self
     {
         $this->setAttribute('authentication_method', $authenticationMethod);
         return $this;
@@ -127,7 +127,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
             isActive: Arr::get($data, 'is_active'),
             isSuperuser: Arr::get($data, 'is_superuser'),
             clusters: Arr::get($data, 'clusters'),
-            authenticationMethod: APIUserAuthenticationMethod::tryFrom(Arr::get($data, 'authentication_method')),
+            authenticationMethod: APIUserAuthenticationMethodEnum::tryFrom(Arr::get($data, 'authentication_method')),
             customerId: Arr::get($data, 'customer_id'),
         ));
     }

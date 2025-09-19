@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\URLRedirectCreateRequest;
-use Cyberfusion\CoreApi\Models\URLRedirectUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\URLRedirectUpdateRequest;
 use Cyberfusion\CoreApi\Requests\URLRedirects\CreateURLRedirect;
 use Cyberfusion\CoreApi\Requests\URLRedirects\DeleteURLRedirect;
-use Cyberfusion\CoreApi\Requests\URLRedirects\DeprecatedUpdateURLRedirect;
 use Cyberfusion\CoreApi\Requests\URLRedirects\ListURLRedirects;
 use Cyberfusion\CoreApi\Requests\URLRedirects\ReadURLRedirect;
 use Cyberfusion\CoreApi\Requests\URLRedirects\UpdateURLRedirect;
@@ -35,13 +33,6 @@ class URLRedirects extends BaseResource
     public function readURLRedirect(int $id): Response
     {
         return $this->connector->send(new ReadURLRedirect($id));
-    }
-
-    public function deprecatedUpdateURLRedirect(
-        int $id,
-        URLRedirectUpdateDeprecatedRequest $uRLRedirectUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateURLRedirect($id, $uRLRedirectUpdateDeprecatedRequest));
     }
 
     public function updateURLRedirect(int $id, URLRedirectUpdateRequest $uRLRedirectUpdateRequest): Response
