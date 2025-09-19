@@ -27,7 +27,7 @@ class CoreApiConnector extends Connector
     use AlwaysThrowOnErrors;
     use HasTimeout;
 
-    private const VERSION = '2.0.0';
+    private const VERSION = '2.1.0';
 
     private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
 
