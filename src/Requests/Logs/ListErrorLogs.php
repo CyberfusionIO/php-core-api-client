@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Logs;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\LogErrorResource;
+use Cyberfusion\CoreApi\Models\WebServerLogErrorResource;
 use Cyberfusion\CoreApi\Support\Sorter;
 use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
@@ -39,10 +39,10 @@ class ListErrorLogs extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<LogErrorResource>
+     * @returns Collection<WebServerLogErrorResource>
      */
     public function createDtoFromResponse(Response $response): Collection
     {
-        return $response->collect()->map(fn (array $item) => LogErrorResource::fromArray($item));
+        return $response->collect()->map(fn (array $item) => WebServerLogErrorResource::fromArray($item));
     }
 }

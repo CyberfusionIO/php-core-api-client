@@ -12,7 +12,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * To learn what this endpoint does, see the [documentation](#section/Documentation/How-changes-are-deployed). After creating, updating or deleting object(s), deployments can take up to 2 minutes to be created. Until then, this endpoint does not return running deployments. Deployment results are available for 21 days. Deployments are sorted descending (most recent first).
+ * To learn what this endpoint does, see the [documentation](#section/Documentation/How-changes-are-deployed). After creating, updating or deleting object(s), deployments can take up to 2 minutes to be created. Until then, this endpoint does not return running deployments. Deployment results are available for 45 days. Deployments are sorted descending (most recent first).
  */
 class ListClusterDeploymentsResults extends Request implements CoreApiRequestContract
 {

@@ -2,9 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
-use Cyberfusion\CoreApi\Models\DomainRouterUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\DomainRouterUpdateRequest;
-use Cyberfusion\CoreApi\Requests\DomainRouters\DeprecatedUpdateDomainRouter;
 use Cyberfusion\CoreApi\Requests\DomainRouters\ListDomainRouters;
 use Cyberfusion\CoreApi\Requests\DomainRouters\UpdateDomainRouter;
 use Cyberfusion\CoreApi\Support\Filter;
@@ -21,13 +19,6 @@ class DomainRouters extends BaseResource
         ?Sorter $sort = null,
     ): Response {
         return $this->connector->send(new ListDomainRouters($skip, $limit, $filter, $sort));
-    }
-
-    public function deprecatedUpdateDomainRouter(
-        int $id,
-        DomainRouterUpdateDeprecatedRequest $domainRouterUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateDomainRouter($id, $domainRouterUpdateDeprecatedRequest));
     }
 
     public function updateDomainRouter(int $id, DomainRouterUpdateRequest $domainRouterUpdateRequest): Response

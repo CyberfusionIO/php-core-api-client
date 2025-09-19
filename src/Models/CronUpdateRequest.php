@@ -124,6 +124,17 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getNodeId(): int|null
+    {
+        return $this->getAttribute('node_id');
+    }
+
+    public function setNodeId(?int $nodeId): self
+    {
+        $this->setAttribute('node_id', $nodeId);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -137,6 +148,7 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
             ->setLockingEnabled(Arr::get($data, 'locking_enabled'))
             ->setIsActive(Arr::get($data, 'is_active'))
             ->setMemoryLimit(Arr::get($data, 'memory_limit'))
-            ->setCpuLimit(Arr::get($data, 'cpu_limit'));
+            ->setCpuLimit(Arr::get($data, 'cpu_limit'))
+            ->setNodeId(Arr::get($data, 'node_id'));
     }
 }

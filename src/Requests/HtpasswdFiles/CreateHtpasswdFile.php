@@ -13,9 +13,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * Compatible cluster groups: * Web
- */
 class CreateHtpasswdFile extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

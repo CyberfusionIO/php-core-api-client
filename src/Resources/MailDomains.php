@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\MailDomainCreateRequest;
-use Cyberfusion\CoreApi\Models\MailDomainUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\MailDomainUpdateRequest;
 use Cyberfusion\CoreApi\Requests\MailDomains\CreateMailDomain;
 use Cyberfusion\CoreApi\Requests\MailDomains\DeleteMailDomain;
-use Cyberfusion\CoreApi\Requests\MailDomains\DeprecatedUpdateMailDomain;
 use Cyberfusion\CoreApi\Requests\MailDomains\ListMailDomains;
 use Cyberfusion\CoreApi\Requests\MailDomains\ReadMailDomain;
 use Cyberfusion\CoreApi\Requests\MailDomains\UpdateMailDomain;
@@ -37,20 +35,13 @@ class MailDomains extends BaseResource
         return $this->connector->send(new ReadMailDomain($id));
     }
 
-    public function deprecatedUpdateMailDomain(
-        int $id,
-        MailDomainUpdateDeprecatedRequest $mailDomainUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateMailDomain($id, $mailDomainUpdateDeprecatedRequest));
-    }
-
     public function updateMailDomain(int $id, MailDomainUpdateRequest $mailDomainUpdateRequest): Response
     {
         return $this->connector->send(new UpdateMailDomain($id, $mailDomainUpdateRequest));
     }
 
-    public function deleteMailDomain(int $id): Response
+    public function deleteMailDomain(int $id, ?bool $deleteOnCluster = null): Response
     {
-        return $this->connector->send(new DeleteMailDomain($id));
+        return $this->connector->send(new DeleteMailDomain($id, $deleteOnCluster));
     }
 }

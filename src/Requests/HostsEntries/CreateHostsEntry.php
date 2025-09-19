@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatible cluster groups: * Web The following combinations of attributes are unique: - `host_name` + `cluster_id`
+ * The following combinations of attributes are unique: - `host_name` + `cluster_id`
  */
 class CreateHostsEntry extends Request implements CoreApiRequestContract, HasBody
 {

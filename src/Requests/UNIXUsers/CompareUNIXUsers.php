@@ -11,7 +11,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Compare files and directories of two UNIX users. Sync Toolkit must be enabled on cluster (`sync_toolkit_enabled`). The left and right UNIX users must be on the same cluster.
+ * Compare files and directories of two UNIX users. The left and right UNIX users must be on the same cluster.
  */
 class CompareUNIXUsers extends Request implements CoreApiRequestContract
 {

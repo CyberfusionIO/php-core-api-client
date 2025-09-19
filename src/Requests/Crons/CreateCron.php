@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatible cluster groups: * Web The following combinations of attributes are unique: - `name`
+ * The following combinations of attributes are unique: - `name`
  */
 class CreateCron extends Request implements CoreApiRequestContract, HasBody
 {

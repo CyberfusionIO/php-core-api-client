@@ -11,10 +11,16 @@ use Respect\Validation\Validator;
 
 class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $name, DatabaseServerSoftwareNameEnum $serverSoftwareName)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        DatabaseServerSoftwareNameEnum $serverSoftwareName,
+        TombstoneDataDatabaseIncludes $includes,
+    ) {
+        $this->setId($id);
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
+        $this->setIncludes($includes);
     }
 
     public function getDataType(): string
@@ -25,6 +31,17 @@ class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
     public function setDataType(string $dataType): self
     {
         $this->setAttribute('data_type', $dataType);
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->getAttribute('id');
+    }
+
+    public function setId(?int $id = null): self
+    {
+        $this->setAttribute('id', $id);
         return $this;
     }
 
@@ -68,11 +85,24 @@ class TombstoneDataDatabase extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): TombstoneDataDatabaseIncludes
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TombstoneDataDatabaseIncludes $includes = null): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
+            id: Arr::get($data, 'id'),
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
+            includes: TombstoneDataDatabaseIncludes::fromArray(Arr::get($data, 'includes')),
         ))
             ->setDataType(Arr::get($data, 'data_type', 'database'))
             ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));

@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\MailAccountCreateRequest;
-use Cyberfusion\CoreApi\Models\MailAccountUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\MailAccountUpdateRequest;
 use Cyberfusion\CoreApi\Requests\MailAccounts\CreateMailAccount;
 use Cyberfusion\CoreApi\Requests\MailAccounts\DeleteMailAccount;
-use Cyberfusion\CoreApi\Requests\MailAccounts\DeprecatedUpdateMailAccounts;
 use Cyberfusion\CoreApi\Requests\MailAccounts\ListMailAccountUsages;
 use Cyberfusion\CoreApi\Requests\MailAccounts\ListMailAccounts;
 use Cyberfusion\CoreApi\Requests\MailAccounts\ReadMailAccount;
@@ -36,13 +34,6 @@ class MailAccounts extends BaseResource
     public function readMailAccount(int $id): Response
     {
         return $this->connector->send(new ReadMailAccount($id));
-    }
-
-    public function deprecatedUpdateMailAccounts(
-        int $id,
-        MailAccountUpdateDeprecatedRequest $mailAccountUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateMailAccounts($id, $mailAccountUpdateDeprecatedRequest));
     }
 
     public function updateMailAccount(int $id, MailAccountUpdateRequest $mailAccountUpdateRequest): Response

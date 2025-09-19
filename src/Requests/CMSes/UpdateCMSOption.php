@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * This endpoint supports only WordPress CMSes. WordPress Toolkit must be enabled on cluster (`wordpress_toolkit_enabled`). Refer to the following documentation: https://codex.wordpress.org/Option_Reference
+ * This endpoint supports only WordPress CMSes. Refer to the following documentation: https://codex.wordpress.org/Option_Reference
  */
 class UpdateCMSOption extends Request implements CoreApiRequestContract, HasBody
 {

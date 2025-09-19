@@ -16,9 +16,9 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
     public function __construct(
         string $uuid,
         string $name,
-        int $ram,
-        int $cores,
-        int $disk,
+        int $memoryGib,
+        int $cpuCores,
+        int $diskGib,
         array $allowUpgradeTo,
         array $allowDowngradeTo,
         float $price,
@@ -27,9 +27,9 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
     ) {
         $this->setUuid($uuid);
         $this->setName($name);
-        $this->setRam($ram);
-        $this->setCores($cores);
-        $this->setDisk($disk);
+        $this->setMemoryGib($memoryGib);
+        $this->setCpuCores($cpuCores);
+        $this->setDiskGib($diskGib);
         $this->setAllowUpgradeTo($allowUpgradeTo);
         $this->setAllowDowngradeTo($allowDowngradeTo);
         $this->setPrice($price);
@@ -66,36 +66,36 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getRam(): int
+    public function getMemoryGib(): int
     {
-        return $this->getAttribute('ram');
+        return $this->getAttribute('memory_gib');
     }
 
-    public function setRam(?int $ram = null): self
+    public function setMemoryGib(?int $memoryGib = null): self
     {
-        $this->setAttribute('ram', $ram);
+        $this->setAttribute('memory_gib', $memoryGib);
         return $this;
     }
 
-    public function getCores(): int
+    public function getCpuCores(): int
     {
-        return $this->getAttribute('cores');
+        return $this->getAttribute('cpu_cores');
     }
 
-    public function setCores(?int $cores = null): self
+    public function setCpuCores(?int $cpuCores = null): self
     {
-        $this->setAttribute('cores', $cores);
+        $this->setAttribute('cpu_cores', $cpuCores);
         return $this;
     }
 
-    public function getDisk(): int
+    public function getDiskGib(): int
     {
-        return $this->getAttribute('disk');
+        return $this->getAttribute('disk_gib');
     }
 
-    public function setDisk(?int $disk = null): self
+    public function setDiskGib(?int $diskGib = null): self
     {
-        $this->setAttribute('disk', $disk);
+        $this->setAttribute('disk_gib', $diskGib);
         return $this;
     }
 
@@ -173,9 +173,9 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return (new self(
             uuid: Arr::get($data, 'uuid'),
             name: Arr::get($data, 'name'),
-            ram: Arr::get($data, 'ram'),
-            cores: Arr::get($data, 'cores'),
-            disk: Arr::get($data, 'disk'),
+            memoryGib: Arr::get($data, 'memory_gib'),
+            cpuCores: Arr::get($data, 'cpu_cores'),
+            diskGib: Arr::get($data, 'disk_gib'),
             allowUpgradeTo: Arr::get($data, 'allow_upgrade_to'),
             allowDowngradeTo: Arr::get($data, 'allow_downgrade_to'),
             price: Arr::get($data, 'price'),

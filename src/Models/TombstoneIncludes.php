@@ -10,12 +10,26 @@ use Respect\Validation\Validator;
 
 class TombstoneIncludes extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
+    public function __construct(ClusterResource $cluster)
     {
+        $this->setCluster($cluster);
+    }
+
+    public function getCluster(): ClusterResource
+    {
+        return $this->getAttribute('cluster');
+    }
+
+    public function setCluster(?ClusterResource $cluster = null): self
+    {
+        $this->setAttribute('cluster', $cluster);
+        return $this;
     }
 
     public static function fromArray(array $data): self
     {
-        return new self();
+        return (new self(
+            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+        ));
     }
 }

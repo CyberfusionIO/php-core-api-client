@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\HtpasswdUserCreateRequest;
-use Cyberfusion\CoreApi\Models\HtpasswdUserUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\HtpasswdUserUpdateRequest;
 use Cyberfusion\CoreApi\Requests\HtpasswdUsers\CreateHtpasswdUser;
 use Cyberfusion\CoreApi\Requests\HtpasswdUsers\DeleteHtpasswdUser;
-use Cyberfusion\CoreApi\Requests\HtpasswdUsers\DeprecatedUpdateHtpasswdUser;
 use Cyberfusion\CoreApi\Requests\HtpasswdUsers\ListHtpasswdUsers;
 use Cyberfusion\CoreApi\Requests\HtpasswdUsers\ReadHtpasswdUser;
 use Cyberfusion\CoreApi\Requests\HtpasswdUsers\UpdateHtpasswdUser;
@@ -35,13 +33,6 @@ class HtpasswdUsers extends BaseResource
     public function readHtpasswdUser(int $id): Response
     {
         return $this->connector->send(new ReadHtpasswdUser($id));
-    }
-
-    public function deprecatedUpdateHtpasswdUser(
-        int $id,
-        HtpasswdUserUpdateDeprecatedRequest $htpasswdUserUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateHtpasswdUser($id, $htpasswdUserUpdateDeprecatedRequest));
     }
 
     public function updateHtpasswdUser(int $id, HtpasswdUserUpdateRequest $htpasswdUserUpdateRequest): Response

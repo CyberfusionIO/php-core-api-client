@@ -11,7 +11,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Task collections can be retried for 21 days after the last retry.
+ * Task collections can be retried for 45 days after the last retry.
  */
 class RetryTaskCollection extends Request implements CoreApiRequestContract
 {

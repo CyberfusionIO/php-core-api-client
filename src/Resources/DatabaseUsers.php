@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\DatabaseUserCreateRequest;
-use Cyberfusion\CoreApi\Models\DatabaseUserUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\DatabaseUserUpdateRequest;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\CreateDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\DeleteDatabaseUser;
-use Cyberfusion\CoreApi\Requests\DatabaseUsers\DeprecatedUpdateDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\ListDatabaseUsers;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\ReadDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\UpdateDatabaseUser;
@@ -35,13 +33,6 @@ class DatabaseUsers extends BaseResource
     public function readDatabaseUser(int $id): Response
     {
         return $this->connector->send(new ReadDatabaseUser($id));
-    }
-
-    public function deprecatedUpdateDatabaseUser(
-        int $id,
-        DatabaseUserUpdateDeprecatedRequest $databaseUserUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateDatabaseUser($id, $databaseUserUpdateDeprecatedRequest));
     }
 
     public function updateDatabaseUser(int $id, DatabaseUserUpdateRequest $databaseUserUpdateRequest): Response

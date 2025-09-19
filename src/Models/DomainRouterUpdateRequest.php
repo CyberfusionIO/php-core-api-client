@@ -58,12 +58,12 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
-    public function getForceSsl(): bool
+    public function getForceSsl(): bool|null
     {
         return $this->getAttribute('force_ssl');
     }
 
-    public function setForceSsl(bool $forceSsl): self
+    public function setForceSsl(?bool $forceSsl): self
     {
         $this->setAttribute('force_ssl', $forceSsl);
         return $this;

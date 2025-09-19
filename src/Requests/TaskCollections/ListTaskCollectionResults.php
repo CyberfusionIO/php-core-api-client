@@ -12,7 +12,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Task collection results are available for 21 days.
+ * Task collection results are available for 45 days.
  */
 class ListTaskCollectionResults extends Request implements CoreApiRequestContract
 {

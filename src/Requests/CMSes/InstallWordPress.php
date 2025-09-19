@@ -13,9 +13,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * WordPress Toolkit must be enabled on cluster (`wordpress_toolkit_enabled`).
- */
 class InstallWordPress extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

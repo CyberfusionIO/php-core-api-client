@@ -3,12 +3,10 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\BorgRepositoryCreateRequest;
-use Cyberfusion\CoreApi\Models\BorgRepositoryUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\BorgRepositoryUpdateRequest;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\CheckBorgRepository;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\CreateBorgRepository;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\DeleteBorgRepository;
-use Cyberfusion\CoreApi\Requests\BorgRepositories\DeprecatedUpdateBorgRepository;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\GetBorgArchivesMetadata;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\ListBorgRepositories;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\PruneBorgRepository;
@@ -38,13 +36,6 @@ class BorgRepositories extends BaseResource
     public function readBorgRepository(int $id): Response
     {
         return $this->connector->send(new ReadBorgRepository($id));
-    }
-
-    public function deprecatedUpdateBorgRepository(
-        int $id,
-        BorgRepositoryUpdateDeprecatedRequest $borgRepositoryUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateBorgRepository($id, $borgRepositoryUpdateDeprecatedRequest));
     }
 
     public function updateBorgRepository(int $id, BorgRepositoryUpdateRequest $borgRepositoryUpdateRequest): Response

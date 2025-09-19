@@ -48,4 +48,23 @@ enum ObjectModelNameEnum: string
     case SiteToCustomer = 'SiteToCustomer';
     case ServiceAccount = 'ServiceAccount';
     case ServiceAccountServer = 'ServiceAccountServer';
+    case CustomConfig = 'CustomConfig';
+    case ClustersPhpProperties = 'clusters_php_properties';
+    case ClustersNodejsProperties = 'clusters_nodejs_properties';
+    case ClustersBorgProperties = 'clusters_borg_properties';
+    case ClustersKernelcareProperties = 'clusters_kernelcare_properties';
+    case ClustersNewRelicProperties = 'clusters_new_relic_properties';
+    case ClustersRedisProperties = 'clusters_redis_properties';
+    case ClustersPostgresqlProperties = 'clusters_postgresql_properties';
+    case ClustersMariadbProperties = 'clusters_mariadb_properties';
+    case ClustersMeilisearchProperties = 'clusters_meilisearch_properties';
+    case ClustersGrafanaProperties = 'clusters_grafana_properties';
+    case ClustersSinglestoreProperties = 'clusters_singlestore_properties';
+    case ClustersElasticsearchProperties = 'clusters_elasticsearch_properties';
+    case ClustersRabbitmqProperties = 'clusters_rabbitmq_properties';
+    case ClustersMetabaseProperties = 'clusters_metabase_properties';
+    case ClustersUnixUsersProperties = 'clusters_unix_users_properties';
+    case ClustersLoadBalancingProperties = 'clusters_load_balancing_properties';
+    case ClustersFirewallProperties = 'clusters_firewall_properties';
+    case ClustersOsProperties = 'clusters_os_properties';
 }

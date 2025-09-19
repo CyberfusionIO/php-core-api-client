@@ -19,18 +19,18 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         float $price,
         string $period,
         string $currency,
-        ?int $ram = null,
-        ?int $cores = null,
-        ?int $disk = null,
+        ?int $memoryGib = null,
+        ?int $cpuCores = null,
+        ?int $diskGib = null,
     ) {
         $this->setUuid($uuid);
         $this->setName($name);
         $this->setPrice($price);
         $this->setPeriod($period);
         $this->setCurrency($currency);
-        $this->setRam($ram);
-        $this->setCores($cores);
-        $this->setDisk($disk);
+        $this->setMemoryGib($memoryGib);
+        $this->setCpuCores($cpuCores);
+        $this->setDiskGib($diskGib);
     }
 
     public function getUuid(): string
@@ -62,36 +62,36 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getRam(): int|null
+    public function getMemoryGib(): int|null
     {
-        return $this->getAttribute('ram');
+        return $this->getAttribute('memory_gib');
     }
 
-    public function setRam(?int $ram = null): self
+    public function setMemoryGib(?int $memoryGib = null): self
     {
-        $this->setAttribute('ram', $ram);
+        $this->setAttribute('memory_gib', $memoryGib);
         return $this;
     }
 
-    public function getCores(): int|null
+    public function getCpuCores(): int|null
     {
-        return $this->getAttribute('cores');
+        return $this->getAttribute('cpu_cores');
     }
 
-    public function setCores(?int $cores = null): self
+    public function setCpuCores(?int $cpuCores = null): self
     {
-        $this->setAttribute('cores', $cores);
+        $this->setAttribute('cpu_cores', $cpuCores);
         return $this;
     }
 
-    public function getDisk(): int|null
+    public function getDiskGib(): int|null
     {
-        return $this->getAttribute('disk');
+        return $this->getAttribute('disk_gib');
     }
 
-    public function setDisk(?int $disk = null): self
+    public function setDiskGib(?int $diskGib = null): self
     {
-        $this->setAttribute('disk', $disk);
+        $this->setAttribute('disk_gib', $diskGib);
         return $this;
     }
 
@@ -150,9 +150,9 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
             price: Arr::get($data, 'price'),
             period: Arr::get($data, 'period'),
             currency: Arr::get($data, 'currency'),
-            ram: Arr::get($data, 'ram'),
-            cores: Arr::get($data, 'cores'),
-            disk: Arr::get($data, 'disk'),
+            memoryGib: Arr::get($data, 'memory_gib'),
+            cpuCores: Arr::get($data, 'cpu_cores'),
+            diskGib: Arr::get($data, 'disk_gib'),
         ));
     }
 }

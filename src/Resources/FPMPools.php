@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\FPMPoolCreateRequest;
-use Cyberfusion\CoreApi\Models\FPMPoolUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\FPMPoolUpdateRequest;
 use Cyberfusion\CoreApi\Requests\FPMPools\CreateFPMPool;
 use Cyberfusion\CoreApi\Requests\FPMPools\DeleteFPMPool;
-use Cyberfusion\CoreApi\Requests\FPMPools\DeprecatedUpdateFPMPool;
 use Cyberfusion\CoreApi\Requests\FPMPools\ListFPMPools;
 use Cyberfusion\CoreApi\Requests\FPMPools\ReadFPMPool;
 use Cyberfusion\CoreApi\Requests\FPMPools\ReloadFPMPool;
@@ -37,13 +35,6 @@ class FPMPools extends BaseResource
     public function readFPMPool(int $id): Response
     {
         return $this->connector->send(new ReadFPMPool($id));
-    }
-
-    public function deprecatedUpdateFPMPool(
-        int $id,
-        FPMPoolUpdateDeprecatedRequest $fPMPoolUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateFPMPool($id, $fPMPoolUpdateDeprecatedRequest));
     }
 
     public function updateFPMPool(int $id, FPMPoolUpdateRequest $fPMPoolUpdateRequest): Response

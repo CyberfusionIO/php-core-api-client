@@ -10,7 +10,7 @@ use Respect\Validation\Validator;
 
 class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $domain, int $clusterId, ?int $certificateId = null)
+    public function __construct(string $domain, int $clusterId, int $certificateId)
     {
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
@@ -39,7 +39,7 @@ class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
-    public function getCertificateId(): int|null
+    public function getCertificateId(): int
     {
         return $this->getAttribute('certificate_id');
     }

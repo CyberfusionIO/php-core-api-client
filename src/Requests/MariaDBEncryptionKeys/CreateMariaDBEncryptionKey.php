@@ -13,9 +13,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * Compatible cluster groups: * Database
- */
 class CreateMariaDBEncryptionKey extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

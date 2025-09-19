@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\SecurityTXTPolicyCreateRequest;
-use Cyberfusion\CoreApi\Models\SecurityTXTPolicyUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\SecurityTXTPolicyUpdateRequest;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\CreateSecurityTxtPolicy;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\DeleteSecurityTxtPolicy;
-use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\DeprecatedUpdateSecurityTxtPolicy;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\ListSecurityTxtPolicies;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\ReadSecurityTxtPolicy;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\UpdateSecurityTxtPolicy;
@@ -35,13 +33,6 @@ class SecurityTXTPolicies extends BaseResource
     public function readSecurityTxtPolicy(int $id): Response
     {
         return $this->connector->send(new ReadSecurityTxtPolicy($id));
-    }
-
-    public function deprecatedUpdateSecurityTxtPolicy(
-        int $id,
-        SecurityTXTPolicyUpdateDeprecatedRequest $securityTXTPolicyUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateSecurityTxtPolicy($id, $securityTXTPolicyUpdateDeprecatedRequest));
     }
 
     public function updateSecurityTxtPolicy(

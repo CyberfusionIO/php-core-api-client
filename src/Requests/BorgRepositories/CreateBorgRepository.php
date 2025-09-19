@@ -14,7 +14,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Compatible cluster groups: * Borg Client The following combinations of attributes are unique: - `name`
+ * The following combinations of attributes are unique: - `name`
  */
 class CreateBorgRepository extends Request implements CoreApiRequestContract, HasBody
 {

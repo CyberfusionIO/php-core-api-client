@@ -3,12 +3,11 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\DaemonCreateRequest;
-use Cyberfusion\CoreApi\Models\DaemonUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\DaemonUpdateRequest;
 use Cyberfusion\CoreApi\Requests\Daemons\CreateDaemon;
 use Cyberfusion\CoreApi\Requests\Daemons\DeleteDaemon;
-use Cyberfusion\CoreApi\Requests\Daemons\DeprecatedUpdateDaemon;
 use Cyberfusion\CoreApi\Requests\Daemons\ListDaemons;
+use Cyberfusion\CoreApi\Requests\Daemons\ListLogs;
 use Cyberfusion\CoreApi\Requests\Daemons\ReadDaemon;
 use Cyberfusion\CoreApi\Requests\Daemons\UpdateDaemon;
 use Cyberfusion\CoreApi\Support\Filter;
@@ -37,13 +36,6 @@ class Daemons extends BaseResource
         return $this->connector->send(new ReadDaemon($id));
     }
 
-    public function deprecatedUpdateDaemon(
-        int $id,
-        DaemonUpdateDeprecatedRequest $daemonUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateDaemon($id, $daemonUpdateDeprecatedRequest));
-    }
-
     public function updateDaemon(int $id, DaemonUpdateRequest $daemonUpdateRequest): Response
     {
         return $this->connector->send(new UpdateDaemon($id, $daemonUpdateRequest));
@@ -52,5 +44,10 @@ class Daemons extends BaseResource
     public function deleteDaemon(int $id): Response
     {
         return $this->connector->send(new DeleteDaemon($id));
+    }
+
+    public function listLogs(int $id, ?string $timestamp = null, ?Sorter $sort = null, ?int $limit = null): Response
+    {
+        return $this->connector->send(new ListLogs($id, $timestamp, $sort, $limit));
     }
 }

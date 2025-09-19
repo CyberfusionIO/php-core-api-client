@@ -11,7 +11,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * This endpoint supports only WordPress CMSes. WordPress Toolkit must be enabled on cluster (`wordpress_toolkit_enabled`).
+ * This endpoint supports only WordPress CMSes.
  */
 class GetCMSOneTimeLogin extends Request implements CoreApiRequestContract
 {

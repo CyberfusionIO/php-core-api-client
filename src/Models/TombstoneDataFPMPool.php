@@ -10,10 +10,12 @@ use Respect\Validation\Validator;
 
 class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(string $version, string $name)
+    public function __construct(int $id, string $version, string $name, TombstoneDataFPMPoolIncludes $includes)
     {
+        $this->setId($id);
         $this->setVersion($version);
         $this->setName($name);
+        $this->setIncludes($includes);
     }
 
     public function getDataType(): string
@@ -24,6 +26,17 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
     public function setDataType(string $dataType): self
     {
         $this->setAttribute('data_type', $dataType);
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->getAttribute('id');
+    }
+
+    public function setId(?int $id = null): self
+    {
+        $this->setAttribute('id', $id);
         return $this;
     }
 
@@ -56,11 +69,24 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIncludes(): TombstoneDataFPMPoolIncludes
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(?TombstoneDataFPMPoolIncludes $includes = null): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
+            id: Arr::get($data, 'id'),
             version: Arr::get($data, 'version'),
             name: Arr::get($data, 'name'),
+            includes: TombstoneDataFPMPoolIncludes::fromArray(Arr::get($data, 'includes')),
         ))
             ->setDataType(Arr::get($data, 'data_type', 'fpm_pool'));
     }

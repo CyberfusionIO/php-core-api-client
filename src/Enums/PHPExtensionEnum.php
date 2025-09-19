@@ -23,4 +23,6 @@ enum PHPExtensionEnum: string
     case Excimer = 'excimer';
     case Mailparse = 'mailparse';
     case Uv = 'uv';
+    case Amqp = 'amqp';
+    case Mongodb = 'mongodb';
 }

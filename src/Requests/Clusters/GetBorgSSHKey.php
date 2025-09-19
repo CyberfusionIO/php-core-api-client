@@ -10,9 +10,6 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 
-/**
- * Cluster must have 'Borg Server' group.
- */
 class GetBorgSSHKey extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::GET;

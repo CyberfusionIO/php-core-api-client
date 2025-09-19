@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\VirtualHostCreateRequest;
-use Cyberfusion\CoreApi\Models\VirtualHostUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\VirtualHostUpdateRequest;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\CreateVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\DeleteVirtualHost;
-use Cyberfusion\CoreApi\Requests\VirtualHosts\DeprecatedUpdateVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\GetVirtualHostDocumentRoot;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ListVirtualHosts;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ReadVirtualHost;
@@ -37,13 +35,6 @@ class VirtualHosts extends BaseResource
     public function readVirtualHost(int $id): Response
     {
         return $this->connector->send(new ReadVirtualHost($id));
-    }
-
-    public function deprecatedUpdateVirtualHost(
-        int $id,
-        VirtualHostUpdateDeprecatedRequest $virtualHostUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdateVirtualHost($id, $virtualHostUpdateDeprecatedRequest));
     }
 
     public function updateVirtualHost(int $id, VirtualHostUpdateRequest $virtualHostUpdateRequest): Response

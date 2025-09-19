@@ -11,7 +11,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Sync one virtual host domain root to another. Usually used to clone websites/applications to and from separate production and staging environments. The right virtual host (destination) is made identical to the left virtual host (source), except excluded paths (`exclude_paths`). Sync Toolkit must be enabled on the cluster(s) of the left and right virtual host clusters (`sync_toolkit_enabled`).
+ * Sync one virtual host domain root to another. Usually used to clone websites/applications to and from separate production and staging environments. The right virtual host (destination) is made identical to the left virtual host (source), except excluded paths (`exclude_paths`).
  */
 class SyncDomainRootsOfVirtualHosts extends Request implements CoreApiRequestContract
 {

@@ -3,11 +3,9 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\Models\PassengerAppCreateNodeJSRequest;
-use Cyberfusion\CoreApi\Models\PassengerAppUpdateDeprecatedRequest;
 use Cyberfusion\CoreApi\Models\PassengerAppUpdateRequest;
 use Cyberfusion\CoreApi\Requests\PassengerApps\CreateNodeJSPassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\DeletePassengerApp;
-use Cyberfusion\CoreApi\Requests\PassengerApps\DeprecatedUpdatePassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\ListPassengerApps;
 use Cyberfusion\CoreApi\Requests\PassengerApps\ReadPassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\RestartPassengerApp;
@@ -39,21 +37,14 @@ class PassengerApps extends BaseResource
         return $this->connector->send(new ReadPassengerApp($id));
     }
 
-    public function deprecatedUpdatePassengerApp(
-        int $id,
-        PassengerAppUpdateDeprecatedRequest $passengerAppUpdateDeprecatedRequest,
-    ): Response {
-        return $this->connector->send(new DeprecatedUpdatePassengerApp($id, $passengerAppUpdateDeprecatedRequest));
-    }
-
     public function updatePassengerApp(int $id, PassengerAppUpdateRequest $passengerAppUpdateRequest): Response
     {
         return $this->connector->send(new UpdatePassengerApp($id, $passengerAppUpdateRequest));
     }
 
-    public function deletePassengerApp(int $id): Response
+    public function deletePassengerApp(int $id, ?bool $deleteOnCluster = null): Response
     {
-        return $this->connector->send(new DeletePassengerApp($id));
+        return $this->connector->send(new DeletePassengerApp($id, $deleteOnCluster));
     }
 
     public function restartPassengerApp(int $id, ?string $callbackUrl = null): Response
