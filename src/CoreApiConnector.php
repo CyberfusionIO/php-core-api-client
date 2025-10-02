@@ -13,6 +13,8 @@ use Cyberfusion\CoreApi\Models\TokenResource;
 use Cyberfusion\CoreApi\Models\ValidationError;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
 use GuzzleHttp\Psr7\Uri;
+use Illuminate\Support\Collection;
+use JsonException;
 use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Connector;
@@ -27,7 +29,7 @@ class CoreApiConnector extends Connector
     use AlwaysThrowOnErrors;
     use HasTimeout;
 
-    private const VERSION = '2.1.0';
+    private const VERSION = '2.2.0';
 
     private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
 
@@ -78,6 +80,7 @@ class CoreApiConnector extends Connector
 
     /**
      * @throws AuthenticationException
+     * @throws JsonException
      */
     public function defaultAuth(): AccessTokenAuthenticator
     {
@@ -92,13 +95,11 @@ class CoreApiConnector extends Connector
 
             $response = $request->send();
 
-            $result = $response->dto();
-
             if ($response->failed()) {
-                throw new AuthenticationException($result);
+                throw new AuthenticationException($this->getFailedRequestDto($response));
             }
 
-            $this->authenticatedUser = $result;
+            $this->authenticatedUser = $response->dto();
         }
 
         return new AccessTokenAuthenticator(
@@ -110,18 +111,27 @@ class CoreApiConnector extends Connector
     }
 
     /**
+     * @return DetailMessage|Collection<ValidationError>
+     * @throws JsonException
+     */
+    public function getFailedRequestDto(Response $response): DetailMessage|Collection
+    {
+        return match($response->status()) {
+            422 => $response
+                ->collect('detail')
+                ->map(fn (array $detail) => ValidationError::fromArray($detail)),
+            default => DetailMessage::fromArray($response->json()),
+        };
+    }
+
+    /**
      * @throws RequestFailedException
      * @throws RequestValidationException
      */
     public function getRequestException(Response $response, ?Throwable $senderException): ?Throwable
     {
         try {
-            $dto = match($response->status()) {
-                422 => $response
-                    ->collect('detail')
-                    ->map(fn (array $detail) => ValidationError::fromArray($detail)),
-                default => DetailMessage::fromArray($response->json()),
-            };
+            $dto = $this->getFailedRequestDto($response);
         } catch (Throwable) {
             throw new RequestFailedException(
                 response: $response,
