@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\CustomConfigServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         CustomConfigServerSoftwareNameEnum $serverSoftwareName,
@@ -31,7 +34,7 @@ class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 128)
@@ -46,7 +49,7 @@ class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?CustomConfigServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(CustomConfigServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -57,7 +60,7 @@ class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -71,7 +74,7 @@ class CustomConfigCreateRequest extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setContents(?string $contents = null): self
+    public function setContents(string $contents): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)

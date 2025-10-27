@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\MailDomains;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\MailDomainCreateRequest;
 use Cyberfusion\CoreApi\Models\MailDomainResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateMailDomain extends Request implements CoreApiRequestContract, HasBod
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mail-domains')->getEndpoint();
+        return '/api/v1/mail-domains';
     }
 
     public function defaultBody(): array

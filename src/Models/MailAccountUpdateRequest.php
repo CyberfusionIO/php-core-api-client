@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAccountUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getPassword(): string|null
     {
@@ -40,7 +39,7 @@ class MailAccountUpdateRequest extends CoreApiModel implements CoreApiModelContr
     {
         return (new self(
         ))
-            ->setPassword(Arr::get($data, 'password'))
-            ->setQuota(Arr::get($data, 'quota'));
+            ->when(Arr::has($data, 'password'), fn (self $model) => $model->setPassword(Arr::get($data, 'password')))
+            ->when(Arr::has($data, 'quota'), fn (self $model) => $model->setQuota(Arr::get($data, 'quota')));
     }
 }

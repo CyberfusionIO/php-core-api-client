@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Customers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\IPAddressProduct;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -25,7 +24,7 @@ class GetIPAddressesProductsForCustomers extends SoloRequest implements CoreApiR
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for($this->baseUrl . '/api/v1/customers/ip-addresses/products')->getEndpoint();
+        return $this->baseUrl . '/api/v1/customers/ip-addresses/products';
     }
 
     /**

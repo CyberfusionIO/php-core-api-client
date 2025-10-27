@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataCertificate extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, TombstoneDataCertificateIncludes $includes)
     {
         $this->setId($id);
@@ -32,7 +35,7 @@ class TombstoneDataCertificate extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -43,7 +46,7 @@ class TombstoneDataCertificate extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataCertificateIncludes $includes = null): self
+    public function setIncludes(TombstoneDataCertificateIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -55,6 +58,6 @@ class TombstoneDataCertificate extends CoreApiModel implements CoreApiModelContr
             id: Arr::get($data, 'id'),
             includes: TombstoneDataCertificateIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'certificate'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'certificate')));
     }
 }

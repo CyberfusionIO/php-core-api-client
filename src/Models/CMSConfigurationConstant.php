@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSConfigurationConstant extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string|int|float|bool $value, string $name)
     {
         $this->setValue($value);
@@ -21,7 +24,7 @@ class CMSConfigurationConstant extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('value');
     }
 
-    public function setValue(string|int|float|bool|null $value = null): self
+    public function setValue(string|int|float|bool $value): self
     {
         $this->setAttribute('value', $value);
         return $this;
@@ -46,7 +49,7 @@ class CMSConfigurationConstant extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1)
@@ -62,6 +65,6 @@ class CMSConfigurationConstant extends CoreApiModel implements CoreApiModelContr
             value: Arr::get($data, 'value'),
             name: Arr::get($data, 'name'),
         ))
-            ->setIndex(Arr::get($data, 'index'));
+            ->when(Arr::has($data, 'index'), fn (self $model) => $model->setIndex(Arr::get($data, 'index')));
     }
 }

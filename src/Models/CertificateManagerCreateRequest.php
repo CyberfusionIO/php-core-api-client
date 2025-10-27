@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\CertificateProviderNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         array $commonNames,
         CertificateProviderNameEnum $providerName,
@@ -31,7 +34,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(array $commonNames = []): self
+    public function setCommonNames(array $commonNames): self
     {
         Validator::create()
             ->unique()
@@ -45,7 +48,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('provider_name');
     }
 
-    public function setProviderName(?CertificateProviderNameEnum $providerName = null): self
+    public function setProviderName(CertificateProviderNameEnum $providerName): self
     {
         $this->setAttribute('provider_name', $providerName);
         return $this;
@@ -56,7 +59,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -67,7 +70,7 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('request_callback_url');
     }
 
-    public function setRequestCallbackUrl(?string $requestCallbackUrl = null): self
+    public function setRequestCallbackUrl(?string $requestCallbackUrl): self
     {
         $this->setAttribute('request_callback_url', $requestCallbackUrl);
         return $this;

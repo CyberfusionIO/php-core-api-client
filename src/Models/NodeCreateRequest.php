@@ -6,11 +6,14 @@ use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $product,
         int $clusterId,
@@ -33,7 +36,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setProduct(?string $product = null): self
+    public function setProduct(string $product): self
     {
         Validator::create()
             ->length(min: 1, max: 2)
@@ -48,7 +51,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -62,7 +65,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(array $groups = []): self
+    public function setGroups(array $groups): self
     {
         Validator::create()
             ->unique()
@@ -76,7 +79,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('comment');
     }
 
-    public function setComment(?string $comment = null): self
+    public function setComment(?string $comment): self
     {
         $this->setAttribute('comment', $comment);
         return $this;
@@ -87,9 +90,8 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('load_balancer_health_checks_groups_pairs');
     }
 
-    public function setLoadBalancerHealthChecksGroupsPairs(
-        ?ArrayObject $loadBalancerHealthChecksGroupsPairs = null,
-    ): self {
+    public function setLoadBalancerHealthChecksGroupsPairs(ArrayObject $loadBalancerHealthChecksGroupsPairs): self
+    {
         $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }

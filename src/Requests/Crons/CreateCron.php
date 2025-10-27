@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Crons;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CronCreateRequest;
 use Cyberfusion\CoreApi\Models\CronResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateCron extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/crons')->getEndpoint();
+        return '/api/v1/crons';
     }
 
     public function defaultBody(): array

@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
@@ -33,7 +36,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -48,7 +51,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(DatabaseServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -59,7 +62,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -70,7 +73,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('optimizing_enabled');
     }
 
-    public function setOptimizingEnabled(?bool $optimizingEnabled = null): self
+    public function setOptimizingEnabled(bool $optimizingEnabled): self
     {
         $this->setAttribute('optimizing_enabled', $optimizingEnabled);
         return $this;
@@ -81,7 +84,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('backups_enabled');
     }
 
-    public function setBackupsEnabled(?bool $backupsEnabled = null): self
+    public function setBackupsEnabled(bool $backupsEnabled): self
     {
         $this->setAttribute('backups_enabled', $backupsEnabled);
         return $this;

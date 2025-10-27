@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterOsPropertiesCreateRequest;
 use Cyberfusion\CoreApi\Models\ClusterOsPropertiesResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class CreateOSProperties extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/%d/properties/os')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/%d/properties/os', $this->id);
     }
 
     public function defaultBody(): array

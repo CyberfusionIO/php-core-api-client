@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\MeilisearchEnvironmentEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -20,6 +23,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         MeilisearchEnvironmentEnum $meilisearchEnvironment,
         int $meilisearchBackupInterval,
         int $clusterId,
+        ClusterMeilisearchPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -29,6 +33,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         $this->setMeilisearchEnvironment($meilisearchEnvironment);
         $this->setMeilisearchBackupInterval($meilisearchBackupInterval);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -36,7 +41,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -47,7 +52,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -58,7 +63,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -69,7 +74,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('meilisearch_backup_local_retention');
     }
 
-    public function setMeilisearchBackupLocalRetention(?int $meilisearchBackupLocalRetention = null): self
+    public function setMeilisearchBackupLocalRetention(int $meilisearchBackupLocalRetention): self
     {
         $this->setAttribute('meilisearch_backup_local_retention', $meilisearchBackupLocalRetention);
         return $this;
@@ -83,7 +88,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
     /**
      * @throws ValidationException
      */
-    public function setMeilisearchMasterKey(?string $meilisearchMasterKey = null): self
+    public function setMeilisearchMasterKey(string $meilisearchMasterKey): self
     {
         Validator::create()
             ->length(min: 16, max: 24)
@@ -98,7 +103,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('meilisearch_environment');
     }
 
-    public function setMeilisearchEnvironment(?MeilisearchEnvironmentEnum $meilisearchEnvironment = null): self
+    public function setMeilisearchEnvironment(MeilisearchEnvironmentEnum $meilisearchEnvironment): self
     {
         $this->setAttribute('meilisearch_environment', $meilisearchEnvironment);
         return $this;
@@ -109,7 +114,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('meilisearch_backup_interval');
     }
 
-    public function setMeilisearchBackupInterval(?int $meilisearchBackupInterval = null): self
+    public function setMeilisearchBackupInterval(int $meilisearchBackupInterval): self
     {
         $this->setAttribute('meilisearch_backup_interval', $meilisearchBackupInterval);
         return $this;
@@ -120,18 +125,18 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterMeilisearchPropertiesIncludes|null
+    public function getIncludes(): ClusterMeilisearchPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterMeilisearchPropertiesIncludes $includes): self
+    public function setIncludes(ClusterMeilisearchPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -148,7 +153,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
             meilisearchEnvironment: MeilisearchEnvironmentEnum::tryFrom(Arr::get($data, 'meilisearch_environment')),
             meilisearchBackupInterval: Arr::get($data, 'meilisearch_backup_interval'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterMeilisearchPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterMeilisearchPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

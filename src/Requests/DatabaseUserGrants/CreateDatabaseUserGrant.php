@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\DatabaseUserGrants;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseUserGrantCreateRequest;
 use Cyberfusion\CoreApi\Models\DatabaseUserGrantResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateDatabaseUserGrant extends Request implements CoreApiRequestContract,
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/database-user-grants')->getEndpoint();
+        return '/api/v1/database-user-grants';
     }
 
     public function defaultBody(): array

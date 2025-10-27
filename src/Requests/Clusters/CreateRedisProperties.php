@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterRedisPropertiesCreateRequest;
 use Cyberfusion\CoreApi\Models\ClusterRedisPropertiesResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class CreateRedisProperties extends Request implements CoreApiRequestContract, H
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/%d/properties/redis')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/%d/properties/redis', $this->id);
     }
 
     public function defaultBody(): array

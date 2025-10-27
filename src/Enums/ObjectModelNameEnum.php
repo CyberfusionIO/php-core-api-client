@@ -7,7 +7,7 @@ enum ObjectModelNameEnum: string
     case BorgArchive = 'BorgArchive';
     case BorgRepository = 'BorgRepository';
     case ServiceAccountToCluster = 'ServiceAccountToCluster';
-    case Site = 'Site';
+    case Region = 'Region';
     case ServiceAccountToCustomer = 'ServiceAccountToCustomer';
     case Cluster = 'Cluster';
     case Customer = 'Customer';
@@ -40,12 +40,13 @@ enum ObjectModelNameEnum: string
     case Certificate = 'Certificate';
     case RootSSHKey = 'RootSSHKey';
     case SSHKey = 'SSHKey';
+    case BorgRepositorySshKey = 'BorgRepositorySshKey';
     case UNIXUser = 'UNIXUser';
     case UNIXUserRabbitMQCredentials = 'UNIXUserRabbitMQCredentials';
     case HAProxyListen = 'HAProxyListen';
     case HAProxyListenToNode = 'HAProxyListenToNode';
     case URLRedirect = 'URLRedirect';
-    case SiteToCustomer = 'SiteToCustomer';
+    case RegionToCustomer = 'RegionToCustomer';
     case ServiceAccount = 'ServiceAccount';
     case ServiceAccountServer = 'ServiceAccountServer';
     case CustomConfig = 'CustomConfig';

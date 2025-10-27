@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Customers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomerIPAddresses;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -24,9 +23,7 @@ class ListIPAddressesForCustomer extends Request implements CoreApiRequestContra
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/customers/%d/ip-addresses')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/customers/%d/ip-addresses', $this->id);
     }
 
     /**

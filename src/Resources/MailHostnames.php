@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\MailHostnameCreateRequest;
 use Cyberfusion\CoreApi\Models\MailHostnameUpdateRequest;
+use Cyberfusion\CoreApi\Models\MailHostnamesSearchRequest;
 use Cyberfusion\CoreApi\Requests\MailHostnames\CreateMailHostname;
 use Cyberfusion\CoreApi\Requests\MailHostnames\DeleteMailHostname;
 use Cyberfusion\CoreApi\Requests\MailHostnames\ListMailHostnames;
 use Cyberfusion\CoreApi\Requests\MailHostnames\ReadMailHostname;
 use Cyberfusion\CoreApi\Requests\MailHostnames\UpdateMailHostname;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class MailHostnames extends BaseResource
+class MailHostnames extends CoreApiResource
 {
     public function createMailHostname(MailHostnameCreateRequest $mailHostnameCreateRequest): Response
     {
         return $this->connector->send(new CreateMailHostname($mailHostnameCreateRequest));
     }
 
-    public function listMailHostnames(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListMailHostnames($skip, $limit, $filter, $sort));
+    public function listMailHostnames(?MailHostnamesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListMailHostnames($includeFilters));
     }
 
     public function readMailHostname(int $id): Response

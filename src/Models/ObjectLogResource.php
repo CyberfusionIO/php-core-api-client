@@ -7,17 +7,21 @@ use Cyberfusion\CoreApi\Enums\CauserTypeEnum;
 use Cyberfusion\CoreApi\Enums\ObjectLogTypeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         int $objectId,
         ObjectLogTypeEnum $type,
+        ObjectLogIncludes $includes,
         ?string $objectModelName = null,
         ?string $requestId = null,
         ?CauserTypeEnum $causerType = null,
@@ -29,6 +33,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setObjectId($objectId);
         $this->setType($type);
+        $this->setIncludes($includes);
         $this->setObjectModelName($objectModelName);
         $this->setRequestId($requestId);
         $this->setCauserType($causerType);
@@ -41,7 +46,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -52,7 +57,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -63,7 +68,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -74,7 +79,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('object_id');
     }
 
-    public function setObjectId(?int $objectId = null): self
+    public function setObjectId(int $objectId): self
     {
         $this->setAttribute('object_id', $objectId);
         return $this;
@@ -85,7 +90,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('object_model_name');
     }
 
-    public function setObjectModelName(?string $objectModelName = null): self
+    public function setObjectModelName(?string $objectModelName): self
     {
         $this->setAttribute('object_model_name', $objectModelName);
         return $this;
@@ -96,7 +101,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('request_id');
     }
 
-    public function setRequestId(?string $requestId = null): self
+    public function setRequestId(?string $requestId): self
     {
         $this->setAttribute('request_id', $requestId);
         return $this;
@@ -107,7 +112,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('type');
     }
 
-    public function setType(?ObjectLogTypeEnum $type = null): self
+    public function setType(ObjectLogTypeEnum $type): self
     {
         $this->setAttribute('type', $type);
         return $this;
@@ -118,7 +123,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('causer_type');
     }
 
-    public function setCauserType(?CauserTypeEnum $causerType = null): self
+    public function setCauserType(?CauserTypeEnum $causerType): self
     {
         $this->setAttribute('causer_type', $causerType);
         return $this;
@@ -129,7 +134,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('causer_id');
     }
 
-    public function setCauserId(?int $causerId = null): self
+    public function setCauserId(?int $causerId): self
     {
         $this->setAttribute('causer_id', $causerId);
         return $this;
@@ -140,18 +145,18 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('customer_id');
     }
 
-    public function setCustomerId(?int $customerId = null): self
+    public function setCustomerId(?int $customerId): self
     {
         $this->setAttribute('customer_id', $customerId);
         return $this;
     }
 
-    public function getIncludes(): ObjectLogIncludes|null
+    public function getIncludes(): ObjectLogIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ObjectLogIncludes $includes): self
+    public function setIncludes(ObjectLogIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -165,12 +170,12 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             objectId: Arr::get($data, 'object_id'),
             type: ObjectLogTypeEnum::tryFrom(Arr::get($data, 'type')),
+            includes: ObjectLogIncludes::fromArray(Arr::get($data, 'includes')),
             objectModelName: Arr::get($data, 'object_model_name'),
             requestId: Arr::get($data, 'request_id'),
             causerType: Arr::get($data, 'causer_type') !== null ? CauserTypeEnum::tryFrom(Arr::get($data, 'causer_type')) : null,
             causerId: Arr::get($data, 'causer_id'),
             customerId: Arr::get($data, 'customer_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ObjectLogIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

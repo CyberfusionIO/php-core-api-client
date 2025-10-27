@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterKernelcarePropertiesCreateRequest;
 use Cyberfusion\CoreApi\Models\ClusterKernelcarePropertiesResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class CreateKernelCareProperties extends Request implements CoreApiRequestContra
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/%d/properties/kernelcare')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/%d/properties/kernelcare', $this->id);
     }
 
     public function defaultBody(): array

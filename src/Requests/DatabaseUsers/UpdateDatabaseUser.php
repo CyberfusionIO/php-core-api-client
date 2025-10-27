@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\DatabaseUsers;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseUserResource;
 use Cyberfusion\CoreApi\Models\DatabaseUserUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateDatabaseUser extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/database-users/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/database-users/%d', $this->id);
     }
 
     public function defaultBody(): array

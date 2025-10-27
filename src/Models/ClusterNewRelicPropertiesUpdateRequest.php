@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterNewRelicPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getNewRelicMariadbPassword(): string|null
     {
@@ -51,8 +50,8 @@ class ClusterNewRelicPropertiesUpdateRequest extends CoreApiModel implements Cor
     {
         return (new self(
         ))
-            ->setNewRelicMariadbPassword(Arr::get($data, 'new_relic_mariadb_password'))
-            ->setNewRelicApmLicenseKey(Arr::get($data, 'new_relic_apm_license_key'))
-            ->setNewRelicInfrastructureLicenseKey(Arr::get($data, 'new_relic_infrastructure_license_key'));
+            ->when(Arr::has($data, 'new_relic_mariadb_password'), fn (self $model) => $model->setNewRelicMariadbPassword(Arr::get($data, 'new_relic_mariadb_password')))
+            ->when(Arr::has($data, 'new_relic_apm_license_key'), fn (self $model) => $model->setNewRelicApmLicenseKey(Arr::get($data, 'new_relic_apm_license_key')))
+            ->when(Arr::has($data, 'new_relic_infrastructure_license_key'), fn (self $model) => $model->setNewRelicInfrastructureLicenseKey(Arr::get($data, 'new_relic_infrastructure_license_key')));
     }
 }

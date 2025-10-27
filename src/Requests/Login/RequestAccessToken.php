@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Login;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BodyLoginAccessToken;
 use Cyberfusion\CoreApi\Models\TokenResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -30,7 +29,7 @@ class RequestAccessToken extends SoloRequest implements CoreApiRequestContract, 
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for($this->baseUrl . '/api/v1/login/access-token')->getEndpoint();
+        return $this->baseUrl . '/api/v1/login/access-token';
     }
 
     public function defaultBody(): array

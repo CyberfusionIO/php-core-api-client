@@ -5,14 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataCustomConfig extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, string $name, TombstoneDataCustomConfigIncludes $includes)
     {
         $this->setId($id);
@@ -36,7 +36,7 @@ class TombstoneDataCustomConfig extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -50,7 +50,7 @@ class TombstoneDataCustomConfig extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 128)
@@ -65,7 +65,7 @@ class TombstoneDataCustomConfig extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataCustomConfigIncludes $includes = null): self
+    public function setIncludes(TombstoneDataCustomConfigIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -78,6 +78,6 @@ class TombstoneDataCustomConfig extends CoreApiModel implements CoreApiModelCont
             name: Arr::get($data, 'name'),
             includes: TombstoneDataCustomConfigIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'custom_config'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'custom_config')));
     }
 }

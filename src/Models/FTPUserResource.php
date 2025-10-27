@@ -5,29 +5,34 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FTPUserResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
-        string $password,
+        string $hashedPassword,
         int $clusterId,
         string $username,
         int $unixUserId,
         string $directoryPath,
+        FTPUserIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
-        $this->setPassword($password);
+        $this->setHashedPassword($hashedPassword);
         $this->setClusterId($clusterId);
         $this->setUsername($username);
         $this->setUnixUserId($unixUserId);
         $this->setDirectoryPath($directoryPath);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -35,7 +40,7 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -46,7 +51,7 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -57,27 +62,27 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
-    public function getPassword(): string
+    public function getHashedPassword(): string
     {
-        return $this->getAttribute('password');
+        return $this->getAttribute('hashed_password');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setHashedPassword(string $hashedPassword): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
             ->regex('/^[ -~]+$/')
-            ->assert($password);
-        $this->setAttribute('password', $password);
+            ->assert($hashedPassword);
+        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -86,7 +91,7 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -100,7 +105,7 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -115,7 +120,7 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -126,18 +131,18 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('directory_path');
     }
 
-    public function setDirectoryPath(?string $directoryPath = null): self
+    public function setDirectoryPath(string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
         return $this;
     }
 
-    public function getIncludes(): FTPUserIncludes|null
+    public function getIncludes(): FTPUserIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?FTPUserIncludes $includes): self
+    public function setIncludes(FTPUserIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -149,12 +154,12 @@ class FTPUserResource extends CoreApiModel implements CoreApiModelContract
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            password: Arr::get($data, 'password'),
+            hashedPassword: Arr::get($data, 'hashed_password'),
             clusterId: Arr::get($data, 'cluster_id'),
             username: Arr::get($data, 'username'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             directoryPath: Arr::get($data, 'directory_path'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? FTPUserIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: FTPUserIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

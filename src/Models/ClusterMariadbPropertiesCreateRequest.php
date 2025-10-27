@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterMariadbPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $mariadbVersion)
     {
         $this->setMariadbVersion($mariadbVersion);
@@ -20,7 +23,7 @@ class ClusterMariadbPropertiesCreateRequest extends CoreApiModel implements Core
         return $this->getAttribute('mariadb_version');
     }
 
-    public function setMariadbVersion(?string $mariadbVersion = null): self
+    public function setMariadbVersion(string $mariadbVersion): self
     {
         $this->setAttribute('mariadb_version', $mariadbVersion);
         return $this;
@@ -53,7 +56,7 @@ class ClusterMariadbPropertiesCreateRequest extends CoreApiModel implements Core
         return (new self(
             mariadbVersion: Arr::get($data, 'mariadb_version'),
         ))
-            ->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval', 24))
-            ->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention', 3));
+            ->when(Arr::has($data, 'mariadb_backup_interval'), fn (self $model) => $model->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval', 24)))
+            ->when(Arr::has($data, 'mariadb_backup_local_retention'), fn (self $model) => $model->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention', 3)));
     }
 }

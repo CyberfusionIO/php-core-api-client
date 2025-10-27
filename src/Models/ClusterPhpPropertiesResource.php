@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -20,6 +23,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         bool $phpIoncubeEnabled,
         bool $phpSessionsSpreadEnabled,
         int $clusterId,
+        ClusterPhpPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -30,6 +34,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         $this->setPhpIoncubeEnabled($phpIoncubeEnabled);
         $this->setPhpSessionsSpreadEnabled($phpSessionsSpreadEnabled);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -37,7 +42,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -48,7 +53,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -59,7 +64,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -73,7 +78,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
     /**
      * @throws ValidationException
      */
-    public function setPhpVersions(array $phpVersions = []): self
+    public function setPhpVersions(array $phpVersions): self
     {
         Validator::create()
             ->unique()
@@ -90,7 +95,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
     /**
      * @throws ValidationException
      */
-    public function setCustomPhpModulesNames(array $customPhpModulesNames = []): self
+    public function setCustomPhpModulesNames(array $customPhpModulesNames): self
     {
         Validator::create()
             ->unique()
@@ -104,7 +109,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('php_settings');
     }
 
-    public function setPhpSettings(?PHPSettings $phpSettings = null): self
+    public function setPhpSettings(PHPSettings $phpSettings): self
     {
         $this->setAttribute('php_settings', $phpSettings);
         return $this;
@@ -115,7 +120,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('php_ioncube_enabled');
     }
 
-    public function setPhpIoncubeEnabled(?bool $phpIoncubeEnabled = null): self
+    public function setPhpIoncubeEnabled(bool $phpIoncubeEnabled): self
     {
         $this->setAttribute('php_ioncube_enabled', $phpIoncubeEnabled);
         return $this;
@@ -126,7 +131,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('php_sessions_spread_enabled');
     }
 
-    public function setPhpSessionsSpreadEnabled(?bool $phpSessionsSpreadEnabled = null): self
+    public function setPhpSessionsSpreadEnabled(bool $phpSessionsSpreadEnabled): self
     {
         $this->setAttribute('php_sessions_spread_enabled', $phpSessionsSpreadEnabled);
         return $this;
@@ -137,18 +142,18 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterPhpPropertiesIncludes|null
+    public function getIncludes(): ClusterPhpPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterPhpPropertiesIncludes $includes): self
+    public function setIncludes(ClusterPhpPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -166,7 +171,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
             phpIoncubeEnabled: Arr::get($data, 'php_ioncube_enabled'),
             phpSessionsSpreadEnabled: Arr::get($data, 'php_sessions_spread_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterPhpPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterPhpPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

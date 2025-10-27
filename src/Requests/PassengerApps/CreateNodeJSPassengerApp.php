@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\PassengerApps;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\PassengerAppCreateNodeJSRequest;
 use Cyberfusion\CoreApi\Models\PassengerAppResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateNodeJSPassengerApp extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/passenger-apps/nodejs')->getEndpoint();
+        return '/api/v1/passenger-apps/nodejs';
     }
 
     public function defaultBody(): array

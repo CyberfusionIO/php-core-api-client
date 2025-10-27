@@ -2,30 +2,26 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Models\HostsEntriesSearchRequest;
 use Cyberfusion\CoreApi\Models\HostsEntryCreateRequest;
 use Cyberfusion\CoreApi\Requests\HostsEntries\CreateHostsEntry;
 use Cyberfusion\CoreApi\Requests\HostsEntries\DeleteHostsEntry;
 use Cyberfusion\CoreApi\Requests\HostsEntries\ListHostsEntries;
 use Cyberfusion\CoreApi\Requests\HostsEntries\ReadHostsEntry;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class HostsEntries extends BaseResource
+class HostsEntries extends CoreApiResource
 {
     public function createHostsEntry(HostsEntryCreateRequest $hostsEntryCreateRequest): Response
     {
         return $this->connector->send(new CreateHostsEntry($hostsEntryCreateRequest));
     }
 
-    public function listHostsEntries(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListHostsEntries($skip, $limit, $filter, $sort));
+    public function listHostsEntries(?HostsEntriesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListHostsEntries($includeFilters));
     }
 
     public function readHostsEntry(int $id): Response

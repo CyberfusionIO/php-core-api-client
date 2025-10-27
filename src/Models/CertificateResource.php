@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CertificateResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -21,6 +24,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         string $caChain,
         string $privateKey,
         int $clusterId,
+        CertificateIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -32,6 +36,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         $this->setCaChain($caChain);
         $this->setPrivateKey($privateKey);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -39,7 +44,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -50,7 +55,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -61,7 +66,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -72,7 +77,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('main_common_name');
     }
 
-    public function setMainCommonName(?string $mainCommonName = null): self
+    public function setMainCommonName(string $mainCommonName): self
     {
         $this->setAttribute('main_common_name', $mainCommonName);
         return $this;
@@ -86,7 +91,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCommonNames(array $commonNames = []): self
+    public function setCommonNames(array $commonNames): self
     {
         Validator::create()
             ->unique()
@@ -100,7 +105,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('expires_at');
     }
 
-    public function setExpiresAt(?string $expiresAt = null): self
+    public function setExpiresAt(string $expiresAt): self
     {
         $this->setAttribute('expires_at', $expiresAt);
         return $this;
@@ -114,7 +119,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCertificate(?string $certificate = null): self
+    public function setCertificate(string $certificate): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -132,7 +137,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCaChain(?string $caChain = null): self
+    public function setCaChain(string $caChain): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -150,7 +155,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setPrivateKey(?string $privateKey = null): self
+    public function setPrivateKey(string $privateKey): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -165,18 +170,18 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): CertificateIncludes|null
+    public function getIncludes(): CertificateIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?CertificateIncludes $includes): self
+    public function setIncludes(CertificateIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -195,7 +200,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
             caChain: Arr::get($data, 'ca_chain'),
             privateKey: Arr::get($data, 'private_key'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? CertificateIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: CertificateIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\URLRedirects;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -21,9 +20,7 @@ class DeleteURLRedirect extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/url-redirects/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/url-redirects/%d', $this->id);
     }
 
     /**

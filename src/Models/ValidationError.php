@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ValidationError extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(array $loc, string $msg, string $type)
     {
         $this->setLoc($loc);
@@ -22,7 +25,7 @@ class ValidationError extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('loc');
     }
 
-    public function setLoc(array $loc = []): self
+    public function setLoc(array $loc): self
     {
         $this->setAttribute('loc', $loc);
         return $this;
@@ -33,7 +36,7 @@ class ValidationError extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('msg');
     }
 
-    public function setMsg(?string $msg = null): self
+    public function setMsg(string $msg): self
     {
         $this->setAttribute('msg', $msg);
         return $this;
@@ -44,7 +47,7 @@ class ValidationError extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('type');
     }
 
-    public function setType(?string $type = null): self
+    public function setType(string $type): self
     {
         $this->setAttribute('type', $type);
         return $this;

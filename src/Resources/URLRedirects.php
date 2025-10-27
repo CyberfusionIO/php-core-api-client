@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\URLRedirectCreateRequest;
 use Cyberfusion\CoreApi\Models\URLRedirectUpdateRequest;
+use Cyberfusion\CoreApi\Models\UrlRedirectsSearchRequest;
 use Cyberfusion\CoreApi\Requests\URLRedirects\CreateURLRedirect;
 use Cyberfusion\CoreApi\Requests\URLRedirects\DeleteURLRedirect;
 use Cyberfusion\CoreApi\Requests\URLRedirects\ListURLRedirects;
 use Cyberfusion\CoreApi\Requests\URLRedirects\ReadURLRedirect;
 use Cyberfusion\CoreApi\Requests\URLRedirects\UpdateURLRedirect;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class URLRedirects extends BaseResource
+class URLRedirects extends CoreApiResource
 {
     public function createURLRedirect(URLRedirectCreateRequest $uRLRedirectCreateRequest): Response
     {
         return $this->connector->send(new CreateURLRedirect($uRLRedirectCreateRequest));
     }
 
-    public function listURLRedirects(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListURLRedirects($skip, $limit, $filter, $sort));
+    public function listURLRedirects(?UrlRedirectsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListURLRedirects($includeFilters));
     }
 
     public function readURLRedirect(int $id): Response

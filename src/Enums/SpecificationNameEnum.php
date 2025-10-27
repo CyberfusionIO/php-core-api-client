@@ -4,6 +4,9 @@ namespace Cyberfusion\CoreApi\Enums;
 
 enum SpecificationNameEnum: string
 {
+    case ClusterSupportsBorgRepositories = 'Cluster supports Borg repositories';
+    case ClusterSupportsMariaDBDatabaseBorgRepositories = 'Cluster supports MariaDB database Borg repositories';
+    case ClusterSupportsUNIXUserBorgRepositories = 'Cluster supports UNIX user Borg repositories';
     case ClusterSupportsVirtualHosts = 'Cluster supports virtual hosts';
     case ClusterSupportsMariaDBEncryptionKeys = 'Cluster supports MariaDB encryption keys';
     case ClusterSupportsMariaDBDatabases = 'Cluster supports MariaDB databases';
@@ -19,7 +22,6 @@ enum SpecificationNameEnum: string
     case ClusterSupportsHtpasswdFiles = 'Cluster supports htpasswd files';
     case ClusterSupportsMailDomains = 'Cluster supports mail domains';
     case ClusterSupportsMailHostnames = 'Cluster supports mail hostnames';
-    case ClusterSupportsBorgRepositories = 'Cluster supports Borg repositories';
     case ClusterSupportsFTPUsers = 'Cluster supports FTP users';
     case ClusterSupportsFPMPools = 'Cluster supports FPM pools';
     case ClusterSupportsPassengerApps = 'Cluster supports Passenger apps';
@@ -51,7 +53,6 @@ enum SpecificationNameEnum: string
     case ClusterSupportsWPCLINodes = 'Cluster supports WP-CLI nodes';
     case ClusterSupportsNodeJSNodes = 'Cluster supports NodeJS nodes';
     case ClusterSupportsPassengerNodes = 'Cluster supports Passenger nodes';
-    case ClusterSupportsBorgNodes = 'Cluster supports Borg nodes';
     case ClusterSupportsKernelCareNodes = 'Cluster supports KernelCare nodes';
     case ClusterSupportsNewRelicNodes = 'Cluster supports New Relic nodes';
     case ClusterSupportsRedisNodes = 'Cluster supports Redis nodes';
@@ -64,4 +65,6 @@ enum SpecificationNameEnum: string
     case UNIXUserSupportsVirtualHosts = 'UNIX user supports virtual hosts';
     case UNIXUserSupportsMailDomains = 'UNIX user supports mail domains';
     case UNIXUserSupportsBorgRepositories = 'UNIX user supports Borg repositories';
+    case ClusterSupportsLoadBalancerServiceAccountServiceAccountToCluster = 'Cluster supports Load Balancer service account service account to cluster';
+    case ClusterSupportsDomainRouters = 'Cluster supports domain routers';
 }

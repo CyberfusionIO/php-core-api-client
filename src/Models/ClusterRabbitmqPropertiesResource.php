@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -18,6 +21,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         string $rabbitmqAdminPassword,
         string $rabbitmqManagementDomain,
         int $clusterId,
+        ClusterRabbitmqPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -26,6 +30,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setRabbitmqAdminPassword($rabbitmqAdminPassword);
         $this->setRabbitmqManagementDomain($rabbitmqManagementDomain);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -33,7 +38,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -69,7 +74,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
     /**
      * @throws ValidationException
      */
-    public function setRabbitmqErlangCookie(?string $rabbitmqErlangCookie = null): self
+    public function setRabbitmqErlangCookie(string $rabbitmqErlangCookie): self
     {
         Validator::create()
             ->length(min: 20, max: 20)
@@ -87,7 +92,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
     /**
      * @throws ValidationException
      */
-    public function setRabbitmqAdminPassword(?string $rabbitmqAdminPassword = null): self
+    public function setRabbitmqAdminPassword(string $rabbitmqAdminPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -102,7 +107,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('rabbitmq_management_domain');
     }
 
-    public function setRabbitmqManagementDomain(?string $rabbitmqManagementDomain = null): self
+    public function setRabbitmqManagementDomain(string $rabbitmqManagementDomain): self
     {
         $this->setAttribute('rabbitmq_management_domain', $rabbitmqManagementDomain);
         return $this;
@@ -113,18 +118,18 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterRabbitmqPropertiesIncludes|null
+    public function getIncludes(): ClusterRabbitmqPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterRabbitmqPropertiesIncludes $includes): self
+    public function setIncludes(ClusterRabbitmqPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -140,7 +145,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
             rabbitmqAdminPassword: Arr::get($data, 'rabbitmq_admin_password'),
             rabbitmqManagementDomain: Arr::get($data, 'rabbitmq_management_domain'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterRabbitmqPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterRabbitmqPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

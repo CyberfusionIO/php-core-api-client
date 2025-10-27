@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         string $version,
@@ -40,7 +43,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -55,7 +58,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('version');
     }
 
-    public function setVersion(?string $version = null): self
+    public function setVersion(string $version): self
     {
         $this->setAttribute('version', $version);
         return $this;
@@ -66,7 +69,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -77,7 +80,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('max_children');
     }
 
-    public function setMaxChildren(?int $maxChildren = null): self
+    public function setMaxChildren(int $maxChildren): self
     {
         $this->setAttribute('max_children', $maxChildren);
         return $this;
@@ -88,7 +91,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('max_requests');
     }
 
-    public function setMaxRequests(?int $maxRequests = null): self
+    public function setMaxRequests(int $maxRequests): self
     {
         $this->setAttribute('max_requests', $maxRequests);
         return $this;
@@ -99,7 +102,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('process_idle_timeout');
     }
 
-    public function setProcessIdleTimeout(?int $processIdleTimeout = null): self
+    public function setProcessIdleTimeout(int $processIdleTimeout): self
     {
         $this->setAttribute('process_idle_timeout', $processIdleTimeout);
         return $this;
@@ -110,7 +113,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cpu_limit');
     }
 
-    public function setCpuLimit(?int $cpuLimit = null): self
+    public function setCpuLimit(?int $cpuLimit): self
     {
         $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
@@ -121,7 +124,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('log_slow_requests_threshold');
     }
 
-    public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold = null): self
+    public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold): self
     {
         $this->setAttribute('log_slow_requests_threshold', $logSlowRequestsThreshold);
         return $this;
@@ -132,7 +135,7 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_namespaced');
     }
 
-    public function setIsNamespaced(?bool $isNamespaced = null): self
+    public function setIsNamespaced(bool $isNamespaced): self
     {
         $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;
@@ -162,6 +165,6 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
             cpuLimit: Arr::get($data, 'cpu_limit'),
             logSlowRequestsThreshold: Arr::get($data, 'log_slow_requests_threshold'),
         ))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit'));
+            ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')));
     }
 }

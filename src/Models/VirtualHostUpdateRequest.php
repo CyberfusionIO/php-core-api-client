@@ -6,14 +6,13 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getServerAliases(): array|null
     {
@@ -103,17 +102,29 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
+    public function getPublicRoot(): string|null
+    {
+        return $this->getAttribute('public_root');
+    }
+
+    public function setPublicRoot(?string $publicRoot): self
+    {
+        $this->setAttribute('public_root', $publicRoot);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
         ))
-            ->setServerAliases(Arr::get($data, 'server_aliases'))
-            ->setDocumentRoot(Arr::get($data, 'document_root'))
-            ->setFpmPoolId(Arr::get($data, 'fpm_pool_id'))
-            ->setPassengerAppId(Arr::get($data, 'passenger_app_id'))
-            ->setCustomConfig(Arr::get($data, 'custom_config'))
-            ->setAllowOverrideDirectives(Arr::get($data, 'allow_override_directives'))
-            ->setAllowOverrideOptionDirectives(Arr::get($data, 'allow_override_option_directives'))
-            ->setServerSoftwareName(Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null);
+            ->when(Arr::has($data, 'server_aliases'), fn (self $model) => $model->setServerAliases(Arr::get($data, 'server_aliases')))
+            ->when(Arr::has($data, 'document_root'), fn (self $model) => $model->setDocumentRoot(Arr::get($data, 'document_root')))
+            ->when(Arr::has($data, 'fpm_pool_id'), fn (self $model) => $model->setFpmPoolId(Arr::get($data, 'fpm_pool_id')))
+            ->when(Arr::has($data, 'passenger_app_id'), fn (self $model) => $model->setPassengerAppId(Arr::get($data, 'passenger_app_id')))
+            ->when(Arr::has($data, 'custom_config'), fn (self $model) => $model->setCustomConfig(Arr::get($data, 'custom_config')))
+            ->when(Arr::has($data, 'allow_override_directives'), fn (self $model) => $model->setAllowOverrideDirectives(Arr::get($data, 'allow_override_directives')))
+            ->when(Arr::has($data, 'allow_override_option_directives'), fn (self $model) => $model->setAllowOverrideOptionDirectives(Arr::get($data, 'allow_override_option_directives')))
+            ->when(Arr::has($data, 'server_software_name'), fn (self $model) => $model->setServerSoftwareName(Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null))
+            ->when(Arr::has($data, 'public_root'), fn (self $model) => $model->setPublicRoot(Arr::get($data, 'public_root')));
     }
 }

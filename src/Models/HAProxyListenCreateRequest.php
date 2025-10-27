@@ -7,11 +7,14 @@ use Cyberfusion\CoreApi\Enums\LoadBalancingMethodEnum;
 use Cyberfusion\CoreApi\Enums\NodeGroupEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         int $clusterId,
@@ -36,7 +39,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -51,7 +54,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -62,7 +65,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('nodes_group');
     }
 
-    public function setNodesGroup(?NodeGroupEnum $nodesGroup = null): self
+    public function setNodesGroup(NodeGroupEnum $nodesGroup): self
     {
         $this->setAttribute('nodes_group', $nodesGroup);
         return $this;
@@ -84,7 +87,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('port');
     }
 
-    public function setPort(?int $port = null): self
+    public function setPort(?int $port): self
     {
         $this->setAttribute('port', $port);
         return $this;
@@ -95,7 +98,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('socket_path');
     }
 
-    public function setSocketPath(?string $socketPath = null): self
+    public function setSocketPath(?string $socketPath): self
     {
         $this->setAttribute('socket_path', $socketPath);
         return $this;
@@ -117,7 +120,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('destination_cluster_id');
     }
 
-    public function setDestinationClusterId(?int $destinationClusterId = null): self
+    public function setDestinationClusterId(int $destinationClusterId): self
     {
         $this->setAttribute('destination_cluster_id', $destinationClusterId);
         return $this;
@@ -133,7 +136,7 @@ class HAProxyListenCreateRequest extends CoreApiModel implements CoreApiModelCon
             port: Arr::get($data, 'port'),
             socketPath: Arr::get($data, 'socket_path'),
         ))
-            ->setNodesIds(Arr::get($data, 'nodes_ids'))
-            ->setLoadBalancingMethod(LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method', 'Source IP Address')));
+            ->when(Arr::has($data, 'nodes_ids'), fn (self $model) => $model->setNodesIds(Arr::get($data, 'nodes_ids')))
+            ->when(Arr::has($data, 'load_balancing_method'), fn (self $model) => $model->setLoadBalancingMethod(LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method', 'Source IP Address'))));
     }
 }

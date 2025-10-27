@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FTPUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getPassword(): string|null
     {
@@ -40,7 +39,7 @@ class FTPUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setPassword(Arr::get($data, 'password'))
-            ->setDirectoryPath(Arr::get($data, 'directory_path'));
+            ->when(Arr::has($data, 'password'), fn (self $model) => $model->setPassword(Arr::get($data, 'password')))
+            ->when(Arr::has($data, 'directory_path'), fn (self $model) => $model->setDirectoryPath(Arr::get($data, 'directory_path')));
     }
 }

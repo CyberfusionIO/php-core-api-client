@@ -2,30 +2,26 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\HtpasswdFileCreateRequest;
+use Cyberfusion\CoreApi\Models\HtpasswdFilesSearchRequest;
 use Cyberfusion\CoreApi\Requests\HtpasswdFiles\CreateHtpasswdFile;
 use Cyberfusion\CoreApi\Requests\HtpasswdFiles\DeleteHtpasswdFile;
 use Cyberfusion\CoreApi\Requests\HtpasswdFiles\ListHtpasswdFiles;
 use Cyberfusion\CoreApi\Requests\HtpasswdFiles\ReadHtpasswdFile;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class HtpasswdFiles extends BaseResource
+class HtpasswdFiles extends CoreApiResource
 {
     public function createHtpasswdFile(HtpasswdFileCreateRequest $htpasswdFileCreateRequest): Response
     {
         return $this->connector->send(new CreateHtpasswdFile($htpasswdFileCreateRequest));
     }
 
-    public function listHtpasswdFiles(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListHtpasswdFiles($skip, $limit, $filter, $sort));
+    public function listHtpasswdFiles(?HtpasswdFilesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListHtpasswdFiles($includeFilters));
     }
 
     public function readHtpasswdFile(int $id): Response

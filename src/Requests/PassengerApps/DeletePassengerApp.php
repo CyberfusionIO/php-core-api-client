@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\PassengerApps;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,10 +24,15 @@ class DeletePassengerApp extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/passenger-apps/%d')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('delete_on_cluster', $this->deleteOnCluster)
-            ->getEndpoint();
+        return sprintf('/api/v1/passenger-apps/%d', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['delete_on_cluster'] = $this->deleteOnCluster;
+
+        return array_filter($parameters);
     }
 
     /**

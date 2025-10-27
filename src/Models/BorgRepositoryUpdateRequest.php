@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getKeepHourly(): int|null
     {
@@ -69,26 +68,14 @@ class BorgRepositoryUpdateRequest extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
-    public function getIdentityFilePath(): string|null
-    {
-        return $this->getAttribute('identity_file_path');
-    }
-
-    public function setIdentityFilePath(?string $identityFilePath): self
-    {
-        $this->setAttribute('identity_file_path', $identityFilePath);
-        return $this;
-    }
-
     public static function fromArray(array $data): self
     {
         return (new self(
         ))
-            ->setKeepHourly(Arr::get($data, 'keep_hourly'))
-            ->setKeepDaily(Arr::get($data, 'keep_daily'))
-            ->setKeepWeekly(Arr::get($data, 'keep_weekly'))
-            ->setKeepMonthly(Arr::get($data, 'keep_monthly'))
-            ->setKeepYearly(Arr::get($data, 'keep_yearly'))
-            ->setIdentityFilePath(Arr::get($data, 'identity_file_path'));
+            ->when(Arr::has($data, 'keep_hourly'), fn (self $model) => $model->setKeepHourly(Arr::get($data, 'keep_hourly')))
+            ->when(Arr::has($data, 'keep_daily'), fn (self $model) => $model->setKeepDaily(Arr::get($data, 'keep_daily')))
+            ->when(Arr::has($data, 'keep_weekly'), fn (self $model) => $model->setKeepWeekly(Arr::get($data, 'keep_weekly')))
+            ->when(Arr::has($data, 'keep_monthly'), fn (self $model) => $model->setKeepMonthly(Arr::get($data, 'keep_monthly')))
+            ->when(Arr::has($data, 'keep_yearly'), fn (self $model) => $model->setKeepYearly(Arr::get($data, 'keep_yearly')));
     }
 }

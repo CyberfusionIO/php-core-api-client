@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataDatabaseUserGrantIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         DatabaseResource|TombstoneDataDatabase $database,
         DatabaseUserResource|TombstoneDataDatabaseUser $databaseUser,
@@ -23,7 +26,7 @@ class TombstoneDataDatabaseUserGrantIncludes extends CoreApiModel implements Cor
         return $this->getAttribute('database');
     }
 
-    public function setDatabase(DatabaseResource|TombstoneDataDatabase|null $database = null): self
+    public function setDatabase(DatabaseResource|TombstoneDataDatabase $database): self
     {
         $this->setAttribute('database', $database);
         return $this;
@@ -34,7 +37,7 @@ class TombstoneDataDatabaseUserGrantIncludes extends CoreApiModel implements Cor
         return $this->getAttribute('database_user');
     }
 
-    public function setDatabaseUser(DatabaseUserResource|TombstoneDataDatabaseUser|null $databaseUser = null): self
+    public function setDatabaseUser(DatabaseUserResource|TombstoneDataDatabaseUser $databaseUser): self
     {
         $this->setAttribute('database_user', $databaseUser);
         return $this;

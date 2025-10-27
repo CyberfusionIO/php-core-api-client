@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, string $name, string $appRoot, TombstoneDataPassengerAppIncludes $includes)
     {
         $this->setId($id);
@@ -34,7 +37,7 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -48,7 +51,7 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -63,7 +66,7 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('app_root');
     }
 
-    public function setAppRoot(?string $appRoot = null): self
+    public function setAppRoot(string $appRoot): self
     {
         $this->setAttribute('app_root', $appRoot);
         return $this;
@@ -85,7 +88,7 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataPassengerAppIncludes $includes = null): self
+    public function setIncludes(TombstoneDataPassengerAppIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -99,7 +102,7 @@ class TombstoneDataPassengerApp extends CoreApiModel implements CoreApiModelCont
             appRoot: Arr::get($data, 'app_root'),
             includes: TombstoneDataPassengerAppIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'passenger_app'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'passenger_app')))
+            ->when(Arr::has($data, 'delete_on_cluster'), fn (self $model) => $model->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false)));
     }
 }

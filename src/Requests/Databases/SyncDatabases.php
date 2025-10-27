@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Databases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -27,12 +26,17 @@ class SyncDatabases extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/databases/%d/sync')
-            ->addPathParameter($this->leftDatabaseId)
-            ->addQueryParameter('callback_url', $this->callbackUrl)
-            ->addQueryParameter('right_database_id', $this->rightDatabaseId)
-            ->addQueryParameter('exclude_tables_names', $this->excludeTablesNames)
-            ->getEndpoint();
+        return sprintf('/api/v1/databases/%d/sync', $this->leftDatabaseId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+        $parameters['right_database_id'] = $this->rightDatabaseId;
+        $parameters['exclude_tables_names'] = $this->excludeTablesNames;
+
+        return array_filter($parameters);
     }
 
     /**

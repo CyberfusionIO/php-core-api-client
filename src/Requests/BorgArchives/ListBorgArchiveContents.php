@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgArchives;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgArchiveContent;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -23,10 +22,15 @@ class ListBorgArchiveContents extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/borg-archives/%d/contents')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('path', $this->path)
-            ->getEndpoint();
+        return sprintf('/api/v1/borg-archives/%d/contents', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['path'] = $this->path;
+
+        return array_filter($parameters);
     }
 
     /**

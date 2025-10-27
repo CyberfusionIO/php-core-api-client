@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterMetabasePropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getMetabaseDomain(): string|null
     {
@@ -40,7 +39,7 @@ class ClusterMetabasePropertiesUpdateRequest extends CoreApiModel implements Cor
     {
         return (new self(
         ))
-            ->setMetabaseDomain(Arr::get($data, 'metabase_domain'))
-            ->setMetabaseDatabasePassword(Arr::get($data, 'metabase_database_password'));
+            ->when(Arr::has($data, 'metabase_domain'), fn (self $model) => $model->setMetabaseDomain(Arr::get($data, 'metabase_domain')))
+            ->when(Arr::has($data, 'metabase_database_password'), fn (self $model) => $model->setMetabaseDatabasePassword(Arr::get($data, 'metabase_database_password')));
     }
 }

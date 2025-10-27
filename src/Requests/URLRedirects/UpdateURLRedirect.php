@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\URLRedirects;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\URLRedirectResource;
 use Cyberfusion\CoreApi\Models\URLRedirectUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateURLRedirect extends Request implements CoreApiRequestContract, HasBo
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/url-redirects/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/url-redirects/%d', $this->id);
     }
 
     public function defaultBody(): array

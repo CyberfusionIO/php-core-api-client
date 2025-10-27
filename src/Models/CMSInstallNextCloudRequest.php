@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $databaseName,
         string $databaseUserName,
@@ -34,7 +37,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setDatabaseName(?string $databaseName = null): self
+    public function setDatabaseName(string $databaseName): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -52,7 +55,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setDatabaseUserName(?string $databaseUserName = null): self
+    public function setDatabaseUserName(string $databaseUserName): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -70,7 +73,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setDatabaseUserPassword(?string $databaseUserPassword = null): self
+    public function setDatabaseUserPassword(string $databaseUserPassword): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
@@ -85,7 +88,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('database_host');
     }
 
-    public function setDatabaseHost(?string $databaseHost = null): self
+    public function setDatabaseHost(string $databaseHost): self
     {
         $this->setAttribute('database_host', $databaseHost);
         return $this;
@@ -99,7 +102,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setAdminUsername(?string $adminUsername = null): self
+    public function setAdminUsername(string $adminUsername): self
     {
         Validator::create()
             ->length(min: 1, max: 60)
@@ -117,7 +120,7 @@ class CMSInstallNextCloudRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setAdminPassword(?string $adminPassword = null): self
+    public function setAdminPassword(string $adminPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)

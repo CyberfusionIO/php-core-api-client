@@ -5,14 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataHtpasswdFile extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, int $unixUserId, TombstoneDataHtpasswdFileIncludes $includes)
     {
         $this->setId($id);
@@ -36,7 +36,7 @@ class TombstoneDataHtpasswdFile extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -47,7 +47,7 @@ class TombstoneDataHtpasswdFile extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -58,7 +58,7 @@ class TombstoneDataHtpasswdFile extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataHtpasswdFileIncludes $includes = null): self
+    public function setIncludes(TombstoneDataHtpasswdFileIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -71,6 +71,6 @@ class TombstoneDataHtpasswdFile extends CoreApiModel implements CoreApiModelCont
             unixUserId: Arr::get($data, 'unix_user_id'),
             includes: TombstoneDataHtpasswdFileIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'htpasswd_file'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'htpasswd_file')));
     }
 }

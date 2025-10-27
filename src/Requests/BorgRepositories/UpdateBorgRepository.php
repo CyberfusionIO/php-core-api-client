@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgRepositories;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgRepositoryResource;
 use Cyberfusion\CoreApi\Models\BorgRepositoryUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateBorgRepository extends Request implements CoreApiRequestContract, Ha
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/borg-repositories/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/borg-repositories/%d', $this->id);
     }
 
     public function defaultBody(): array

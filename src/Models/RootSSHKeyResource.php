@@ -5,17 +5,21 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         int $clusterId,
         string $name,
+        RootSSHKeyIncludes $includes,
         ?string $publicKey = null,
         ?string $privateKey = null,
     ) {
@@ -24,6 +28,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setName($name);
+        $this->setIncludes($includes);
         $this->setPublicKey($publicKey);
         $this->setPrivateKey($privateKey);
     }
@@ -33,7 +38,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -66,7 +71,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -77,7 +82,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('public_key');
     }
 
-    public function setPublicKey(?string $publicKey = null): self
+    public function setPublicKey(?string $publicKey): self
     {
         $this->setAttribute('public_key', $publicKey);
         return $this;
@@ -88,7 +93,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('private_key');
     }
 
-    public function setPrivateKey(?string $privateKey = null): self
+    public function setPrivateKey(?string $privateKey): self
     {
         $this->setAttribute('private_key', $privateKey);
         return $this;
@@ -102,7 +107,7 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -112,12 +117,12 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getIncludes(): RootSSHKeyIncludes|null
+    public function getIncludes(): RootSSHKeyIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?RootSSHKeyIncludes $includes): self
+    public function setIncludes(RootSSHKeyIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -131,9 +136,9 @@ class RootSSHKeyResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             name: Arr::get($data, 'name'),
+            includes: RootSSHKeyIncludes::fromArray(Arr::get($data, 'includes')),
             publicKey: Arr::get($data, 'public_key'),
             privateKey: Arr::get($data, 'private_key'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? RootSSHKeyIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

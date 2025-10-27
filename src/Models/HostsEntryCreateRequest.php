@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $nodeId, string $hostName, int $clusterId)
     {
         $this->setNodeId($nodeId);
@@ -22,7 +25,7 @@ class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -33,7 +36,7 @@ class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('host_name');
     }
 
-    public function setHostName(?string $hostName = null): self
+    public function setHostName(string $hostName): self
     {
         $this->setAttribute('host_name', $hostName);
         return $this;
@@ -44,7 +47,7 @@ class HostsEntryCreateRequest extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;

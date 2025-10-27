@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ConcreteSpecificationSatisfyResult extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(bool $satisfied, string $requirement)
     {
         $this->setSatisfied($satisfied);
@@ -21,7 +24,7 @@ class ConcreteSpecificationSatisfyResult extends CoreApiModel implements CoreApi
         return $this->getAttribute('satisfied');
     }
 
-    public function setSatisfied(?bool $satisfied = null): self
+    public function setSatisfied(bool $satisfied): self
     {
         $this->setAttribute('satisfied', $satisfied);
         return $this;
@@ -32,7 +35,7 @@ class ConcreteSpecificationSatisfyResult extends CoreApiModel implements CoreApi
         return $this->getAttribute('requirement');
     }
 
-    public function setRequirement(?string $requirement = null): self
+    public function setRequirement(string $requirement): self
     {
         $this->setAttribute('requirement', $requirement);
         return $this;

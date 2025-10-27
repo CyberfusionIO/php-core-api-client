@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSUserCredentialsUpdateRequest;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -31,10 +30,7 @@ class UpdateCMSUserCredentials extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/users/%d/credentials')
-            ->addPathParameter($this->id)
-            ->addPathParameter($this->userId)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/users/%d/credentials', $this->id, $this->userId);
     }
 
     public function defaultBody(): array

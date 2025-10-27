@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\RootSSHKeys;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\RootSSHKeyCreatePrivateRequest;
 use Cyberfusion\CoreApi\Models\RootSSHKeyResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -26,7 +25,7 @@ class CreatePrivateRootSSHKey extends Request implements CoreApiRequestContract,
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/root-ssh-keys/private')->getEndpoint();
+        return '/api/v1/root-ssh-keys/private';
     }
 
     public function defaultBody(): array

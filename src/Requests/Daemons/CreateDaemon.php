@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Daemons;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DaemonCreateRequest;
 use Cyberfusion\CoreApi\Models\DaemonResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateDaemon extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/daemons')->getEndpoint();
+        return '/api/v1/daemons';
     }
 
     public function defaultBody(): array

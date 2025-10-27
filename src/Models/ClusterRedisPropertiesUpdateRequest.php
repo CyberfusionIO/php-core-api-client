@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterRedisPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getRedisPassword(): string|null
     {
@@ -40,7 +39,7 @@ class ClusterRedisPropertiesUpdateRequest extends CoreApiModel implements CoreAp
     {
         return (new self(
         ))
-            ->setRedisPassword(Arr::get($data, 'redis_password'))
-            ->setRedisMemoryLimit(Arr::get($data, 'redis_memory_limit'));
+            ->when(Arr::has($data, 'redis_password'), fn (self $model) => $model->setRedisPassword(Arr::get($data, 'redis_password')))
+            ->when(Arr::has($data, 'redis_memory_limit'), fn (self $model) => $model->setRedisMemoryLimit(Arr::get($data, 'redis_memory_limit')));
     }
 }

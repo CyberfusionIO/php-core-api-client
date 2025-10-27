@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\CMSSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(CMSSoftwareNameEnum $softwareName, bool $isManuallyCreated, int $virtualHostId)
     {
         $this->setSoftwareName($softwareName);
@@ -23,7 +26,7 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('software_name');
     }
 
-    public function setSoftwareName(?CMSSoftwareNameEnum $softwareName = null): self
+    public function setSoftwareName(CMSSoftwareNameEnum $softwareName): self
     {
         $this->setAttribute('software_name', $softwareName);
         return $this;
@@ -34,7 +37,7 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_manually_created');
     }
 
-    public function setIsManuallyCreated(?bool $isManuallyCreated = null): self
+    public function setIsManuallyCreated(bool $isManuallyCreated): self
     {
         $this->setAttribute('is_manually_created', $isManuallyCreated);
         return $this;
@@ -45,7 +48,7 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('virtual_host_id');
     }
 
-    public function setVirtualHostId(?int $virtualHostId = null): self
+    public function setVirtualHostId(int $virtualHostId): self
     {
         $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;

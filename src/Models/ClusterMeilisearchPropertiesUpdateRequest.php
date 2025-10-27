@@ -6,14 +6,13 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\MeilisearchEnvironmentEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterMeilisearchPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getMeilisearchBackupLocalRetention(): int|null
     {
@@ -63,9 +62,9 @@ class ClusterMeilisearchPropertiesUpdateRequest extends CoreApiModel implements 
     {
         return (new self(
         ))
-            ->setMeilisearchBackupLocalRetention(Arr::get($data, 'meilisearch_backup_local_retention'))
-            ->setMeilisearchMasterKey(Arr::get($data, 'meilisearch_master_key'))
-            ->setMeilisearchEnvironment(Arr::get($data, 'meilisearch_environment') !== null ? MeilisearchEnvironmentEnum::tryFrom(Arr::get($data, 'meilisearch_environment')) : null)
-            ->setMeilisearchBackupInterval(Arr::get($data, 'meilisearch_backup_interval'));
+            ->when(Arr::has($data, 'meilisearch_backup_local_retention'), fn (self $model) => $model->setMeilisearchBackupLocalRetention(Arr::get($data, 'meilisearch_backup_local_retention')))
+            ->when(Arr::has($data, 'meilisearch_master_key'), fn (self $model) => $model->setMeilisearchMasterKey(Arr::get($data, 'meilisearch_master_key')))
+            ->when(Arr::has($data, 'meilisearch_environment'), fn (self $model) => $model->setMeilisearchEnvironment(Arr::get($data, 'meilisearch_environment') !== null ? MeilisearchEnvironmentEnum::tryFrom(Arr::get($data, 'meilisearch_environment')) : null))
+            ->when(Arr::has($data, 'meilisearch_backup_interval'), fn (self $model) => $model->setMeilisearchBackupInterval(Arr::get($data, 'meilisearch_backup_interval')));
     }
 }

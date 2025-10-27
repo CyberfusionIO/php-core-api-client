@@ -3,8 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\NodeAddOns;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
+use Cyberfusion\CoreApi\Models\TaskCollectionResource;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -19,22 +18,29 @@ class DeleteNodeAddOn extends Request implements CoreApiRequestContract
 
     public function __construct(
         private readonly int $id,
+        private readonly ?string $callbackUrl = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/node-add-ons/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/node-add-ons/%d', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     /**
      * @throws JsonException
-     * @returns DetailMessage
+     * @returns TaskCollectionResource
      */
-    public function createDtoFromResponse(Response $response): DetailMessage
+    public function createDtoFromResponse(Response $response): TaskCollectionResource
     {
-        return DetailMessage::fromArray($response->json());
+        return TaskCollectionResource::fromArray($response->json());
     }
 }

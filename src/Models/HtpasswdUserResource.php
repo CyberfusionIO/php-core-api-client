@@ -5,27 +5,32 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
-        string $password,
+        string $hashedPassword,
         int $clusterId,
         string $username,
         int $htpasswdFileId,
+        HtpasswdUserIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
-        $this->setPassword($password);
+        $this->setHashedPassword($hashedPassword);
         $this->setClusterId($clusterId);
         $this->setUsername($username);
         $this->setHtpasswdFileId($htpasswdFileId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -33,7 +38,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,27 +60,27 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
-    public function getPassword(): string
+    public function getHashedPassword(): string
     {
-        return $this->getAttribute('password');
+        return $this->getAttribute('hashed_password');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setHashedPassword(string $hashedPassword): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
             ->regex('/^[ -~]+$/')
-            ->assert($password);
-        $this->setAttribute('password', $password);
+            ->assert($hashedPassword);
+        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -84,7 +89,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -98,7 +103,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
@@ -113,18 +118,18 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('htpasswd_file_id');
     }
 
-    public function setHtpasswdFileId(?int $htpasswdFileId = null): self
+    public function setHtpasswdFileId(int $htpasswdFileId): self
     {
         $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;
     }
 
-    public function getIncludes(): HtpasswdUserIncludes|null
+    public function getIncludes(): HtpasswdUserIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?HtpasswdUserIncludes $includes): self
+    public function setIncludes(HtpasswdUserIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -136,11 +141,11 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            password: Arr::get($data, 'password'),
+            hashedPassword: Arr::get($data, 'hashed_password'),
             clusterId: Arr::get($data, 'cluster_id'),
             username: Arr::get($data, 'username'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? HtpasswdUserIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: HtpasswdUserIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

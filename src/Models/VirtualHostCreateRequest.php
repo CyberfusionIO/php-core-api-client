@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $domain,
         string $publicRoot,
@@ -42,7 +45,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -53,7 +56,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('allow_override_directives');
     }
 
-    public function setAllowOverrideDirectives(?array $allowOverrideDirectives = []): self
+    public function setAllowOverrideDirectives(?array $allowOverrideDirectives): self
     {
         $this->setAttribute('allow_override_directives', $allowOverrideDirectives);
         return $this;
@@ -64,7 +67,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('allow_override_option_directives');
     }
 
-    public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives = []): self
+    public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives): self
     {
         $this->setAttribute('allow_override_option_directives', $allowOverrideOptionDirectives);
         return $this;
@@ -75,7 +78,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -86,7 +89,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('public_root');
     }
 
-    public function setPublicRoot(?string $publicRoot = null): self
+    public function setPublicRoot(string $publicRoot): self
     {
         $this->setAttribute('public_root', $publicRoot);
         return $this;
@@ -97,7 +100,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -111,7 +114,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases = []): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::create()
             ->unique()
@@ -125,7 +128,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('document_root');
     }
 
-    public function setDocumentRoot(?string $documentRoot = null): self
+    public function setDocumentRoot(string $documentRoot): self
     {
         $this->setAttribute('document_root', $documentRoot);
         return $this;
@@ -136,7 +139,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('fpm_pool_id');
     }
 
-    public function setFpmPoolId(?int $fpmPoolId = null): self
+    public function setFpmPoolId(?int $fpmPoolId): self
     {
         $this->setAttribute('fpm_pool_id', $fpmPoolId);
         return $this;
@@ -147,7 +150,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('passenger_app_id');
     }
 
-    public function setPassengerAppId(?int $passengerAppId = null): self
+    public function setPassengerAppId(?int $passengerAppId): self
     {
         $this->setAttribute('passenger_app_id', $passengerAppId);
         return $this;
@@ -158,7 +161,7 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('custom_config');
     }
 
-    public function setCustomConfig(?string $customConfig = null): self
+    public function setCustomConfig(?string $customConfig): self
     {
         $this->setAttribute('custom_config', $customConfig);
         return $this;

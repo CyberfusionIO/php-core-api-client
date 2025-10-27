@@ -5,16 +5,25 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $unixUserId, float $usage, string $timestamp, ?array $files = null)
-    {
+    use Conditionable;
+
+    public function __construct(
+        int $unixUserId,
+        float $usage,
+        string $timestamp,
+        UNIXUserUsageIncludes $includes,
+        ?array $files = null,
+    ) {
         $this->setUnixUserId($unixUserId);
         $this->setUsage($usage);
         $this->setTimestamp($timestamp);
+        $this->setIncludes($includes);
         $this->setFiles($files);
     }
 
@@ -23,7 +32,7 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -34,7 +43,7 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('usage');
     }
 
-    public function setUsage(?float $usage = null): self
+    public function setUsage(float $usage): self
     {
         $this->setAttribute('usage', $usage);
         return $this;
@@ -45,7 +54,7 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('files');
     }
 
-    public function setFiles(?array $files = []): self
+    public function setFiles(?array $files): self
     {
         $this->setAttribute('files', $files);
         return $this;
@@ -56,18 +65,18 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('timestamp');
     }
 
-    public function setTimestamp(?string $timestamp = null): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->setAttribute('timestamp', $timestamp);
         return $this;
     }
 
-    public function getIncludes(): UNIXUserUsageIncludes|null
+    public function getIncludes(): UNIXUserUsageIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?UNIXUserUsageIncludes $includes): self
+    public function setIncludes(UNIXUserUsageIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -79,8 +88,8 @@ class UNIXUserUsageResource extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
+            includes: UNIXUserUsageIncludes::fromArray(Arr::get($data, 'includes')),
             files: Arr::get($data, 'files'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? UNIXUserUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

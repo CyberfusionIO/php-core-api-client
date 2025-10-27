@@ -2,20 +2,20 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\CertificateManagerCreateRequest;
 use Cyberfusion\CoreApi\Models\CertificateManagerUpdateRequest;
+use Cyberfusion\CoreApi\Models\CertificateManagersSearchRequest;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\CreateCertificateManager;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\DeleteCertificateManager;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\ListCertificateManagers;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\ReadCertificateManager;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\RequestCertificate;
 use Cyberfusion\CoreApi\Requests\CertificateManagers\UpdateCertificateManager;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class CertificateManagers extends BaseResource
+class CertificateManagers extends CoreApiResource
 {
     public function createCertificateManager(
         CertificateManagerCreateRequest $certificateManagerCreateRequest,
@@ -23,13 +23,9 @@ class CertificateManagers extends BaseResource
         return $this->connector->send(new CreateCertificateManager($certificateManagerCreateRequest));
     }
 
-    public function listCertificateManagers(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListCertificateManagers($skip, $limit, $filter, $sort));
+    public function listCertificateManagers(?CertificateManagersSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListCertificateManagers($includeFilters));
     }
 
     public function readCertificateManager(int $id): Response

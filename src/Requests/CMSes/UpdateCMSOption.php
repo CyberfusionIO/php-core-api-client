@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSOption;
 use Cyberfusion\CoreApi\Models\CMSOptionUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -31,10 +30,7 @@ class UpdateCMSOption extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/options/%s')
-            ->addPathParameter($this->id)
-            ->addPathParameter($this->name)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/options/%s', $this->id, $this->name);
     }
 
     public function defaultBody(): array

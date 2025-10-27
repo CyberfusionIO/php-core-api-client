@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $hostname,
         array $groups,
@@ -31,7 +34,7 @@ class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('hostname');
     }
 
-    public function setHostname(?string $hostname = null): self
+    public function setHostname(string $hostname): self
     {
         $this->setAttribute('hostname', $hostname);
         return $this;
@@ -42,7 +45,7 @@ class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('groups');
     }
 
-    public function setGroups(array $groups = []): self
+    public function setGroups(array $groups): self
     {
         $this->setAttribute('groups', $groups);
         return $this;
@@ -53,7 +56,7 @@ class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('domain_routers');
     }
 
-    public function setDomainRouters(array $domainRouters = []): self
+    public function setDomainRouters(array $domainRouters): self
     {
         $this->setAttribute('domain_routers', $domainRouters);
         return $this;
@@ -64,7 +67,7 @@ class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('daemons');
     }
 
-    public function setDaemons(array $daemons = []): self
+    public function setDaemons(array $daemons): self
     {
         $this->setAttribute('daemons', $daemons);
         return $this;
@@ -75,7 +78,7 @@ class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('crons');
     }
 
-    public function setCrons(array $crons = []): self
+    public function setCrons(array $crons): self
     {
         $this->setAttribute('crons', $crons);
         return $this;
@@ -86,7 +89,7 @@ class NodeDependenciesResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('hosts_entries');
     }
 
-    public function setHostsEntries(array $hostsEntries = []): self
+    public function setHostsEntries(array $hostsEntries): self
     {
         $this->setAttribute('hosts_entries', $hostsEntries);
         return $this;

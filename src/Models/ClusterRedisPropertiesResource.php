@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -17,6 +20,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         string $redisPassword,
         int $redisMemoryLimit,
         int $clusterId,
+        ClusterRedisPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -24,6 +28,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         $this->setRedisPassword($redisPassword);
         $this->setRedisMemoryLimit($redisMemoryLimit);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -31,7 +36,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -67,7 +72,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setRedisPassword(?string $redisPassword = null): self
+    public function setRedisPassword(string $redisPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -82,7 +87,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('redis_memory_limit');
     }
 
-    public function setRedisMemoryLimit(?int $redisMemoryLimit = null): self
+    public function setRedisMemoryLimit(int $redisMemoryLimit): self
     {
         $this->setAttribute('redis_memory_limit', $redisMemoryLimit);
         return $this;
@@ -93,18 +98,18 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterRedisPropertiesIncludes|null
+    public function getIncludes(): ClusterRedisPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterRedisPropertiesIncludes $includes): self
+    public function setIncludes(ClusterRedisPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -119,7 +124,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
             redisPassword: Arr::get($data, 'redis_password'),
             redisMemoryLimit: Arr::get($data, 'redis_memory_limit'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterRedisPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterRedisPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

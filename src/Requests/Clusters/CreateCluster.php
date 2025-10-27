@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterCreateRequest;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,15 @@ class CreateCluster extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters')
-            ->addQueryParameter('callback_url', $this->callbackUrl)
-            ->getEndpoint();
+        return '/api/v1/clusters';
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     public function defaultBody(): array

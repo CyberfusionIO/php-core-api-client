@@ -6,14 +6,13 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\PassengerEnvironmentEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getEnvironment(): PassengerEnvironmentEnum|null
     {
@@ -118,14 +117,14 @@ class PassengerAppUpdateRequest extends CoreApiModel implements CoreApiModelCont
     {
         return (new self(
         ))
-            ->setEnvironment(Arr::get($data, 'environment') !== null ? PassengerEnvironmentEnum::tryFrom(Arr::get($data, 'environment')) : null)
-            ->setEnvironmentVariables(Arr::get($data, 'environment_variables'))
-            ->setMaxPoolSize(Arr::get($data, 'max_pool_size'))
-            ->setMaxRequests(Arr::get($data, 'max_requests'))
-            ->setPoolIdleTime(Arr::get($data, 'pool_idle_time'))
-            ->setIsNamespaced(Arr::get($data, 'is_namespaced'))
-            ->setCpuLimit(Arr::get($data, 'cpu_limit'))
-            ->setNodejsVersion(Arr::get($data, 'nodejs_version'))
-            ->setStartupFile(Arr::get($data, 'startup_file'));
+            ->when(Arr::has($data, 'environment'), fn (self $model) => $model->setEnvironment(Arr::get($data, 'environment') !== null ? PassengerEnvironmentEnum::tryFrom(Arr::get($data, 'environment')) : null))
+            ->when(Arr::has($data, 'environment_variables'), fn (self $model) => $model->setEnvironmentVariables(Arr::get($data, 'environment_variables')))
+            ->when(Arr::has($data, 'max_pool_size'), fn (self $model) => $model->setMaxPoolSize(Arr::get($data, 'max_pool_size')))
+            ->when(Arr::has($data, 'max_requests'), fn (self $model) => $model->setMaxRequests(Arr::get($data, 'max_requests')))
+            ->when(Arr::has($data, 'pool_idle_time'), fn (self $model) => $model->setPoolIdleTime(Arr::get($data, 'pool_idle_time')))
+            ->when(Arr::has($data, 'is_namespaced'), fn (self $model) => $model->setIsNamespaced(Arr::get($data, 'is_namespaced')))
+            ->when(Arr::has($data, 'cpu_limit'), fn (self $model) => $model->setCpuLimit(Arr::get($data, 'cpu_limit')))
+            ->when(Arr::has($data, 'nodejs_version'), fn (self $model) => $model->setNodejsVersion(Arr::get($data, 'nodejs_version')))
+            ->when(Arr::has($data, 'startup_file'), fn (self $model) => $model->setStartupFile(Arr::get($data, 'startup_file')));
     }
 }

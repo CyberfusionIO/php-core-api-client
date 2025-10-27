@@ -7,11 +7,14 @@ use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Enums\HostEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -19,7 +22,8 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         string $name,
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
-        ?string $password = null,
+        DatabaseUserIncludes $includes,
+        ?string $hashedPassword = null,
         ?HostEnum $host = null,
         ?array $phpmyadminFirewallGroupsIds = null,
     ) {
@@ -29,7 +33,8 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
-        $this->setPassword($password);
+        $this->setIncludes($includes);
+        $this->setHashedPassword($hashedPassword);
         $this->setHost($host);
         $this->setPhpmyadminFirewallGroupsIds($phpmyadminFirewallGroupsIds);
     }
@@ -39,7 +44,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -50,7 +55,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -61,20 +66,20 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
-    public function getPassword(): string|null
+    public function getHashedPassword(): string|null
     {
-        return $this->getAttribute('password');
+        return $this->getAttribute('hashed_password');
     }
 
-    public function setPassword(?string $password = null): self
+    public function setHashedPassword(?string $hashedPassword): self
     {
-        $this->setAttribute('password', $password);
+        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -86,7 +91,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -101,7 +106,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(DatabaseServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -112,7 +117,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('host');
     }
 
-    public function setHost(?HostEnum $host = null): self
+    public function setHost(?HostEnum $host): self
     {
         $this->setAttribute('host', $host);
         return $this;
@@ -123,7 +128,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -134,18 +139,18 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('phpmyadmin_firewall_groups_ids');
     }
 
-    public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds = []): self
+    public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds): self
     {
         $this->setAttribute('phpmyadmin_firewall_groups_ids', $phpmyadminFirewallGroupsIds);
         return $this;
     }
 
-    public function getIncludes(): DatabaseUserIncludes|null
+    public function getIncludes(): DatabaseUserIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?DatabaseUserIncludes $includes): self
+    public function setIncludes(DatabaseUserIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -160,10 +165,10 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
-            password: Arr::get($data, 'password'),
+            includes: DatabaseUserIncludes::fromArray(Arr::get($data, 'includes')),
+            hashedPassword: Arr::get($data, 'hashed_password'),
             host: Arr::get($data, 'host') !== null ? HostEnum::tryFrom(Arr::get($data, 'host')) : null,
             phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseUserIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

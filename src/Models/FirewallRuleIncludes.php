@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         NodeResource $node,
         ClusterResource $cluster,
@@ -27,7 +30,7 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node');
     }
 
-    public function setNode(?NodeResource $node = null): self
+    public function setNode(NodeResource $node): self
     {
         $this->setAttribute('node', $node);
         return $this;
@@ -38,7 +41,7 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('firewall_group');
     }
 
-    public function setFirewallGroup(?FirewallGroupResource $firewallGroup = null): self
+    public function setFirewallGroup(?FirewallGroupResource $firewallGroup): self
     {
         $this->setAttribute('firewall_group', $firewallGroup);
         return $this;
@@ -49,7 +52,7 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('haproxy_listen');
     }
 
-    public function setHaproxyListen(?HAProxyListenResource $haproxyListen = null): self
+    public function setHaproxyListen(?HAProxyListenResource $haproxyListen): self
     {
         $this->setAttribute('haproxy_listen', $haproxyListen);
         return $this;
@@ -60,7 +63,7 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(?ClusterResource $cluster = null): self
+    public function setCluster(ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;

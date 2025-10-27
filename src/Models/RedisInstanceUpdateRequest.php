@@ -6,14 +6,13 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\RedisEvictionPolicyEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getPassword(): string|null
     {
@@ -63,9 +62,9 @@ class RedisInstanceUpdateRequest extends CoreApiModel implements CoreApiModelCon
     {
         return (new self(
         ))
-            ->setPassword(Arr::get($data, 'password'))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
-            ->setMaxDatabases(Arr::get($data, 'max_databases'))
-            ->setEvictionPolicy(Arr::get($data, 'eviction_policy') !== null ? RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')) : null);
+            ->when(Arr::has($data, 'password'), fn (self $model) => $model->setPassword(Arr::get($data, 'password')))
+            ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')))
+            ->when(Arr::has($data, 'max_databases'), fn (self $model) => $model->setMaxDatabases(Arr::get($data, 'max_databases')))
+            ->when(Arr::has($data, 'eviction_policy'), fn (self $model) => $model->setEvictionPolicy(Arr::get($data, 'eviction_policy') !== null ? RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')) : null));
     }
 }

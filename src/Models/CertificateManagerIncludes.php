@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CertificateManagerIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(ClusterResource $cluster, ?CertificateResource $certificate = null)
     {
         $this->setCluster($cluster);
@@ -21,7 +24,7 @@ class CertificateManagerIncludes extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('certificate');
     }
 
-    public function setCertificate(?CertificateResource $certificate = null): self
+    public function setCertificate(?CertificateResource $certificate): self
     {
         $this->setAttribute('certificate', $certificate);
         return $this;
@@ -32,7 +35,7 @@ class CertificateManagerIncludes extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(?ClusterResource $cluster = null): self
+    public function setCluster(ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;

@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\LoadBalancingMethodEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -18,6 +21,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         HTTPRetryProperties $httpRetryProperties,
         LoadBalancingMethodEnum $loadBalancingMethod,
         int $clusterId,
+        ClusterLoadBalancingPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -25,6 +29,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         $this->setHttpRetryProperties($httpRetryProperties);
         $this->setLoadBalancingMethod($loadBalancingMethod);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -32,7 +37,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -43,7 +48,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -54,7 +59,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -65,7 +70,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('http_retry_properties');
     }
 
-    public function setHttpRetryProperties(?HTTPRetryProperties $httpRetryProperties = null): self
+    public function setHttpRetryProperties(HTTPRetryProperties $httpRetryProperties): self
     {
         $this->setAttribute('http_retry_properties', $httpRetryProperties);
         return $this;
@@ -76,7 +81,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('load_balancing_method');
     }
 
-    public function setLoadBalancingMethod(?LoadBalancingMethodEnum $loadBalancingMethod = null): self
+    public function setLoadBalancingMethod(LoadBalancingMethodEnum $loadBalancingMethod): self
     {
         $this->setAttribute('load_balancing_method', $loadBalancingMethod);
         return $this;
@@ -87,18 +92,18 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterLoadBalancingPropertiesIncludes|null
+    public function getIncludes(): ClusterLoadBalancingPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterLoadBalancingPropertiesIncludes $includes): self
+    public function setIncludes(ClusterLoadBalancingPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -113,7 +118,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
             httpRetryProperties: HTTPRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')),
             loadBalancingMethod: LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method')),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterLoadBalancingPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterLoadBalancingPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

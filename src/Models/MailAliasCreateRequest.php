@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $localPart, int $mailDomainId, array $forwardEmailAddresses)
     {
         $this->setLocalPart($localPart);
@@ -25,7 +28,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setLocalPart(?string $localPart = null): self
+    public function setLocalPart(string $localPart): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -40,7 +43,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('mail_domain_id');
     }
 
-    public function setMailDomainId(?int $mailDomainId = null): self
+    public function setMailDomainId(int $mailDomainId): self
     {
         $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
@@ -54,7 +57,7 @@ class MailAliasCreateRequest extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setForwardEmailAddresses(array $forwardEmailAddresses = []): self
+    public function setForwardEmailAddresses(array $forwardEmailAddresses): self
     {
         Validator::create()
             ->unique()

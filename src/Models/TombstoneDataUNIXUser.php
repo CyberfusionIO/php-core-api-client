@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $homeDirectory,
@@ -38,7 +41,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -49,7 +52,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('home_directory');
     }
 
-    public function setHomeDirectory(?string $homeDirectory = null): self
+    public function setHomeDirectory(string $homeDirectory): self
     {
         $this->setAttribute('home_directory', $homeDirectory);
         return $this;
@@ -60,7 +63,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('mail_domains_directory');
     }
 
-    public function setMailDomainsDirectory(?string $mailDomainsDirectory = null): self
+    public function setMailDomainsDirectory(?string $mailDomainsDirectory): self
     {
         $this->setAttribute('mail_domains_directory', $mailDomainsDirectory);
         return $this;
@@ -82,7 +85,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataUNIXUserIncludes $includes = null): self
+    public function setIncludes(TombstoneDataUNIXUserIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -96,7 +99,7 @@ class TombstoneDataUNIXUser extends CoreApiModel implements CoreApiModelContract
             includes: TombstoneDataUNIXUserIncludes::fromArray(Arr::get($data, 'includes')),
             mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'unix_user'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'unix_user')))
+            ->when(Arr::has($data, 'delete_on_cluster'), fn (self $model) => $model->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false)));
     }
 }

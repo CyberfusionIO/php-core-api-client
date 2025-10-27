@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\RedisEvictionPolicyEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         int $clusterId,
@@ -35,7 +38,7 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -50,7 +53,7 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -64,7 +67,7 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -79,7 +82,7 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('memory_limit');
     }
 
-    public function setMemoryLimit(?int $memoryLimit = null): self
+    public function setMemoryLimit(int $memoryLimit): self
     {
         $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
@@ -90,7 +93,7 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('max_databases');
     }
 
-    public function setMaxDatabases(?int $maxDatabases = null): self
+    public function setMaxDatabases(int $maxDatabases): self
     {
         $this->setAttribute('max_databases', $maxDatabases);
         return $this;
@@ -101,7 +104,7 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('eviction_policy');
     }
 
-    public function setEvictionPolicy(?RedisEvictionPolicyEnum $evictionPolicy = null): self
+    public function setEvictionPolicy(RedisEvictionPolicyEnum $evictionPolicy): self
     {
         $this->setAttribute('eviction_policy', $evictionPolicy);
         return $this;

@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\FTPUsers;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\TemporaryFTPUserCreateRequest;
 use Cyberfusion\CoreApi\Models\TemporaryFTPUserResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateTemporaryFTPUser extends Request implements CoreApiRequestContract, 
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/ftp-users/temporary')->getEndpoint();
+        return '/api/v1/ftp-users/temporary';
     }
 
     public function defaultBody(): array

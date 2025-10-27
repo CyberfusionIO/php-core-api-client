@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterRabbitmqPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $rabbitmqAdminPassword, string $rabbitmqManagementDomain)
     {
         $this->setRabbitmqAdminPassword($rabbitmqAdminPassword);
@@ -24,7 +27,7 @@ class ClusterRabbitmqPropertiesCreateRequest extends CoreApiModel implements Cor
     /**
      * @throws ValidationException
      */
-    public function setRabbitmqAdminPassword(?string $rabbitmqAdminPassword = null): self
+    public function setRabbitmqAdminPassword(string $rabbitmqAdminPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -39,7 +42,7 @@ class ClusterRabbitmqPropertiesCreateRequest extends CoreApiModel implements Cor
         return $this->getAttribute('rabbitmq_management_domain');
     }
 
-    public function setRabbitmqManagementDomain(?string $rabbitmqManagementDomain = null): self
+    public function setRabbitmqManagementDomain(string $rabbitmqManagementDomain): self
     {
         $this->setAttribute('rabbitmq_management_domain', $rabbitmqManagementDomain);
         return $this;

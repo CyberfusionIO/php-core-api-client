@@ -2,12 +2,14 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\CMSConfigurationConstantUpdateRequest;
 use Cyberfusion\CoreApi\Models\CMSCreateRequest;
 use Cyberfusion\CoreApi\Models\CMSInstallNextCloudRequest;
 use Cyberfusion\CoreApi\Models\CMSInstallWordPressRequest;
 use Cyberfusion\CoreApi\Models\CMSOptionUpdateRequest;
 use Cyberfusion\CoreApi\Models\CMSUserCredentialsUpdateRequest;
+use Cyberfusion\CoreApi\Models\CmsesSearchRequest;
 use Cyberfusion\CoreApi\Requests\CMSes\CreateCMS;
 use Cyberfusion\CoreApi\Requests\CMSes\DeleteCMS;
 use Cyberfusion\CoreApi\Requests\CMSes\DisableCMSPlugin;
@@ -26,25 +28,19 @@ use Cyberfusion\CoreApi\Requests\CMSes\UpdateCMSCore;
 use Cyberfusion\CoreApi\Requests\CMSes\UpdateCMSOption;
 use Cyberfusion\CoreApi\Requests\CMSes\UpdateCMSPlugin;
 use Cyberfusion\CoreApi\Requests\CMSes\UpdateCMSUserCredentials;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class CMSes extends BaseResource
+class CMSes extends CoreApiResource
 {
     public function createCMS(CMSCreateRequest $cMSCreateRequest): Response
     {
         return $this->connector->send(new CreateCMS($cMSCreateRequest));
     }
 
-    public function listCMSes(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListCMSes($skip, $limit, $filter, $sort));
+    public function listCMSes(?CmsesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListCMSes($includeFilters));
     }
 
     public function readCMS(int $id): Response

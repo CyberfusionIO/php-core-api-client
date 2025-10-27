@@ -6,14 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\MariaDBPrivilegeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         MariaDBPrivilegeEnum $privilegeName,
@@ -46,7 +46,7 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -57,7 +57,7 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('table_name');
     }
 
-    public function setTableName(?string $tableName = null): self
+    public function setTableName(?string $tableName): self
     {
         $this->setAttribute('table_name', $tableName);
         return $this;
@@ -68,7 +68,7 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('privilege_name');
     }
 
-    public function setPrivilegeName(?MariaDBPrivilegeEnum $privilegeName = null): self
+    public function setPrivilegeName(MariaDBPrivilegeEnum $privilegeName): self
     {
         $this->setAttribute('privilege_name', $privilegeName);
         return $this;
@@ -79,7 +79,7 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('database_id');
     }
 
-    public function setDatabaseId(?int $databaseId = null): self
+    public function setDatabaseId(int $databaseId): self
     {
         $this->setAttribute('database_id', $databaseId);
         return $this;
@@ -90,7 +90,7 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('database_user_id');
     }
 
-    public function setDatabaseUserId(?int $databaseUserId = null): self
+    public function setDatabaseUserId(int $databaseUserId): self
     {
         $this->setAttribute('database_user_id', $databaseUserId);
         return $this;
@@ -101,7 +101,7 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataDatabaseUserGrantIncludes $includes = null): self
+    public function setIncludes(TombstoneDataDatabaseUserGrantIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -117,6 +117,6 @@ class TombstoneDataDatabaseUserGrant extends CoreApiModel implements CoreApiMode
             includes: TombstoneDataDatabaseUserGrantIncludes::fromArray(Arr::get($data, 'includes')),
             tableName: Arr::get($data, 'table_name'),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'database_user_grant'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'database_user_grant')));
     }
 }

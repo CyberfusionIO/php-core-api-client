@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\VirtualHostResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -21,9 +20,7 @@ class ReadVirtualHost extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/virtual-hosts/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/virtual-hosts/%d', $this->id);
     }
 
     /**

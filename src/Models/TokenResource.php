@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\TokenTypeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TokenResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $accessToken, TokenTypeEnum $tokenType, int $expiresIn)
     {
         $this->setAccessToken($accessToken);
@@ -26,7 +29,7 @@ class TokenResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setAccessToken(?string $accessToken = null): self
+    public function setAccessToken(string $accessToken): self
     {
         Validator::create()
             ->length(min: 1)
@@ -41,7 +44,7 @@ class TokenResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('token_type');
     }
 
-    public function setTokenType(?TokenTypeEnum $tokenType = null): self
+    public function setTokenType(TokenTypeEnum $tokenType): self
     {
         $this->setAttribute('token_type', $tokenType);
         return $this;
@@ -52,7 +55,7 @@ class TokenResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('expires_in');
     }
 
-    public function setExpiresIn(?int $expiresIn = null): self
+    public function setExpiresIn(int $expiresIn): self
     {
         $this->setAttribute('expires_in', $expiresIn);
         return $this;

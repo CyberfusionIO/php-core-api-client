@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -22,6 +25,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         int $maxRequests,
         int $processIdleTimeout,
         bool $isNamespaced,
+        FPMPoolIncludes $includes,
         ?int $cpuLimit = null,
         ?int $logSlowRequestsThreshold = null,
         ?int $memoryLimit = null,
@@ -37,6 +41,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         $this->setMaxRequests($maxRequests);
         $this->setProcessIdleTimeout($processIdleTimeout);
         $this->setIsNamespaced($isNamespaced);
+        $this->setIncludes($includes);
         $this->setCpuLimit($cpuLimit);
         $this->setLogSlowRequestsThreshold($logSlowRequestsThreshold);
         $this->setMemoryLimit($memoryLimit);
@@ -47,7 +52,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -58,7 +63,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -69,7 +74,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -80,7 +85,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -94,7 +99,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -109,7 +114,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('version');
     }
 
-    public function setVersion(?string $version = null): self
+    public function setVersion(string $version): self
     {
         $this->setAttribute('version', $version);
         return $this;
@@ -120,7 +125,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -131,7 +136,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('max_children');
     }
 
-    public function setMaxChildren(?int $maxChildren = null): self
+    public function setMaxChildren(int $maxChildren): self
     {
         $this->setAttribute('max_children', $maxChildren);
         return $this;
@@ -142,7 +147,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('max_requests');
     }
 
-    public function setMaxRequests(?int $maxRequests = null): self
+    public function setMaxRequests(int $maxRequests): self
     {
         $this->setAttribute('max_requests', $maxRequests);
         return $this;
@@ -153,7 +158,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('process_idle_timeout');
     }
 
-    public function setProcessIdleTimeout(?int $processIdleTimeout = null): self
+    public function setProcessIdleTimeout(int $processIdleTimeout): self
     {
         $this->setAttribute('process_idle_timeout', $processIdleTimeout);
         return $this;
@@ -164,7 +169,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cpu_limit');
     }
 
-    public function setCpuLimit(?int $cpuLimit = null): self
+    public function setCpuLimit(?int $cpuLimit): self
     {
         $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
@@ -175,7 +180,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('log_slow_requests_threshold');
     }
 
-    public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold = null): self
+    public function setLogSlowRequestsThreshold(?int $logSlowRequestsThreshold): self
     {
         $this->setAttribute('log_slow_requests_threshold', $logSlowRequestsThreshold);
         return $this;
@@ -186,7 +191,7 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_namespaced');
     }
 
-    public function setIsNamespaced(?bool $isNamespaced = null): self
+    public function setIsNamespaced(bool $isNamespaced): self
     {
         $this->setAttribute('is_namespaced', $isNamespaced);
         return $this;
@@ -197,18 +202,18 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('memory_limit');
     }
 
-    public function setMemoryLimit(?int $memoryLimit = null): self
+    public function setMemoryLimit(?int $memoryLimit): self
     {
         $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
     }
 
-    public function getIncludes(): FPMPoolIncludes|null
+    public function getIncludes(): FPMPoolIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?FPMPoolIncludes $includes): self
+    public function setIncludes(FPMPoolIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -228,10 +233,10 @@ class FPMPoolResource extends CoreApiModel implements CoreApiModelContract
             maxRequests: Arr::get($data, 'max_requests'),
             processIdleTimeout: Arr::get($data, 'process_idle_timeout'),
             isNamespaced: Arr::get($data, 'is_namespaced'),
+            includes: FPMPoolIncludes::fromArray(Arr::get($data, 'includes')),
             cpuLimit: Arr::get($data, 'cpu_limit'),
             logSlowRequestsThreshold: Arr::get($data, 'log_slow_requests_threshold'),
             memoryLimit: Arr::get($data, 'memory_limit'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? FPMPoolIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

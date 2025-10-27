@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CustomConfigs;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomConfigCreateRequest;
 use Cyberfusion\CoreApi\Models\CustomConfigResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateCustomConfig extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/custom-configs')->getEndpoint();
+        return '/api/v1/custom-configs';
     }
 
     public function defaultBody(): array

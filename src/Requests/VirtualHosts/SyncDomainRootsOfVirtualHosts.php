@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -27,12 +26,17 @@ class SyncDomainRootsOfVirtualHosts extends Request implements CoreApiRequestCon
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/virtual-hosts/%d/domain-root/sync')
-            ->addPathParameter($this->leftVirtualHostId)
-            ->addQueryParameter('callback_url', $this->callbackUrl)
-            ->addQueryParameter('right_virtual_host_id', $this->rightVirtualHostId)
-            ->addQueryParameter('exclude_paths', $this->excludePaths)
-            ->getEndpoint();
+        return sprintf('/api/v1/virtual-hosts/%d/domain-root/sync', $this->leftVirtualHostId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+        $parameters['right_virtual_host_id'] = $this->rightVirtualHostId;
+        $parameters['exclude_paths'] = $this->excludePaths;
+
+        return array_filter($parameters);
     }
 
     /**

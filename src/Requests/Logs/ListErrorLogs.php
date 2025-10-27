@@ -3,9 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\Logs;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\Enums\LogSortOrderEnum;
 use Cyberfusion\CoreApi\Models\WebServerLogErrorResource;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -22,19 +21,24 @@ class ListErrorLogs extends Request implements CoreApiRequestContract
     public function __construct(
         private readonly int $virtualHostId,
         private readonly ?string $timestamp = null,
-        private readonly ?Sorter $sort = null,
+        private readonly ?LogSortOrderEnum $sort = null,
         private readonly ?int $limit = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/logs/error/%d')
-            ->addPathParameter($this->virtualHostId)
-            ->addQueryParameter('timestamp', $this->timestamp)
-            ->sorter($this->sort)
-            ->addQueryParameter('limit', $this->limit)
-            ->getEndpoint();
+        return sprintf('/api/v1/logs/error/%d', $this->virtualHostId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['timestamp'] = $this->timestamp;
+        $parameters['sort'] = $this->sort;
+        $parameters['limit'] = $this->limit;
+
+        return array_filter($parameters);
     }
 
     /**

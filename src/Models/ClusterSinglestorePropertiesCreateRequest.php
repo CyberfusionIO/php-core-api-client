@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterSinglestorePropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $singlestoreStudioDomain,
         string $singlestoreApiDomain,
@@ -27,7 +30,7 @@ class ClusterSinglestorePropertiesCreateRequest extends CoreApiModel implements 
         return $this->getAttribute('singlestore_studio_domain');
     }
 
-    public function setSinglestoreStudioDomain(?string $singlestoreStudioDomain = null): self
+    public function setSinglestoreStudioDomain(string $singlestoreStudioDomain): self
     {
         $this->setAttribute('singlestore_studio_domain', $singlestoreStudioDomain);
         return $this;
@@ -38,7 +41,7 @@ class ClusterSinglestorePropertiesCreateRequest extends CoreApiModel implements 
         return $this->getAttribute('singlestore_api_domain');
     }
 
-    public function setSinglestoreApiDomain(?string $singlestoreApiDomain = null): self
+    public function setSinglestoreApiDomain(string $singlestoreApiDomain): self
     {
         $this->setAttribute('singlestore_api_domain', $singlestoreApiDomain);
         return $this;
@@ -52,7 +55,7 @@ class ClusterSinglestorePropertiesCreateRequest extends CoreApiModel implements 
     /**
      * @throws ValidationException
      */
-    public function setSinglestoreLicenseKey(?string $singlestoreLicenseKey = null): self
+    public function setSinglestoreLicenseKey(string $singlestoreLicenseKey): self
     {
         Validator::create()
             ->length(min: 144, max: 144)
@@ -70,7 +73,7 @@ class ClusterSinglestorePropertiesCreateRequest extends CoreApiModel implements 
     /**
      * @throws ValidationException
      */
-    public function setSinglestoreRootPassword(?string $singlestoreRootPassword = null): self
+    public function setSinglestoreRootPassword(string $singlestoreRootPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)

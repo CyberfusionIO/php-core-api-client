@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\MailHostnames;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\MailHostnameResource;
 use Cyberfusion\CoreApi\Models\MailHostnameUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateMailHostname extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mail-hostnames/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/mail-hostnames/%d', $this->id);
     }
 
     public function defaultBody(): array

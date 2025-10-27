@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSConfigurationConstant;
 use Cyberfusion\CoreApi\Models\CMSConfigurationConstantUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -31,10 +30,7 @@ class UpdateCMSConfigurationConstant extends Request implements CoreApiRequestCo
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/configuration-constants/%s')
-            ->addPathParameter($this->id)
-            ->addPathParameter($this->name)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/configuration-constants/%s', $this->id, $this->name);
     }
 
     public function defaultBody(): array

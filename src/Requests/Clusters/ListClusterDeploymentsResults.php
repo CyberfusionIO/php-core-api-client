@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterDeploymentResults;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -26,10 +25,15 @@ class ListClusterDeploymentsResults extends Request implements CoreApiRequestCon
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/%d/deployments-results')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('get_non_running', $this->getNonRunning)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/%d/deployments-results', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['get_non_running'] = $this->getNonRunning;
+
+        return array_filter($parameters);
     }
 
     /**

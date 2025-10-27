@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\MariaDBEncryptionKeys;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\MariaDBEncryptionKeyResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -21,9 +20,7 @@ class ReadMariaDBEncryptionKey extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mariadb-encryption-keys/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/mariadb-encryption-keys/%d', $this->id);
     }
 
     /**

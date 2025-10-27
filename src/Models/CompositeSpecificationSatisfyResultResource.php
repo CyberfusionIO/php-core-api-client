@@ -7,11 +7,14 @@ use Cyberfusion\CoreApi\Enums\SpecificationModeEnum;
 use Cyberfusion\CoreApi\Enums\SpecificationNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CompositeSpecificationSatisfyResultResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         SpecificationNameEnum $name,
         bool $satisfied,
@@ -29,7 +32,7 @@ class CompositeSpecificationSatisfyResultResource extends CoreApiModel implement
         return $this->getAttribute('name');
     }
 
-    public function setName(?SpecificationNameEnum $name = null): self
+    public function setName(SpecificationNameEnum $name): self
     {
         $this->setAttribute('name', $name);
         return $this;
@@ -40,7 +43,7 @@ class CompositeSpecificationSatisfyResultResource extends CoreApiModel implement
         return $this->getAttribute('satisfied');
     }
 
-    public function setSatisfied(?bool $satisfied = null): self
+    public function setSatisfied(bool $satisfied): self
     {
         $this->setAttribute('satisfied', $satisfied);
         return $this;
@@ -51,7 +54,7 @@ class CompositeSpecificationSatisfyResultResource extends CoreApiModel implement
         return $this->getAttribute('results');
     }
 
-    public function setResults(array $results = []): self
+    public function setResults(array $results): self
     {
         $this->setAttribute('results', $results);
         return $this;
@@ -62,7 +65,7 @@ class CompositeSpecificationSatisfyResultResource extends CoreApiModel implement
         return $this->getAttribute('mode');
     }
 
-    public function setMode(?SpecificationModeEnum $mode = null): self
+    public function setMode(SpecificationModeEnum $mode): self
     {
         $this->setAttribute('mode', $mode);
         return $this;

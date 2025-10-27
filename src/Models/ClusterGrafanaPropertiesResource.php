@@ -5,18 +5,28 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $id, string $createdAt, string $updatedAt, string $grafanaDomain, int $clusterId)
-    {
+    use Conditionable;
+
+    public function __construct(
+        int $id,
+        string $createdAt,
+        string $updatedAt,
+        string $grafanaDomain,
+        int $clusterId,
+        ClusterGrafanaPropertiesIncludes $includes,
+    ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setGrafanaDomain($grafanaDomain);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -24,7 +34,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -35,7 +45,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -46,7 +56,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -57,7 +67,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('grafana_domain');
     }
 
-    public function setGrafanaDomain(?string $grafanaDomain = null): self
+    public function setGrafanaDomain(string $grafanaDomain): self
     {
         $this->setAttribute('grafana_domain', $grafanaDomain);
         return $this;
@@ -68,18 +78,18 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterGrafanaPropertiesIncludes|null
+    public function getIncludes(): ClusterGrafanaPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterGrafanaPropertiesIncludes $includes): self
+    public function setIncludes(ClusterGrafanaPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -93,7 +103,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
             updatedAt: Arr::get($data, 'updated_at'),
             grafanaDomain: Arr::get($data, 'grafana_domain'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterGrafanaPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterGrafanaPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

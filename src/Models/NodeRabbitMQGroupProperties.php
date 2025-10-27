@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeRabbitMQGroupProperties extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(bool $isMaster)
     {
         $this->setIsMaster($isMaster);
@@ -20,7 +23,7 @@ class NodeRabbitMQGroupProperties extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('is_master');
     }
 
-    public function setIsMaster(?bool $isMaster = null): self
+    public function setIsMaster(bool $isMaster): self
     {
         $this->setAttribute('is_master', $isMaster);
         return $this;

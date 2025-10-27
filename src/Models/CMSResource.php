@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\CMSSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -19,6 +22,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         CMSSoftwareNameEnum $softwareName,
         bool $isManuallyCreated,
         int $virtualHostId,
+        CMSIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -27,6 +31,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         $this->setSoftwareName($softwareName);
         $this->setIsManuallyCreated($isManuallyCreated);
         $this->setVirtualHostId($virtualHostId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -34,7 +39,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -45,7 +50,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -56,7 +61,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -67,7 +72,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -78,7 +83,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('software_name');
     }
 
-    public function setSoftwareName(?CMSSoftwareNameEnum $softwareName = null): self
+    public function setSoftwareName(CMSSoftwareNameEnum $softwareName): self
     {
         $this->setAttribute('software_name', $softwareName);
         return $this;
@@ -89,7 +94,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_manually_created');
     }
 
-    public function setIsManuallyCreated(?bool $isManuallyCreated = null): self
+    public function setIsManuallyCreated(bool $isManuallyCreated): self
     {
         $this->setAttribute('is_manually_created', $isManuallyCreated);
         return $this;
@@ -100,18 +105,18 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('virtual_host_id');
     }
 
-    public function setVirtualHostId(?int $virtualHostId = null): self
+    public function setVirtualHostId(int $virtualHostId): self
     {
         $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
     }
 
-    public function getIncludes(): CMSIncludes|null
+    public function getIncludes(): CMSIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?CMSIncludes $includes): self
+    public function setIncludes(CMSIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -127,7 +132,7 @@ class CMSResource extends CoreApiModel implements CoreApiModelContract
             softwareName: CMSSoftwareNameEnum::tryFrom(Arr::get($data, 'software_name')),
             isManuallyCreated: Arr::get($data, 'is_manually_created'),
             virtualHostId: Arr::get($data, 'virtual_host_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? CMSIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: CMSIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

@@ -2,39 +2,33 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Enums\LogSortOrderEnum;
+use Cyberfusion\CoreApi\Models\ObjectLogsSearchRequest;
+use Cyberfusion\CoreApi\Models\RequestLogsSearchRequest;
 use Cyberfusion\CoreApi\Requests\Logs\ListAccessLogs;
 use Cyberfusion\CoreApi\Requests\Logs\ListErrorLogs;
 use Cyberfusion\CoreApi\Requests\Logs\ListObjectLogs;
 use Cyberfusion\CoreApi\Requests\Logs\ListRequestLogs;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class Logs extends BaseResource
+class Logs extends CoreApiResource
 {
-    public function listRequestLogs(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListRequestLogs($skip, $limit, $filter, $sort));
+    public function listRequestLogs(?RequestLogsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListRequestLogs($includeFilters));
     }
 
-    public function listObjectLogs(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListObjectLogs($skip, $limit, $filter, $sort));
+    public function listObjectLogs(?ObjectLogsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListObjectLogs($includeFilters));
     }
 
     public function listAccessLogs(
         int $virtualHostId,
         ?string $timestamp = null,
-        ?Sorter $sort = null,
+        ?LogSortOrderEnum $sort = null,
         ?int $limit = null,
     ): Response {
         return $this->connector->send(new ListAccessLogs($virtualHostId, $timestamp, $sort, $limit));
@@ -43,7 +37,7 @@ class Logs extends BaseResource
     public function listErrorLogs(
         int $virtualHostId,
         ?string $timestamp = null,
-        ?Sorter $sort = null,
+        ?LogSortOrderEnum $sort = null,
         ?int $limit = null,
     ): Response {
         return $this->connector->send(new ListErrorLogs($virtualHostId, $timestamp, $sort, $limit));

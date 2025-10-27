@@ -13,7 +13,6 @@ enum NodeGroupEnum: string
     case PostgreSQL = 'PostgreSQL';
     case PHP = 'PHP';
     case Passenger = 'Passenger';
-    case Borg = 'Borg';
     case FastRedirect = 'Fast Redirect';
     case HAProxy = 'HAProxy';
     case Redis = 'Redis';

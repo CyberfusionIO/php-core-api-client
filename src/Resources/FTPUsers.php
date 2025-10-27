@@ -2,8 +2,10 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\FTPUserCreateRequest;
 use Cyberfusion\CoreApi\Models\FTPUserUpdateRequest;
+use Cyberfusion\CoreApi\Models\FtpUsersSearchRequest;
 use Cyberfusion\CoreApi\Models\TemporaryFTPUserCreateRequest;
 use Cyberfusion\CoreApi\Requests\FTPUsers\CreateFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\CreateTemporaryFTPUser;
@@ -11,25 +13,19 @@ use Cyberfusion\CoreApi\Requests\FTPUsers\DeleteFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\ListFTPUsers;
 use Cyberfusion\CoreApi\Requests\FTPUsers\ReadFTPUser;
 use Cyberfusion\CoreApi\Requests\FTPUsers\UpdateFTPUser;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class FTPUsers extends BaseResource
+class FTPUsers extends CoreApiResource
 {
     public function createFTPUser(FTPUserCreateRequest $fTPUserCreateRequest): Response
     {
         return $this->connector->send(new CreateFTPUser($fTPUserCreateRequest));
     }
 
-    public function listFTPUsers(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListFTPUsers($skip, $limit, $filter, $sort));
+    public function listFTPUsers(?FtpUsersSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListFTPUsers($includeFilters));
     }
 
     public function readFTPUser(int $id): Response

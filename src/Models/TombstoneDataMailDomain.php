@@ -5,14 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataMailDomain extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, string $domain, int $unixUserId, TombstoneDataMailDomainIncludes $includes)
     {
         $this->setId($id);
@@ -37,7 +37,7 @@ class TombstoneDataMailDomain extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -48,7 +48,7 @@ class TombstoneDataMailDomain extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -59,7 +59,7 @@ class TombstoneDataMailDomain extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -81,7 +81,7 @@ class TombstoneDataMailDomain extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataMailDomainIncludes $includes = null): self
+    public function setIncludes(TombstoneDataMailDomainIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -95,7 +95,7 @@ class TombstoneDataMailDomain extends CoreApiModel implements CoreApiModelContra
             unixUserId: Arr::get($data, 'unix_user_id'),
             includes: TombstoneDataMailDomainIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'mail_domain'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'mail_domain')))
+            ->when(Arr::has($data, 'delete_on_cluster'), fn (self $model) => $model->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false)));
     }
 }

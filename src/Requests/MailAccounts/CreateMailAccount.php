@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\MailAccounts;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\MailAccountCreateRequest;
 use Cyberfusion\CoreApi\Models\MailAccountResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateMailAccount extends Request implements CoreApiRequestContract, HasBo
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mail-accounts')->getEndpoint();
+        return '/api/v1/mail-accounts';
     }
 
     public function defaultBody(): array

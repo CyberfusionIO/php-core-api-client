@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterMeilisearchPropertiesResource;
 use Cyberfusion\CoreApi\Models\ClusterMeilisearchPropertiesUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateMeilisearchProperties extends Request implements CoreApiRequestContr
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/%d/properties/meilisearch')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/%d/properties/meilisearch', $this->id);
     }
 
     public function defaultBody(): array

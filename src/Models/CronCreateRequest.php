@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         int $unixUserId,
@@ -41,7 +44,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(?int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -55,7 +58,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -70,7 +73,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -84,11 +87,11 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCommand(?string $command = null): self
+    public function setCommand(string $command): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
-            ->regex('/^[ -~]+$/')
+            ->regex('/^[a-zA-Z0-9-\._\$\/\ ]+$/')
             ->assert($command);
         $this->setAttribute('command', $command);
         return $this;
@@ -99,7 +102,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('email_address');
     }
 
-    public function setEmailAddress(?string $emailAddress = null): self
+    public function setEmailAddress(?string $emailAddress): self
     {
         $this->setAttribute('email_address', $emailAddress);
         return $this;
@@ -110,7 +113,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('schedule');
     }
 
-    public function setSchedule(?string $schedule = null): self
+    public function setSchedule(string $schedule): self
     {
         $this->setAttribute('schedule', $schedule);
         return $this;
@@ -121,7 +124,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('error_count');
     }
 
-    public function setErrorCount(?int $errorCount = null): self
+    public function setErrorCount(int $errorCount): self
     {
         $this->setAttribute('error_count', $errorCount);
         return $this;
@@ -132,7 +135,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('random_delay_max_seconds');
     }
 
-    public function setRandomDelayMaxSeconds(?int $randomDelayMaxSeconds = null): self
+    public function setRandomDelayMaxSeconds(int $randomDelayMaxSeconds): self
     {
         $this->setAttribute('random_delay_max_seconds', $randomDelayMaxSeconds);
         return $this;
@@ -143,7 +146,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('timeout_seconds');
     }
 
-    public function setTimeoutSeconds(?int $timeoutSeconds = null): self
+    public function setTimeoutSeconds(?int $timeoutSeconds): self
     {
         $this->setAttribute('timeout_seconds', $timeoutSeconds);
         return $this;
@@ -154,7 +157,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('locking_enabled');
     }
 
-    public function setLockingEnabled(?bool $lockingEnabled = null): self
+    public function setLockingEnabled(bool $lockingEnabled): self
     {
         $this->setAttribute('locking_enabled', $lockingEnabled);
         return $this;
@@ -165,7 +168,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_active');
     }
 
-    public function setIsActive(?bool $isActive = null): self
+    public function setIsActive(bool $isActive): self
     {
         $this->setAttribute('is_active', $isActive);
         return $this;
@@ -208,7 +211,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
             emailAddress: Arr::get($data, 'email_address'),
             timeoutSeconds: Arr::get($data, 'timeout_seconds'),
         ))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
-            ->setCpuLimit(Arr::get($data, 'cpu_limit'));
+            ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')))
+            ->when(Arr::has($data, 'cpu_limit'), fn (self $model) => $model->setCpuLimit(Arr::get($data, 'cpu_limit')));
     }
 }

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class UNIXUserComparison extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         NestedPathsDict $notIdenticalPaths,
         NestedPathsDict $onlyLeftFilesPaths,
@@ -29,7 +32,7 @@ class UNIXUserComparison extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('not_identical_paths');
     }
 
-    public function setNotIdenticalPaths(?NestedPathsDict $notIdenticalPaths = null): self
+    public function setNotIdenticalPaths(NestedPathsDict $notIdenticalPaths): self
     {
         $this->setAttribute('not_identical_paths', $notIdenticalPaths);
         return $this;
@@ -40,7 +43,7 @@ class UNIXUserComparison extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('only_left_files_paths');
     }
 
-    public function setOnlyLeftFilesPaths(?NestedPathsDict $onlyLeftFilesPaths = null): self
+    public function setOnlyLeftFilesPaths(NestedPathsDict $onlyLeftFilesPaths): self
     {
         $this->setAttribute('only_left_files_paths', $onlyLeftFilesPaths);
         return $this;
@@ -51,7 +54,7 @@ class UNIXUserComparison extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('only_right_files_paths');
     }
 
-    public function setOnlyRightFilesPaths(?NestedPathsDict $onlyRightFilesPaths = null): self
+    public function setOnlyRightFilesPaths(NestedPathsDict $onlyRightFilesPaths): self
     {
         $this->setAttribute('only_right_files_paths', $onlyRightFilesPaths);
         return $this;
@@ -62,7 +65,7 @@ class UNIXUserComparison extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('only_left_directories_paths');
     }
 
-    public function setOnlyLeftDirectoriesPaths(?NestedPathsDict $onlyLeftDirectoriesPaths = null): self
+    public function setOnlyLeftDirectoriesPaths(NestedPathsDict $onlyLeftDirectoriesPaths): self
     {
         $this->setAttribute('only_left_directories_paths', $onlyLeftDirectoriesPaths);
         return $this;
@@ -73,7 +76,7 @@ class UNIXUserComparison extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('only_right_directories_paths');
     }
 
-    public function setOnlyRightDirectoriesPaths(?NestedPathsDict $onlyRightDirectoriesPaths = null): self
+    public function setOnlyRightDirectoriesPaths(NestedPathsDict $onlyRightDirectoriesPaths): self
     {
         $this->setAttribute('only_right_directories_paths', $onlyRightDirectoriesPaths);
         return $this;

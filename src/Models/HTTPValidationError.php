@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HTTPValidationError extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getDetail(): array
     {
@@ -29,6 +28,6 @@ class HTTPValidationError extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setDetail(Arr::get($data, 'detail'));
+            ->when(Arr::has($data, 'detail'), fn (self $model) => $model->setDetail(Arr::get($data, 'detail')));
     }
 }

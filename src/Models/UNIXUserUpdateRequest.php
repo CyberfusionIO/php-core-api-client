@@ -3,17 +3,16 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\ShellPathEnum;
+use Cyberfusion\CoreApi\Enums\ShellNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getPassword(): string|null
     {
@@ -26,14 +25,14 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getShellPath(): ShellPathEnum|null
+    public function getShellName(): ShellNameEnum|null
     {
-        return $this->getAttribute('shell_path');
+        return $this->getAttribute('shell_name');
     }
 
-    public function setShellPath(?ShellPathEnum $shellPath): self
+    public function setShellName(?ShellNameEnum $shellName): self
     {
-        $this->setAttribute('shell_path', $shellPath);
+        $this->setAttribute('shell_name', $shellName);
         return $this;
     }
 
@@ -85,11 +84,11 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setPassword(Arr::get($data, 'password'))
-            ->setShellPath(Arr::get($data, 'shell_path') !== null ? ShellPathEnum::tryFrom(Arr::get($data, 'shell_path')) : null)
-            ->setRecordUsageFiles(Arr::get($data, 'record_usage_files'))
-            ->setDefaultPhpVersion(Arr::get($data, 'default_php_version'))
-            ->setDefaultNodejsVersion(Arr::get($data, 'default_nodejs_version'))
-            ->setDescription(Arr::get($data, 'description'));
+            ->when(Arr::has($data, 'password'), fn (self $model) => $model->setPassword(Arr::get($data, 'password')))
+            ->when(Arr::has($data, 'shell_name'), fn (self $model) => $model->setShellName(Arr::get($data, 'shell_name') !== null ? ShellNameEnum::tryFrom(Arr::get($data, 'shell_name')) : null))
+            ->when(Arr::has($data, 'record_usage_files'), fn (self $model) => $model->setRecordUsageFiles(Arr::get($data, 'record_usage_files')))
+            ->when(Arr::has($data, 'default_php_version'), fn (self $model) => $model->setDefaultPhpVersion(Arr::get($data, 'default_php_version')))
+            ->when(Arr::has($data, 'default_nodejs_version'), fn (self $model) => $model->setDefaultNodejsVersion(Arr::get($data, 'default_nodejs_version')))
+            ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')));
     }
 }

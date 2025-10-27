@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\VirtualHostCreateRequest;
 use Cyberfusion\CoreApi\Models\VirtualHostResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateVirtualHost extends Request implements CoreApiRequestContract, HasBo
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/virtual-hosts')->getEndpoint();
+        return '/api/v1/virtual-hosts';
     }
 
     public function defaultBody(): array

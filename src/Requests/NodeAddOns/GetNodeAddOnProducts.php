@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\NodeAddOns;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\NodeAddOnProduct;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -25,7 +24,7 @@ class GetNodeAddOnProducts extends SoloRequest implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for($this->baseUrl . '/api/v1/node-add-ons/products')->getEndpoint();
+        return $this->baseUrl . '/api/v1/node-add-ons/products';
     }
 
     /**

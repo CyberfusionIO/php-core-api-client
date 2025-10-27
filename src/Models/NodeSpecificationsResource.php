@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $hostname,
         int $memoryMib,
@@ -33,7 +36,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('hostname');
     }
 
-    public function setHostname(?string $hostname = null): self
+    public function setHostname(string $hostname): self
     {
         $this->setAttribute('hostname', $hostname);
         return $this;
@@ -44,7 +47,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('memory_mib');
     }
 
-    public function setMemoryMib(?int $memoryMib = null): self
+    public function setMemoryMib(int $memoryMib): self
     {
         $this->setAttribute('memory_mib', $memoryMib);
         return $this;
@@ -55,7 +58,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('cpu_cores');
     }
 
-    public function setCpuCores(?int $cpuCores = null): self
+    public function setCpuCores(int $cpuCores): self
     {
         $this->setAttribute('cpu_cores', $cpuCores);
         return $this;
@@ -66,7 +69,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('disk_gib');
     }
 
-    public function setDiskGib(?int $diskGib = null): self
+    public function setDiskGib(int $diskGib): self
     {
         $this->setAttribute('disk_gib', $diskGib);
         return $this;
@@ -77,7 +80,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('usable_cpu_cores');
     }
 
-    public function setUsableCpuCores(?int $usableCpuCores = null): self
+    public function setUsableCpuCores(int $usableCpuCores): self
     {
         $this->setAttribute('usable_cpu_cores', $usableCpuCores);
         return $this;
@@ -88,7 +91,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('usable_memory_mib');
     }
 
-    public function setUsableMemoryMib(?int $usableMemoryMib = null): self
+    public function setUsableMemoryMib(int $usableMemoryMib): self
     {
         $this->setAttribute('usable_memory_mib', $usableMemoryMib);
         return $this;
@@ -99,7 +102,7 @@ class NodeSpecificationsResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('usable_disk_gib');
     }
 
-    public function setUsableDiskGib(?int $usableDiskGib = null): self
+    public function setUsableDiskGib(int $usableDiskGib): self
     {
         $this->setAttribute('usable_disk_gib', $usableDiskGib);
         return $this;

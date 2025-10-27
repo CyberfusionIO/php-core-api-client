@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -20,6 +23,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         bool $optimizingEnabled,
         bool $backupsEnabled,
+        DatabaseIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -29,6 +33,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setOptimizingEnabled($optimizingEnabled);
         $this->setBackupsEnabled($backupsEnabled);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -36,7 +41,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -47,7 +52,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -58,7 +63,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -72,7 +77,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -87,7 +92,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(DatabaseServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -98,7 +103,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -109,7 +114,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('optimizing_enabled');
     }
 
-    public function setOptimizingEnabled(?bool $optimizingEnabled = null): self
+    public function setOptimizingEnabled(bool $optimizingEnabled): self
     {
         $this->setAttribute('optimizing_enabled', $optimizingEnabled);
         return $this;
@@ -120,18 +125,18 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('backups_enabled');
     }
 
-    public function setBackupsEnabled(?bool $backupsEnabled = null): self
+    public function setBackupsEnabled(bool $backupsEnabled): self
     {
         $this->setAttribute('backups_enabled', $backupsEnabled);
         return $this;
     }
 
-    public function getIncludes(): DatabaseIncludes|null
+    public function getIncludes(): DatabaseIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?DatabaseIncludes $includes): self
+    public function setIncludes(DatabaseIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -148,7 +153,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             optimizingEnabled: Arr::get($data, 'optimizing_enabled'),
             backupsEnabled: Arr::get($data, 'backups_enabled'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: DatabaseIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

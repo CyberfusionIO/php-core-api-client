@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterElasticsearchPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getElasticsearchDefaultUsersPassword(): string|null
     {
@@ -40,7 +39,7 @@ class ClusterElasticsearchPropertiesUpdateRequest extends CoreApiModel implement
     {
         return (new self(
         ))
-            ->setElasticsearchDefaultUsersPassword(Arr::get($data, 'elasticsearch_default_users_password'))
-            ->setKibanaDomain(Arr::get($data, 'kibana_domain'));
+            ->when(Arr::has($data, 'elasticsearch_default_users_password'), fn (self $model) => $model->setElasticsearchDefaultUsersPassword(Arr::get($data, 'elasticsearch_default_users_password')))
+            ->when(Arr::has($data, 'kibana_domain'), fn (self $model) => $model->setKibanaDomain(Arr::get($data, 'kibana_domain')));
     }
 }

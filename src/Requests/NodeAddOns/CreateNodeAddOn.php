@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\NodeAddOns;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\NodeAddOnCreateRequest;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -24,12 +23,21 @@ class CreateNodeAddOn extends Request implements CoreApiRequestContract, HasBody
 
     public function __construct(
         private readonly NodeAddOnCreateRequest $nodeAddOnCreateRequest,
+        private readonly ?string $callbackUrl = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/node-add-ons')->getEndpoint();
+        return '/api/v1/node-add-ons';
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     public function defaultBody(): array

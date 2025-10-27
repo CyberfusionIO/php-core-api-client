@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FirewallGroupUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getIpNetworks(): array|null
     {
@@ -29,6 +28,6 @@ class FirewallGroupUpdateRequest extends CoreApiModel implements CoreApiModelCon
     {
         return (new self(
         ))
-            ->setIpNetworks(Arr::get($data, 'ip_networks'));
+            ->when(Arr::has($data, 'ip_networks'), fn (self $model) => $model->setIpNetworks(Arr::get($data, 'ip_networks')));
     }
 }

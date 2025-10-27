@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CpuCoresInsufficiencyResult extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $nodeId, int $totalCpuCores, int $usableCpuCores, int $wantedCpuCores)
     {
         $this->setNodeId($nodeId);
@@ -23,7 +26,7 @@ class CpuCoresInsufficiencyResult extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -45,7 +48,7 @@ class CpuCoresInsufficiencyResult extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('total_cpu_cores');
     }
 
-    public function setTotalCpuCores(?int $totalCpuCores = null): self
+    public function setTotalCpuCores(int $totalCpuCores): self
     {
         $this->setAttribute('total_cpu_cores', $totalCpuCores);
         return $this;
@@ -56,7 +59,7 @@ class CpuCoresInsufficiencyResult extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('usable_cpu_cores');
     }
 
-    public function setUsableCpuCores(?int $usableCpuCores = null): self
+    public function setUsableCpuCores(int $usableCpuCores): self
     {
         $this->setAttribute('usable_cpu_cores', $usableCpuCores);
         return $this;
@@ -67,7 +70,7 @@ class CpuCoresInsufficiencyResult extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('wanted_cpu_cores');
     }
 
-    public function setWantedCpuCores(?int $wantedCpuCores = null): self
+    public function setWantedCpuCores(int $wantedCpuCores): self
     {
         $this->setAttribute('wanted_cpu_cores', $wantedCpuCores);
         return $this;
@@ -81,6 +84,6 @@ class CpuCoresInsufficiencyResult extends CoreApiModel implements CoreApiModelCo
             usableCpuCores: Arr::get($data, 'usable_cpu_cores'),
             wantedCpuCores: Arr::get($data, 'wanted_cpu_cores'),
         ))
-            ->setType(Arr::get($data, 'type', 'cpu_cores'));
+            ->when(Arr::has($data, 'type'), fn (self $model) => $model->setType(Arr::get($data, 'type', 'cpu_cores')));
     }
 }

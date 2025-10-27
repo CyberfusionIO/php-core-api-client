@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\LogMethodEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class WebServerLogErrorResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $remoteAddress, string $rawMessage, string $timestamp, string $errorMessage)
     {
         $this->setRemoteAddress($remoteAddress);
@@ -24,7 +27,7 @@ class WebServerLogErrorResource extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('remote_address');
     }
 
-    public function setRemoteAddress(?string $remoteAddress = null): self
+    public function setRemoteAddress(string $remoteAddress): self
     {
         $this->setAttribute('remote_address', $remoteAddress);
         return $this;
@@ -38,7 +41,7 @@ class WebServerLogErrorResource extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setRawMessage(?string $rawMessage = null): self
+    public function setRawMessage(string $rawMessage): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -74,7 +77,7 @@ class WebServerLogErrorResource extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('timestamp');
     }
 
-    public function setTimestamp(?string $timestamp = null): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->setAttribute('timestamp', $timestamp);
         return $this;
@@ -88,7 +91,7 @@ class WebServerLogErrorResource extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setErrorMessage(?string $errorMessage = null): self
+    public function setErrorMessage(string $errorMessage): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -105,7 +108,7 @@ class WebServerLogErrorResource extends CoreApiModel implements CoreApiModelCont
             timestamp: Arr::get($data, 'timestamp'),
             errorMessage: Arr::get($data, 'error_message'),
         ))
-            ->setMethod(Arr::get($data, 'method') !== null ? LogMethodEnum::tryFrom(Arr::get($data, 'method')) : null)
-            ->setUri(Arr::get($data, 'uri'));
+            ->when(Arr::has($data, 'method'), fn (self $model) => $model->setMethod(Arr::get($data, 'method') !== null ? LogMethodEnum::tryFrom(Arr::get($data, 'method')) : null))
+            ->when(Arr::has($data, 'uri'), fn (self $model) => $model->setUri(Arr::get($data, 'uri')));
     }
 }

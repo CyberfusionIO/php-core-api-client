@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getPhpmyadminFirewallGroupsIds(): array|null
     {
@@ -40,7 +39,7 @@ class DatabaseUserUpdateRequest extends CoreApiModel implements CoreApiModelCont
     {
         return (new self(
         ))
-            ->setPhpmyadminFirewallGroupsIds(Arr::get($data, 'phpmyadmin_firewall_groups_ids'))
-            ->setPassword(Arr::get($data, 'password'));
+            ->when(Arr::has($data, 'phpmyadmin_firewall_groups_ids'), fn (self $model) => $model->setPhpmyadminFirewallGroupsIds(Arr::get($data, 'phpmyadmin_firewall_groups_ids')))
+            ->when(Arr::has($data, 'password'), fn (self $model) => $model->setPassword(Arr::get($data, 'password')));
     }
 }

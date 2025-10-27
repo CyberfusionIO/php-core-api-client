@@ -4,15 +4,11 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 
-/**
- * The following related objects will be automatically deleted: - CMSes
- */
 class DeleteVirtualHost extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::DELETE;
@@ -25,10 +21,15 @@ class DeleteVirtualHost extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/virtual-hosts/%d')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('delete_on_cluster', $this->deleteOnCluster)
-            ->getEndpoint();
+        return sprintf('/api/v1/virtual-hosts/%d', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['delete_on_cluster'] = $this->deleteOnCluster;
+
+        return array_filter($parameters);
     }
 
     /**

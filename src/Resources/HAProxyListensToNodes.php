@@ -2,17 +2,17 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\HAProxyListenToNodeCreateRequest;
+use Cyberfusion\CoreApi\Models\HaproxyListensToNodesSearchRequest;
 use Cyberfusion\CoreApi\Requests\HAProxyListensToNodes\CreateHAProxyListenToNode;
 use Cyberfusion\CoreApi\Requests\HAProxyListensToNodes\DeleteHAProxyListenToNode;
 use Cyberfusion\CoreApi\Requests\HAProxyListensToNodes\ListHAProxyListensToNodes;
 use Cyberfusion\CoreApi\Requests\HAProxyListensToNodes\ReadHAProxyListenToNode;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class HAProxyListensToNodes extends BaseResource
+class HAProxyListensToNodes extends CoreApiResource
 {
     public function createHAProxyListenToNode(
         HAProxyListenToNodeCreateRequest $hAProxyListenToNodeCreateRequest,
@@ -20,13 +20,9 @@ class HAProxyListensToNodes extends BaseResource
         return $this->connector->send(new CreateHAProxyListenToNode($hAProxyListenToNodeCreateRequest));
     }
 
-    public function listHAProxyListensToNodes(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListHAProxyListensToNodes($skip, $limit, $filter, $sort));
+    public function listHAProxyListensToNodes(?HaproxyListensToNodesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListHAProxyListensToNodes($includeFilters));
     }
 
     public function readHAProxyListenToNode(int $id): Response

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         array $identicalTablesNames,
         array $notIdenticalTablesNames,
@@ -30,7 +33,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setIdenticalTablesNames(array $identicalTablesNames = []): self
+    public function setIdenticalTablesNames(array $identicalTablesNames): self
     {
         Validator::create()
             ->unique()
@@ -47,7 +50,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setNotIdenticalTablesNames(array $notIdenticalTablesNames = []): self
+    public function setNotIdenticalTablesNames(array $notIdenticalTablesNames): self
     {
         Validator::create()
             ->unique()
@@ -64,7 +67,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setOnlyLeftTablesNames(array $onlyLeftTablesNames = []): self
+    public function setOnlyLeftTablesNames(array $onlyLeftTablesNames): self
     {
         Validator::create()
             ->unique()
@@ -81,7 +84,7 @@ class DatabaseComparison extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setOnlyRightTablesNames(array $onlyRightTablesNames = []): self
+    public function setOnlyRightTablesNames(array $onlyRightTablesNames): self
     {
         Validator::create()
             ->unique()

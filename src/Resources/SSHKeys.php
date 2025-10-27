@@ -2,19 +2,19 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\SSHKeyCreatePrivateRequest;
 use Cyberfusion\CoreApi\Models\SSHKeyCreatePublicRequest;
+use Cyberfusion\CoreApi\Models\SshKeysSearchRequest;
 use Cyberfusion\CoreApi\Requests\SSHKeys\CreatePrivateSSHKey;
 use Cyberfusion\CoreApi\Requests\SSHKeys\CreatePublicSSHKey;
 use Cyberfusion\CoreApi\Requests\SSHKeys\DeleteSSHKey;
 use Cyberfusion\CoreApi\Requests\SSHKeys\ListSSHKeys;
 use Cyberfusion\CoreApi\Requests\SSHKeys\ReadSSHKey;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class SSHKeys extends BaseResource
+class SSHKeys extends CoreApiResource
 {
     public function createPublicSSHKey(SSHKeyCreatePublicRequest $sSHKeyCreatePublicRequest): Response
     {
@@ -26,13 +26,9 @@ class SSHKeys extends BaseResource
         return $this->connector->send(new CreatePrivateSSHKey($sSHKeyCreatePrivateRequest));
     }
 
-    public function listSSHKeys(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListSSHKeys($skip, $limit, $filter, $sort));
+    public function listSSHKeys(?SshKeysSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListSSHKeys($includeFilters));
     }
 
     public function readSSHKey(int $id): Response

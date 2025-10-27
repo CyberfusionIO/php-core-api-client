@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CronIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(ClusterResource $cluster, UNIXUserResource $unixUser, NodeResource $node)
     {
         $this->setCluster($cluster);
@@ -22,7 +25,7 @@ class CronIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(?ClusterResource $cluster = null): self
+    public function setCluster(ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -33,7 +36,7 @@ class CronIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user');
     }
 
-    public function setUnixUser(?UNIXUserResource $unixUser = null): self
+    public function setUnixUser(UNIXUserResource $unixUser): self
     {
         $this->setAttribute('unix_user', $unixUser);
         return $this;
@@ -44,7 +47,7 @@ class CronIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node');
     }
 
-    public function setNode(?NodeResource $node = null): self
+    public function setNode(NodeResource $node): self
     {
         $this->setAttribute('node', $node);
         return $this;

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HAProxyListenIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(ClusterResource $destinationCluster, ClusterResource $cluster)
     {
         $this->setDestinationCluster($destinationCluster);
@@ -21,7 +24,7 @@ class HAProxyListenIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('destination_cluster');
     }
 
-    public function setDestinationCluster(?ClusterResource $destinationCluster = null): self
+    public function setDestinationCluster(ClusterResource $destinationCluster): self
     {
         $this->setAttribute('destination_cluster', $destinationCluster);
         return $this;
@@ -32,7 +35,7 @@ class HAProxyListenIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(?ClusterResource $cluster = null): self
+    public function setCluster(ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;

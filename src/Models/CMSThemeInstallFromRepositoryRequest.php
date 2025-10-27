@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSThemeInstallFromRepositoryRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $name, ?string $version = null)
     {
         $this->setName($name);
@@ -24,7 +27,7 @@ class CMSThemeInstallFromRepositoryRequest extends CoreApiModel implements CoreA
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 60)
@@ -39,7 +42,7 @@ class CMSThemeInstallFromRepositoryRequest extends CoreApiModel implements CoreA
         return $this->getAttribute('version');
     }
 
-    public function setVersion(?string $version = null): self
+    public function setVersion(?string $version): self
     {
         $this->setAttribute('version', $version);
         return $this;

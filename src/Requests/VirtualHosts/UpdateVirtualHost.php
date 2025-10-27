@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\VirtualHostResource;
 use Cyberfusion\CoreApi\Models\VirtualHostUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateVirtualHost extends Request implements CoreApiRequestContract, HasBo
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/virtual-hosts/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/virtual-hosts/%d', $this->id);
     }
 
     public function defaultBody(): array

@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\HtpasswdFiles;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\HtpasswdFileCreateRequest;
 use Cyberfusion\CoreApi\Models\HtpasswdFileResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -26,7 +25,7 @@ class CreateHtpasswdFile extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/htpasswd-files')->getEndpoint();
+        return '/api/v1/htpasswd-files';
     }
 
     public function defaultBody(): array

@@ -2,44 +2,31 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
-use Cyberfusion\CoreApi\Models\BorgArchiveCreateDatabaseRequest;
-use Cyberfusion\CoreApi\Models\BorgArchiveCreateUNIXUserRequest;
-use Cyberfusion\CoreApi\Requests\BorgArchives\CreateBorgArchiveForDatabase;
-use Cyberfusion\CoreApi\Requests\BorgArchives\CreateBorgArchiveForUNIXUser;
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Models\BorgArchiveCreateRequest;
+use Cyberfusion\CoreApi\Models\BorgArchivesSearchRequest;
+use Cyberfusion\CoreApi\Requests\BorgArchives\CreateBorgArchive;
 use Cyberfusion\CoreApi\Requests\BorgArchives\DownloadBorgArchive;
 use Cyberfusion\CoreApi\Requests\BorgArchives\GetBorgArchiveMetadata;
 use Cyberfusion\CoreApi\Requests\BorgArchives\ListBorgArchiveContents;
 use Cyberfusion\CoreApi\Requests\BorgArchives\ListBorgArchives;
 use Cyberfusion\CoreApi\Requests\BorgArchives\ReadBorgArchive;
 use Cyberfusion\CoreApi\Requests\BorgArchives\RestoreBorgArchive;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class BorgArchives extends BaseResource
+class BorgArchives extends CoreApiResource
 {
-    public function createBorgArchiveForDatabase(
-        BorgArchiveCreateDatabaseRequest $borgArchiveCreateDatabaseRequest,
+    public function createBorgArchive(
+        BorgArchiveCreateRequest $borgArchiveCreateRequest,
         ?string $callbackUrl = null,
     ): Response {
-        return $this->connector->send(new CreateBorgArchiveForDatabase($borgArchiveCreateDatabaseRequest, $callbackUrl));
+        return $this->connector->send(new CreateBorgArchive($borgArchiveCreateRequest, $callbackUrl));
     }
 
-    public function createBorgArchiveForUNIXUser(
-        BorgArchiveCreateUNIXUserRequest $borgArchiveCreateUNIXUserRequest,
-        ?string $callbackUrl = null,
-    ): Response {
-        return $this->connector->send(new CreateBorgArchiveForUNIXUser($borgArchiveCreateUNIXUserRequest, $callbackUrl));
-    }
-
-    public function listBorgArchives(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListBorgArchives($skip, $limit, $filter, $sort));
+    public function listBorgArchives(?BorgArchivesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListBorgArchives($includeFilters));
     }
 
     public function readBorgArchive(int $id): Response

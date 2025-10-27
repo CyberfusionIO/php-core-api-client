@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSCreateRequest;
 use Cyberfusion\CoreApi\Models\CMSResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateCMS extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses')->getEndpoint();
+        return '/api/v1/cmses';
     }
 
     public function defaultBody(): array

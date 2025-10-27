@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Login;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\APIUserInfo;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -19,7 +18,7 @@ class TestAccessToken extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/login/test-token')->getEndpoint();
+        return '/api/v1/login/test-token';
     }
 
     /**

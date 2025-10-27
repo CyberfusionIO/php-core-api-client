@@ -7,17 +7,21 @@ use Cyberfusion\CoreApi\Enums\FirewallRuleExternalProviderNameEnum;
 use Cyberfusion\CoreApi\Enums\FirewallRuleServiceNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         int $clusterId,
         int $nodeId,
+        FirewallRuleIncludes $includes,
         ?int $firewallGroupId = null,
         ?FirewallRuleExternalProviderNameEnum $externalProviderName = null,
         ?FirewallRuleServiceNameEnum $serviceName = null,
@@ -29,6 +33,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setNodeId($nodeId);
+        $this->setIncludes($includes);
         $this->setFirewallGroupId($firewallGroupId);
         $this->setExternalProviderName($externalProviderName);
         $this->setServiceName($serviceName);
@@ -41,7 +46,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -52,7 +57,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -63,7 +68,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -74,7 +79,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -85,7 +90,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -96,7 +101,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('firewall_group_id');
     }
 
-    public function setFirewallGroupId(?int $firewallGroupId = null): self
+    public function setFirewallGroupId(?int $firewallGroupId): self
     {
         $this->setAttribute('firewall_group_id', $firewallGroupId);
         return $this;
@@ -107,7 +112,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('external_provider_name');
     }
 
-    public function setExternalProviderName(?FirewallRuleExternalProviderNameEnum $externalProviderName = null): self
+    public function setExternalProviderName(?FirewallRuleExternalProviderNameEnum $externalProviderName): self
     {
         $this->setAttribute('external_provider_name', $externalProviderName);
         return $this;
@@ -118,7 +123,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('service_name');
     }
 
-    public function setServiceName(?FirewallRuleServiceNameEnum $serviceName = null): self
+    public function setServiceName(?FirewallRuleServiceNameEnum $serviceName): self
     {
         $this->setAttribute('service_name', $serviceName);
         return $this;
@@ -129,7 +134,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('haproxy_listen_id');
     }
 
-    public function setHaproxyListenId(?int $haproxyListenId = null): self
+    public function setHaproxyListenId(?int $haproxyListenId): self
     {
         $this->setAttribute('haproxy_listen_id', $haproxyListenId);
         return $this;
@@ -140,18 +145,18 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('port');
     }
 
-    public function setPort(?int $port = null): self
+    public function setPort(?int $port): self
     {
         $this->setAttribute('port', $port);
         return $this;
     }
 
-    public function getIncludes(): FirewallRuleIncludes|null
+    public function getIncludes(): FirewallRuleIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?FirewallRuleIncludes $includes): self
+    public function setIncludes(FirewallRuleIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -165,12 +170,12 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             nodeId: Arr::get($data, 'node_id'),
+            includes: FirewallRuleIncludes::fromArray(Arr::get($data, 'includes')),
             firewallGroupId: Arr::get($data, 'firewall_group_id'),
             externalProviderName: Arr::get($data, 'external_provider_name') !== null ? FirewallRuleExternalProviderNameEnum::tryFrom(Arr::get($data, 'external_provider_name')) : null,
             serviceName: Arr::get($data, 'service_name') !== null ? FirewallRuleServiceNameEnum::tryFrom(Arr::get($data, 'service_name')) : null,
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             port: Arr::get($data, 'port'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? FirewallRuleIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

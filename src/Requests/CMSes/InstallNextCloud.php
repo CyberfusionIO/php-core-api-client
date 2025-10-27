@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CMSInstallNextCloudRequest;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -31,10 +30,15 @@ class InstallNextCloud extends Request implements CoreApiRequestContract, HasBod
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/install/nextcloud')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('callback_url', $this->callbackUrl)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/install/nextcloud', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     public function defaultBody(): array

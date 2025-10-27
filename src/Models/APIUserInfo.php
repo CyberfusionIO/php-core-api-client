@@ -6,27 +6,32 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\APIUserAuthenticationMethodEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class APIUserInfo extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $username,
         bool $isActive,
         bool $isSuperuser,
         array $clusters,
+        array $customers,
+        array $serviceAccounts,
         APIUserAuthenticationMethodEnum $authenticationMethod,
-        ?int $customerId = null,
     ) {
         $this->setId($id);
         $this->setUsername($username);
         $this->setIsActive($isActive);
         $this->setIsSuperuser($isSuperuser);
         $this->setClusters($clusters);
+        $this->setCustomers($customers);
+        $this->setServiceAccounts($serviceAccounts);
         $this->setAuthenticationMethod($authenticationMethod);
-        $this->setCustomerId($customerId);
     }
 
     public function getId(): int
@@ -34,7 +39,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -48,7 +53,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -63,7 +68,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_active');
     }
 
-    public function setIsActive(?bool $isActive = null): self
+    public function setIsActive(bool $isActive): self
     {
         $this->setAttribute('is_active', $isActive);
         return $this;
@@ -74,7 +79,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_superuser');
     }
 
-    public function setIsSuperuser(?bool $isSuperuser = null): self
+    public function setIsSuperuser(bool $isSuperuser): self
     {
         $this->setAttribute('is_superuser', $isSuperuser);
         return $this;
@@ -88,7 +93,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setClusters(array $clusters = []): self
+    public function setClusters(array $clusters): self
     {
         Validator::create()
             ->unique()
@@ -97,14 +102,37 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getCustomerId(): int|null
+    public function getCustomers(): array
     {
-        return $this->getAttribute('customer_id');
+        return $this->getAttribute('customers');
     }
 
-    public function setCustomerId(?int $customerId = null): self
+    /**
+     * @throws ValidationException
+     */
+    public function setCustomers(array $customers): self
     {
-        $this->setAttribute('customer_id', $customerId);
+        Validator::create()
+            ->unique()
+            ->assert($customers);
+        $this->setAttribute('customers', $customers);
+        return $this;
+    }
+
+    public function getServiceAccounts(): array
+    {
+        return $this->getAttribute('service_accounts');
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function setServiceAccounts(array $serviceAccounts): self
+    {
+        Validator::create()
+            ->unique()
+            ->assert($serviceAccounts);
+        $this->setAttribute('service_accounts', $serviceAccounts);
         return $this;
     }
 
@@ -113,7 +141,7 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('authentication_method');
     }
 
-    public function setAuthenticationMethod(?APIUserAuthenticationMethodEnum $authenticationMethod = null): self
+    public function setAuthenticationMethod(APIUserAuthenticationMethodEnum $authenticationMethod): self
     {
         $this->setAttribute('authentication_method', $authenticationMethod);
         return $this;
@@ -127,8 +155,9 @@ class APIUserInfo extends CoreApiModel implements CoreApiModelContract
             isActive: Arr::get($data, 'is_active'),
             isSuperuser: Arr::get($data, 'is_superuser'),
             clusters: Arr::get($data, 'clusters'),
+            customers: Arr::get($data, 'customers'),
+            serviceAccounts: Arr::get($data, 'service_accounts'),
             authenticationMethod: APIUserAuthenticationMethodEnum::tryFrom(Arr::get($data, 'authentication_method')),
-            customerId: Arr::get($data, 'customer_id'),
         ));
     }
 }

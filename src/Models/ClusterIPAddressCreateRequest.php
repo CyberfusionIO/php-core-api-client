@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\IPAddressFamilyEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $serviceAccountName, string $dnsName, IPAddressFamilyEnum $addressFamily)
     {
         $this->setServiceAccountName($serviceAccountName);
@@ -23,7 +26,7 @@ class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('service_account_name');
     }
 
-    public function setServiceAccountName(?string $serviceAccountName = null): self
+    public function setServiceAccountName(string $serviceAccountName): self
     {
         $this->setAttribute('service_account_name', $serviceAccountName);
         return $this;
@@ -34,7 +37,7 @@ class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('dns_name');
     }
 
-    public function setDnsName(?string $dnsName = null): self
+    public function setDnsName(string $dnsName): self
     {
         $this->setAttribute('dns_name', $dnsName);
         return $this;
@@ -45,7 +48,7 @@ class ClusterIPAddressCreateRequest extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('address_family');
     }
 
-    public function setAddressFamily(?IPAddressFamilyEnum $addressFamily = null): self
+    public function setAddressFamily(IPAddressFamilyEnum $addressFamily): self
     {
         $this->setAttribute('address_family', $addressFamily);
         return $this;

@@ -2,33 +2,30 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Enums\TimeUnitEnum;
 use Cyberfusion\CoreApi\Models\MailAccountCreateRequest;
 use Cyberfusion\CoreApi\Models\MailAccountUpdateRequest;
+use Cyberfusion\CoreApi\Models\MailAccountsSearchRequest;
 use Cyberfusion\CoreApi\Requests\MailAccounts\CreateMailAccount;
 use Cyberfusion\CoreApi\Requests\MailAccounts\DeleteMailAccount;
 use Cyberfusion\CoreApi\Requests\MailAccounts\ListMailAccountUsages;
 use Cyberfusion\CoreApi\Requests\MailAccounts\ListMailAccounts;
 use Cyberfusion\CoreApi\Requests\MailAccounts\ReadMailAccount;
 use Cyberfusion\CoreApi\Requests\MailAccounts\UpdateMailAccount;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class MailAccounts extends BaseResource
+class MailAccounts extends CoreApiResource
 {
     public function createMailAccount(MailAccountCreateRequest $mailAccountCreateRequest): Response
     {
         return $this->connector->send(new CreateMailAccount($mailAccountCreateRequest));
     }
 
-    public function listMailAccounts(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListMailAccounts($skip, $limit, $filter, $sort));
+    public function listMailAccounts(?MailAccountsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListMailAccounts($includeFilters));
     }
 
     public function readMailAccount(int $id): Response
@@ -46,8 +43,11 @@ class MailAccounts extends BaseResource
         return $this->connector->send(new DeleteMailAccount($id, $deleteOnCluster));
     }
 
-    public function listMailAccountUsages(int $mailAccountId, string $timestamp, ?string $timeUnit = null): Response
-    {
+    public function listMailAccountUsages(
+        int $mailAccountId,
+        string $timestamp,
+        ?TimeUnitEnum $timeUnit = null,
+    ): Response {
         return $this->connector->send(new ListMailAccountUsages($mailAccountId, $timestamp, $timeUnit));
     }
 }

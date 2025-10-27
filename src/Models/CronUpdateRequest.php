@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getCommand(): string|null
     {
@@ -139,16 +138,16 @@ class CronUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setCommand(Arr::get($data, 'command'))
-            ->setEmailAddress(Arr::get($data, 'email_address'))
-            ->setSchedule(Arr::get($data, 'schedule'))
-            ->setErrorCount(Arr::get($data, 'error_count'))
-            ->setRandomDelayMaxSeconds(Arr::get($data, 'random_delay_max_seconds'))
-            ->setTimeoutSeconds(Arr::get($data, 'timeout_seconds'))
-            ->setLockingEnabled(Arr::get($data, 'locking_enabled'))
-            ->setIsActive(Arr::get($data, 'is_active'))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
-            ->setCpuLimit(Arr::get($data, 'cpu_limit'))
-            ->setNodeId(Arr::get($data, 'node_id'));
+            ->when(Arr::has($data, 'command'), fn (self $model) => $model->setCommand(Arr::get($data, 'command')))
+            ->when(Arr::has($data, 'email_address'), fn (self $model) => $model->setEmailAddress(Arr::get($data, 'email_address')))
+            ->when(Arr::has($data, 'schedule'), fn (self $model) => $model->setSchedule(Arr::get($data, 'schedule')))
+            ->when(Arr::has($data, 'error_count'), fn (self $model) => $model->setErrorCount(Arr::get($data, 'error_count')))
+            ->when(Arr::has($data, 'random_delay_max_seconds'), fn (self $model) => $model->setRandomDelayMaxSeconds(Arr::get($data, 'random_delay_max_seconds')))
+            ->when(Arr::has($data, 'timeout_seconds'), fn (self $model) => $model->setTimeoutSeconds(Arr::get($data, 'timeout_seconds')))
+            ->when(Arr::has($data, 'locking_enabled'), fn (self $model) => $model->setLockingEnabled(Arr::get($data, 'locking_enabled')))
+            ->when(Arr::has($data, 'is_active'), fn (self $model) => $model->setIsActive(Arr::get($data, 'is_active')))
+            ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')))
+            ->when(Arr::has($data, 'cpu_limit'), fn (self $model) => $model->setCpuLimit(Arr::get($data, 'cpu_limit')))
+            ->when(Arr::has($data, 'node_id'), fn (self $model) => $model->setNodeId(Arr::get($data, 'node_id')));
     }
 }

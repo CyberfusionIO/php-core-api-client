@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -20,6 +23,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         string $contents,
         int $clusterId,
         bool $isDefault,
+        CustomConfigSnippetIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -29,6 +33,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         $this->setContents($contents);
         $this->setClusterId($clusterId);
         $this->setIsDefault($isDefault);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -36,7 +41,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -47,7 +52,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -58,7 +63,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -72,7 +77,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 128)
@@ -87,7 +92,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(VirtualHostServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -101,7 +106,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
     /**
      * @throws ValidationException
      */
-    public function setContents(?string $contents = null): self
+    public function setContents(string $contents): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -116,7 +121,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -127,18 +132,18 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('is_default');
     }
 
-    public function setIsDefault(?bool $isDefault = null): self
+    public function setIsDefault(bool $isDefault): self
     {
         $this->setAttribute('is_default', $isDefault);
         return $this;
     }
 
-    public function getIncludes(): CustomConfigSnippetIncludes|null
+    public function getIncludes(): CustomConfigSnippetIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?CustomConfigSnippetIncludes $includes): self
+    public function setIncludes(CustomConfigSnippetIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -155,7 +160,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
             contents: Arr::get($data, 'contents'),
             clusterId: Arr::get($data, 'cluster_id'),
             isDefault: Arr::get($data, 'is_default'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? CustomConfigSnippetIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: CustomConfigSnippetIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

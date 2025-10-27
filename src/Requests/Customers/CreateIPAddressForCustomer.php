@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Customers;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomerIPAddressCreateRequest;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -25,14 +24,21 @@ class CreateIPAddressForCustomer extends Request implements CoreApiRequestContra
     public function __construct(
         private readonly int $id,
         private readonly CustomerIPAddressCreateRequest $customerIPAddressCreateRequest,
+        private readonly ?string $callbackUrl = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/customers/%d/ip-addresses')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/customers/%d/ip-addresses', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     public function defaultBody(): array

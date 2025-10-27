@@ -2,8 +2,11 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Enums\TimeUnitEnum;
 use Cyberfusion\CoreApi\Models\UNIXUserCreateRequest;
 use Cyberfusion\CoreApi\Models\UNIXUserUpdateRequest;
+use Cyberfusion\CoreApi\Models\UnixUsersSearchRequest;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\CompareUNIXUsers;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\CreateUNIXUser;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\DeleteUNIXUser;
@@ -11,25 +14,19 @@ use Cyberfusion\CoreApi\Requests\UNIXUsers\ListUNIXUserUsages;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\ListUNIXUsers;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\ReadUNIXUser;
 use Cyberfusion\CoreApi\Requests\UNIXUsers\UpdateUNIXUser;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class UNIXUsers extends BaseResource
+class UNIXUsers extends CoreApiResource
 {
     public function createUNIXUser(UNIXUserCreateRequest $uNIXUserCreateRequest): Response
     {
         return $this->connector->send(new CreateUNIXUser($uNIXUserCreateRequest));
     }
 
-    public function listUNIXUsers(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListUNIXUsers($skip, $limit, $filter, $sort));
+    public function listUNIXUsers(?UnixUsersSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListUNIXUsers($includeFilters));
     }
 
     public function readUNIXUser(int $id): Response
@@ -52,7 +49,7 @@ class UNIXUsers extends BaseResource
         return $this->connector->send(new CompareUNIXUsers($leftUnixUserId, $rightUnixUserId));
     }
 
-    public function listUNIXUserUsages(int $unixUserId, string $timestamp, ?string $timeUnit = null): Response
+    public function listUNIXUserUsages(int $unixUserId, string $timestamp, ?TimeUnitEnum $timeUnit = null): Response
     {
         return $this->connector->send(new ListUNIXUserUsages($unixUserId, $timestamp, $timeUnit));
     }

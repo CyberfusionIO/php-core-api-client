@@ -3,34 +3,37 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\ShellPathEnum;
+use Cyberfusion\CoreApi\Enums\ShellNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $username,
+        bool $shellIsNamespaced,
         int $clusterId,
-        ShellPathEnum $shellPath,
+        ShellNameEnum $shellName,
         bool $recordUsageFiles,
         ?string $virtualHostsDirectory = null,
         ?string $mailDomainsDirectory = null,
-        ?string $borgRepositoriesDirectory = null,
         ?string $password = null,
         ?string $defaultPhpVersion = null,
         ?string $defaultNodejsVersion = null,
         ?string $description = null,
     ) {
         $this->setUsername($username);
+        $this->setShellIsNamespaced($shellIsNamespaced);
         $this->setClusterId($clusterId);
-        $this->setShellPath($shellPath);
+        $this->setShellName($shellName);
         $this->setRecordUsageFiles($recordUsageFiles);
         $this->setVirtualHostsDirectory($virtualHostsDirectory);
         $this->setMailDomainsDirectory($mailDomainsDirectory);
-        $this->setBorgRepositoriesDirectory($borgRepositoriesDirectory);
         $this->setPassword($password);
         $this->setDefaultPhpVersion($defaultPhpVersion);
         $this->setDefaultNodejsVersion($defaultNodejsVersion);
@@ -45,7 +48,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -60,9 +63,20 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('virtual_hosts_directory');
     }
 
-    public function setVirtualHostsDirectory(?string $virtualHostsDirectory = null): self
+    public function setVirtualHostsDirectory(?string $virtualHostsDirectory): self
     {
         $this->setAttribute('virtual_hosts_directory', $virtualHostsDirectory);
+        return $this;
+    }
+
+    public function getShellIsNamespaced(): bool
+    {
+        return $this->getAttribute('shell_is_namespaced');
+    }
+
+    public function setShellIsNamespaced(bool $shellIsNamespaced): self
+    {
+        $this->setAttribute('shell_is_namespaced', $shellIsNamespaced);
         return $this;
     }
 
@@ -71,20 +85,9 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('mail_domains_directory');
     }
 
-    public function setMailDomainsDirectory(?string $mailDomainsDirectory = null): self
+    public function setMailDomainsDirectory(?string $mailDomainsDirectory): self
     {
         $this->setAttribute('mail_domains_directory', $mailDomainsDirectory);
-        return $this;
-    }
-
-    public function getBorgRepositoriesDirectory(): string|null
-    {
-        return $this->getAttribute('borg_repositories_directory');
-    }
-
-    public function setBorgRepositoriesDirectory(?string $borgRepositoriesDirectory = null): self
-    {
-        $this->setAttribute('borg_repositories_directory', $borgRepositoriesDirectory);
         return $this;
     }
 
@@ -93,7 +96,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -104,20 +107,20 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('password');
     }
 
-    public function setPassword(?string $password = null): self
+    public function setPassword(?string $password): self
     {
         $this->setAttribute('password', $password);
         return $this;
     }
 
-    public function getShellPath(): ShellPathEnum
+    public function getShellName(): ShellNameEnum
     {
-        return $this->getAttribute('shell_path');
+        return $this->getAttribute('shell_name');
     }
 
-    public function setShellPath(?ShellPathEnum $shellPath = null): self
+    public function setShellName(ShellNameEnum $shellName): self
     {
-        $this->setAttribute('shell_path', $shellPath);
+        $this->setAttribute('shell_name', $shellName);
         return $this;
     }
 
@@ -126,7 +129,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('record_usage_files');
     }
 
-    public function setRecordUsageFiles(?bool $recordUsageFiles = null): self
+    public function setRecordUsageFiles(bool $recordUsageFiles): self
     {
         $this->setAttribute('record_usage_files', $recordUsageFiles);
         return $this;
@@ -137,7 +140,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('default_php_version');
     }
 
-    public function setDefaultPhpVersion(?string $defaultPhpVersion = null): self
+    public function setDefaultPhpVersion(?string $defaultPhpVersion): self
     {
         $this->setAttribute('default_php_version', $defaultPhpVersion);
         return $this;
@@ -148,7 +151,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('default_nodejs_version');
     }
 
-    public function setDefaultNodejsVersion(?string $defaultNodejsVersion = null): self
+    public function setDefaultNodejsVersion(?string $defaultNodejsVersion): self
     {
         $this->setAttribute('default_nodejs_version', $defaultNodejsVersion);
         return $this;
@@ -159,7 +162,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('description');
     }
 
-    public function setDescription(?string $description = null): self
+    public function setDescription(?string $description): self
     {
         $this->setAttribute('description', $description);
         return $this;
@@ -169,12 +172,12 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             username: Arr::get($data, 'username'),
+            shellIsNamespaced: Arr::get($data, 'shell_is_namespaced'),
             clusterId: Arr::get($data, 'cluster_id'),
-            shellPath: ShellPathEnum::tryFrom(Arr::get($data, 'shell_path')),
+            shellName: ShellNameEnum::tryFrom(Arr::get($data, 'shell_name')),
             recordUsageFiles: Arr::get($data, 'record_usage_files'),
             virtualHostsDirectory: Arr::get($data, 'virtual_hosts_directory'),
             mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),
-            borgRepositoriesDirectory: Arr::get($data, 'borg_repositories_directory'),
             password: Arr::get($data, 'password'),
             defaultPhpVersion: Arr::get($data, 'default_php_version'),
             defaultNodejsVersion: Arr::get($data, 'default_nodejs_version'),

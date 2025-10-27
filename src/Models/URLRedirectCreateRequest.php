@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\StatusCodeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $domain,
         int $clusterId,
@@ -36,7 +39,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -47,7 +50,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -61,7 +64,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases = []): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::create()
             ->unique()
@@ -78,7 +81,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setDestinationUrl(?string $destinationUrl = null): self
+    public function setDestinationUrl(string $destinationUrl): self
     {
         Validator::create()
             ->length(min: 1, max: 2083)
@@ -92,7 +95,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('status_code');
     }
 
-    public function setStatusCode(?StatusCodeEnum $statusCode = null): self
+    public function setStatusCode(StatusCodeEnum $statusCode): self
     {
         $this->setAttribute('status_code', $statusCode);
         return $this;
@@ -103,7 +106,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('keep_query_parameters');
     }
 
-    public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
+    public function setKeepQueryParameters(bool $keepQueryParameters): self
     {
         $this->setAttribute('keep_query_parameters', $keepQueryParameters);
         return $this;
@@ -114,7 +117,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('keep_path');
     }
 
-    public function setKeepPath(?bool $keepPath = null): self
+    public function setKeepPath(bool $keepPath): self
     {
         $this->setAttribute('keep_path', $keepPath);
         return $this;
@@ -125,7 +128,7 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('description');
     }
 
-    public function setDescription(?string $description = null): self
+    public function setDescription(?string $description): self
     {
         $this->setAttribute('description', $description);
         return $this;

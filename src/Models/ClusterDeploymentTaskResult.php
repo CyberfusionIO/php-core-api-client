@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\TaskStateEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterDeploymentTaskResult extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $description, TaskStateEnum $state, ?string $message = null)
     {
         $this->setDescription($description);
@@ -26,7 +29,7 @@ class ClusterDeploymentTaskResult extends CoreApiModel implements CoreApiModelCo
     /**
      * @throws ValidationException
      */
-    public function setDescription(?string $description = null): self
+    public function setDescription(string $description): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -41,7 +44,7 @@ class ClusterDeploymentTaskResult extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('message');
     }
 
-    public function setMessage(?string $message = null): self
+    public function setMessage(?string $message): self
     {
         $this->setAttribute('message', $message);
         return $this;
@@ -52,7 +55,7 @@ class ClusterDeploymentTaskResult extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('state');
     }
 
-    public function setState(?TaskStateEnum $state = null): self
+    public function setState(TaskStateEnum $state): self
     {
         $this->setAttribute('state', $state);
         return $this;

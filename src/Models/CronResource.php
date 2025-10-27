@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CronResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -24,6 +27,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         int $randomDelayMaxSeconds,
         bool $lockingEnabled,
         bool $isActive,
+        CronIncludes $includes,
         ?string $emailAddress = null,
         ?int $timeoutSeconds = null,
         ?int $memoryLimit = null,
@@ -42,6 +46,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         $this->setRandomDelayMaxSeconds($randomDelayMaxSeconds);
         $this->setLockingEnabled($lockingEnabled);
         $this->setIsActive($isActive);
+        $this->setIncludes($includes);
         $this->setEmailAddress($emailAddress);
         $this->setTimeoutSeconds($timeoutSeconds);
         $this->setMemoryLimit($memoryLimit);
@@ -53,7 +58,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -64,7 +69,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -75,7 +80,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -86,7 +91,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -97,7 +102,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -111,7 +116,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -126,7 +131,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -140,11 +145,11 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCommand(?string $command = null): self
+    public function setCommand(string $command): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
-            ->regex('/^[ -~]+$/')
+            ->regex('/^[a-zA-Z0-9-\._\$\/\ ]+$/')
             ->assert($command);
         $this->setAttribute('command', $command);
         return $this;
@@ -155,7 +160,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('email_address');
     }
 
-    public function setEmailAddress(?string $emailAddress = null): self
+    public function setEmailAddress(?string $emailAddress): self
     {
         $this->setAttribute('email_address', $emailAddress);
         return $this;
@@ -166,7 +171,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('schedule');
     }
 
-    public function setSchedule(?string $schedule = null): self
+    public function setSchedule(string $schedule): self
     {
         $this->setAttribute('schedule', $schedule);
         return $this;
@@ -177,7 +182,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('error_count');
     }
 
-    public function setErrorCount(?int $errorCount = null): self
+    public function setErrorCount(int $errorCount): self
     {
         $this->setAttribute('error_count', $errorCount);
         return $this;
@@ -188,7 +193,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('random_delay_max_seconds');
     }
 
-    public function setRandomDelayMaxSeconds(?int $randomDelayMaxSeconds = null): self
+    public function setRandomDelayMaxSeconds(int $randomDelayMaxSeconds): self
     {
         $this->setAttribute('random_delay_max_seconds', $randomDelayMaxSeconds);
         return $this;
@@ -199,7 +204,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('timeout_seconds');
     }
 
-    public function setTimeoutSeconds(?int $timeoutSeconds = null): self
+    public function setTimeoutSeconds(?int $timeoutSeconds): self
     {
         $this->setAttribute('timeout_seconds', $timeoutSeconds);
         return $this;
@@ -210,7 +215,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('locking_enabled');
     }
 
-    public function setLockingEnabled(?bool $lockingEnabled = null): self
+    public function setLockingEnabled(bool $lockingEnabled): self
     {
         $this->setAttribute('locking_enabled', $lockingEnabled);
         return $this;
@@ -221,7 +226,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_active');
     }
 
-    public function setIsActive(?bool $isActive = null): self
+    public function setIsActive(bool $isActive): self
     {
         $this->setAttribute('is_active', $isActive);
         return $this;
@@ -232,7 +237,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('memory_limit');
     }
 
-    public function setMemoryLimit(?int $memoryLimit = null): self
+    public function setMemoryLimit(?int $memoryLimit): self
     {
         $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
@@ -243,18 +248,18 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cpu_limit');
     }
 
-    public function setCpuLimit(?int $cpuLimit = null): self
+    public function setCpuLimit(?int $cpuLimit): self
     {
         $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 
-    public function getIncludes(): CronIncludes|null
+    public function getIncludes(): CronIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?CronIncludes $includes): self
+    public function setIncludes(CronIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -276,11 +281,11 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
             randomDelayMaxSeconds: Arr::get($data, 'random_delay_max_seconds'),
             lockingEnabled: Arr::get($data, 'locking_enabled'),
             isActive: Arr::get($data, 'is_active'),
+            includes: CronIncludes::fromArray(Arr::get($data, 'includes')),
             emailAddress: Arr::get($data, 'email_address'),
             timeoutSeconds: Arr::get($data, 'timeout_seconds'),
             memoryLimit: Arr::get($data, 'memory_limit'),
             cpuLimit: Arr::get($data, 'cpu_limit'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? CronIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

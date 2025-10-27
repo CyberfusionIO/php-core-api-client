@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterSinglestorePropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getSinglestoreStudioDomain(): string|null
     {
@@ -62,9 +61,9 @@ class ClusterSinglestorePropertiesUpdateRequest extends CoreApiModel implements 
     {
         return (new self(
         ))
-            ->setSinglestoreStudioDomain(Arr::get($data, 'singlestore_studio_domain'))
-            ->setSinglestoreApiDomain(Arr::get($data, 'singlestore_api_domain'))
-            ->setSinglestoreLicenseKey(Arr::get($data, 'singlestore_license_key'))
-            ->setSinglestoreRootPassword(Arr::get($data, 'singlestore_root_password'));
+            ->when(Arr::has($data, 'singlestore_studio_domain'), fn (self $model) => $model->setSinglestoreStudioDomain(Arr::get($data, 'singlestore_studio_domain')))
+            ->when(Arr::has($data, 'singlestore_api_domain'), fn (self $model) => $model->setSinglestoreApiDomain(Arr::get($data, 'singlestore_api_domain')))
+            ->when(Arr::has($data, 'singlestore_license_key'), fn (self $model) => $model->setSinglestoreLicenseKey(Arr::get($data, 'singlestore_license_key')))
+            ->when(Arr::has($data, 'singlestore_root_password'), fn (self $model) => $model->setSinglestoreRootPassword(Arr::get($data, 'singlestore_root_password')));
     }
 }

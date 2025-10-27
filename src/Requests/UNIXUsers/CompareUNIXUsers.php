@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\UNIXUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\UNIXUserComparison;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,10 +24,15 @@ class CompareUNIXUsers extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/unix-users/%d/comparison')
-            ->addPathParameter($this->leftUnixUserId)
-            ->addQueryParameter('right_unix_user_id', $this->rightUnixUserId)
-            ->getEndpoint();
+        return sprintf('/api/v1/unix-users/%d/comparison', $this->leftUnixUserId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['right_unix_user_id'] = $this->rightUnixUserId;
+
+        return array_filter($parameters);
     }
 
     /**

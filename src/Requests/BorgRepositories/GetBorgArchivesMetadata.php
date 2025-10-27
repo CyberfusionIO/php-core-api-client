@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgRepositories;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgArchiveMetadata;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -25,9 +24,7 @@ class GetBorgArchivesMetadata extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/borg-repositories/%d/archives-metadata')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/borg-repositories/%d/archives-metadata', $this->id);
     }
 
     /**

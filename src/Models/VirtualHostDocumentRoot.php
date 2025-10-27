@@ -6,11 +6,14 @@ use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class VirtualHostDocumentRoot extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(ArrayObject $containsFiles)
     {
         $this->setContainsFiles($containsFiles);
@@ -21,7 +24,7 @@ class VirtualHostDocumentRoot extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('contains_files');
     }
 
-    public function setContainsFiles(?ArrayObject $containsFiles = null): self
+    public function setContainsFiles(ArrayObject $containsFiles): self
     {
         $this->setAttribute('contains_files', $containsFiles);
         return $this;

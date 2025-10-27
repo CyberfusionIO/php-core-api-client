@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(VirtualHostResource $virtualHost, ClusterResource $cluster)
     {
         $this->setVirtualHost($virtualHost);
@@ -21,7 +24,7 @@ class CMSIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('virtual_host');
     }
 
-    public function setVirtualHost(?VirtualHostResource $virtualHost = null): self
+    public function setVirtualHost(VirtualHostResource $virtualHost): self
     {
         $this->setAttribute('virtual_host', $virtualHost);
         return $this;
@@ -32,7 +35,7 @@ class CMSIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(?ClusterResource $cluster = null): self
+    public function setCluster(ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;

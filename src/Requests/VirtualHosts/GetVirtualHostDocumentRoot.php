@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\VirtualHostDocumentRoot;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -24,9 +23,7 @@ class GetVirtualHostDocumentRoot extends Request implements CoreApiRequestContra
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/virtual-hosts/%d/document-root')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/virtual-hosts/%d/document-root', $this->id);
     }
 
     /**

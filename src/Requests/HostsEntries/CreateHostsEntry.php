@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\HostsEntries;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\HostsEntryCreateRequest;
 use Cyberfusion\CoreApi\Models\HostsEntryResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateHostsEntry extends Request implements CoreApiRequestContract, HasBod
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/hosts-entries')->getEndpoint();
+        return '/api/v1/hosts-entries';
     }
 
     public function defaultBody(): array

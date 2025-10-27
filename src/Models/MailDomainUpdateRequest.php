@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailDomainUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getCatchAllForwardEmailAddresses(): array|null
     {
@@ -40,7 +39,7 @@ class MailDomainUpdateRequest extends CoreApiModel implements CoreApiModelContra
     {
         return (new self(
         ))
-            ->setCatchAllForwardEmailAddresses(Arr::get($data, 'catch_all_forward_email_addresses'))
-            ->setIsLocal(Arr::get($data, 'is_local'));
+            ->when(Arr::has($data, 'catch_all_forward_email_addresses'), fn (self $model) => $model->setCatchAllForwardEmailAddresses(Arr::get($data, 'catch_all_forward_email_addresses')))
+            ->when(Arr::has($data, 'is_local'), fn (self $model) => $model->setIsLocal(Arr::get($data, 'is_local')));
     }
 }

@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\RedisEvictionPolicyEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -22,6 +25,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         int $memoryLimit,
         int $maxDatabases,
         RedisEvictionPolicyEnum $evictionPolicy,
+        RedisInstanceIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -33,6 +37,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         $this->setMemoryLimit($memoryLimit);
         $this->setMaxDatabases($maxDatabases);
         $this->setEvictionPolicy($evictionPolicy);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -40,7 +45,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -51,7 +56,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -62,7 +67,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -73,7 +78,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('port');
     }
 
-    public function setPort(?int $port = null): self
+    public function setPort(int $port): self
     {
         $this->setAttribute('port', $port);
         return $this;
@@ -87,7 +92,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -102,7 +107,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -116,7 +121,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -131,7 +136,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('memory_limit');
     }
 
-    public function setMemoryLimit(?int $memoryLimit = null): self
+    public function setMemoryLimit(int $memoryLimit): self
     {
         $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
@@ -142,7 +147,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('max_databases');
     }
 
-    public function setMaxDatabases(?int $maxDatabases = null): self
+    public function setMaxDatabases(int $maxDatabases): self
     {
         $this->setAttribute('max_databases', $maxDatabases);
         return $this;
@@ -153,18 +158,18 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('eviction_policy');
     }
 
-    public function setEvictionPolicy(?RedisEvictionPolicyEnum $evictionPolicy = null): self
+    public function setEvictionPolicy(RedisEvictionPolicyEnum $evictionPolicy): self
     {
         $this->setAttribute('eviction_policy', $evictionPolicy);
         return $this;
     }
 
-    public function getIncludes(): RedisInstanceIncludes|null
+    public function getIncludes(): RedisInstanceIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?RedisInstanceIncludes $includes): self
+    public function setIncludes(RedisInstanceIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -183,7 +188,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
             memoryLimit: Arr::get($data, 'memory_limit'),
             maxDatabases: Arr::get($data, 'max_databases'),
             evictionPolicy: RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? RedisInstanceIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: RedisInstanceIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

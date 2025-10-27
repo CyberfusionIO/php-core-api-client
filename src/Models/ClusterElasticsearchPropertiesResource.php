@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterElasticsearchPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -17,6 +20,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         string $elasticsearchDefaultUsersPassword,
         string $kibanaDomain,
         int $clusterId,
+        ClusterElasticsearchPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -24,6 +28,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         $this->setElasticsearchDefaultUsersPassword($elasticsearchDefaultUsersPassword);
         $this->setKibanaDomain($kibanaDomain);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -31,7 +36,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -67,7 +72,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
     /**
      * @throws ValidationException
      */
-    public function setElasticsearchDefaultUsersPassword(?string $elasticsearchDefaultUsersPassword = null): self
+    public function setElasticsearchDefaultUsersPassword(string $elasticsearchDefaultUsersPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -82,7 +87,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('kibana_domain');
     }
 
-    public function setKibanaDomain(?string $kibanaDomain = null): self
+    public function setKibanaDomain(string $kibanaDomain): self
     {
         $this->setAttribute('kibana_domain', $kibanaDomain);
         return $this;
@@ -93,18 +98,18 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterElasticsearchPropertiesIncludes|null
+    public function getIncludes(): ClusterElasticsearchPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterElasticsearchPropertiesIncludes $includes): self
+    public function setIncludes(ClusterElasticsearchPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -119,7 +124,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
             elasticsearchDefaultUsersPassword: Arr::get($data, 'elasticsearch_default_users_password'),
             kibanaDomain: Arr::get($data, 'kibana_domain'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterElasticsearchPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterElasticsearchPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

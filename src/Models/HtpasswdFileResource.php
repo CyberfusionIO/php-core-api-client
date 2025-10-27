@@ -5,18 +5,28 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $id, string $createdAt, string $updatedAt, int $clusterId, int $unixUserId)
-    {
+    use Conditionable;
+
+    public function __construct(
+        int $id,
+        string $createdAt,
+        string $updatedAt,
+        int $clusterId,
+        int $unixUserId,
+        HtpasswdFileIncludes $includes,
+    ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setUnixUserId($unixUserId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -24,7 +34,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -35,7 +45,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -46,7 +56,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -57,7 +67,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -68,18 +78,18 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
-    public function getIncludes(): HtpasswdFileIncludes|null
+    public function getIncludes(): HtpasswdFileIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?HtpasswdFileIncludes $includes): self
+    public function setIncludes(HtpasswdFileIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -93,7 +103,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? HtpasswdFileIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: HtpasswdFileIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }
