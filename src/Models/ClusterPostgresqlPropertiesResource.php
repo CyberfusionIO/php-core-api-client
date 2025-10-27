@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -18,6 +21,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         int $postgresqlBackupLocalRetention,
         int $postgresqlBackupInterval,
         int $clusterId,
+        ClusterPostgresqlPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -26,6 +30,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         $this->setPostgresqlBackupLocalRetention($postgresqlBackupLocalRetention);
         $this->setPostgresqlBackupInterval($postgresqlBackupInterval);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -33,7 +38,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -66,7 +71,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('postgresql_version');
     }
 
-    public function setPostgresqlVersion(?int $postgresqlVersion = null): self
+    public function setPostgresqlVersion(int $postgresqlVersion): self
     {
         $this->setAttribute('postgresql_version', $postgresqlVersion);
         return $this;
@@ -77,7 +82,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('postgresql_backup_local_retention');
     }
 
-    public function setPostgresqlBackupLocalRetention(?int $postgresqlBackupLocalRetention = null): self
+    public function setPostgresqlBackupLocalRetention(int $postgresqlBackupLocalRetention): self
     {
         $this->setAttribute('postgresql_backup_local_retention', $postgresqlBackupLocalRetention);
         return $this;
@@ -88,7 +93,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('postgresql_backup_interval');
     }
 
-    public function setPostgresqlBackupInterval(?int $postgresqlBackupInterval = null): self
+    public function setPostgresqlBackupInterval(int $postgresqlBackupInterval): self
     {
         $this->setAttribute('postgresql_backup_interval', $postgresqlBackupInterval);
         return $this;
@@ -99,18 +104,18 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterPostgresqlPropertiesIncludes|null
+    public function getIncludes(): ClusterPostgresqlPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterPostgresqlPropertiesIncludes $includes): self
+    public function setIncludes(ClusterPostgresqlPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -126,7 +131,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
             postgresqlBackupLocalRetention: Arr::get($data, 'postgresql_backup_local_retention'),
             postgresqlBackupInterval: Arr::get($data, 'postgresql_backup_interval'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterPostgresqlPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterPostgresqlPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

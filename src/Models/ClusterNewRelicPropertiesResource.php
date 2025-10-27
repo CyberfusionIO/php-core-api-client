@@ -5,17 +5,21 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         string $newRelicMariadbPassword,
         int $clusterId,
+        ClusterNewRelicPropertiesIncludes $includes,
         ?string $newRelicApmLicenseKey = null,
         ?string $newRelicInfrastructureLicenseKey = null,
     ) {
@@ -24,6 +28,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setUpdatedAt($updatedAt);
         $this->setNewRelicMariadbPassword($newRelicMariadbPassword);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
         $this->setNewRelicApmLicenseKey($newRelicApmLicenseKey);
         $this->setNewRelicInfrastructureLicenseKey($newRelicInfrastructureLicenseKey);
     }
@@ -33,7 +38,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -69,7 +74,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
     /**
      * @throws ValidationException
      */
-    public function setNewRelicMariadbPassword(?string $newRelicMariadbPassword = null): self
+    public function setNewRelicMariadbPassword(string $newRelicMariadbPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -84,7 +89,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('new_relic_apm_license_key');
     }
 
-    public function setNewRelicApmLicenseKey(?string $newRelicApmLicenseKey = null): self
+    public function setNewRelicApmLicenseKey(?string $newRelicApmLicenseKey): self
     {
         $this->setAttribute('new_relic_apm_license_key', $newRelicApmLicenseKey);
         return $this;
@@ -95,7 +100,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('new_relic_infrastructure_license_key');
     }
 
-    public function setNewRelicInfrastructureLicenseKey(?string $newRelicInfrastructureLicenseKey = null): self
+    public function setNewRelicInfrastructureLicenseKey(?string $newRelicInfrastructureLicenseKey): self
     {
         $this->setAttribute('new_relic_infrastructure_license_key', $newRelicInfrastructureLicenseKey);
         return $this;
@@ -106,18 +111,18 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterNewRelicPropertiesIncludes|null
+    public function getIncludes(): ClusterNewRelicPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterNewRelicPropertiesIncludes $includes): self
+    public function setIncludes(ClusterNewRelicPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -131,9 +136,9 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
             updatedAt: Arr::get($data, 'updated_at'),
             newRelicMariadbPassword: Arr::get($data, 'new_relic_mariadb_password'),
             clusterId: Arr::get($data, 'cluster_id'),
+            includes: ClusterNewRelicPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
             newRelicApmLicenseKey: Arr::get($data, 'new_relic_apm_license_key'),
             newRelicInfrastructureLicenseKey: Arr::get($data, 'new_relic_infrastructure_license_key'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterNewRelicPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

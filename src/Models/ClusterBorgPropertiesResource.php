@@ -5,23 +5,28 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         bool $automaticBorgRepositoriesPruneEnabled,
         int $clusterId,
+        ClusterBorgPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setAutomaticBorgRepositoriesPruneEnabled($automaticBorgRepositoriesPruneEnabled);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -29,7 +34,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -40,7 +45,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -51,7 +56,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -62,9 +67,8 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('automatic_borg_repositories_prune_enabled');
     }
 
-    public function setAutomaticBorgRepositoriesPruneEnabled(
-        ?bool $automaticBorgRepositoriesPruneEnabled = null,
-    ): self {
+    public function setAutomaticBorgRepositoriesPruneEnabled(bool $automaticBorgRepositoriesPruneEnabled): self
+    {
         $this->setAttribute('automatic_borg_repositories_prune_enabled', $automaticBorgRepositoriesPruneEnabled);
         return $this;
     }
@@ -74,18 +78,18 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterBorgPropertiesIncludes|null
+    public function getIncludes(): ClusterBorgPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterBorgPropertiesIncludes $includes): self
+    public function setIncludes(ClusterBorgPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -99,7 +103,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
             updatedAt: Arr::get($data, 'updated_at'),
             automaticBorgRepositoriesPruneEnabled: Arr::get($data, 'automatic_borg_repositories_prune_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterBorgPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterBorgPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

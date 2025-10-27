@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Health;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\HealthResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Response;
@@ -24,7 +23,7 @@ class ReadHealth extends SoloRequest implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for($this->baseUrl . '/api/v1/health')->getEndpoint();
+        return $this->baseUrl . '/api/v1/health';
     }
 
     /**

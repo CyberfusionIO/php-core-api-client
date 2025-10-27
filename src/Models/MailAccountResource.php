@@ -5,28 +5,33 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAccountResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
-        string $password,
+        string $hashedPassword,
         string $localPart,
         int $mailDomainId,
         int $clusterId,
+        MailAccountIncludes $includes,
         ?int $quota = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
-        $this->setPassword($password);
+        $this->setHashedPassword($hashedPassword);
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
         $this->setQuota($quota);
     }
 
@@ -35,7 +40,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -46,7 +51,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -57,27 +62,27 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
-    public function getPassword(): string
+    public function getHashedPassword(): string
     {
-        return $this->getAttribute('password');
+        return $this->getAttribute('hashed_password');
     }
 
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setHashedPassword(string $hashedPassword): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
             ->regex('/^[ -~]+$/')
-            ->assert($password);
-        $this->setAttribute('password', $password);
+            ->assert($hashedPassword);
+        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -89,7 +94,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setLocalPart(?string $localPart = null): self
+    public function setLocalPart(string $localPart): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -104,7 +109,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('mail_domain_id');
     }
 
-    public function setMailDomainId(?int $mailDomainId = null): self
+    public function setMailDomainId(int $mailDomainId): self
     {
         $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
@@ -115,7 +120,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -126,18 +131,18 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('quota');
     }
 
-    public function setQuota(?int $quota = null): self
+    public function setQuota(?int $quota): self
     {
         $this->setAttribute('quota', $quota);
         return $this;
     }
 
-    public function getIncludes(): MailAccountIncludes|null
+    public function getIncludes(): MailAccountIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?MailAccountIncludes $includes): self
+    public function setIncludes(MailAccountIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -149,12 +154,12 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            password: Arr::get($data, 'password'),
+            hashedPassword: Arr::get($data, 'hashed_password'),
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            includes: MailAccountIncludes::fromArray(Arr::get($data, 'includes')),
             quota: Arr::get($data, 'quota'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? MailAccountIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

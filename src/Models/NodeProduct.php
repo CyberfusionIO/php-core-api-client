@@ -5,6 +5,7 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
@@ -13,10 +14,12 @@ use Respect\Validation\Validator;
  */
 class NodeProduct extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $uuid,
         string $name,
-        int $memoryGib,
+        int $memoryMib,
         int $cpuCores,
         int $diskGib,
         array $allowUpgradeTo,
@@ -27,7 +30,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
     ) {
         $this->setUuid($uuid);
         $this->setName($name);
-        $this->setMemoryGib($memoryGib);
+        $this->setMemoryMib($memoryMib);
         $this->setCpuCores($cpuCores);
         $this->setDiskGib($diskGib);
         $this->setAllowUpgradeTo($allowUpgradeTo);
@@ -42,7 +45,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('uuid');
     }
 
-    public function setUuid(?string $uuid = null): self
+    public function setUuid(string $uuid): self
     {
         $this->setAttribute('uuid', $uuid);
         return $this;
@@ -56,7 +59,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 2)
@@ -66,14 +69,14 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getMemoryGib(): int
+    public function getMemoryMib(): int
     {
-        return $this->getAttribute('memory_gib');
+        return $this->getAttribute('memory_mib');
     }
 
-    public function setMemoryGib(?int $memoryGib = null): self
+    public function setMemoryMib(int $memoryMib): self
     {
-        $this->setAttribute('memory_gib', $memoryGib);
+        $this->setAttribute('memory_mib', $memoryMib);
         return $this;
     }
 
@@ -82,7 +85,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cpu_cores');
     }
 
-    public function setCpuCores(?int $cpuCores = null): self
+    public function setCpuCores(int $cpuCores): self
     {
         $this->setAttribute('cpu_cores', $cpuCores);
         return $this;
@@ -93,7 +96,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('disk_gib');
     }
 
-    public function setDiskGib(?int $diskGib = null): self
+    public function setDiskGib(int $diskGib): self
     {
         $this->setAttribute('disk_gib', $diskGib);
         return $this;
@@ -104,7 +107,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('allow_upgrade_to');
     }
 
-    public function setAllowUpgradeTo(array $allowUpgradeTo = []): self
+    public function setAllowUpgradeTo(array $allowUpgradeTo): self
     {
         $this->setAttribute('allow_upgrade_to', $allowUpgradeTo);
         return $this;
@@ -115,7 +118,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('allow_downgrade_to');
     }
 
-    public function setAllowDowngradeTo(array $allowDowngradeTo = []): self
+    public function setAllowDowngradeTo(array $allowDowngradeTo): self
     {
         $this->setAttribute('allow_downgrade_to', $allowDowngradeTo);
         return $this;
@@ -126,7 +129,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('price');
     }
 
-    public function setPrice(?float $price = null): self
+    public function setPrice(float $price): self
     {
         $this->setAttribute('price', $price);
         return $this;
@@ -140,7 +143,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setPeriod(?string $period = null): self
+    public function setPeriod(string $period): self
     {
         Validator::create()
             ->length(min: 2, max: 2)
@@ -158,7 +161,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCurrency(?string $currency = null): self
+    public function setCurrency(string $currency): self
     {
         Validator::create()
             ->length(min: 3, max: 3)
@@ -173,7 +176,7 @@ class NodeProduct extends CoreApiModel implements CoreApiModelContract
         return (new self(
             uuid: Arr::get($data, 'uuid'),
             name: Arr::get($data, 'name'),
-            memoryGib: Arr::get($data, 'memory_gib'),
+            memoryMib: Arr::get($data, 'memory_mib'),
             cpuCores: Arr::get($data, 'cpu_cores'),
             diskGib: Arr::get($data, 'disk_gib'),
             allowUpgradeTo: Arr::get($data, 'allow_upgrade_to'),

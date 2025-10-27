@@ -5,27 +5,32 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         string $name,
-        int $customerId,
-        int $siteId,
+        int $regionId,
         string $description,
+        int $customerId,
+        ClusterIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setName($name);
-        $this->setCustomerId($customerId);
-        $this->setSiteId($siteId);
+        $this->setRegionId($regionId);
         $this->setDescription($description);
+        $this->setCustomerId($customerId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -33,7 +38,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -69,7 +74,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -79,25 +84,14 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getCustomerId(): int
+    public function getRegionId(): int
     {
-        return $this->getAttribute('customer_id');
+        return $this->getAttribute('region_id');
     }
 
-    public function setCustomerId(?int $customerId = null): self
+    public function setRegionId(int $regionId): self
     {
-        $this->setAttribute('customer_id', $customerId);
-        return $this;
-    }
-
-    public function getSiteId(): int
-    {
-        return $this->getAttribute('site_id');
-    }
-
-    public function setSiteId(?int $siteId = null): self
-    {
-        $this->setAttribute('site_id', $siteId);
+        $this->setAttribute('region_id', $regionId);
         return $this;
     }
 
@@ -109,7 +103,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setDescription(?string $description = null): self
+    public function setDescription(string $description): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
@@ -119,12 +113,23 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getIncludes(): ClusterIncludes|null
+    public function getCustomerId(): int
+    {
+        return $this->getAttribute('customer_id');
+    }
+
+    public function setCustomerId(int $customerId): self
+    {
+        $this->setAttribute('customer_id', $customerId);
+        return $this;
+    }
+
+    public function getIncludes(): ClusterIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterIncludes $includes): self
+    public function setIncludes(ClusterIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -137,10 +142,10 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             name: Arr::get($data, 'name'),
-            customerId: Arr::get($data, 'customer_id'),
-            siteId: Arr::get($data, 'site_id'),
+            regionId: Arr::get($data, 'region_id'),
             description: Arr::get($data, 'description'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            customerId: Arr::get($data, 'customer_id'),
+            includes: ClusterIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

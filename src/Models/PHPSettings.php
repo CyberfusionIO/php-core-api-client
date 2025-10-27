@@ -5,6 +5,7 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
@@ -15,9 +16,7 @@ use Respect\Validation\Validator;
  */
 class PHPSettings extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getApcEnableCli(): bool
     {
@@ -184,19 +183,19 @@ class PHPSettings extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setApcEnableCli(Arr::get($data, 'apc_enable_cli', false))
-            ->setOpcacheFileCache(Arr::get($data, 'opcache_file_cache', false))
-            ->setOpcacheValidateTimestamps(Arr::get($data, 'opcache_validate_timestamps', true))
-            ->setShortOpenTag(Arr::get($data, 'short_open_tag', false))
-            ->setErrorReporting(Arr::get($data, 'error_reporting', 'E_ALL & ~E_DEPRECATED & ~E_STRICT'))
-            ->setOpcacheMemoryConsumption(Arr::get($data, 'opcache_memory_consumption', 192))
-            ->setMaxExecutionTime(Arr::get($data, 'max_execution_time', 120))
-            ->setMaxFileUploads(Arr::get($data, 'max_file_uploads', 100))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit', 256))
-            ->setPostMaxSize(Arr::get($data, 'post_max_size', 32))
-            ->setUploadMaxFilesize(Arr::get($data, 'upload_max_filesize', 32))
-            ->setTidewaysApiKey(Arr::get($data, 'tideways_api_key'))
-            ->setTidewaysSampleRate(Arr::get($data, 'tideways_sample_rate'))
-            ->setNewrelicBrowserMonitoringAutoInstrument(Arr::get($data, 'newrelic_browser_monitoring_auto_instrument', true));
+            ->when(Arr::has($data, 'apc_enable_cli'), fn (self $model) => $model->setApcEnableCli(Arr::get($data, 'apc_enable_cli', false)))
+            ->when(Arr::has($data, 'opcache_file_cache'), fn (self $model) => $model->setOpcacheFileCache(Arr::get($data, 'opcache_file_cache', false)))
+            ->when(Arr::has($data, 'opcache_validate_timestamps'), fn (self $model) => $model->setOpcacheValidateTimestamps(Arr::get($data, 'opcache_validate_timestamps', true)))
+            ->when(Arr::has($data, 'short_open_tag'), fn (self $model) => $model->setShortOpenTag(Arr::get($data, 'short_open_tag', false)))
+            ->when(Arr::has($data, 'error_reporting'), fn (self $model) => $model->setErrorReporting(Arr::get($data, 'error_reporting', 'E_ALL & ~E_DEPRECATED & ~E_STRICT')))
+            ->when(Arr::has($data, 'opcache_memory_consumption'), fn (self $model) => $model->setOpcacheMemoryConsumption(Arr::get($data, 'opcache_memory_consumption', 192)))
+            ->when(Arr::has($data, 'max_execution_time'), fn (self $model) => $model->setMaxExecutionTime(Arr::get($data, 'max_execution_time', 120)))
+            ->when(Arr::has($data, 'max_file_uploads'), fn (self $model) => $model->setMaxFileUploads(Arr::get($data, 'max_file_uploads', 100)))
+            ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit', 256)))
+            ->when(Arr::has($data, 'post_max_size'), fn (self $model) => $model->setPostMaxSize(Arr::get($data, 'post_max_size', 32)))
+            ->when(Arr::has($data, 'upload_max_filesize'), fn (self $model) => $model->setUploadMaxFilesize(Arr::get($data, 'upload_max_filesize', 32)))
+            ->when(Arr::has($data, 'tideways_api_key'), fn (self $model) => $model->setTidewaysApiKey(Arr::get($data, 'tideways_api_key')))
+            ->when(Arr::has($data, 'tideways_sample_rate'), fn (self $model) => $model->setTidewaysSampleRate(Arr::get($data, 'tideways_sample_rate')))
+            ->when(Arr::has($data, 'newrelic_browser_monitoring_auto_instrument'), fn (self $model) => $model->setNewrelicBrowserMonitoringAutoInstrument(Arr::get($data, 'newrelic_browser_monitoring_auto_instrument', true)));
     }
 }

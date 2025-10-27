@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -19,14 +22,16 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         string $remoteHost,
         string $remotePath,
         string $remoteUsername,
+        int $unixId,
         int $clusterId,
+        BorgRepositoryIncludes $includes,
         ?int $keepHourly = null,
         ?int $keepDaily = null,
         ?int $keepWeekly = null,
         ?int $keepMonthly = null,
         ?int $keepYearly = null,
-        ?string $identityFilePath = null,
         ?int $unixUserId = null,
+        ?int $databaseId = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -36,14 +41,16 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         $this->setRemoteHost($remoteHost);
         $this->setRemotePath($remotePath);
         $this->setRemoteUsername($remoteUsername);
+        $this->setUnixId($unixId);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
         $this->setKeepHourly($keepHourly);
         $this->setKeepDaily($keepDaily);
         $this->setKeepWeekly($keepWeekly);
         $this->setKeepMonthly($keepMonthly);
         $this->setKeepYearly($keepYearly);
-        $this->setIdentityFilePath($identityFilePath);
         $this->setUnixUserId($unixUserId);
+        $this->setDatabaseId($databaseId);
     }
 
     public function getId(): int
@@ -51,7 +58,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -62,7 +69,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -73,7 +80,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -87,7 +94,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -105,7 +112,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setPassphrase(?string $passphrase = null): self
+    public function setPassphrase(string $passphrase): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -120,7 +127,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('remote_host');
     }
 
-    public function setRemoteHost(?string $remoteHost = null): self
+    public function setRemoteHost(string $remoteHost): self
     {
         $this->setAttribute('remote_host', $remoteHost);
         return $this;
@@ -131,7 +138,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('remote_path');
     }
 
-    public function setRemotePath(?string $remotePath = null): self
+    public function setRemotePath(string $remotePath): self
     {
         $this->setAttribute('remote_path', $remotePath);
         return $this;
@@ -145,7 +152,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setRemoteUsername(?string $remoteUsername = null): self
+    public function setRemoteUsername(string $remoteUsername): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -155,12 +162,23 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getUnixId(): int
+    {
+        return $this->getAttribute('unix_id');
+    }
+
+    public function setUnixId(int $unixId): self
+    {
+        $this->setAttribute('unix_id', $unixId);
+        return $this;
+    }
+
     public function getClusterId(): int
     {
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -171,7 +189,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('keep_hourly');
     }
 
-    public function setKeepHourly(?int $keepHourly = null): self
+    public function setKeepHourly(?int $keepHourly): self
     {
         $this->setAttribute('keep_hourly', $keepHourly);
         return $this;
@@ -182,7 +200,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('keep_daily');
     }
 
-    public function setKeepDaily(?int $keepDaily = null): self
+    public function setKeepDaily(?int $keepDaily): self
     {
         $this->setAttribute('keep_daily', $keepDaily);
         return $this;
@@ -193,7 +211,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('keep_weekly');
     }
 
-    public function setKeepWeekly(?int $keepWeekly = null): self
+    public function setKeepWeekly(?int $keepWeekly): self
     {
         $this->setAttribute('keep_weekly', $keepWeekly);
         return $this;
@@ -204,7 +222,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('keep_monthly');
     }
 
-    public function setKeepMonthly(?int $keepMonthly = null): self
+    public function setKeepMonthly(?int $keepMonthly): self
     {
         $this->setAttribute('keep_monthly', $keepMonthly);
         return $this;
@@ -215,20 +233,9 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('keep_yearly');
     }
 
-    public function setKeepYearly(?int $keepYearly = null): self
+    public function setKeepYearly(?int $keepYearly): self
     {
         $this->setAttribute('keep_yearly', $keepYearly);
-        return $this;
-    }
-
-    public function getIdentityFilePath(): string|null
-    {
-        return $this->getAttribute('identity_file_path');
-    }
-
-    public function setIdentityFilePath(?string $identityFilePath = null): self
-    {
-        $this->setAttribute('identity_file_path', $identityFilePath);
         return $this;
     }
 
@@ -237,18 +244,29 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(?int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
     }
 
-    public function getIncludes(): BorgRepositoryIncludes|null
+    public function getDatabaseId(): int|null
+    {
+        return $this->getAttribute('database_id');
+    }
+
+    public function setDatabaseId(?int $databaseId): self
+    {
+        $this->setAttribute('database_id', $databaseId);
+        return $this;
+    }
+
+    public function getIncludes(): BorgRepositoryIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?BorgRepositoryIncludes $includes): self
+    public function setIncludes(BorgRepositoryIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -265,15 +283,16 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
             remoteHost: Arr::get($data, 'remote_host'),
             remotePath: Arr::get($data, 'remote_path'),
             remoteUsername: Arr::get($data, 'remote_username'),
+            unixId: Arr::get($data, 'unix_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            includes: BorgRepositoryIncludes::fromArray(Arr::get($data, 'includes')),
             keepHourly: Arr::get($data, 'keep_hourly'),
             keepDaily: Arr::get($data, 'keep_daily'),
             keepWeekly: Arr::get($data, 'keep_weekly'),
             keepMonthly: Arr::get($data, 'keep_monthly'),
             keepYearly: Arr::get($data, 'keep_yearly'),
-            identityFilePath: Arr::get($data, 'identity_file_path'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? BorgRepositoryIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            databaseId: Arr::get($data, 'database_id'),
+        ));
     }
 }

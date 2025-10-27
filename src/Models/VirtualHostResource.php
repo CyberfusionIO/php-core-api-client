@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -23,6 +26,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         string $publicRoot,
         array $serverAliases,
         string $documentRoot,
+        VirtualHostIncludes $includes,
         ?array $allowOverrideDirectives = null,
         ?array $allowOverrideOptionDirectives = null,
         ?int $fpmPoolId = null,
@@ -40,6 +44,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         $this->setPublicRoot($publicRoot);
         $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
+        $this->setIncludes($includes);
         $this->setAllowOverrideDirectives($allowOverrideDirectives);
         $this->setAllowOverrideOptionDirectives($allowOverrideOptionDirectives);
         $this->setFpmPoolId($fpmPoolId);
@@ -52,7 +57,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -63,7 +68,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -74,7 +79,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -85,7 +90,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -96,7 +101,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(VirtualHostServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -107,7 +112,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('allow_override_directives');
     }
 
-    public function setAllowOverrideDirectives(?array $allowOverrideDirectives = []): self
+    public function setAllowOverrideDirectives(?array $allowOverrideDirectives): self
     {
         $this->setAttribute('allow_override_directives', $allowOverrideDirectives);
         return $this;
@@ -118,7 +123,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('allow_override_option_directives');
     }
 
-    public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives = []): self
+    public function setAllowOverrideOptionDirectives(?array $allowOverrideOptionDirectives): self
     {
         $this->setAttribute('allow_override_option_directives', $allowOverrideOptionDirectives);
         return $this;
@@ -129,7 +134,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('domain_root');
     }
 
-    public function setDomainRoot(?string $domainRoot = null): self
+    public function setDomainRoot(string $domainRoot): self
     {
         $this->setAttribute('domain_root', $domainRoot);
         return $this;
@@ -140,7 +145,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -151,7 +156,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -162,7 +167,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('public_root');
     }
 
-    public function setPublicRoot(?string $publicRoot = null): self
+    public function setPublicRoot(string $publicRoot): self
     {
         $this->setAttribute('public_root', $publicRoot);
         return $this;
@@ -176,7 +181,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases = []): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::create()
             ->unique()
@@ -190,7 +195,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('document_root');
     }
 
-    public function setDocumentRoot(?string $documentRoot = null): self
+    public function setDocumentRoot(string $documentRoot): self
     {
         $this->setAttribute('document_root', $documentRoot);
         return $this;
@@ -201,7 +206,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('fpm_pool_id');
     }
 
-    public function setFpmPoolId(?int $fpmPoolId = null): self
+    public function setFpmPoolId(?int $fpmPoolId): self
     {
         $this->setAttribute('fpm_pool_id', $fpmPoolId);
         return $this;
@@ -212,7 +217,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('passenger_app_id');
     }
 
-    public function setPassengerAppId(?int $passengerAppId = null): self
+    public function setPassengerAppId(?int $passengerAppId): self
     {
         $this->setAttribute('passenger_app_id', $passengerAppId);
         return $this;
@@ -223,18 +228,18 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('custom_config');
     }
 
-    public function setCustomConfig(?string $customConfig = null): self
+    public function setCustomConfig(?string $customConfig): self
     {
         $this->setAttribute('custom_config', $customConfig);
         return $this;
     }
 
-    public function getIncludes(): VirtualHostIncludes|null
+    public function getIncludes(): VirtualHostIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?VirtualHostIncludes $includes): self
+    public function setIncludes(VirtualHostIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -254,12 +259,12 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
             publicRoot: Arr::get($data, 'public_root'),
             serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
+            includes: VirtualHostIncludes::fromArray(Arr::get($data, 'includes')),
             allowOverrideDirectives: Arr::get($data, 'allow_override_directives'),
             allowOverrideOptionDirectives: Arr::get($data, 'allow_override_option_directives'),
             fpmPoolId: Arr::get($data, 'fpm_pool_id'),
             passengerAppId: Arr::get($data, 'passenger_app_id'),
             customConfig: Arr::get($data, 'custom_config'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? VirtualHostIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

@@ -3,8 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\MailAccounts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\Enums\TimeUnitEnum;
 use Cyberfusion\CoreApi\Models\MailAccountUsageResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -21,17 +21,22 @@ class ListMailAccountUsages extends Request implements CoreApiRequestContract
     public function __construct(
         private readonly int $mailAccountId,
         private readonly string $timestamp,
-        private readonly ?string $timeUnit = null,
+        private readonly ?TimeUnitEnum $timeUnit = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mail-accounts/usages/%d')
-            ->addPathParameter($this->mailAccountId)
-            ->addQueryParameter('timestamp', $this->timestamp)
-            ->addQueryParameter('time_unit', $this->timeUnit)
-            ->getEndpoint();
+        return sprintf('/api/v1/mail-accounts/usages/%d', $this->mailAccountId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['timestamp'] = $this->timestamp;
+        $parameters['time_unit'] = $this->timeUnit;
+
+        return array_filter($parameters);
     }
 
     /**

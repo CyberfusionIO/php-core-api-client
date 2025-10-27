@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -28,9 +27,7 @@ class InstallCMSTheme extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/themes')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/themes', $this->id);
     }
 
     public function defaultBody(): array

@@ -2,29 +2,25 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\DatabaseUserGrantCreateRequest;
+use Cyberfusion\CoreApi\Models\DatabaseUserGrantsSearchRequest;
 use Cyberfusion\CoreApi\Requests\DatabaseUserGrants\CreateDatabaseUserGrant;
 use Cyberfusion\CoreApi\Requests\DatabaseUserGrants\DeleteDatabaseUserGrant;
 use Cyberfusion\CoreApi\Requests\DatabaseUserGrants\ListDatabaseUserGrants;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class DatabaseUserGrants extends BaseResource
+class DatabaseUserGrants extends CoreApiResource
 {
     public function createDatabaseUserGrant(DatabaseUserGrantCreateRequest $databaseUserGrantCreateRequest): Response
     {
         return $this->connector->send(new CreateDatabaseUserGrant($databaseUserGrantCreateRequest));
     }
 
-    public function listDatabaseUserGrants(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListDatabaseUserGrants($skip, $limit, $filter, $sort));
+    public function listDatabaseUserGrants(?DatabaseUserGrantsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListDatabaseUserGrants($includeFilters));
     }
 
     public function deleteDatabaseUserGrant(int $id): Response

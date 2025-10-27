@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\FirewallRules;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\FirewallRuleCreateRequest;
 use Cyberfusion\CoreApi\Models\FirewallRuleResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateFirewallRule extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/firewall-rules')->getEndpoint();
+        return '/api/v1/firewall-rules';
     }
 
     public function defaultBody(): array

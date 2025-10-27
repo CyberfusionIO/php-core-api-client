@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $username, string $password)
     {
         $this->setUsername($username);
@@ -32,7 +35,7 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('username');
     }
 
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         $this->setAttribute('username', $username);
         return $this;
@@ -43,7 +46,7 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('password');
     }
 
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         $this->setAttribute('password', $password);
         return $this;
@@ -88,9 +91,9 @@ class BodyLoginAccessToken extends CoreApiModel implements CoreApiModelContract
             username: Arr::get($data, 'username'),
             password: Arr::get($data, 'password'),
         ))
-            ->setGrantType(Arr::get($data, 'grant_type'))
-            ->setScope(Arr::get($data, 'scope', ''))
-            ->setClientId(Arr::get($data, 'client_id'))
-            ->setClientSecret(Arr::get($data, 'client_secret'));
+            ->when(Arr::has($data, 'grant_type'), fn (self $model) => $model->setGrantType(Arr::get($data, 'grant_type')))
+            ->when(Arr::has($data, 'scope'), fn (self $model) => $model->setScope(Arr::get($data, 'scope', '')))
+            ->when(Arr::has($data, 'client_id'), fn (self $model) => $model->setClientId(Arr::get($data, 'client_id')))
+            ->when(Arr::has($data, 'client_secret'), fn (self $model) => $model->setClientSecret(Arr::get($data, 'client_secret')));
     }
 }

@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\EncryptionTypeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $imapHostname,
         int $imapPort,
@@ -40,7 +43,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('imap_hostname');
     }
 
-    public function setImapHostname(?string $imapHostname = null): self
+    public function setImapHostname(string $imapHostname): self
     {
         $this->setAttribute('imap_hostname', $imapHostname);
         return $this;
@@ -51,7 +54,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('imap_port');
     }
 
-    public function setImapPort(?int $imapPort = null): self
+    public function setImapPort(int $imapPort): self
     {
         $this->setAttribute('imap_port', $imapPort);
         return $this;
@@ -62,7 +65,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('imap_encryption');
     }
 
-    public function setImapEncryption(?EncryptionTypeEnum $imapEncryption = null): self
+    public function setImapEncryption(EncryptionTypeEnum $imapEncryption): self
     {
         $this->setAttribute('imap_encryption', $imapEncryption);
         return $this;
@@ -73,7 +76,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('smtp_hostname');
     }
 
-    public function setSmtpHostname(?string $smtpHostname = null): self
+    public function setSmtpHostname(string $smtpHostname): self
     {
         $this->setAttribute('smtp_hostname', $smtpHostname);
         return $this;
@@ -84,7 +87,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('smtp_port');
     }
 
-    public function setSmtpPort(?int $smtpPort = null): self
+    public function setSmtpPort(int $smtpPort): self
     {
         $this->setAttribute('smtp_port', $smtpPort);
         return $this;
@@ -95,7 +98,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('smtp_encryption');
     }
 
-    public function setSmtpEncryption(?EncryptionTypeEnum $smtpEncryption = null): self
+    public function setSmtpEncryption(EncryptionTypeEnum $smtpEncryption): self
     {
         $this->setAttribute('smtp_encryption', $smtpEncryption);
         return $this;
@@ -106,7 +109,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('pop3_hostname');
     }
 
-    public function setPop3Hostname(?string $pop3Hostname = null): self
+    public function setPop3Hostname(string $pop3Hostname): self
     {
         $this->setAttribute('pop3_hostname', $pop3Hostname);
         return $this;
@@ -117,7 +120,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('pop3_port');
     }
 
-    public function setPop3Port(?int $pop3Port = null): self
+    public function setPop3Port(int $pop3Port): self
     {
         $this->setAttribute('pop3_port', $pop3Port);
         return $this;
@@ -128,7 +131,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('pop3_encryption');
     }
 
-    public function setPop3Encryption(?EncryptionTypeEnum $pop3Encryption = null): self
+    public function setPop3Encryption(EncryptionTypeEnum $pop3Encryption): self
     {
         $this->setAttribute('pop3_encryption', $pop3Encryption);
         return $this;
@@ -142,7 +145,7 @@ class ClustersCommonProperties extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setPhpmyadminUrl(?string $phpmyadminUrl = null): self
+    public function setPhpmyadminUrl(string $phpmyadminUrl): self
     {
         Validator::create()
             ->length(min: 1, max: 2083)

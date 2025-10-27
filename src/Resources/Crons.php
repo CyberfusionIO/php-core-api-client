@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\CronCreateRequest;
 use Cyberfusion\CoreApi\Models\CronUpdateRequest;
+use Cyberfusion\CoreApi\Models\CronsSearchRequest;
 use Cyberfusion\CoreApi\Requests\Crons\CreateCron;
 use Cyberfusion\CoreApi\Requests\Crons\DeleteCron;
 use Cyberfusion\CoreApi\Requests\Crons\ListCrons;
 use Cyberfusion\CoreApi\Requests\Crons\ReadCron;
 use Cyberfusion\CoreApi\Requests\Crons\UpdateCron;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class Crons extends BaseResource
+class Crons extends CoreApiResource
 {
     public function createCron(CronCreateRequest $cronCreateRequest): Response
     {
         return $this->connector->send(new CreateCron($cronCreateRequest));
     }
 
-    public function listCrons(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListCrons($skip, $limit, $filter, $sort));
+    public function listCrons(?CronsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListCrons($includeFilters));
     }
 
     public function readCron(int $id): Response

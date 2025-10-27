@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\SecurityTXTPolicyCreateRequest;
 use Cyberfusion\CoreApi\Models\SecurityTXTPolicyUpdateRequest;
+use Cyberfusion\CoreApi\Models\SecurityTxtPoliciesSearchRequest;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\CreateSecurityTxtPolicy;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\DeleteSecurityTxtPolicy;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\ListSecurityTxtPolicies;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\ReadSecurityTxtPolicy;
 use Cyberfusion\CoreApi\Requests\SecurityTXTPolicies\UpdateSecurityTxtPolicy;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class SecurityTXTPolicies extends BaseResource
+class SecurityTXTPolicies extends CoreApiResource
 {
     public function createSecurityTxtPolicy(SecurityTXTPolicyCreateRequest $securityTXTPolicyCreateRequest): Response
     {
         return $this->connector->send(new CreateSecurityTxtPolicy($securityTXTPolicyCreateRequest));
     }
 
-    public function listSecurityTxtPolicies(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListSecurityTxtPolicies($skip, $limit, $filter, $sort));
+    public function listSecurityTxtPolicies(?SecurityTxtPoliciesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListSecurityTxtPolicies($includeFilters));
     }
 
     public function readSecurityTxtPolicy(int $id): Response

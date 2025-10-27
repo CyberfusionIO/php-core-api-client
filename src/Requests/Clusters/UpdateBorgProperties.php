@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClusterBorgPropertiesResource;
 use Cyberfusion\CoreApi\Models\ClusterBorgPropertiesUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateBorgProperties extends Request implements CoreApiRequestContract, Ha
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/%d/properties/borg')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/%d/properties/borg', $this->id);
     }
 
     public function defaultBody(): array

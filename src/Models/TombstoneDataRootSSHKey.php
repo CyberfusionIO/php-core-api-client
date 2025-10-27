@@ -5,14 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataRootSSHKey extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, string $name, bool $isPrivateKey, TombstoneDataRootSSHKeyIncludes $includes)
     {
         $this->setId($id);
@@ -37,7 +37,7 @@ class TombstoneDataRootSSHKey extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -51,7 +51,7 @@ class TombstoneDataRootSSHKey extends CoreApiModel implements CoreApiModelContra
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -66,7 +66,7 @@ class TombstoneDataRootSSHKey extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('is_private_key');
     }
 
-    public function setIsPrivateKey(?bool $isPrivateKey = null): self
+    public function setIsPrivateKey(bool $isPrivateKey): self
     {
         $this->setAttribute('is_private_key', $isPrivateKey);
         return $this;
@@ -77,7 +77,7 @@ class TombstoneDataRootSSHKey extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataRootSSHKeyIncludes $includes = null): self
+    public function setIncludes(TombstoneDataRootSSHKeyIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -91,6 +91,6 @@ class TombstoneDataRootSSHKey extends CoreApiModel implements CoreApiModelContra
             isPrivateKey: Arr::get($data, 'is_private_key'),
             includes: TombstoneDataRootSSHKeyIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'root_ssh_key'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'root_ssh_key')));
     }
 }

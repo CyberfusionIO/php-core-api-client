@@ -5,25 +5,28 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterIncludes extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(SiteResource $site, CustomerResource $customer)
+    use Conditionable;
+
+    public function __construct(RegionResource $region, CustomerResource $customer)
     {
-        $this->setSite($site);
+        $this->setRegion($region);
         $this->setCustomer($customer);
     }
 
-    public function getSite(): SiteResource
+    public function getRegion(): RegionResource
     {
-        return $this->getAttribute('site');
+        return $this->getAttribute('region');
     }
 
-    public function setSite(?SiteResource $site = null): self
+    public function setRegion(RegionResource $region): self
     {
-        $this->setAttribute('site', $site);
+        $this->setAttribute('region', $region);
         return $this;
     }
 
@@ -32,7 +35,7 @@ class ClusterIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('customer');
     }
 
-    public function setCustomer(?CustomerResource $customer = null): self
+    public function setCustomer(CustomerResource $customer): self
     {
         $this->setAttribute('customer', $customer);
         return $this;
@@ -41,7 +44,7 @@ class ClusterIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
-            site: SiteResource::fromArray(Arr::get($data, 'site')),
+            region: RegionResource::fromArray(Arr::get($data, 'region')),
             customer: CustomerResource::fromArray(Arr::get($data, 'customer')),
         ));
     }

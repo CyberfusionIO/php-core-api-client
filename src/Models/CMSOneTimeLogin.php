@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSOneTimeLogin extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $url)
     {
         $this->setUrl($url);
@@ -23,7 +26,7 @@ class CMSOneTimeLogin extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUrl(?string $url = null): self
+    public function setUrl(string $url): self
     {
         Validator::create()
             ->length(min: 1, max: 2083)

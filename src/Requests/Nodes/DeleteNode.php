@@ -3,15 +3,14 @@
 namespace Cyberfusion\CoreApi\Requests\Nodes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
+use Cyberfusion\CoreApi\Models\TaskCollectionResource;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * If the node is master for any group (see `is_master` in `groups_properties`), another node in the cluster must have the same group. The master role will then be 'donated' to it. The following related objects will be automatically deleted: - HAProxy Listens to Nodes - Node Add-Ons - API Keys
+ * If the node is master for any group (see `is_master` in `groups_properties`), another node in the cluster with the same group will become master.
  */
 class DeleteNode extends Request implements CoreApiRequestContract
 {
@@ -19,22 +18,29 @@ class DeleteNode extends Request implements CoreApiRequestContract
 
     public function __construct(
         private readonly int $id,
+        private readonly ?string $callbackUrl = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/nodes/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/nodes/%d', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     /**
      * @throws JsonException
-     * @returns DetailMessage
+     * @returns TaskCollectionResource
      */
-    public function createDtoFromResponse(Response $response): DetailMessage
+    public function createDtoFromResponse(Response $response): TaskCollectionResource
     {
-        return DetailMessage::fromArray($response->json());
+        return TaskCollectionResource::fromArray($response->json());
     }
 }

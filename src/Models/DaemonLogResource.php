@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $applicationName,
         int $priority,
@@ -34,7 +37,7 @@ class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setApplicationName(?string $applicationName = null): self
+    public function setApplicationName(string $applicationName): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -48,7 +51,7 @@ class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('priority');
     }
 
-    public function setPriority(?int $priority = null): self
+    public function setPriority(int $priority): self
     {
         $this->setAttribute('priority', $priority);
         return $this;
@@ -59,7 +62,7 @@ class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('pid');
     }
 
-    public function setPid(?int $pid = null): self
+    public function setPid(int $pid): self
     {
         $this->setAttribute('pid', $pid);
         return $this;
@@ -73,7 +76,7 @@ class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setMessage(?string $message = null): self
+    public function setMessage(string $message): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -87,7 +90,7 @@ class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node_hostname');
     }
 
-    public function setNodeHostname(?string $nodeHostname = null): self
+    public function setNodeHostname(string $nodeHostname): self
     {
         $this->setAttribute('node_hostname', $nodeHostname);
         return $this;
@@ -98,7 +101,7 @@ class DaemonLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('timestamp');
     }
 
-    public function setTimestamp(?string $timestamp = null): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->setAttribute('timestamp', $timestamp);
         return $this;

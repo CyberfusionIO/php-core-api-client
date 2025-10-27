@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\DatabaseUserCreateRequest;
 use Cyberfusion\CoreApi\Models\DatabaseUserUpdateRequest;
+use Cyberfusion\CoreApi\Models\DatabaseUsersSearchRequest;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\CreateDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\DeleteDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\ListDatabaseUsers;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\ReadDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\UpdateDatabaseUser;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class DatabaseUsers extends BaseResource
+class DatabaseUsers extends CoreApiResource
 {
     public function createDatabaseUser(DatabaseUserCreateRequest $databaseUserCreateRequest): Response
     {
         return $this->connector->send(new CreateDatabaseUser($databaseUserCreateRequest));
     }
 
-    public function listDatabaseUsers(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListDatabaseUsers($skip, $limit, $filter, $sort));
+    public function listDatabaseUsers(?DatabaseUsersSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListDatabaseUsers($includeFilters));
     }
 
     public function readDatabaseUser(int $id): Response

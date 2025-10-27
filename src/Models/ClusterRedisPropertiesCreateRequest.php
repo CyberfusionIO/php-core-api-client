@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterRedisPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $redisPassword, int $redisMemoryLimit)
     {
         $this->setRedisPassword($redisPassword);
@@ -24,7 +27,7 @@ class ClusterRedisPropertiesCreateRequest extends CoreApiModel implements CoreAp
     /**
      * @throws ValidationException
      */
-    public function setRedisPassword(?string $redisPassword = null): self
+    public function setRedisPassword(string $redisPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -39,7 +42,7 @@ class ClusterRedisPropertiesCreateRequest extends CoreApiModel implements CoreAp
         return $this->getAttribute('redis_memory_limit');
     }
 
-    public function setRedisMemoryLimit(?int $redisMemoryLimit = null): self
+    public function setRedisMemoryLimit(int $redisMemoryLimit): self
     {
         $this->setAttribute('redis_memory_limit', $redisMemoryLimit);
         return $this;

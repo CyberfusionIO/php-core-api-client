@@ -5,6 +5,7 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
@@ -13,13 +14,15 @@ use Respect\Validation\Validator;
  */
 class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $uuid,
         string $name,
         float $price,
         string $period,
         string $currency,
-        ?int $memoryGib = null,
+        ?int $memoryMib = null,
         ?int $cpuCores = null,
         ?int $diskGib = null,
     ) {
@@ -28,7 +31,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         $this->setPrice($price);
         $this->setPeriod($period);
         $this->setCurrency($currency);
-        $this->setMemoryGib($memoryGib);
+        $this->setMemoryMib($memoryMib);
         $this->setCpuCores($cpuCores);
         $this->setDiskGib($diskGib);
     }
@@ -38,7 +41,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('uuid');
     }
 
-    public function setUuid(?string $uuid = null): self
+    public function setUuid(string $uuid): self
     {
         $this->setAttribute('uuid', $uuid);
         return $this;
@@ -52,7 +55,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -62,14 +65,14 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getMemoryGib(): int|null
+    public function getMemoryMib(): int|null
     {
-        return $this->getAttribute('memory_gib');
+        return $this->getAttribute('memory_mib');
     }
 
-    public function setMemoryGib(?int $memoryGib = null): self
+    public function setMemoryMib(?int $memoryMib): self
     {
-        $this->setAttribute('memory_gib', $memoryGib);
+        $this->setAttribute('memory_mib', $memoryMib);
         return $this;
     }
 
@@ -78,7 +81,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cpu_cores');
     }
 
-    public function setCpuCores(?int $cpuCores = null): self
+    public function setCpuCores(?int $cpuCores): self
     {
         $this->setAttribute('cpu_cores', $cpuCores);
         return $this;
@@ -89,7 +92,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('disk_gib');
     }
 
-    public function setDiskGib(?int $diskGib = null): self
+    public function setDiskGib(?int $diskGib): self
     {
         $this->setAttribute('disk_gib', $diskGib);
         return $this;
@@ -100,7 +103,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('price');
     }
 
-    public function setPrice(?float $price = null): self
+    public function setPrice(float $price): self
     {
         $this->setAttribute('price', $price);
         return $this;
@@ -114,7 +117,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setPeriod(?string $period = null): self
+    public function setPeriod(string $period): self
     {
         Validator::create()
             ->length(min: 2, max: 2)
@@ -132,7 +135,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCurrency(?string $currency = null): self
+    public function setCurrency(string $currency): self
     {
         Validator::create()
             ->length(min: 3, max: 3)
@@ -150,7 +153,7 @@ class NodeAddOnProduct extends CoreApiModel implements CoreApiModelContract
             price: Arr::get($data, 'price'),
             period: Arr::get($data, 'period'),
             currency: Arr::get($data, 'currency'),
-            memoryGib: Arr::get($data, 'memory_gib'),
+            memoryMib: Arr::get($data, 'memory_mib'),
             cpuCores: Arr::get($data, 'cpu_cores'),
             diskGib: Arr::get($data, 'disk_gib'),
         ));

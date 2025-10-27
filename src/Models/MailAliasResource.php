@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAliasResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -18,6 +21,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         string $localPart,
         int $mailDomainId,
         array $forwardEmailAddresses,
+        MailAliasIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -26,6 +30,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setForwardEmailAddresses($forwardEmailAddresses);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -33,7 +38,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -66,7 +71,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -80,7 +85,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setLocalPart(?string $localPart = null): self
+    public function setLocalPart(string $localPart): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -95,7 +100,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('mail_domain_id');
     }
 
-    public function setMailDomainId(?int $mailDomainId = null): self
+    public function setMailDomainId(int $mailDomainId): self
     {
         $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
@@ -109,7 +114,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setForwardEmailAddresses(array $forwardEmailAddresses = []): self
+    public function setForwardEmailAddresses(array $forwardEmailAddresses): self
     {
         Validator::create()
             ->unique()
@@ -118,12 +123,12 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getIncludes(): MailAliasIncludes|null
+    public function getIncludes(): MailAliasIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?MailAliasIncludes $includes): self
+    public function setIncludes(MailAliasIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -139,7 +144,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             forwardEmailAddresses: Arr::get($data, 'forward_email_addresses'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? MailAliasIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: MailAliasIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

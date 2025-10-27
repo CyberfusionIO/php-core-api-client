@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterOsPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getAutomaticUpgradesEnabled(): bool
     {
@@ -29,6 +28,6 @@ class ClusterOsPropertiesCreateRequest extends CoreApiModel implements CoreApiMo
     {
         return (new self(
         ))
-            ->setAutomaticUpgradesEnabled(Arr::get($data, 'automatic_upgrades_enabled', false));
+            ->when(Arr::has($data, 'automatic_upgrades_enabled'), fn (self $model) => $model->setAutomaticUpgradesEnabled(Arr::get($data, 'automatic_upgrades_enabled', false)));
     }
 }

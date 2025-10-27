@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class RootSSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $name, int $clusterId, string $publicKey)
     {
         $this->setName($name);
@@ -25,7 +28,7 @@ class RootSSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModel
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -40,7 +43,7 @@ class RootSSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -51,7 +54,7 @@ class RootSSHKeyCreatePublicRequest extends CoreApiModel implements CoreApiModel
         return $this->getAttribute('public_key');
     }
 
-    public function setPublicKey(?string $publicKey = null): self
+    public function setPublicKey(string $publicKey): self
     {
         $this->setAttribute('public_key', $publicKey);
         return $this;

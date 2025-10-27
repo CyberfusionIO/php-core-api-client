@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\MailAliases;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\MailAliasCreateRequest;
 use Cyberfusion\CoreApi\Models\MailAliasResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateMailAlias extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mail-aliases')->getEndpoint();
+        return '/api/v1/mail-aliases';
     }
 
     public function defaultBody(): array

@@ -3,8 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\Databases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\Enums\TimeUnitEnum;
 use Cyberfusion\CoreApi\Models\DatabaseUsageResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -21,17 +21,22 @@ class ListDatabaseUsages extends Request implements CoreApiRequestContract
     public function __construct(
         private readonly int $databaseId,
         private readonly string $timestamp,
-        private readonly ?string $timeUnit = null,
+        private readonly ?TimeUnitEnum $timeUnit = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/databases/usages/%d')
-            ->addPathParameter($this->databaseId)
-            ->addQueryParameter('timestamp', $this->timestamp)
-            ->addQueryParameter('time_unit', $this->timeUnit)
-            ->getEndpoint();
+        return sprintf('/api/v1/databases/usages/%d', $this->databaseId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['timestamp'] = $this->timestamp;
+        $parameters['time_unit'] = $this->timeUnit;
+
+        return array_filter($parameters);
     }
 
     /**

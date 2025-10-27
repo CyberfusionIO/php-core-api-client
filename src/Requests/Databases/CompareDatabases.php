@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Databases;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseComparison;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,10 +24,15 @@ class CompareDatabases extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/databases/%d/comparison')
-            ->addPathParameter($this->leftDatabaseId)
-            ->addQueryParameter('right_database_id', $this->rightDatabaseId)
-            ->getEndpoint();
+        return sprintf('/api/v1/databases/%d/comparison', $this->leftDatabaseId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['right_database_id'] = $this->rightDatabaseId;
+
+        return array_filter($parameters);
     }
 
     /**

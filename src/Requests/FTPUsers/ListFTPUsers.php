@@ -4,35 +4,33 @@ namespace Cyberfusion\CoreApi\Requests\FTPUsers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\FTPUserResource;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
+use Cyberfusion\CoreApi\Models\FtpUsersSearchRequest;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Contracts\Paginatable;
 
-class ListFTPUsers extends Request implements CoreApiRequestContract
+class ListFTPUsers extends Request implements CoreApiRequestContract, Paginatable
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        private readonly ?int $skip = null,
-        private readonly ?int $limit = null,
-        private readonly ?Filter $filter = null,
-        private readonly ?Sorter $sort = null,
+        private readonly ?FtpUsersSearchRequest $includeFilters = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/ftp-users')
-            ->addQueryParameter('skip', $this->skip)
-            ->addQueryParameter('limit', $this->limit)
-            ->filter($this->filter)
-            ->sorter($this->sort)
-            ->getEndpoint();
+        return '/api/v1/ftp-users';
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = $this->includeFilters?->toArray() ?? [];
+
+        return array_filter($parameters);
     }
 
     /**

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeAddOnCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $nodeId, string $product, int $quantity)
     {
         $this->setNodeId($nodeId);
@@ -22,7 +25,7 @@ class NodeAddOnCreateRequest extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -36,7 +39,7 @@ class NodeAddOnCreateRequest extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setProduct(?string $product = null): self
+    public function setProduct(string $product): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -51,7 +54,7 @@ class NodeAddOnCreateRequest extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('quantity');
     }
 
-    public function setQuantity(?int $quantity = null): self
+    public function setQuantity(int $quantity): self
     {
         $this->setAttribute('quantity', $quantity);
         return $this;

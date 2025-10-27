@@ -6,6 +6,7 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\IPAddressProductTypeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
@@ -14,6 +15,8 @@ use Respect\Validation\Validator;
  */
 class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $uuid,
         string $name,
@@ -35,7 +38,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('uuid');
     }
 
-    public function setUuid(?string $uuid = null): self
+    public function setUuid(string $uuid): self
     {
         $this->setAttribute('uuid', $uuid);
         return $this;
@@ -49,7 +52,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -64,7 +67,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('type');
     }
 
-    public function setType(?IPAddressProductTypeEnum $type = null): self
+    public function setType(IPAddressProductTypeEnum $type): self
     {
         $this->setAttribute('type', $type);
         return $this;
@@ -75,7 +78,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('price');
     }
 
-    public function setPrice(?float $price = null): self
+    public function setPrice(float $price): self
     {
         $this->setAttribute('price', $price);
         return $this;
@@ -89,7 +92,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setPeriod(?string $period = null): self
+    public function setPeriod(string $period): self
     {
         Validator::create()
             ->length(min: 2, max: 2)
@@ -107,7 +110,7 @@ class IPAddressProduct extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCurrency(?string $currency = null): self
+    public function setCurrency(string $currency): self
     {
         Validator::create()
             ->length(min: 3, max: 3)

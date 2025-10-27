@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -18,6 +21,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         int $nodeId,
         string $product,
         int $quantity,
+        NodeAddOnIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -26,6 +30,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         $this->setNodeId($nodeId);
         $this->setProduct($product);
         $this->setQuantity($quantity);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -33,7 +38,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -44,7 +49,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -55,7 +60,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -66,7 +71,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -77,7 +82,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -91,7 +96,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setProduct(?string $product = null): self
+    public function setProduct(string $product): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -106,18 +111,18 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('quantity');
     }
 
-    public function setQuantity(?int $quantity = null): self
+    public function setQuantity(int $quantity): self
     {
         $this->setAttribute('quantity', $quantity);
         return $this;
     }
 
-    public function getIncludes(): NodeAddOnIncludes|null
+    public function getIncludes(): NodeAddOnIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?NodeAddOnIncludes $includes): self
+    public function setIncludes(NodeAddOnIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -133,7 +138,7 @@ class NodeAddOnResource extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             product: Arr::get($data, 'product'),
             quantity: Arr::get($data, 'quantity'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? NodeAddOnIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: NodeAddOnIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

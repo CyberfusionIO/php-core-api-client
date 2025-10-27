@@ -3,8 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\Enums\TimeUnitEnum;
 use Cyberfusion\CoreApi\Models\UNIXUsersHomeDirectoryUsageResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -21,17 +21,22 @@ class ListUNIXUsersHomeDirectoryUsages extends Request implements CoreApiRequest
     public function __construct(
         private readonly int $clusterId,
         private readonly string $timestamp,
-        private readonly ?string $timeUnit = null,
+        private readonly ?TimeUnitEnum $timeUnit = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/clusters/unix-users-home-directories/usages/%d')
-            ->addPathParameter($this->clusterId)
-            ->addQueryParameter('timestamp', $this->timestamp)
-            ->addQueryParameter('time_unit', $this->timeUnit)
-            ->getEndpoint();
+        return sprintf('/api/v1/clusters/unix-users-home-directories/usages/%d', $this->clusterId);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['timestamp'] = $this->timestamp;
+        $parameters['time_unit'] = $this->timeUnit;
+
+        return array_filter($parameters);
     }
 
     /**

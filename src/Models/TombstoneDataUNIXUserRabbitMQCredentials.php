@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $rabbitmqVirtualHostName,
@@ -36,7 +39,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -50,7 +53,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
     /**
      * @throws ValidationException
      */
-    public function setRabbitmqVirtualHostName(?string $rabbitmqVirtualHostName = null): self
+    public function setRabbitmqVirtualHostName(string $rabbitmqVirtualHostName): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -65,7 +68,7 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataUNIXUserRabbitMQCredentialsIncludes $includes = null): self
+    public function setIncludes(TombstoneDataUNIXUserRabbitMQCredentialsIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -78,6 +81,6 @@ class TombstoneDataUNIXUserRabbitMQCredentials extends CoreApiModel implements C
             rabbitmqVirtualHostName: Arr::get($data, 'rabbitmq_virtual_host_name'),
             includes: TombstoneDataUNIXUserRabbitMQCredentialsIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'unix_user_rabbitmq_credentials'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'unix_user_rabbitmq_credentials')));
     }
 }

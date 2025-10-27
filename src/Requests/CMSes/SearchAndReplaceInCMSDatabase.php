@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -27,12 +26,17 @@ class SearchAndReplaceInCMSDatabase extends Request implements CoreApiRequestCon
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/search-replace')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('callback_url', $this->callbackUrl)
-            ->addQueryParameter('search_string', $this->searchString)
-            ->addQueryParameter('replace_string', $this->replaceString)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/search-replace', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+        $parameters['search_string'] = $this->searchString;
+        $parameters['replace_string'] = $this->replaceString;
+
+        return array_filter($parameters);
     }
 
     /**

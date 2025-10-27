@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\BorgArchiveContentObjectTypeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         BorgArchiveContentObjectTypeEnum $objectType,
         string $symbolicMode,
@@ -36,7 +39,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('object_type');
     }
 
-    public function setObjectType(?BorgArchiveContentObjectTypeEnum $objectType = null): self
+    public function setObjectType(BorgArchiveContentObjectTypeEnum $objectType): self
     {
         $this->setAttribute('object_type', $objectType);
         return $this;
@@ -50,7 +53,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setSymbolicMode(?string $symbolicMode = null): self
+    public function setSymbolicMode(string $symbolicMode): self
     {
         Validator::create()
             ->length(min: 10, max: 10)
@@ -68,7 +71,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -86,7 +89,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroupName(?string $groupName = null): self
+    public function setGroupName(string $groupName): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -101,7 +104,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('path');
     }
 
-    public function setPath(?string $path = null): self
+    public function setPath(string $path): self
     {
         $this->setAttribute('path', $path);
         return $this;
@@ -112,7 +115,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('link_target');
     }
 
-    public function setLinkTarget(?string $linkTarget = null): self
+    public function setLinkTarget(?string $linkTarget): self
     {
         $this->setAttribute('link_target', $linkTarget);
         return $this;
@@ -123,7 +126,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('modification_time');
     }
 
-    public function setModificationTime(?string $modificationTime = null): self
+    public function setModificationTime(string $modificationTime): self
     {
         $this->setAttribute('modification_time', $modificationTime);
         return $this;
@@ -134,7 +137,7 @@ class BorgArchiveContent extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('size');
     }
 
-    public function setSize(?int $size = null): self
+    public function setSize(?int $size): self
     {
         $this->setAttribute('size', $size);
         return $this;

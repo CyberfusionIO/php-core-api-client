@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\FPMPools;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\FPMPoolResource;
 use Cyberfusion\CoreApi\Models\FPMPoolUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateFPMPool extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/fpm-pools/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/fpm-pools/%d', $this->id);
     }
 
     public function defaultBody(): array

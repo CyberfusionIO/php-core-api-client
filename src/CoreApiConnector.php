@@ -12,24 +12,24 @@ use Cyberfusion\CoreApi\Models\DetailMessage;
 use Cyberfusion\CoreApi\Models\TokenResource;
 use Cyberfusion\CoreApi\Models\ValidationError;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
-use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Collection;
 use JsonException;
-use Psr\Http\Message\RequestInterface;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Connector;
-use Saloon\Http\PendingRequest;
+use Saloon\Http\Request;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Contracts\HasPagination;
+use Saloon\PaginationPlugin\Paginator;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Traits\Plugins\HasTimeout;
 use Throwable;
 
-class CoreApiConnector extends Connector
+class CoreApiConnector extends Connector implements HasPagination
 {
     use AlwaysThrowOnErrors;
     use HasTimeout;
 
-    private const VERSION = '2.2.0';
+    private const VERSION = '2.3.0';
 
     private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
 
@@ -47,11 +47,6 @@ class CoreApiConnector extends Connector
         $this->baseUrl = rtrim($this->baseUrl, '/');
     }
 
-    public function handlePsrRequest(RequestInterface $request, PendingRequest $pendingRequest): RequestInterface
-    {
-        return $request->withUri(new Uri($pendingRequest->getUrl()));
-    }
-
     public function resolveBaseUrl(): string
     {
         return $this->baseUrl;
@@ -65,7 +60,6 @@ class CoreApiConnector extends Connector
             'User-Agent' => self::USER_AGENT,
         ];
     }
-
 
     private function getAccessTokenExpiration(): CarbonImmutable
     {
@@ -151,6 +145,11 @@ class CoreApiConnector extends Connector
                 previous: $senderException,
             ),
         };
+    }
+
+    public function paginate(Request $request): Paginator
+    {
+        return new CoreApiPaginator($this, $request);
     }
 
     public function basicAuthenticationRealms(): Resources\BasicAuthenticationRealms
@@ -343,6 +342,11 @@ class CoreApiConnector extends Connector
         return new Resources\RedisInstances($this);
     }
 
+    public function regions(): Resources\Regions
+    {
+        return new Resources\Regions($this);
+    }
+
     public function rootSSHKeys(): Resources\RootSSHKeys
     {
         return new Resources\RootSSHKeys($this);
@@ -351,11 +355,6 @@ class CoreApiConnector extends Connector
     public function securityTXTPolicies(): Resources\SecurityTXTPolicies
     {
         return new Resources\SecurityTXTPolicies($this);
-    }
-
-    public function sites(): Resources\Sites
-    {
-        return new Resources\Sites($this);
     }
 
     public function sshKeys(): Resources\SSHKeys

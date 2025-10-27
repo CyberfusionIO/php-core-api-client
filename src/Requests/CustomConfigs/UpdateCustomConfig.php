@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CustomConfigs;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomConfigResource;
 use Cyberfusion\CoreApi\Models\CustomConfigUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateCustomConfig extends Request implements CoreApiRequestContract, HasB
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/custom-configs/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/custom-configs/%d', $this->id);
     }
 
     public function defaultBody(): array

@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgRepositories;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\TaskCollectionResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,10 +24,15 @@ class PruneBorgRepository extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/borg-repositories/%d/prune')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('callback_url', $this->callbackUrl)
-            ->getEndpoint();
+        return sprintf('/api/v1/borg-repositories/%d/prune', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['callback_url'] = $this->callbackUrl;
+
+        return array_filter($parameters);
     }
 
     /**

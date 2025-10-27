@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\HealthStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HealthResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(HealthStatusEnum $status)
     {
         $this->setStatus($status);
@@ -21,7 +24,7 @@ class HealthResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('status');
     }
 
-    public function setStatus(?HealthStatusEnum $status = null): self
+    public function setStatus(HealthStatusEnum $status): self
     {
         $this->setAttribute('status', $status);
         return $this;

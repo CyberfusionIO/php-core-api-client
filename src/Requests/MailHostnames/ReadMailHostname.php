@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\MailHostnames;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\MailHostnameResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -21,9 +20,7 @@ class ReadMailHostname extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/mail-hostnames/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/mail-hostnames/%d', $this->id);
     }
 
     /**

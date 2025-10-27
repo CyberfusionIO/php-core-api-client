@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterPhpPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getPhpVersions(): array|null
     {
@@ -73,10 +72,10 @@ class ClusterPhpPropertiesUpdateRequest extends CoreApiModel implements CoreApiM
     {
         return (new self(
         ))
-            ->setPhpVersions(Arr::get($data, 'php_versions'))
-            ->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names'))
-            ->setPhpSettings(Arr::get($data, 'php_settings') !== null ? PHPSettings::fromArray(Arr::get($data, 'php_settings')) : null)
-            ->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled'))
-            ->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled'));
+            ->when(Arr::has($data, 'php_versions'), fn (self $model) => $model->setPhpVersions(Arr::get($data, 'php_versions')))
+            ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names')))
+            ->when(Arr::has($data, 'php_settings'), fn (self $model) => $model->setPhpSettings(Arr::get($data, 'php_settings') !== null ? PHPSettings::fromArray(Arr::get($data, 'php_settings')) : null))
+            ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled')))
+            ->when(Arr::has($data, 'php_sessions_spread_enabled'), fn (self $model) => $model->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled')));
     }
 }

@@ -2,7 +2,7 @@
 
 PHP client for the [Cyberfusion Core API](https://core-api.cyberfusion.io/).
 
-This client was built for and tested on the **1.251.0** version of the API.
+This client was built for and tested on the **1.253.0** version of the API.
 
 ## Support
 
@@ -39,7 +39,8 @@ Refer to the [API documentation](https://core-api.cyberfusion.io/) for informati
 
 Initialise the `CoreApiConnector` with your username and password.
 
-The connector takes care of authentication, and offers several resources (e.g. `VirtualHosts`) and endpoints (e.g. `listVirtualHosts`).
+The connector takes care of authentication, pagination and offers several resources (e.g. `VirtualHosts`) and 
+endpoints (e.g. `listVirtualHosts`).
 
 ```php
 use Cyberfusion\CoreApi\CoreApiConnector;
@@ -49,9 +50,15 @@ $connector = new CoreApiConnector(
     password: 'password' 
 );
 
-$virtualHosts = $connector
+// Multiple resources, will take care of pagination for you
+foreach ($connector->virtualHosts()->listVirtualHosts()->items() as $virtualHost) {
+    echo $virtualHost->getDomain();
+}
+
+// Single resource
+$virtualHost = $connector
     ->virtualHosts()
-    ->listVirtualHosts()
+    ->readVirtualHost(1)
     ->dto();
 ```
 
@@ -130,7 +137,7 @@ try {
 
 API responses are mapped to DTOs: all endpoints use parameters or DTOs to send data to the API.
 
-### Get model from response
+### Get single model from response
 
 To retrieve a model, call `dto()` on the response. This either returns:
 
@@ -140,11 +147,26 @@ To retrieve a model, call `dto()` on the response. This either returns:
 Code example:
 
 ```php
-$virtualHosts = $connector
+$virtualHost = $connector
     ->virtualHosts()
-    ->listVirtualHosts()
+    ->readVirtualHost(1)
     ->dto();
 ```
+
+### List multiple models from response
+
+This package handles the pagination for you, so you can easily list over all results. To retrieve multiple models, call 
+`items()` on the response. This returns a `Collection` of `CoreApiModel` instances.
+
+Code example:
+
+```php
+foreach ($connector->virtualHosts()->listVirtualHosts()->items() as $virtualHost) {
+    echo $virtualHost->getDomain();
+}
+```
+
+This will keep requesting new pages from the Core API until all items are retrieved.
 
 ### Throw exception on failure
 

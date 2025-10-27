@@ -6,6 +6,7 @@ enum ServiceAccountGroupEnum: string
 {
     case SecurityTXTPolicyServer = 'Security TXT Policy Server';
     case LoadBalancer = 'Load Balancer';
+    case Borg = 'Borg';
     case MailProxy = 'Mail Proxy';
     case MailGateway = 'Mail Gateway';
     case InternetRouter = 'Internet Router';

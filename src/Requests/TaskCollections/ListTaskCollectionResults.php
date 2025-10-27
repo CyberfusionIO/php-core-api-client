@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\TaskCollections;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\TaskResult;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -25,9 +24,7 @@ class ListTaskCollectionResults extends Request implements CoreApiRequestContrac
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/task-collections/%s/results')
-            ->addPathParameter($this->uuid)
-            ->getEndpoint();
+        return sprintf('/api/v1/task-collections/%s/results', $this->uuid);
     }
 
     /**

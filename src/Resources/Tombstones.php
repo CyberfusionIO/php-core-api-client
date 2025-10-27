@@ -2,20 +2,16 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Models\TombstonesSearchRequest;
 use Cyberfusion\CoreApi\Requests\Tombstones\ListTombstones;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class Tombstones extends BaseResource
+class Tombstones extends CoreApiResource
 {
-    public function listTombstones(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListTombstones($skip, $limit, $filter, $sort));
+    public function listTombstones(?TombstonesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListTombstones($includeFilters));
     }
 }

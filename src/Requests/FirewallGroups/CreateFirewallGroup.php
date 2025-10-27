@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\FirewallGroups;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\FirewallGroupCreateRequest;
 use Cyberfusion\CoreApi\Models\FirewallGroupResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateFirewallGroup extends Request implements CoreApiRequestContract, Has
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/firewall-groups')->getEndpoint();
+        return '/api/v1/firewall-groups';
     }
 
     public function defaultBody(): array

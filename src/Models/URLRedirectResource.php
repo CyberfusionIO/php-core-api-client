@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\StatusCodeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -22,6 +25,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         StatusCodeEnum $statusCode,
         bool $keepQueryParameters,
         bool $keepPath,
+        URLRedirectIncludes $includes,
         ?string $description = null,
     ) {
         $this->setId($id);
@@ -34,6 +38,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         $this->setStatusCode($statusCode);
         $this->setKeepQueryParameters($keepQueryParameters);
         $this->setKeepPath($keepPath);
+        $this->setIncludes($includes);
         $this->setDescription($description);
     }
 
@@ -42,7 +47,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -53,7 +58,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -64,7 +69,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -75,7 +80,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -86,7 +91,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -100,7 +105,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setServerAliases(array $serverAliases = []): self
+    public function setServerAliases(array $serverAliases): self
     {
         Validator::create()
             ->unique()
@@ -117,7 +122,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setDestinationUrl(?string $destinationUrl = null): self
+    public function setDestinationUrl(string $destinationUrl): self
     {
         Validator::create()
             ->length(min: 1, max: 2083)
@@ -131,7 +136,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('status_code');
     }
 
-    public function setStatusCode(?StatusCodeEnum $statusCode = null): self
+    public function setStatusCode(StatusCodeEnum $statusCode): self
     {
         $this->setAttribute('status_code', $statusCode);
         return $this;
@@ -142,7 +147,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('keep_query_parameters');
     }
 
-    public function setKeepQueryParameters(?bool $keepQueryParameters = null): self
+    public function setKeepQueryParameters(bool $keepQueryParameters): self
     {
         $this->setAttribute('keep_query_parameters', $keepQueryParameters);
         return $this;
@@ -153,7 +158,7 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('keep_path');
     }
 
-    public function setKeepPath(?bool $keepPath = null): self
+    public function setKeepPath(bool $keepPath): self
     {
         $this->setAttribute('keep_path', $keepPath);
         return $this;
@@ -164,18 +169,18 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('description');
     }
 
-    public function setDescription(?string $description = null): self
+    public function setDescription(?string $description): self
     {
         $this->setAttribute('description', $description);
         return $this;
     }
 
-    public function getIncludes(): URLRedirectIncludes|null
+    public function getIncludes(): URLRedirectIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?URLRedirectIncludes $includes): self
+    public function setIncludes(URLRedirectIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -194,8 +199,8 @@ class URLRedirectResource extends CoreApiModel implements CoreApiModelContract
             statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
             keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
             keepPath: Arr::get($data, 'keep_path'),
+            includes: URLRedirectIncludes::fromArray(Arr::get($data, 'includes')),
             description: Arr::get($data, 'description'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? URLRedirectIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

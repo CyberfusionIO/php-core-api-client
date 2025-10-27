@@ -2,34 +2,33 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\NodeCreateRequest;
 use Cyberfusion\CoreApi\Models\NodeUpdateRequest;
-use Cyberfusion\CoreApi\Requests\Nodes\CreateNode;
+use Cyberfusion\CoreApi\Models\NodesSearchRequest;
+use Cyberfusion\CoreApi\Requests\Nodes\CreateNodes;
 use Cyberfusion\CoreApi\Requests\Nodes\DeleteNode;
 use Cyberfusion\CoreApi\Requests\Nodes\GetNodeProducts;
 use Cyberfusion\CoreApi\Requests\Nodes\ListNodes;
 use Cyberfusion\CoreApi\Requests\Nodes\ReadNode;
 use Cyberfusion\CoreApi\Requests\Nodes\UpdateNode;
 use Cyberfusion\CoreApi\Requests\Nodes\UpgradeOrDowngradeNode;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class Nodes extends BaseResource
+class Nodes extends CoreApiResource
 {
-    public function createNode(NodeCreateRequest $nodeCreateRequest, ?string $callbackUrl = null): Response
-    {
-        return $this->connector->send(new CreateNode($nodeCreateRequest, $callbackUrl));
+    public function createNodes(
+        NodeCreateRequest $nodeCreateRequest,
+        ?string $callbackUrl = null,
+        ?int $amount = null,
+    ): Response {
+        return $this->connector->send(new CreateNodes($nodeCreateRequest, $callbackUrl, $amount));
     }
 
-    public function listNodes(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListNodes($skip, $limit, $filter, $sort));
+    public function listNodes(?NodesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListNodes($includeFilters));
     }
 
     public function getNodeProducts(string $baseUrl): Response
@@ -47,9 +46,9 @@ class Nodes extends BaseResource
         return $this->connector->send(new UpdateNode($id, $nodeUpdateRequest));
     }
 
-    public function deleteNode(int $id): Response
+    public function deleteNode(int $id, ?string $callbackUrl = null): Response
     {
-        return $this->connector->send(new DeleteNode($id));
+        return $this->connector->send(new DeleteNode($id, $callbackUrl));
     }
 
     public function upgradeOrDowngradeNode(int $id, string $product, ?string $callbackUrl = null): Response

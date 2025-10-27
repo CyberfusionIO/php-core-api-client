@@ -5,17 +5,21 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         array $nodejsVersions,
         int $clusterId,
+        ClusterNodejsPropertiesIncludes $includes,
         ?int $nodejsVersion = null,
     ) {
         $this->setId($id);
@@ -23,6 +27,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         $this->setUpdatedAt($updatedAt);
         $this->setNodejsVersions($nodejsVersions);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
         $this->setNodejsVersion($nodejsVersion);
     }
 
@@ -31,7 +36,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -64,7 +69,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('nodejs_version');
     }
 
-    public function setNodejsVersion(?int $nodejsVersion = null): self
+    public function setNodejsVersion(?int $nodejsVersion): self
     {
         $this->setAttribute('nodejs_version', $nodejsVersion);
         return $this;
@@ -78,7 +83,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
     /**
      * @throws ValidationException
      */
-    public function setNodejsVersions(array $nodejsVersions = []): self
+    public function setNodejsVersions(array $nodejsVersions): self
     {
         Validator::create()
             ->unique()
@@ -92,18 +97,18 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterNodejsPropertiesIncludes|null
+    public function getIncludes(): ClusterNodejsPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterNodejsPropertiesIncludes $includes): self
+    public function setIncludes(ClusterNodejsPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -117,8 +122,8 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
             updatedAt: Arr::get($data, 'updated_at'),
             nodejsVersions: Arr::get($data, 'nodejs_versions'),
             clusterId: Arr::get($data, 'cluster_id'),
+            includes: ClusterNodejsPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
             nodejsVersion: Arr::get($data, 'nodejs_version'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterNodejsPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

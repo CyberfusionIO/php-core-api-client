@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TemporaryFTPUserResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $username, string $password, string $fileManagerUrl)
     {
         $this->setUsername($username);
@@ -25,7 +28,7 @@ class TemporaryFTPUserResource extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -43,7 +46,7 @@ class TemporaryFTPUserResource extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -61,7 +64,7 @@ class TemporaryFTPUserResource extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setFileManagerUrl(?string $fileManagerUrl = null): self
+    public function setFileManagerUrl(string $fileManagerUrl): self
     {
         Validator::create()
             ->length(min: 1, max: 2083)

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DaemonResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -19,6 +22,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         int $unixUserId,
         string $command,
         array $nodesIds,
+        DaemonIncludes $includes,
         ?int $memoryLimit = null,
         ?int $cpuLimit = null,
     ) {
@@ -30,6 +34,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
         $this->setNodesIds($nodesIds);
+        $this->setIncludes($includes);
         $this->setMemoryLimit($memoryLimit);
         $this->setCpuLimit($cpuLimit);
     }
@@ -39,7 +44,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -50,7 +55,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -61,7 +66,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -72,7 +77,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -86,7 +91,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -101,7 +106,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -115,11 +120,11 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCommand(?string $command = null): self
+    public function setCommand(string $command): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
-            ->regex('/^[ -~]+$/')
+            ->regex('/^[a-zA-Z0-9-\._\$\/\ ]+$/')
             ->assert($command);
         $this->setAttribute('command', $command);
         return $this;
@@ -133,7 +138,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setNodesIds(array $nodesIds = []): self
+    public function setNodesIds(array $nodesIds): self
     {
         Validator::create()
             ->unique()
@@ -147,7 +152,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('memory_limit');
     }
 
-    public function setMemoryLimit(?int $memoryLimit = null): self
+    public function setMemoryLimit(?int $memoryLimit): self
     {
         $this->setAttribute('memory_limit', $memoryLimit);
         return $this;
@@ -158,18 +163,18 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cpu_limit');
     }
 
-    public function setCpuLimit(?int $cpuLimit = null): self
+    public function setCpuLimit(?int $cpuLimit): self
     {
         $this->setAttribute('cpu_limit', $cpuLimit);
         return $this;
     }
 
-    public function getIncludes(): DaemonIncludes|null
+    public function getIncludes(): DaemonIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?DaemonIncludes $includes): self
+    public function setIncludes(DaemonIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -186,9 +191,9 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
             nodesIds: Arr::get($data, 'nodes_ids'),
+            includes: DaemonIncludes::fromArray(Arr::get($data, 'includes')),
             memoryLimit: Arr::get($data, 'memory_limit'),
             cpuLimit: Arr::get($data, 'cpu_limit'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? DaemonIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

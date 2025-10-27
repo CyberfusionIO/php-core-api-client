@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $domain, int $unixUserId, array $catchAllForwardEmailAddresses, bool $isLocal)
     {
         $this->setDomain($domain);
@@ -23,7 +26,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -34,7 +37,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -48,7 +51,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
     /**
      * @throws ValidationException
      */
-    public function setCatchAllForwardEmailAddresses(array $catchAllForwardEmailAddresses = []): self
+    public function setCatchAllForwardEmailAddresses(array $catchAllForwardEmailAddresses): self
     {
         Validator::create()
             ->unique()
@@ -62,7 +65,7 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
         return $this->getAttribute('is_local');
     }
 
-    public function setIsLocal(?bool $isLocal = null): self
+    public function setIsLocal(bool $isLocal): self
     {
         $this->setAttribute('is_local', $isLocal);
         return $this;

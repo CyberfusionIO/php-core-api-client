@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterNodejsPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(array $nodejsVersions)
     {
         $this->setNodejsVersions($nodejsVersions);
@@ -23,7 +26,7 @@ class ClusterNodejsPropertiesCreateRequest extends CoreApiModel implements CoreA
     /**
      * @throws ValidationException
      */
-    public function setNodejsVersions(array $nodejsVersions = []): self
+    public function setNodejsVersions(array $nodejsVersions): self
     {
         Validator::create()
             ->unique()
@@ -48,6 +51,6 @@ class ClusterNodejsPropertiesCreateRequest extends CoreApiModel implements CoreA
         return (new self(
             nodejsVersions: Arr::get($data, 'nodejs_versions'),
         ))
-            ->setNodejsVersion(Arr::get($data, 'nodejs_version'));
+            ->when(Arr::has($data, 'nodejs_version'), fn (self $model) => $model->setNodejsVersion(Arr::get($data, 'nodejs_version')));
     }
 }

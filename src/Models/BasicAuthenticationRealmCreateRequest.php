@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $virtualHostId, string $name, int $htpasswdFileId, ?string $directoryPath = null)
     {
         $this->setVirtualHostId($virtualHostId);
@@ -23,7 +26,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
         return $this->getAttribute('directory_path');
     }
 
-    public function setDirectoryPath(?string $directoryPath = null): self
+    public function setDirectoryPath(?string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
         return $this;
@@ -34,7 +37,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
         return $this->getAttribute('virtual_host_id');
     }
 
-    public function setVirtualHostId(?int $virtualHostId = null): self
+    public function setVirtualHostId(int $virtualHostId): self
     {
         $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
@@ -48,7 +51,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -63,7 +66,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
         return $this->getAttribute('htpasswd_file_id');
     }
 
-    public function setHtpasswdFileId(?int $htpasswdFileId = null): self
+    public function setHtpasswdFileId(int $htpasswdFileId): self
     {
         $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;

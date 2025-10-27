@@ -5,14 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataSSHKey extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $name,
@@ -41,7 +41,7 @@ class TombstoneDataSSHKey extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -55,7 +55,7 @@ class TombstoneDataSSHKey extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -70,7 +70,7 @@ class TombstoneDataSSHKey extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('identity_file_path');
     }
 
-    public function setIdentityFilePath(?string $identityFilePath = null): self
+    public function setIdentityFilePath(?string $identityFilePath): self
     {
         $this->setAttribute('identity_file_path', $identityFilePath);
         return $this;
@@ -81,7 +81,7 @@ class TombstoneDataSSHKey extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataSSHKeyIncludes $includes = null): self
+    public function setIncludes(TombstoneDataSSHKeyIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -95,6 +95,6 @@ class TombstoneDataSSHKey extends CoreApiModel implements CoreApiModelContract
             includes: TombstoneDataSSHKeyIncludes::fromArray(Arr::get($data, 'includes')),
             identityFilePath: Arr::get($data, 'identity_file_path'),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'ssh_key'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'ssh_key')));
     }
 }

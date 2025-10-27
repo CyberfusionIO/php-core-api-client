@@ -6,14 +6,13 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\StatusCodeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class URLRedirectUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getServerAliases(): array|null
     {
@@ -85,11 +84,11 @@ class URLRedirectUpdateRequest extends CoreApiModel implements CoreApiModelContr
     {
         return (new self(
         ))
-            ->setServerAliases(Arr::get($data, 'server_aliases'))
-            ->setDestinationUrl(Arr::get($data, 'destination_url'))
-            ->setStatusCode(Arr::get($data, 'status_code') !== null ? StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')) : null)
-            ->setKeepQueryParameters(Arr::get($data, 'keep_query_parameters'))
-            ->setKeepPath(Arr::get($data, 'keep_path'))
-            ->setDescription(Arr::get($data, 'description'));
+            ->when(Arr::has($data, 'server_aliases'), fn (self $model) => $model->setServerAliases(Arr::get($data, 'server_aliases')))
+            ->when(Arr::has($data, 'destination_url'), fn (self $model) => $model->setDestinationUrl(Arr::get($data, 'destination_url')))
+            ->when(Arr::has($data, 'status_code'), fn (self $model) => $model->setStatusCode(Arr::get($data, 'status_code') !== null ? StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')) : null))
+            ->when(Arr::has($data, 'keep_query_parameters'), fn (self $model) => $model->setKeepQueryParameters(Arr::get($data, 'keep_query_parameters')))
+            ->when(Arr::has($data, 'keep_path'), fn (self $model) => $model->setKeepPath(Arr::get($data, 'keep_path')))
+            ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')));
     }
 }

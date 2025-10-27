@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\LogMethodEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $remoteAddress,
         string $rawMessage,
@@ -30,7 +33,7 @@ class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('remote_address');
     }
 
-    public function setRemoteAddress(?string $remoteAddress = null): self
+    public function setRemoteAddress(string $remoteAddress): self
     {
         $this->setAttribute('remote_address', $remoteAddress);
         return $this;
@@ -44,7 +47,7 @@ class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setRawMessage(?string $rawMessage = null): self
+    public function setRawMessage(string $rawMessage): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -80,7 +83,7 @@ class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('timestamp');
     }
 
-    public function setTimestamp(?string $timestamp = null): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->setAttribute('timestamp', $timestamp);
         return $this;
@@ -91,7 +94,7 @@ class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('status_code');
     }
 
-    public function setStatusCode(?int $statusCode = null): self
+    public function setStatusCode(int $statusCode): self
     {
         $this->setAttribute('status_code', $statusCode);
         return $this;
@@ -102,7 +105,7 @@ class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('bytes_sent');
     }
 
-    public function setBytesSent(?int $bytesSent = null): self
+    public function setBytesSent(int $bytesSent): self
     {
         $this->setAttribute('bytes_sent', $bytesSent);
         return $this;
@@ -117,7 +120,7 @@ class WebServerLogAccessResource extends CoreApiModel implements CoreApiModelCon
             statusCode: Arr::get($data, 'status_code'),
             bytesSent: Arr::get($data, 'bytes_sent'),
         ))
-            ->setMethod(Arr::get($data, 'method') !== null ? LogMethodEnum::tryFrom(Arr::get($data, 'method')) : null)
-            ->setUri(Arr::get($data, 'uri'));
+            ->when(Arr::has($data, 'method'), fn (self $model) => $model->setMethod(Arr::get($data, 'method') !== null ? LogMethodEnum::tryFrom(Arr::get($data, 'method')) : null))
+            ->when(Arr::has($data, 'uri'), fn (self $model) => $model->setUri(Arr::get($data, 'uri')));
     }
 }

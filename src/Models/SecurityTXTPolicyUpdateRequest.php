@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getExpiresTimestamp(): string|null
     {
@@ -106,13 +105,13 @@ class SecurityTXTPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
     {
         return (new self(
         ))
-            ->setExpiresTimestamp(Arr::get($data, 'expires_timestamp'))
-            ->setEmailContacts(Arr::get($data, 'email_contacts'))
-            ->setUrlContacts(Arr::get($data, 'url_contacts'))
-            ->setEncryptionKeyUrls(Arr::get($data, 'encryption_key_urls'))
-            ->setAcknowledgmentUrls(Arr::get($data, 'acknowledgment_urls'))
-            ->setPolicyUrls(Arr::get($data, 'policy_urls'))
-            ->setOpeningUrls(Arr::get($data, 'opening_urls'))
-            ->setPreferredLanguages(Arr::get($data, 'preferred_languages'));
+            ->when(Arr::has($data, 'expires_timestamp'), fn (self $model) => $model->setExpiresTimestamp(Arr::get($data, 'expires_timestamp')))
+            ->when(Arr::has($data, 'email_contacts'), fn (self $model) => $model->setEmailContacts(Arr::get($data, 'email_contacts')))
+            ->when(Arr::has($data, 'url_contacts'), fn (self $model) => $model->setUrlContacts(Arr::get($data, 'url_contacts')))
+            ->when(Arr::has($data, 'encryption_key_urls'), fn (self $model) => $model->setEncryptionKeyUrls(Arr::get($data, 'encryption_key_urls')))
+            ->when(Arr::has($data, 'acknowledgment_urls'), fn (self $model) => $model->setAcknowledgmentUrls(Arr::get($data, 'acknowledgment_urls')))
+            ->when(Arr::has($data, 'policy_urls'), fn (self $model) => $model->setPolicyUrls(Arr::get($data, 'policy_urls')))
+            ->when(Arr::has($data, 'opening_urls'), fn (self $model) => $model->setOpeningUrls(Arr::get($data, 'opening_urls')))
+            ->when(Arr::has($data, 'preferred_languages'), fn (self $model) => $model->setPreferredLanguages(Arr::get($data, 'preferred_languages')));
     }
 }

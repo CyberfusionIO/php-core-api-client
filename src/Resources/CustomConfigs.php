@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\CustomConfigCreateRequest;
 use Cyberfusion\CoreApi\Models\CustomConfigUpdateRequest;
+use Cyberfusion\CoreApi\Models\CustomConfigsSearchRequest;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\CreateCustomConfig;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\DeleteCustomConfig;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\ListCustomConfigs;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\ReadCustomConfig;
 use Cyberfusion\CoreApi\Requests\CustomConfigs\UpdateCustomConfig;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class CustomConfigs extends BaseResource
+class CustomConfigs extends CoreApiResource
 {
     public function createCustomConfig(CustomConfigCreateRequest $customConfigCreateRequest): Response
     {
         return $this->connector->send(new CreateCustomConfig($customConfigCreateRequest));
     }
 
-    public function listCustomConfigs(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListCustomConfigs($skip, $limit, $filter, $sort));
+    public function listCustomConfigs(?CustomConfigsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListCustomConfigs($includeFilters));
     }
 
     public function readCustomConfig(int $id): Response

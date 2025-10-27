@@ -5,14 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
-/**
- * Properties.
- */
 class TombstoneDataDomainRouter extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, string $domain, TombstoneDataDomainRouterIncludes $includes)
     {
         $this->setId($id);
@@ -36,7 +36,7 @@ class TombstoneDataDomainRouter extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -47,7 +47,7 @@ class TombstoneDataDomainRouter extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -58,7 +58,7 @@ class TombstoneDataDomainRouter extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataDomainRouterIncludes $includes = null): self
+    public function setIncludes(TombstoneDataDomainRouterIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -71,6 +71,6 @@ class TombstoneDataDomainRouter extends CoreApiModel implements CoreApiModelCont
             domain: Arr::get($data, 'domain'),
             includes: TombstoneDataDomainRouterIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'domain_router'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'domain_router')));
     }
 }

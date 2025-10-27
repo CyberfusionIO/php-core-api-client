@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -19,6 +22,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         int $mariadbBackupInterval,
         int $mariadbBackupLocalRetention,
         int $clusterId,
+        ClusterMariadbPropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -28,6 +32,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         $this->setMariadbBackupInterval($mariadbBackupInterval);
         $this->setMariadbBackupLocalRetention($mariadbBackupLocalRetention);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -35,7 +40,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -46,7 +51,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -57,7 +62,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -68,7 +73,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('mariadb_version');
     }
 
-    public function setMariadbVersion(?string $mariadbVersion = null): self
+    public function setMariadbVersion(string $mariadbVersion): self
     {
         $this->setAttribute('mariadb_version', $mariadbVersion);
         return $this;
@@ -82,7 +87,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
     /**
      * @throws ValidationException
      */
-    public function setMariadbClusterName(?string $mariadbClusterName = null): self
+    public function setMariadbClusterName(string $mariadbClusterName): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -97,7 +102,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('mariadb_backup_interval');
     }
 
-    public function setMariadbBackupInterval(?int $mariadbBackupInterval = null): self
+    public function setMariadbBackupInterval(int $mariadbBackupInterval): self
     {
         $this->setAttribute('mariadb_backup_interval', $mariadbBackupInterval);
         return $this;
@@ -108,7 +113,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('mariadb_backup_local_retention');
     }
 
-    public function setMariadbBackupLocalRetention(?int $mariadbBackupLocalRetention = null): self
+    public function setMariadbBackupLocalRetention(int $mariadbBackupLocalRetention): self
     {
         $this->setAttribute('mariadb_backup_local_retention', $mariadbBackupLocalRetention);
         return $this;
@@ -119,18 +124,18 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterMariadbPropertiesIncludes|null
+    public function getIncludes(): ClusterMariadbPropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterMariadbPropertiesIncludes $includes): self
+    public function setIncludes(ClusterMariadbPropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -147,7 +152,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
             mariadbBackupInterval: Arr::get($data, 'mariadb_backup_interval'),
             mariadbBackupLocalRetention: Arr::get($data, 'mariadb_backup_local_retention'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterMariadbPropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterMariadbPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

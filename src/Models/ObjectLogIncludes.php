@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ObjectLogIncludes extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(?CustomerResource $customer = null)
     {
         $this->setCustomer($customer);
@@ -20,7 +23,7 @@ class ObjectLogIncludes extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('customer');
     }
 
-    public function setCustomer(?CustomerResource $customer = null): self
+    public function setCustomer(?CustomerResource $customer): self
     {
         $this->setAttribute('customer', $customer);
         return $this;

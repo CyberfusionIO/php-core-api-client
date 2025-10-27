@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -21,9 +20,7 @@ class ReadBasicAuthenticationRealm extends Request implements CoreApiRequestCont
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/basic-authentication-realms/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/basic-authentication-realms/%d', $this->id);
     }
 
     /**

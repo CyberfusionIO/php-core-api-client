@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -19,6 +22,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         string $singlestoreLicenseKey,
         string $singlestoreRootPassword,
         int $clusterId,
+        ClusterSinglestorePropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -28,6 +32,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         $this->setSinglestoreLicenseKey($singlestoreLicenseKey);
         $this->setSinglestoreRootPassword($singlestoreRootPassword);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -35,7 +40,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -46,7 +51,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -57,7 +62,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -68,7 +73,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('singlestore_studio_domain');
     }
 
-    public function setSinglestoreStudioDomain(?string $singlestoreStudioDomain = null): self
+    public function setSinglestoreStudioDomain(string $singlestoreStudioDomain): self
     {
         $this->setAttribute('singlestore_studio_domain', $singlestoreStudioDomain);
         return $this;
@@ -79,7 +84,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('singlestore_api_domain');
     }
 
-    public function setSinglestoreApiDomain(?string $singlestoreApiDomain = null): self
+    public function setSinglestoreApiDomain(string $singlestoreApiDomain): self
     {
         $this->setAttribute('singlestore_api_domain', $singlestoreApiDomain);
         return $this;
@@ -93,7 +98,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
     /**
      * @throws ValidationException
      */
-    public function setSinglestoreLicenseKey(?string $singlestoreLicenseKey = null): self
+    public function setSinglestoreLicenseKey(string $singlestoreLicenseKey): self
     {
         Validator::create()
             ->length(min: 144, max: 6144)
@@ -111,7 +116,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
     /**
      * @throws ValidationException
      */
-    public function setSinglestoreRootPassword(?string $singlestoreRootPassword = null): self
+    public function setSinglestoreRootPassword(string $singlestoreRootPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -126,18 +131,18 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterSinglestorePropertiesIncludes|null
+    public function getIncludes(): ClusterSinglestorePropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterSinglestorePropertiesIncludes $includes): self
+    public function setIncludes(ClusterSinglestorePropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -154,7 +159,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
             singlestoreLicenseKey: Arr::get($data, 'singlestore_license_key'),
             singlestoreRootPassword: Arr::get($data, 'singlestore_root_password'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterSinglestorePropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterSinglestorePropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

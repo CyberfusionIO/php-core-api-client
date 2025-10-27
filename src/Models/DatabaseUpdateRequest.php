@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getOptimizingEnabled(): bool|null
     {
@@ -40,7 +39,7 @@ class DatabaseUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setOptimizingEnabled(Arr::get($data, 'optimizing_enabled'))
-            ->setBackupsEnabled(Arr::get($data, 'backups_enabled'));
+            ->when(Arr::has($data, 'optimizing_enabled'), fn (self $model) => $model->setOptimizingEnabled(Arr::get($data, 'optimizing_enabled')))
+            ->when(Arr::has($data, 'backups_enabled'), fn (self $model) => $model->setBackupsEnabled(Arr::get($data, 'backups_enabled')));
     }
 }

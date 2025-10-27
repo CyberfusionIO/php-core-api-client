@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterGrafanaPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $grafanaDomain)
     {
         $this->setGrafanaDomain($grafanaDomain);
@@ -20,7 +23,7 @@ class ClusterGrafanaPropertiesCreateRequest extends CoreApiModel implements Core
         return $this->getAttribute('grafana_domain');
     }
 
-    public function setGrafanaDomain(?string $grafanaDomain = null): self
+    public function setGrafanaDomain(string $grafanaDomain): self
     {
         $this->setAttribute('grafana_domain', $grafanaDomain);
         return $this;

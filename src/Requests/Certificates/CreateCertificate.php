@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Certificates;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CertificateCreateRequest;
 use Cyberfusion\CoreApi\Models\CertificateResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -26,7 +25,7 @@ class CreateCertificate extends Request implements CoreApiRequestContract, HasBo
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/certificates')->getEndpoint();
+        return '/api/v1/certificates';
     }
 
     public function defaultBody(): array

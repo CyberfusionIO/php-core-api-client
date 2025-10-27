@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\Databases;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DatabaseCreateRequest;
 use Cyberfusion\CoreApi\Models\DatabaseResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateDatabase extends Request implements CoreApiRequestContract, HasBody
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/databases')->getEndpoint();
+        return '/api/v1/databases';
     }
 
     public function defaultBody(): array

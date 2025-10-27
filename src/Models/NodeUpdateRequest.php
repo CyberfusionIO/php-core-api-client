@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getGroups(): array|null
     {
@@ -51,8 +50,8 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setGroups(Arr::get($data, 'groups'))
-            ->setComment(Arr::get($data, 'comment'))
-            ->setLoadBalancerHealthChecksGroupsPairs(Arr::get($data, 'load_balancer_health_checks_groups_pairs'));
+            ->when(Arr::has($data, 'groups'), fn (self $model) => $model->setGroups(Arr::get($data, 'groups')))
+            ->when(Arr::has($data, 'comment'), fn (self $model) => $model->setComment(Arr::get($data, 'comment')))
+            ->when(Arr::has($data, 'load_balancer_health_checks_groups_pairs'), fn (self $model) => $model->setLoadBalancerHealthChecksGroupsPairs(Arr::get($data, 'load_balancer_health_checks_groups_pairs')));
     }
 }

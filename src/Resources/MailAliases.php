@@ -2,32 +2,28 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\MailAliasCreateRequest;
 use Cyberfusion\CoreApi\Models\MailAliasUpdateRequest;
+use Cyberfusion\CoreApi\Models\MailAliasesSearchRequest;
 use Cyberfusion\CoreApi\Requests\MailAliases\CreateMailAlias;
 use Cyberfusion\CoreApi\Requests\MailAliases\DeleteMailAlias;
 use Cyberfusion\CoreApi\Requests\MailAliases\ListMailAliases;
 use Cyberfusion\CoreApi\Requests\MailAliases\ReadMailAlias;
 use Cyberfusion\CoreApi\Requests\MailAliases\UpdateMailAlias;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class MailAliases extends BaseResource
+class MailAliases extends CoreApiResource
 {
     public function createMailAlias(MailAliasCreateRequest $mailAliasCreateRequest): Response
     {
         return $this->connector->send(new CreateMailAlias($mailAliasCreateRequest));
     }
 
-    public function listMailAliases(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListMailAliases($skip, $limit, $filter, $sort));
+    public function listMailAliases(?MailAliasesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListMailAliases($includeFilters));
     }
 
     public function readMailAlias(int $id): Response

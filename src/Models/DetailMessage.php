@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DetailMessage extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $detail)
     {
         $this->setDetail($detail);
@@ -23,7 +26,7 @@ class DetailMessage extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setDetail(?string $detail = null): self
+    public function setDetail(string $detail): self
     {
         Validator::create()
             ->length(min: 1, max: 255)

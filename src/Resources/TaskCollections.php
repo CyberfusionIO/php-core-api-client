@@ -2,12 +2,12 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Requests\TaskCollections\ListTaskCollectionResults;
 use Cyberfusion\CoreApi\Requests\TaskCollections\RetryTaskCollection;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
 
-class TaskCollections extends BaseResource
+class TaskCollections extends CoreApiResource
 {
     public function listTaskCollectionResults(string $uuid): Response
     {

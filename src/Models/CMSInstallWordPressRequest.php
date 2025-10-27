@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $databaseName,
         string $databaseUserName,
@@ -44,7 +47,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setDatabaseName(?string $databaseName = null): self
+    public function setDatabaseName(string $databaseName): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -62,7 +65,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setDatabaseUserName(?string $databaseUserName = null): self
+    public function setDatabaseUserName(string $databaseUserName): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -80,7 +83,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setDatabaseUserPassword(?string $databaseUserPassword = null): self
+    public function setDatabaseUserPassword(string $databaseUserPassword): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
@@ -95,7 +98,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('database_host');
     }
 
-    public function setDatabaseHost(?string $databaseHost = null): self
+    public function setDatabaseHost(string $databaseHost): self
     {
         $this->setAttribute('database_host', $databaseHost);
         return $this;
@@ -109,7 +112,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setAdminUsername(?string $adminUsername = null): self
+    public function setAdminUsername(string $adminUsername): self
     {
         Validator::create()
             ->length(min: 1, max: 60)
@@ -127,7 +130,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setAdminPassword(?string $adminPassword = null): self
+    public function setAdminPassword(string $adminPassword): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -145,7 +148,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setSiteTitle(?string $siteTitle = null): self
+    public function setSiteTitle(string $siteTitle): self
     {
         Validator::create()
             ->length(min: 1, max: 253)
@@ -163,7 +166,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setSiteUrl(?string $siteUrl = null): self
+    public function setSiteUrl(string $siteUrl): self
     {
         Validator::create()
             ->length(min: 1, max: 2083)
@@ -180,7 +183,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setLocale(?string $locale = null): self
+    public function setLocale(string $locale): self
     {
         Validator::create()
             ->length(min: 1, max: 15)
@@ -198,7 +201,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setVersion(?string $version = null): self
+    public function setVersion(string $version): self
     {
         Validator::create()
             ->length(min: 1, max: 6)
@@ -213,7 +216,7 @@ class CMSInstallWordPressRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('admin_email_address');
     }
 
-    public function setAdminEmailAddress(?string $adminEmailAddress = null): self
+    public function setAdminEmailAddress(string $adminEmailAddress): self
     {
         $this->setAttribute('admin_email_address', $adminEmailAddress);
         return $this;

@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\CustomConfigSnippets;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomConfigSnippetResource;
 use Cyberfusion\CoreApi\Models\CustomConfigSnippetUpdateRequest;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -27,9 +26,7 @@ class UpdateCustomConfigSnippet extends Request implements CoreApiRequestContrac
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/custom-config-snippets/%d')
-            ->addPathParameter($this->id)
-            ->getEndpoint();
+        return sprintf('/api/v1/custom-config-snippets/%d', $this->id);
     }
 
     public function defaultBody(): array

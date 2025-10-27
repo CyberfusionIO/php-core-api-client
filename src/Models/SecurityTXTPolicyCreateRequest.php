@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $clusterId,
         string $expiresTimestamp,
@@ -37,7 +40,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -48,7 +51,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this->getAttribute('expires_timestamp');
     }
 
-    public function setExpiresTimestamp(?string $expiresTimestamp = null): self
+    public function setExpiresTimestamp(string $expiresTimestamp): self
     {
         $this->setAttribute('expires_timestamp', $expiresTimestamp);
         return $this;
@@ -62,7 +65,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setEmailContacts(array $emailContacts = []): self
+    public function setEmailContacts(array $emailContacts): self
     {
         Validator::create()
             ->unique()
@@ -79,7 +82,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setUrlContacts(array $urlContacts = []): self
+    public function setUrlContacts(array $urlContacts): self
     {
         Validator::create()
             ->unique()
@@ -96,7 +99,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setEncryptionKeyUrls(array $encryptionKeyUrls = []): self
+    public function setEncryptionKeyUrls(array $encryptionKeyUrls): self
     {
         Validator::create()
             ->unique()
@@ -113,7 +116,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setAcknowledgmentUrls(array $acknowledgmentUrls = []): self
+    public function setAcknowledgmentUrls(array $acknowledgmentUrls): self
     {
         Validator::create()
             ->unique()
@@ -130,7 +133,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setPolicyUrls(array $policyUrls = []): self
+    public function setPolicyUrls(array $policyUrls): self
     {
         Validator::create()
             ->unique()
@@ -147,7 +150,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setOpeningUrls(array $openingUrls = []): self
+    public function setOpeningUrls(array $openingUrls): self
     {
         Validator::create()
             ->unique()
@@ -164,7 +167,7 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     /**
      * @throws ValidationException
      */
-    public function setPreferredLanguages(array $preferredLanguages = []): self
+    public function setPreferredLanguages(array $preferredLanguages): self
     {
         Validator::create()
             ->unique()

@@ -2,8 +2,11 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Enums\TimeUnitEnum;
 use Cyberfusion\CoreApi\Models\DatabaseCreateRequest;
 use Cyberfusion\CoreApi\Models\DatabaseUpdateRequest;
+use Cyberfusion\CoreApi\Models\DatabasesSearchRequest;
 use Cyberfusion\CoreApi\Requests\Databases\CompareDatabases;
 use Cyberfusion\CoreApi\Requests\Databases\CreateDatabase;
 use Cyberfusion\CoreApi\Requests\Databases\DeleteDatabase;
@@ -12,25 +15,19 @@ use Cyberfusion\CoreApi\Requests\Databases\ListDatabases;
 use Cyberfusion\CoreApi\Requests\Databases\ReadDatabase;
 use Cyberfusion\CoreApi\Requests\Databases\SyncDatabases;
 use Cyberfusion\CoreApi\Requests\Databases\UpdateDatabase;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class Databases extends BaseResource
+class Databases extends CoreApiResource
 {
     public function createDatabase(DatabaseCreateRequest $databaseCreateRequest): Response
     {
         return $this->connector->send(new CreateDatabase($databaseCreateRequest));
     }
 
-    public function listDatabases(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListDatabases($skip, $limit, $filter, $sort));
+    public function listDatabases(?DatabasesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListDatabases($includeFilters));
     }
 
     public function readDatabase(int $id): Response
@@ -62,7 +59,7 @@ class Databases extends BaseResource
         return $this->connector->send(new SyncDatabases($leftDatabaseId, $rightDatabaseId, $callbackUrl, $excludeTablesNames));
     }
 
-    public function listDatabaseUsages(int $databaseId, string $timestamp, ?string $timeUnit = null): Response
+    public function listDatabaseUsages(int $databaseId, string $timestamp, ?TimeUnitEnum $timeUnit = null): Response
     {
         return $this->connector->send(new ListDatabaseUsages($databaseId, $timestamp, $timeUnit));
     }

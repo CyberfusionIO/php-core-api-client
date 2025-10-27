@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\CMSes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\DetailMessage;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -25,10 +24,7 @@ class DisableCMSPlugin extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/cmses/%d/plugins/%s/disable')
-            ->addPathParameter($this->id)
-            ->addPathParameter($this->name)
-            ->getEndpoint();
+        return sprintf('/api/v1/cmses/%d/plugins/%s/disable', $this->id, $this->name);
     }
 
     /**

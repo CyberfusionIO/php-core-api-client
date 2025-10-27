@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\BorgRepositories;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\BorgRepositoryCreateRequest;
 use Cyberfusion\CoreApi\Models\BorgRepositoryResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateBorgRepository extends Request implements CoreApiRequestContract, Ha
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/borg-repositories')->getEndpoint();
+        return '/api/v1/borg-repositories';
     }
 
     public function defaultBody(): array

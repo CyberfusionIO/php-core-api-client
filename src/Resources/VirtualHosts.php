@@ -2,8 +2,10 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\VirtualHostCreateRequest;
 use Cyberfusion\CoreApi\Models\VirtualHostUpdateRequest;
+use Cyberfusion\CoreApi\Models\VirtualHostsSearchRequest;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\CreateVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\DeleteVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\GetVirtualHostDocumentRoot;
@@ -11,25 +13,19 @@ use Cyberfusion\CoreApi\Requests\VirtualHosts\ListVirtualHosts;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ReadVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\SyncDomainRootsOfVirtualHosts;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\UpdateVirtualHost;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class VirtualHosts extends BaseResource
+class VirtualHosts extends CoreApiResource
 {
     public function createVirtualHost(VirtualHostCreateRequest $virtualHostCreateRequest): Response
     {
         return $this->connector->send(new CreateVirtualHost($virtualHostCreateRequest));
     }
 
-    public function listVirtualHosts(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListVirtualHosts($skip, $limit, $filter, $sort));
+    public function listVirtualHosts(?VirtualHostsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListVirtualHosts($includeFilters));
     }
 
     public function readVirtualHost(int $id): Response

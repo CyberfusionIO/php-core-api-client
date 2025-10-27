@@ -7,11 +7,14 @@ use Cyberfusion\CoreApi\Enums\FirewallRuleExternalProviderNameEnum;
 use Cyberfusion\CoreApi\Enums\FirewallRuleServiceNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $nodeId,
         ?int $firewallGroupId = null,
@@ -33,7 +36,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -44,7 +47,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('firewall_group_id');
     }
 
-    public function setFirewallGroupId(?int $firewallGroupId = null): self
+    public function setFirewallGroupId(?int $firewallGroupId): self
     {
         $this->setAttribute('firewall_group_id', $firewallGroupId);
         return $this;
@@ -55,7 +58,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('external_provider_name');
     }
 
-    public function setExternalProviderName(?FirewallRuleExternalProviderNameEnum $externalProviderName = null): self
+    public function setExternalProviderName(?FirewallRuleExternalProviderNameEnum $externalProviderName): self
     {
         $this->setAttribute('external_provider_name', $externalProviderName);
         return $this;
@@ -66,7 +69,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('service_name');
     }
 
-    public function setServiceName(?FirewallRuleServiceNameEnum $serviceName = null): self
+    public function setServiceName(?FirewallRuleServiceNameEnum $serviceName): self
     {
         $this->setAttribute('service_name', $serviceName);
         return $this;
@@ -77,7 +80,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('haproxy_listen_id');
     }
 
-    public function setHaproxyListenId(?int $haproxyListenId = null): self
+    public function setHaproxyListenId(?int $haproxyListenId): self
     {
         $this->setAttribute('haproxy_listen_id', $haproxyListenId);
         return $this;
@@ -88,7 +91,7 @@ class FirewallRuleCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('port');
     }
 
-    public function setPort(?int $port = null): self
+    public function setPort(?int $port): self
     {
         $this->setAttribute('port', $port);
         return $this;

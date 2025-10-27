@@ -5,16 +5,24 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $mailAccountId, float $usage, string $timestamp)
-    {
+    use Conditionable;
+
+    public function __construct(
+        int $mailAccountId,
+        float $usage,
+        string $timestamp,
+        MailAccountUsageIncludes $includes,
+    ) {
         $this->setMailAccountId($mailAccountId);
         $this->setUsage($usage);
         $this->setTimestamp($timestamp);
+        $this->setIncludes($includes);
     }
 
     public function getMailAccountId(): int
@@ -22,7 +30,7 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('mail_account_id');
     }
 
-    public function setMailAccountId(?int $mailAccountId = null): self
+    public function setMailAccountId(int $mailAccountId): self
     {
         $this->setAttribute('mail_account_id', $mailAccountId);
         return $this;
@@ -33,7 +41,7 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('usage');
     }
 
-    public function setUsage(?float $usage = null): self
+    public function setUsage(float $usage): self
     {
         $this->setAttribute('usage', $usage);
         return $this;
@@ -44,18 +52,18 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('timestamp');
     }
 
-    public function setTimestamp(?string $timestamp = null): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->setAttribute('timestamp', $timestamp);
         return $this;
     }
 
-    public function getIncludes(): MailAccountUsageIncludes|null
+    public function getIncludes(): MailAccountUsageIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?MailAccountUsageIncludes $includes): self
+    public function setIncludes(MailAccountUsageIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -67,7 +75,7 @@ class MailAccountUsageResource extends CoreApiModel implements CoreApiModelContr
             mailAccountId: Arr::get($data, 'mail_account_id'),
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? MailAccountUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: MailAccountUsageIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

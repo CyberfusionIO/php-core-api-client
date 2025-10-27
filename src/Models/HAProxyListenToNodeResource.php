@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -17,6 +20,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         int $clusterId,
         int $haproxyListenId,
         int $nodeId,
+        HAProxyListenToNodeIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -24,6 +28,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         $this->setClusterId($clusterId);
         $this->setHaproxyListenId($haproxyListenId);
         $this->setNodeId($nodeId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -31,7 +36,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -64,7 +69,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -75,7 +80,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('haproxy_listen_id');
     }
 
-    public function setHaproxyListenId(?int $haproxyListenId = null): self
+    public function setHaproxyListenId(int $haproxyListenId): self
     {
         $this->setAttribute('haproxy_listen_id', $haproxyListenId);
         return $this;
@@ -86,18 +91,18 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
     }
 
-    public function getIncludes(): HAProxyListenToNodeIncludes|null
+    public function getIncludes(): HAProxyListenToNodeIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?HAProxyListenToNodeIncludes $includes): self
+    public function setIncludes(HAProxyListenToNodeIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -112,7 +117,7 @@ class HAProxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
             clusterId: Arr::get($data, 'cluster_id'),
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             nodeId: Arr::get($data, 'node_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? HAProxyListenToNodeIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: HAProxyListenToNodeIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

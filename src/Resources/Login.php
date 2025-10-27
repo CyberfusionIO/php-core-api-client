@@ -2,13 +2,13 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\BodyLoginAccessToken;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
 use Cyberfusion\CoreApi\Requests\Login\TestAccessToken;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
 
-class Login extends BaseResource
+class Login extends CoreApiResource
 {
     public function requestAccessToken(BodyLoginAccessToken $bodyLoginAccessToken, string $baseUrl): Response
     {

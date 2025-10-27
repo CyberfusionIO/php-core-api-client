@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MemoryInsufficiencyResult extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $nodeId, int $totalMemoryMib, int $usableMemoryMib, int $wantedMemoryMib)
     {
         $this->setNodeId($nodeId);
@@ -23,7 +26,7 @@ class MemoryInsufficiencyResult extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -45,7 +48,7 @@ class MemoryInsufficiencyResult extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('total_memory_mib');
     }
 
-    public function setTotalMemoryMib(?int $totalMemoryMib = null): self
+    public function setTotalMemoryMib(int $totalMemoryMib): self
     {
         $this->setAttribute('total_memory_mib', $totalMemoryMib);
         return $this;
@@ -56,7 +59,7 @@ class MemoryInsufficiencyResult extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('usable_memory_mib');
     }
 
-    public function setUsableMemoryMib(?int $usableMemoryMib = null): self
+    public function setUsableMemoryMib(int $usableMemoryMib): self
     {
         $this->setAttribute('usable_memory_mib', $usableMemoryMib);
         return $this;
@@ -67,7 +70,7 @@ class MemoryInsufficiencyResult extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('wanted_memory_mib');
     }
 
-    public function setWantedMemoryMib(?int $wantedMemoryMib = null): self
+    public function setWantedMemoryMib(int $wantedMemoryMib): self
     {
         $this->setAttribute('wanted_memory_mib', $wantedMemoryMib);
         return $this;
@@ -81,6 +84,6 @@ class MemoryInsufficiencyResult extends CoreApiModel implements CoreApiModelCont
             usableMemoryMib: Arr::get($data, 'usable_memory_mib'),
             wantedMemoryMib: Arr::get($data, 'wanted_memory_mib'),
         ))
-            ->setType(Arr::get($data, 'type', 'memory'));
+            ->when(Arr::has($data, 'type'), fn (self $model) => $model->setType(Arr::get($data, 'type', 'memory')));
     }
 }

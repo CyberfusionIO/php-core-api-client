@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TaskCollectionCallback extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $taskCollectionUuid, bool $success)
     {
         $this->setTaskCollectionUuid($taskCollectionUuid);
@@ -21,7 +24,7 @@ class TaskCollectionCallback extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('task_collection_uuid');
     }
 
-    public function setTaskCollectionUuid(?string $taskCollectionUuid = null): self
+    public function setTaskCollectionUuid(string $taskCollectionUuid): self
     {
         $this->setAttribute('task_collection_uuid', $taskCollectionUuid);
         return $this;
@@ -32,7 +35,7 @@ class TaskCollectionCallback extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('success');
     }
 
-    public function setSuccess(?bool $success = null): self
+    public function setSuccess(bool $success): self
     {
         $this->setAttribute('success', $success);
         return $this;

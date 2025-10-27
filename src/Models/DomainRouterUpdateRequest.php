@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getNodeId(): int|null
     {
@@ -73,10 +72,10 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
     {
         return (new self(
         ))
-            ->setNodeId(Arr::get($data, 'node_id'))
-            ->setCertificateId(Arr::get($data, 'certificate_id'))
-            ->setSecurityTxtPolicyId(Arr::get($data, 'security_txt_policy_id'))
-            ->setFirewallGroupsIds(Arr::get($data, 'firewall_groups_ids'))
-            ->setForceSsl(Arr::get($data, 'force_ssl'));
+            ->when(Arr::has($data, 'node_id'), fn (self $model) => $model->setNodeId(Arr::get($data, 'node_id')))
+            ->when(Arr::has($data, 'certificate_id'), fn (self $model) => $model->setCertificateId(Arr::get($data, 'certificate_id')))
+            ->when(Arr::has($data, 'security_txt_policy_id'), fn (self $model) => $model->setSecurityTxtPolicyId(Arr::get($data, 'security_txt_policy_id')))
+            ->when(Arr::has($data, 'firewall_groups_ids'), fn (self $model) => $model->setFirewallGroupsIds(Arr::get($data, 'firewall_groups_ids')))
+            ->when(Arr::has($data, 'force_ssl'), fn (self $model) => $model->setForceSsl(Arr::get($data, 'force_ssl')));
     }
 }

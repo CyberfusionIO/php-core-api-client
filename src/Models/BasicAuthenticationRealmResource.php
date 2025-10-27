@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -18,6 +21,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         int $virtualHostId,
         string $name,
         int $htpasswdFileId,
+        BasicAuthenticationRealmIncludes $includes,
         ?string $directoryPath = null,
     ) {
         $this->setId($id);
@@ -27,6 +31,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         $this->setVirtualHostId($virtualHostId);
         $this->setName($name);
         $this->setHtpasswdFileId($htpasswdFileId);
+        $this->setIncludes($includes);
         $this->setDirectoryPath($directoryPath);
     }
 
@@ -35,7 +40,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -46,7 +51,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -57,7 +62,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -68,7 +73,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -79,7 +84,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('directory_path');
     }
 
-    public function setDirectoryPath(?string $directoryPath = null): self
+    public function setDirectoryPath(?string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
         return $this;
@@ -90,7 +95,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('virtual_host_id');
     }
 
-    public function setVirtualHostId(?int $virtualHostId = null): self
+    public function setVirtualHostId(int $virtualHostId): self
     {
         $this->setAttribute('virtual_host_id', $virtualHostId);
         return $this;
@@ -104,7 +109,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -119,18 +124,18 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('htpasswd_file_id');
     }
 
-    public function setHtpasswdFileId(?int $htpasswdFileId = null): self
+    public function setHtpasswdFileId(int $htpasswdFileId): self
     {
         $this->setAttribute('htpasswd_file_id', $htpasswdFileId);
         return $this;
     }
 
-    public function getIncludes(): BasicAuthenticationRealmIncludes|null
+    public function getIncludes(): BasicAuthenticationRealmIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?BasicAuthenticationRealmIncludes $includes): self
+    public function setIncludes(BasicAuthenticationRealmIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -146,8 +151,8 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
             virtualHostId: Arr::get($data, 'virtual_host_id'),
             name: Arr::get($data, 'name'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
+            includes: BasicAuthenticationRealmIncludes::fromArray(Arr::get($data, 'includes')),
             directoryPath: Arr::get($data, 'directory_path'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? BasicAuthenticationRealmIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

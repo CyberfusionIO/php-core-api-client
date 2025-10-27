@@ -7,32 +7,37 @@ use Cyberfusion\CoreApi\Enums\ObjectModelNameEnum;
 use Cyberfusion\CoreApi\Enums\TaskCollectionTypeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TaskCollectionResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
+        array $objectsIds,
         ObjectModelNameEnum $objectModelName,
         string $uuid,
         string $description,
         TaskCollectionTypeEnum $collectionType,
         string $reference,
-        ?int $objectId = null,
+        TaskCollectionIncludes $includes,
         ?int $clusterId = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
+        $this->setObjectsIds($objectsIds);
         $this->setObjectModelName($objectModelName);
         $this->setUuid($uuid);
         $this->setDescription($description);
         $this->setCollectionType($collectionType);
         $this->setReference($reference);
-        $this->setObjectId($objectId);
+        $this->setIncludes($includes);
         $this->setClusterId($clusterId);
     }
 
@@ -41,7 +46,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -52,7 +57,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -63,20 +68,20 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
     }
 
-    public function getObjectId(): int|null
+    public function getObjectsIds(): array
     {
-        return $this->getAttribute('object_id');
+        return $this->getAttribute('objects_ids');
     }
 
-    public function setObjectId(?int $objectId = null): self
+    public function setObjectsIds(array $objectsIds): self
     {
-        $this->setAttribute('object_id', $objectId);
+        $this->setAttribute('objects_ids', $objectsIds);
         return $this;
     }
 
@@ -85,7 +90,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('object_model_name');
     }
 
-    public function setObjectModelName(?ObjectModelNameEnum $objectModelName = null): self
+    public function setObjectModelName(ObjectModelNameEnum $objectModelName): self
     {
         $this->setAttribute('object_model_name', $objectModelName);
         return $this;
@@ -96,7 +101,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('uuid');
     }
 
-    public function setUuid(?string $uuid = null): self
+    public function setUuid(string $uuid): self
     {
         $this->setAttribute('uuid', $uuid);
         return $this;
@@ -110,7 +115,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setDescription(?string $description = null): self
+    public function setDescription(string $description): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -125,7 +130,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('collection_type');
     }
 
-    public function setCollectionType(?TaskCollectionTypeEnum $collectionType = null): self
+    public function setCollectionType(TaskCollectionTypeEnum $collectionType): self
     {
         $this->setAttribute('collection_type', $collectionType);
         return $this;
@@ -136,7 +141,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(?int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -150,7 +155,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
     /**
      * @throws ValidationException
      */
-    public function setReference(?string $reference = null): self
+    public function setReference(string $reference): self
     {
         Validator::create()
             ->length(min: 1, max: 255)
@@ -160,12 +165,12 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
-    public function getIncludes(): TaskCollectionIncludes|null
+    public function getIncludes(): TaskCollectionIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TaskCollectionIncludes $includes): self
+    public function setIncludes(TaskCollectionIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -177,14 +182,14 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
+            objectsIds: Arr::get($data, 'objects_ids'),
             objectModelName: ObjectModelNameEnum::tryFrom(Arr::get($data, 'object_model_name')),
             uuid: Arr::get($data, 'uuid'),
             description: Arr::get($data, 'description'),
             collectionType: TaskCollectionTypeEnum::tryFrom(Arr::get($data, 'collection_type')),
             reference: Arr::get($data, 'reference'),
-            objectId: Arr::get($data, 'object_id'),
+            includes: TaskCollectionIncludes::fromArray(Arr::get($data, 'includes')),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? TaskCollectionIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

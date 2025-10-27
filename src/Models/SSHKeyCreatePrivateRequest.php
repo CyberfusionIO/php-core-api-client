@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class SSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $name, int $unixUserId, string $privateKey)
     {
         $this->setName($name);
@@ -25,7 +28,7 @@ class SSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiModelCon
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 128)
@@ -40,7 +43,7 @@ class SSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -51,7 +54,7 @@ class SSHKeyCreatePrivateRequest extends CoreApiModel implements CoreApiModelCon
         return $this->getAttribute('private_key');
     }
 
-    public function setPrivateKey(?string $privateKey = null): self
+    public function setPrivateKey(string $privateKey): self
     {
         $this->setAttribute('private_key', $privateKey);
         return $this;

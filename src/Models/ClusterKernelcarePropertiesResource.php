@@ -5,23 +5,28 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
         string $updatedAt,
         string $kernelcareLicenseKey,
         int $clusterId,
+        ClusterKernelcarePropertiesIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setKernelcareLicenseKey($kernelcareLicenseKey);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -29,7 +34,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -40,7 +45,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -51,7 +56,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -65,7 +70,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
     /**
      * @throws ValidationException
      */
-    public function setKernelcareLicenseKey(?string $kernelcareLicenseKey = null): self
+    public function setKernelcareLicenseKey(string $kernelcareLicenseKey): self
     {
         Validator::create()
             ->length(min: 16, max: 16)
@@ -80,18 +85,18 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): ClusterKernelcarePropertiesIncludes|null
+    public function getIncludes(): ClusterKernelcarePropertiesIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?ClusterKernelcarePropertiesIncludes $includes): self
+    public function setIncludes(ClusterKernelcarePropertiesIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -105,7 +110,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
             updatedAt: Arr::get($data, 'updated_at'),
             kernelcareLicenseKey: Arr::get($data, 'kernelcare_license_key'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? ClusterKernelcarePropertiesIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: ClusterKernelcarePropertiesIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

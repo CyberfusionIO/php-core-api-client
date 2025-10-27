@@ -2,20 +2,20 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\PassengerAppCreateNodeJSRequest;
 use Cyberfusion\CoreApi\Models\PassengerAppUpdateRequest;
+use Cyberfusion\CoreApi\Models\PassengerAppsSearchRequest;
 use Cyberfusion\CoreApi\Requests\PassengerApps\CreateNodeJSPassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\DeletePassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\ListPassengerApps;
 use Cyberfusion\CoreApi\Requests\PassengerApps\ReadPassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\RestartPassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\UpdatePassengerApp;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class PassengerApps extends BaseResource
+class PassengerApps extends CoreApiResource
 {
     public function createNodeJSPassengerApp(
         PassengerAppCreateNodeJSRequest $passengerAppCreateNodeJSRequest,
@@ -23,13 +23,9 @@ class PassengerApps extends BaseResource
         return $this->connector->send(new CreateNodeJSPassengerApp($passengerAppCreateNodeJSRequest));
     }
 
-    public function listPassengerApps(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListPassengerApps($skip, $limit, $filter, $sort));
+    public function listPassengerApps(?PassengerAppsSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListPassengerApps($includeFilters));
     }
 
     public function readPassengerApp(int $id): Response

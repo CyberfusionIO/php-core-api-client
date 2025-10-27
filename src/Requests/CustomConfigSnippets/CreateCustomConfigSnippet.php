@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\CustomConfigSnippets;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\CustomConfigSnippetResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -23,7 +22,7 @@ class CreateCustomConfigSnippet extends Request implements CoreApiRequestContrac
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/custom-config-snippets')->getEndpoint();
+        return '/api/v1/custom-config-snippets';
     }
 
     public function defaultBody(): array

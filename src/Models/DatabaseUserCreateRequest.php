@@ -7,11 +7,14 @@ use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Enums\HostEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $password,
         string $name,
@@ -36,7 +39,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -54,7 +57,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 63)
@@ -69,7 +72,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?DatabaseServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(DatabaseServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -80,7 +83,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('host');
     }
 
-    public function setHost(?HostEnum $host = null): self
+    public function setHost(?HostEnum $host): self
     {
         $this->setAttribute('host', $host);
         return $this;
@@ -91,7 +94,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -102,7 +105,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('phpmyadmin_firewall_groups_ids');
     }
 
-    public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds = []): self
+    public function setPhpmyadminFirewallGroupsIds(?array $phpmyadminFirewallGroupsIds): self
     {
         $this->setAttribute('phpmyadmin_firewall_groups_ids', $phpmyadminFirewallGroupsIds);
         return $this;

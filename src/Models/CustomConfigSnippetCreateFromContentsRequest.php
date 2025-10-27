@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         VirtualHostServerSoftwareNameEnum $serverSoftwareName,
@@ -33,7 +36,7 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 128)
@@ -48,7 +51,7 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
         return $this->getAttribute('server_software_name');
     }
 
-    public function setServerSoftwareName(?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null): self
+    public function setServerSoftwareName(VirtualHostServerSoftwareNameEnum $serverSoftwareName): self
     {
         $this->setAttribute('server_software_name', $serverSoftwareName);
         return $this;
@@ -59,7 +62,7 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -70,7 +73,7 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
         return $this->getAttribute('is_default');
     }
 
-    public function setIsDefault(?bool $isDefault = null): self
+    public function setIsDefault(bool $isDefault): self
     {
         $this->setAttribute('is_default', $isDefault);
         return $this;
@@ -84,7 +87,7 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
     /**
      * @throws ValidationException
      */
-    public function setContents(?string $contents = null): self
+    public function setContents(string $contents): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)

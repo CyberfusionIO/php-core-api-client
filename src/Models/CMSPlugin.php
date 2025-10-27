@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSPlugin extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         string $name,
         string $currentVersion,
@@ -30,7 +33,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1)
@@ -48,7 +51,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setCurrentVersion(?string $currentVersion = null): self
+    public function setCurrentVersion(string $currentVersion): self
     {
         Validator::create()
             ->length(min: 1)
@@ -63,7 +66,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('available_version');
     }
 
-    public function setAvailableVersion(?string $availableVersion = null): self
+    public function setAvailableVersion(?string $availableVersion): self
     {
         $this->setAttribute('available_version', $availableVersion);
         return $this;
@@ -74,7 +77,7 @@ class CMSPlugin extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_enabled');
     }
 
-    public function setIsEnabled(?bool $isEnabled = null): self
+    public function setIsEnabled(bool $isEnabled): self
     {
         $this->setAttribute('is_enabled', $isEnabled);
         return $this;

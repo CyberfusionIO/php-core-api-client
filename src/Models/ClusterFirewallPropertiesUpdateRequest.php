@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterFirewallPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getFirewallRulesExternalProvidersEnabled(): bool|null
     {
@@ -29,6 +28,6 @@ class ClusterFirewallPropertiesUpdateRequest extends CoreApiModel implements Cor
     {
         return (new self(
         ))
-            ->setFirewallRulesExternalProvidersEnabled(Arr::get($data, 'firewall_rules_external_providers_enabled'));
+            ->when(Arr::has($data, 'firewall_rules_external_providers_enabled'), fn (self $model) => $model->setFirewallRulesExternalProvidersEnabled(Arr::get($data, 'firewall_rules_external_providers_enabled')));
     }
 }

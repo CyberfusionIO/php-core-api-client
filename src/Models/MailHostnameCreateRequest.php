@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $domain, int $clusterId, int $certificateId)
     {
         $this->setDomain($domain);
@@ -22,7 +25,7 @@ class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -33,7 +36,7 @@ class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -44,7 +47,7 @@ class MailHostnameCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this->getAttribute('certificate_id');
     }
 
-    public function setCertificateId(?int $certificateId = null): self
+    public function setCertificateId(int $certificateId): self
     {
         $this->setAttribute('certificate_id', $certificateId);
         return $this;

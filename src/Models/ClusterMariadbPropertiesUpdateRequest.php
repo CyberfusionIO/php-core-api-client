@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterMariadbPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getMariadbBackupInterval(): int|null
     {
@@ -40,7 +39,7 @@ class ClusterMariadbPropertiesUpdateRequest extends CoreApiModel implements Core
     {
         return (new self(
         ))
-            ->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval'))
-            ->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention'));
+            ->when(Arr::has($data, 'mariadb_backup_interval'), fn (self $model) => $model->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval')))
+            ->when(Arr::has($data, 'mariadb_backup_local_retention'), fn (self $model) => $model->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention')));
     }
 }

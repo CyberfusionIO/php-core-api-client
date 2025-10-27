@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $createdAt, array $tasksResults)
     {
         $this->setCreatedAt($createdAt);
@@ -21,7 +24,7 @@ class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -32,7 +35,7 @@ class ClusterDeploymentResults extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('tasks_results');
     }
 
-    public function setTasksResults(array $tasksResults = []): self
+    public function setTasksResults(array $tasksResults): self
     {
         $this->setAttribute('tasks_results', $tasksResults);
         return $this;

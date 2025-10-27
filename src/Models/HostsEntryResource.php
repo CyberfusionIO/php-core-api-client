@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -17,6 +20,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         int $nodeId,
         string $hostName,
         int $clusterId,
+        HostsEntryIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -24,6 +28,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         $this->setNodeId($nodeId);
         $this->setHostName($hostName);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -31,7 +36,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -64,7 +69,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('node_id');
     }
 
-    public function setNodeId(?int $nodeId = null): self
+    public function setNodeId(int $nodeId): self
     {
         $this->setAttribute('node_id', $nodeId);
         return $this;
@@ -75,7 +80,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('host_name');
     }
 
-    public function setHostName(?string $hostName = null): self
+    public function setHostName(string $hostName): self
     {
         $this->setAttribute('host_name', $hostName);
         return $this;
@@ -86,18 +91,18 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): HostsEntryIncludes|null
+    public function getIncludes(): HostsEntryIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?HostsEntryIncludes $includes): self
+    public function setIncludes(HostsEntryIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -112,7 +117,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             hostName: Arr::get($data, 'host_name'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? HostsEntryIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: HostsEntryIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

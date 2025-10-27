@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeCronDependency extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(bool $isDependency, string $reason, CronResource $cron, ?string $impact = null)
     {
         $this->setIsDependency($isDependency);
@@ -23,7 +26,7 @@ class NodeCronDependency extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_dependency');
     }
 
-    public function setIsDependency(?bool $isDependency = null): self
+    public function setIsDependency(bool $isDependency): self
     {
         $this->setAttribute('is_dependency', $isDependency);
         return $this;
@@ -34,7 +37,7 @@ class NodeCronDependency extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('impact');
     }
 
-    public function setImpact(?string $impact = null): self
+    public function setImpact(?string $impact): self
     {
         $this->setAttribute('impact', $impact);
         return $this;
@@ -45,7 +48,7 @@ class NodeCronDependency extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('reason');
     }
 
-    public function setReason(?string $reason = null): self
+    public function setReason(string $reason): self
     {
         $this->setAttribute('reason', $reason);
         return $this;
@@ -56,7 +59,7 @@ class NodeCronDependency extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cron');
     }
 
-    public function setCron(?CronResource $cron = null): self
+    public function setCron(CronResource $cron): self
     {
         $this->setAttribute('cron', $cron);
         return $this;

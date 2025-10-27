@@ -2,19 +2,19 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmCreateRequest;
 use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmUpdateRequest;
+use Cyberfusion\CoreApi\Models\BasicAuthenticationRealmsSearchRequest;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\CreateBasicAuthenticationRealm;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\DeleteBasicAuthenticationRealm;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\ListBasicAuthenticationRealms;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\ReadBasicAuthenticationRealm;
 use Cyberfusion\CoreApi\Requests\BasicAuthenticationRealms\UpdateBasicAuthenticationRealm;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class BasicAuthenticationRealms extends BaseResource
+class BasicAuthenticationRealms extends CoreApiResource
 {
     public function createBasicAuthenticationRealm(
         BasicAuthenticationRealmCreateRequest $basicAuthenticationRealmCreateRequest,
@@ -23,12 +23,9 @@ class BasicAuthenticationRealms extends BaseResource
     }
 
     public function listBasicAuthenticationRealms(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListBasicAuthenticationRealms($skip, $limit, $filter, $sort));
+        ?BasicAuthenticationRealmsSearchRequest $includeFilters = null,
+    ): Paginator {
+        return $this->connector->paginate(new ListBasicAuthenticationRealms($includeFilters));
     }
 
     public function readBasicAuthenticationRealm(int $id): Response

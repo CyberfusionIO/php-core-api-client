@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Requests\Clusters;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\ClustersCommonProperties;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Response;
@@ -24,7 +23,7 @@ class GetCommonProperties extends SoloRequest implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for($this->baseUrl . '/api/v1/clusters/common-properties')->getEndpoint();
+        return $this->baseUrl . '/api/v1/clusters/common-properties';
     }
 
     /**

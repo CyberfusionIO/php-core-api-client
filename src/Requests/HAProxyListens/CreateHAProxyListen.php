@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\HAProxyListens;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\HAProxyListenCreateRequest;
 use Cyberfusion\CoreApi\Models\HAProxyListenResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateHAProxyListen extends Request implements CoreApiRequestContract, Has
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/haproxy-listens')->getEndpoint();
+        return '/api/v1/haproxy-listens';
     }
 
     public function defaultBody(): array

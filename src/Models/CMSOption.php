@@ -6,11 +6,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\CMSOptionNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CMSOption extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $value, CMSOptionNameEnum $name)
     {
         $this->setValue($value);
@@ -22,7 +25,7 @@ class CMSOption extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('value');
     }
 
-    public function setValue(?int $value = null): self
+    public function setValue(int $value): self
     {
         $this->setAttribute('value', $value);
         return $this;
@@ -33,7 +36,7 @@ class CMSOption extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('name');
     }
 
-    public function setName(?CMSOptionNameEnum $name = null): self
+    public function setName(CMSOptionNameEnum $name): self
     {
         $this->setAttribute('name', $name);
         return $this;

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(int $id, string $version, string $name, TombstoneDataFPMPoolIncludes $includes)
     {
         $this->setId($id);
@@ -34,7 +37,7 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -45,7 +48,7 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('version');
     }
 
-    public function setVersion(?string $version = null): self
+    public function setVersion(string $version): self
     {
         $this->setAttribute('version', $version);
         return $this;
@@ -59,7 +62,7 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -74,7 +77,7 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataFPMPoolIncludes $includes = null): self
+    public function setIncludes(TombstoneDataFPMPoolIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -88,6 +91,6 @@ class TombstoneDataFPMPool extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             includes: TombstoneDataFPMPoolIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'fpm_pool'));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'fpm_pool')));
     }
 }

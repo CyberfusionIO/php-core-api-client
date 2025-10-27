@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(array $phpVersions, array $customPhpModulesNames, PHPSettings $phpSettings)
     {
         $this->setPhpVersions($phpVersions);
@@ -25,7 +28,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
     /**
      * @throws ValidationException
      */
-    public function setPhpVersions(array $phpVersions = []): self
+    public function setPhpVersions(array $phpVersions): self
     {
         Validator::create()
             ->unique()
@@ -42,7 +45,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
     /**
      * @throws ValidationException
      */
-    public function setCustomPhpModulesNames(array $customPhpModulesNames = []): self
+    public function setCustomPhpModulesNames(array $customPhpModulesNames): self
     {
         Validator::create()
             ->unique()
@@ -56,7 +59,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
         return $this->getAttribute('php_settings');
     }
 
-    public function setPhpSettings(?PHPSettings $phpSettings = null): self
+    public function setPhpSettings(PHPSettings $phpSettings): self
     {
         $this->setAttribute('php_settings', $phpSettings);
         return $this;
@@ -91,7 +94,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
             customPhpModulesNames: Arr::get($data, 'custom_php_modules_names'),
             phpSettings: PHPSettings::fromArray(Arr::get($data, 'php_settings')),
         ))
-            ->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled', false))
-            ->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled', true));
+            ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled', false)))
+            ->when(Arr::has($data, 'php_sessions_spread_enabled'), fn (self $model) => $model->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled', true)));
     }
 }

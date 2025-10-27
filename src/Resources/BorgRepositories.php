@@ -2,6 +2,8 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Models\BorgRepositoriesSearchRequest;
 use Cyberfusion\CoreApi\Models\BorgRepositoryCreateRequest;
 use Cyberfusion\CoreApi\Models\BorgRepositoryUpdateRequest;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\CheckBorgRepository;
@@ -12,25 +14,19 @@ use Cyberfusion\CoreApi\Requests\BorgRepositories\ListBorgRepositories;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\PruneBorgRepository;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\ReadBorgRepository;
 use Cyberfusion\CoreApi\Requests\BorgRepositories\UpdateBorgRepository;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class BorgRepositories extends BaseResource
+class BorgRepositories extends CoreApiResource
 {
     public function createBorgRepository(BorgRepositoryCreateRequest $borgRepositoryCreateRequest): Response
     {
         return $this->connector->send(new CreateBorgRepository($borgRepositoryCreateRequest));
     }
 
-    public function listBorgRepositories(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListBorgRepositories($skip, $limit, $filter, $sort));
+    public function listBorgRepositories(?BorgRepositoriesSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListBorgRepositories($includeFilters));
     }
 
     public function readBorgRepository(int $id): Response

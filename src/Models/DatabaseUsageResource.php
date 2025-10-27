@@ -5,16 +5,20 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct(int $databaseId, float $usage, string $timestamp)
+    use Conditionable;
+
+    public function __construct(int $databaseId, float $usage, string $timestamp, DatabaseUsageIncludes $includes)
     {
         $this->setDatabaseId($databaseId);
         $this->setUsage($usage);
         $this->setTimestamp($timestamp);
+        $this->setIncludes($includes);
     }
 
     public function getDatabaseId(): int
@@ -22,7 +26,7 @@ class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('database_id');
     }
 
-    public function setDatabaseId(?int $databaseId = null): self
+    public function setDatabaseId(int $databaseId): self
     {
         $this->setAttribute('database_id', $databaseId);
         return $this;
@@ -33,7 +37,7 @@ class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('usage');
     }
 
-    public function setUsage(?float $usage = null): self
+    public function setUsage(float $usage): self
     {
         $this->setAttribute('usage', $usage);
         return $this;
@@ -44,18 +48,18 @@ class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('timestamp');
     }
 
-    public function setTimestamp(?string $timestamp = null): self
+    public function setTimestamp(string $timestamp): self
     {
         $this->setAttribute('timestamp', $timestamp);
         return $this;
     }
 
-    public function getIncludes(): DatabaseUsageIncludes|null
+    public function getIncludes(): DatabaseUsageIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?DatabaseUsageIncludes $includes): self
+    public function setIncludes(DatabaseUsageIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -67,7 +71,7 @@ class DatabaseUsageResource extends CoreApiModel implements CoreApiModelContract
             databaseId: Arr::get($data, 'database_id'),
             usage: Arr::get($data, 'usage'),
             timestamp: Arr::get($data, 'timestamp'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? DatabaseUsageIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: DatabaseUsageIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

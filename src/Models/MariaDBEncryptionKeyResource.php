@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -17,6 +20,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         int $identifier,
         string $key,
         int $clusterId,
+        MariaDBEncryptionKeyIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -24,6 +28,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         $this->setIdentifier($identifier);
         $this->setKey($key);
         $this->setClusterId($clusterId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -31,7 +36,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -64,7 +69,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('identifier');
     }
 
-    public function setIdentifier(?int $identifier = null): self
+    public function setIdentifier(int $identifier): self
     {
         $this->setAttribute('identifier', $identifier);
         return $this;
@@ -78,7 +83,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
     /**
      * @throws ValidationException
      */
-    public function setKey(?string $key = null): self
+    public function setKey(string $key): self
     {
         Validator::create()
             ->length(min: 64, max: 64)
@@ -93,18 +98,18 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
     }
 
-    public function getIncludes(): MariaDBEncryptionKeyIncludes|null
+    public function getIncludes(): MariaDBEncryptionKeyIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?MariaDBEncryptionKeyIncludes $includes): self
+    public function setIncludes(MariaDBEncryptionKeyIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -119,7 +124,7 @@ class MariaDBEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
             identifier: Arr::get($data, 'identifier'),
             key: Arr::get($data, 'key'),
             clusterId: Arr::get($data, 'cluster_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? MariaDBEncryptionKeyIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: MariaDBEncryptionKeyIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

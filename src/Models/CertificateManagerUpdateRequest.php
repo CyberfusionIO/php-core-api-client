@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CertificateManagerUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getRequestCallbackUrl(): string|null
     {
@@ -29,6 +28,6 @@ class CertificateManagerUpdateRequest extends CoreApiModel implements CoreApiMod
     {
         return (new self(
         ))
-            ->setRequestCallbackUrl(Arr::get($data, 'request_callback_url'));
+            ->when(Arr::has($data, 'request_callback_url'), fn (self $model) => $model->setRequestCallbackUrl(Arr::get($data, 'request_callback_url')));
     }
 }

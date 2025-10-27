@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $localPart,
@@ -38,7 +41,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -52,7 +55,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setLocalPart(?string $localPart = null): self
+    public function setLocalPart(string $localPart): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -67,7 +70,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('mail_domain_id');
     }
 
-    public function setMailDomainId(?int $mailDomainId = null): self
+    public function setMailDomainId(int $mailDomainId): self
     {
         $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
@@ -89,7 +92,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?TombstoneDataMailAccountIncludes $includes = null): self
+    public function setIncludes(TombstoneDataMailAccountIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -103,7 +106,7 @@ class TombstoneDataMailAccount extends CoreApiModel implements CoreApiModelContr
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             includes: TombstoneDataMailAccountIncludes::fromArray(Arr::get($data, 'includes')),
         ))
-            ->setDataType(Arr::get($data, 'data_type', 'mail_account'))
-            ->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false));
+            ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'mail_account')))
+            ->when(Arr::has($data, 'delete_on_cluster'), fn (self $model) => $model->setDeleteOnCluster(Arr::get($data, 'delete_on_cluster', false)));
     }
 }

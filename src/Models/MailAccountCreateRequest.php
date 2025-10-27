@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $localPart, int $mailDomainId, string $password, ?int $quota = null)
     {
         $this->setLocalPart($localPart);
@@ -26,7 +29,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setLocalPart(?string $localPart = null): self
+    public function setLocalPart(string $localPart): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -41,7 +44,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('mail_domain_id');
     }
 
-    public function setMailDomainId(?int $mailDomainId = null): self
+    public function setMailDomainId(int $mailDomainId): self
     {
         $this->setAttribute('mail_domain_id', $mailDomainId);
         return $this;
@@ -55,7 +58,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         Validator::create()
             ->length(min: 6, max: 255)
@@ -70,7 +73,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('quota');
     }
 
-    public function setQuota(?int $quota = null): self
+    public function setQuota(?int $quota): self
     {
         $this->setAttribute('quota', $quota);
         return $this;

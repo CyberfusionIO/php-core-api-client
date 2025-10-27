@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterKernelcarePropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getKernelcareLicenseKey(): string|null
     {
@@ -29,6 +28,6 @@ class ClusterKernelcarePropertiesUpdateRequest extends CoreApiModel implements C
     {
         return (new self(
         ))
-            ->setKernelcareLicenseKey(Arr::get($data, 'kernelcare_license_key'));
+            ->when(Arr::has($data, 'kernelcare_license_key'), fn (self $model) => $model->setKernelcareLicenseKey(Arr::get($data, 'kernelcare_license_key')));
     }
 }

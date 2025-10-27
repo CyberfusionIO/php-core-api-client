@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $certificate, string $caChain, string $privateKey, int $clusterId)
     {
         $this->setCertificate($certificate);
@@ -26,7 +29,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setCertificate(?string $certificate = null): self
+    public function setCertificate(string $certificate): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -44,7 +47,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setCaChain(?string $caChain = null): self
+    public function setCaChain(string $caChain): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -62,7 +65,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
     /**
      * @throws ValidationException
      */
-    public function setPrivateKey(?string $privateKey = null): self
+    public function setPrivateKey(string $privateKey): self
     {
         Validator::create()
             ->length(min: 1, max: 65535)
@@ -77,7 +80,7 @@ class CertificateCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;

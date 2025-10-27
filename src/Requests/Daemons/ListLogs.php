@@ -3,9 +3,8 @@
 namespace Cyberfusion\CoreApi\Requests\Daemons;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\Enums\LogSortOrderEnum;
 use Cyberfusion\CoreApi\Models\DaemonLogResource;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -19,19 +18,24 @@ class ListLogs extends Request implements CoreApiRequestContract
     public function __construct(
         private readonly int $id,
         private readonly ?string $timestamp = null,
-        private readonly ?Sorter $sort = null,
+        private readonly ?LogSortOrderEnum $sort = null,
         private readonly ?int $limit = null,
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/daemons/%d/logs')
-            ->addPathParameter($this->id)
-            ->addQueryParameter('timestamp', $this->timestamp)
-            ->sorter($this->sort)
-            ->addQueryParameter('limit', $this->limit)
-            ->getEndpoint();
+        return sprintf('/api/v1/daemons/%d/logs', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['timestamp'] = $this->timestamp;
+        $parameters['sort'] = $this->sort;
+        $parameters['limit'] = $this->limit;
+
+        return array_filter($parameters);
     }
 
     /**

@@ -2,19 +2,19 @@
 
 namespace Cyberfusion\CoreApi\Resources;
 
+use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\RootSSHKeyCreatePrivateRequest;
 use Cyberfusion\CoreApi\Models\RootSSHKeyCreatePublicRequest;
+use Cyberfusion\CoreApi\Models\RootSshKeysSearchRequest;
 use Cyberfusion\CoreApi\Requests\RootSSHKeys\CreatePrivateRootSSHKey;
 use Cyberfusion\CoreApi\Requests\RootSSHKeys\CreatePublicRootSSHKey;
 use Cyberfusion\CoreApi\Requests\RootSSHKeys\DeleteRootSSHKey;
 use Cyberfusion\CoreApi\Requests\RootSSHKeys\ListRootSSHKeys;
 use Cyberfusion\CoreApi\Requests\RootSSHKeys\ReadRootSSHKey;
-use Cyberfusion\CoreApi\Support\Filter;
-use Cyberfusion\CoreApi\Support\Sorter;
-use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
-class RootSSHKeys extends BaseResource
+class RootSSHKeys extends CoreApiResource
 {
     public function createPublicRootSSHKey(RootSSHKeyCreatePublicRequest $rootSSHKeyCreatePublicRequest): Response
     {
@@ -26,13 +26,9 @@ class RootSSHKeys extends BaseResource
         return $this->connector->send(new CreatePrivateRootSSHKey($rootSSHKeyCreatePrivateRequest));
     }
 
-    public function listRootSSHKeys(
-        ?int $skip = null,
-        ?int $limit = null,
-        ?Filter $filter = null,
-        ?Sorter $sort = null,
-    ): Response {
-        return $this->connector->send(new ListRootSSHKeys($skip, $limit, $filter, $sort));
+    public function listRootSSHKeys(?RootSshKeysSearchRequest $includeFilters = null): Paginator
+    {
+        return $this->connector->paginate(new ListRootSSHKeys($includeFilters));
     }
 
     public function readRootSSHKey(int $id): Response

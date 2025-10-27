@@ -7,11 +7,14 @@ use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\HTTPMethod;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class RequestLogResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -22,6 +25,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         ArrayObject $queryParameters,
         int $apiUserId,
         string $requestId,
+        RequestLogIncludes $includes,
         mixed $body = null,
     ) {
         $this->setId($id);
@@ -33,6 +37,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         $this->setQueryParameters($queryParameters);
         $this->setApiUserId($apiUserId);
         $this->setRequestId($requestId);
+        $this->setIncludes($includes);
         $this->setBody($body);
     }
 
@@ -41,7 +46,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -52,7 +57,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -63,7 +68,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -74,7 +79,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('ip_address');
     }
 
-    public function setIpAddress(?string $ipAddress = null): self
+    public function setIpAddress(string $ipAddress): self
     {
         $this->setAttribute('ip_address', $ipAddress);
         return $this;
@@ -85,7 +90,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('path');
     }
 
-    public function setPath(?string $path = null): self
+    public function setPath(string $path): self
     {
         $this->setAttribute('path', $path);
         return $this;
@@ -96,7 +101,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('method');
     }
 
-    public function setMethod(?HTTPMethod $method = null): self
+    public function setMethod(HTTPMethod $method): self
     {
         $this->setAttribute('method', $method);
         return $this;
@@ -107,7 +112,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('query_parameters');
     }
 
-    public function setQueryParameters(?ArrayObject $queryParameters = null): self
+    public function setQueryParameters(ArrayObject $queryParameters): self
     {
         $this->setAttribute('query_parameters', $queryParameters);
         return $this;
@@ -118,7 +123,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('body');
     }
 
-    public function setBody(mixed $body = null): self
+    public function setBody(mixed $body): self
     {
         $this->setAttribute('body', $body);
         return $this;
@@ -129,7 +134,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('api_user_id');
     }
 
-    public function setApiUserId(?int $apiUserId = null): self
+    public function setApiUserId(int $apiUserId): self
     {
         $this->setAttribute('api_user_id', $apiUserId);
         return $this;
@@ -140,18 +145,18 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('request_id');
     }
 
-    public function setRequestId(?string $requestId = null): self
+    public function setRequestId(string $requestId): self
     {
         $this->setAttribute('request_id', $requestId);
         return $this;
     }
 
-    public function getIncludes(): RequestLogIncludes|null
+    public function getIncludes(): RequestLogIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?RequestLogIncludes $includes): self
+    public function setIncludes(RequestLogIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -169,8 +174,8 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
             queryParameters: new ArrayObject(Arr::get($data, 'query_parameters')),
             apiUserId: Arr::get($data, 'api_user_id'),
             requestId: Arr::get($data, 'request_id'),
+            includes: RequestLogIncludes::fromArray(Arr::get($data, 'includes')),
             body: Arr::get($data, 'body'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? RequestLogIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

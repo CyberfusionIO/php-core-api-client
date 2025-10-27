@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -17,6 +20,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         string $domain,
         int $clusterId,
         int $certificateId,
+        MailHostnameIncludes $includes,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -24,6 +28,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
         $this->setCertificateId($certificateId);
+        $this->setIncludes($includes);
     }
 
     public function getId(): int
@@ -31,7 +36,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -42,7 +47,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -53,7 +58,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -64,7 +69,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('domain');
     }
 
-    public function setDomain(?string $domain = null): self
+    public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
         return $this;
@@ -75,7 +80,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -86,18 +91,18 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('certificate_id');
     }
 
-    public function setCertificateId(?int $certificateId = null): self
+    public function setCertificateId(int $certificateId): self
     {
         $this->setAttribute('certificate_id', $certificateId);
         return $this;
     }
 
-    public function getIncludes(): MailHostnameIncludes|null
+    public function getIncludes(): MailHostnameIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?MailHostnameIncludes $includes): self
+    public function setIncludes(MailHostnameIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -112,7 +117,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
             certificateId: Arr::get($data, 'certificate_id'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? MailHostnameIncludes::fromArray(Arr::get($data, 'includes')) : null);
+            includes: MailHostnameIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
     }
 }

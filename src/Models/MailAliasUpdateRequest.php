@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class MailAliasUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getForwardEmailAddresses(): array|null
     {
@@ -29,6 +28,6 @@ class MailAliasUpdateRequest extends CoreApiModel implements CoreApiModelContrac
     {
         return (new self(
         ))
-            ->setForwardEmailAddresses(Arr::get($data, 'forward_email_addresses'));
+            ->when(Arr::has($data, 'forward_email_addresses'), fn (self $model) => $model->setForwardEmailAddresses(Arr::get($data, 'forward_email_addresses')));
     }
 }

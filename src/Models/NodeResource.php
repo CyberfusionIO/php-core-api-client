@@ -6,11 +6,14 @@ use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class NodeResource extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(
         int $id,
         string $createdAt,
@@ -22,6 +25,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         bool $isReady,
+        NodeIncludes $includes,
         ?string $comment = null,
     ) {
         $this->setId($id);
@@ -34,6 +38,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         $this->setLoadBalancerHealthChecksGroupsPairs($loadBalancerHealthChecksGroupsPairs);
         $this->setGroupsProperties($groupsProperties);
         $this->setIsReady($isReady);
+        $this->setIncludes($includes);
         $this->setComment($comment);
     }
 
@@ -42,7 +47,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('id');
     }
 
-    public function setId(?int $id = null): self
+    public function setId(int $id): self
     {
         $this->setAttribute('id', $id);
         return $this;
@@ -53,7 +58,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('created_at');
     }
 
-    public function setCreatedAt(?string $createdAt = null): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->setAttribute('created_at', $createdAt);
         return $this;
@@ -64,7 +69,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('updated_at');
     }
 
-    public function setUpdatedAt(?string $updatedAt = null): self
+    public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
         return $this;
@@ -75,7 +80,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('hostname');
     }
 
-    public function setHostname(?string $hostname = null): self
+    public function setHostname(string $hostname): self
     {
         $this->setAttribute('hostname', $hostname);
         return $this;
@@ -89,7 +94,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setProduct(?string $product = null): self
+    public function setProduct(string $product): self
     {
         Validator::create()
             ->length(min: 1, max: 2)
@@ -104,7 +109,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('cluster_id');
     }
 
-    public function setClusterId(?int $clusterId = null): self
+    public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
         return $this;
@@ -118,7 +123,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setGroups(array $groups = []): self
+    public function setGroups(array $groups): self
     {
         Validator::create()
             ->unique()
@@ -132,7 +137,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('comment');
     }
 
-    public function setComment(?string $comment = null): self
+    public function setComment(?string $comment): self
     {
         $this->setAttribute('comment', $comment);
         return $this;
@@ -143,9 +148,8 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('load_balancer_health_checks_groups_pairs');
     }
 
-    public function setLoadBalancerHealthChecksGroupsPairs(
-        ?ArrayObject $loadBalancerHealthChecksGroupsPairs = null,
-    ): self {
+    public function setLoadBalancerHealthChecksGroupsPairs(ArrayObject $loadBalancerHealthChecksGroupsPairs): self
+    {
         $this->setAttribute('load_balancer_health_checks_groups_pairs', $loadBalancerHealthChecksGroupsPairs);
         return $this;
     }
@@ -155,7 +159,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('groups_properties');
     }
 
-    public function setGroupsProperties(?NodeGroupsProperties $groupsProperties = null): self
+    public function setGroupsProperties(NodeGroupsProperties $groupsProperties): self
     {
         $this->setAttribute('groups_properties', $groupsProperties);
         return $this;
@@ -166,18 +170,18 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('is_ready');
     }
 
-    public function setIsReady(?bool $isReady = null): self
+    public function setIsReady(bool $isReady): self
     {
         $this->setAttribute('is_ready', $isReady);
         return $this;
     }
 
-    public function getIncludes(): NodeIncludes|null
+    public function getIncludes(): NodeIncludes
     {
         return $this->getAttribute('includes');
     }
 
-    public function setIncludes(?NodeIncludes $includes): self
+    public function setIncludes(NodeIncludes $includes): self
     {
         $this->setAttribute('includes', $includes);
         return $this;
@@ -196,8 +200,8 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
             loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             isReady: Arr::get($data, 'is_ready'),
+            includes: NodeIncludes::fromArray(Arr::get($data, 'includes')),
             comment: Arr::get($data, 'comment'),
-        ))
-            ->setIncludes(Arr::get($data, 'includes') !== null ? NodeIncludes::fromArray(Arr::get($data, 'includes')) : null);
+        ));
     }
 }

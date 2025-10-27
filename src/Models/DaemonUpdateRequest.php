@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class DaemonUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getCommand(): string|null
     {
@@ -62,9 +61,9 @@ class DaemonUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->setCommand(Arr::get($data, 'command'))
-            ->setNodesIds(Arr::get($data, 'nodes_ids'))
-            ->setMemoryLimit(Arr::get($data, 'memory_limit'))
-            ->setCpuLimit(Arr::get($data, 'cpu_limit'));
+            ->when(Arr::has($data, 'command'), fn (self $model) => $model->setCommand(Arr::get($data, 'command')))
+            ->when(Arr::has($data, 'nodes_ids'), fn (self $model) => $model->setNodesIds(Arr::get($data, 'nodes_ids')))
+            ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')))
+            ->when(Arr::has($data, 'cpu_limit'), fn (self $model) => $model->setCpuLimit(Arr::get($data, 'cpu_limit')));
     }
 }

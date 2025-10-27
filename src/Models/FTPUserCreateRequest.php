@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $username, int $unixUserId, string $password, string $directoryPath)
     {
         $this->setUsername($username);
@@ -26,7 +29,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername(string $username): self
     {
         Validator::create()
             ->length(min: 1, max: 32)
@@ -41,7 +44,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('unix_user_id');
     }
 
-    public function setUnixUserId(?int $unixUserId = null): self
+    public function setUnixUserId(int $unixUserId): self
     {
         $this->setAttribute('unix_user_id', $unixUserId);
         return $this;
@@ -55,7 +58,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword(string $password): self
     {
         Validator::create()
             ->length(min: 24, max: 255)
@@ -70,7 +73,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('directory_path');
     }
 
-    public function setDirectoryPath(?string $directoryPath = null): self
+    public function setDirectoryPath(string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
         return $this;

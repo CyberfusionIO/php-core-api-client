@@ -5,6 +5,7 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
@@ -13,6 +14,8 @@ use Respect\Validation\Validator;
  */
 class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(array $conditions, ?int $triesAmount = null, ?int $triesFailoverAmount = null)
     {
         $this->setConditions($conditions);
@@ -25,7 +28,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('tries_amount');
     }
 
-    public function setTriesAmount(?int $triesAmount = null): self
+    public function setTriesAmount(?int $triesAmount): self
     {
         $this->setAttribute('tries_amount', $triesAmount);
         return $this;
@@ -36,7 +39,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('tries_failover_amount');
     }
 
-    public function setTriesFailoverAmount(?int $triesFailoverAmount = null): self
+    public function setTriesFailoverAmount(?int $triesFailoverAmount): self
     {
         $this->setAttribute('tries_failover_amount', $triesFailoverAmount);
         return $this;
@@ -50,7 +53,7 @@ class HTTPRetryProperties extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setConditions(array $conditions = []): self
+    public function setConditions(array $conditions): self
     {
         Validator::create()
             ->unique()

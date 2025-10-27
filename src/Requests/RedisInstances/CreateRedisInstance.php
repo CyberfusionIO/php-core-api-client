@@ -5,7 +5,6 @@ namespace Cyberfusion\CoreApi\Requests\RedisInstances;
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Models\RedisInstanceCreateRequest;
 use Cyberfusion\CoreApi\Models\RedisInstanceResource;
-use Cyberfusion\CoreApi\Support\UrlBuilder;
 use JsonException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -29,7 +28,7 @@ class CreateRedisInstance extends Request implements CoreApiRequestContract, Has
 
     public function resolveEndpoint(): string
     {
-        return UrlBuilder::for('/api/v1/redis-instances')->getEndpoint();
+        return '/api/v1/redis-instances';
     }
 
     public function defaultBody(): array

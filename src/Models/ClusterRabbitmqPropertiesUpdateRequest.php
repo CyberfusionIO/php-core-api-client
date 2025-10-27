@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterRabbitmqPropertiesUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getRabbitmqAdminPassword(): string|null
     {
@@ -40,7 +39,7 @@ class ClusterRabbitmqPropertiesUpdateRequest extends CoreApiModel implements Cor
     {
         return (new self(
         ))
-            ->setRabbitmqAdminPassword(Arr::get($data, 'rabbitmq_admin_password'))
-            ->setRabbitmqManagementDomain(Arr::get($data, 'rabbitmq_management_domain'));
+            ->when(Arr::has($data, 'rabbitmq_admin_password'), fn (self $model) => $model->setRabbitmqAdminPassword(Arr::get($data, 'rabbitmq_admin_password')))
+            ->when(Arr::has($data, 'rabbitmq_management_domain'), fn (self $model) => $model->setRabbitmqManagementDomain(Arr::get($data, 'rabbitmq_management_domain')));
     }
 }

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $name, int $borgArchiveId, bool $existsOnServer, ?string $contentsPath = null)
     {
         $this->setName($name);
@@ -26,7 +29,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
     /**
      * @throws ValidationException
      */
-    public function setName(?string $name = null): self
+    public function setName(string $name): self
     {
         Validator::create()
             ->length(min: 1, max: 64)
@@ -41,7 +44,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('borg_archive_id');
     }
 
-    public function setBorgArchiveId(?int $borgArchiveId = null): self
+    public function setBorgArchiveId(int $borgArchiveId): self
     {
         $this->setAttribute('borg_archive_id', $borgArchiveId);
         return $this;
@@ -52,7 +55,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('exists_on_server');
     }
 
-    public function setExistsOnServer(?bool $existsOnServer = null): self
+    public function setExistsOnServer(bool $existsOnServer): self
     {
         $this->setAttribute('exists_on_server', $existsOnServer);
         return $this;
@@ -63,7 +66,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('contents_path');
     }
 
-    public function setContentsPath(?string $contentsPath = null): self
+    public function setContentsPath(?string $contentsPath): self
     {
         $this->setAttribute('contents_path', $contentsPath);
         return $this;

@@ -5,11 +5,14 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterKernelcarePropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
+    use Conditionable;
+
     public function __construct(string $kernelcareLicenseKey)
     {
         $this->setKernelcareLicenseKey($kernelcareLicenseKey);
@@ -23,7 +26,7 @@ class ClusterKernelcarePropertiesCreateRequest extends CoreApiModel implements C
     /**
      * @throws ValidationException
      */
-    public function setKernelcareLicenseKey(?string $kernelcareLicenseKey = null): self
+    public function setKernelcareLicenseKey(string $kernelcareLicenseKey): self
     {
         Validator::create()
             ->length(min: 16, max: 16)

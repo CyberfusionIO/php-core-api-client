@@ -5,14 +5,13 @@ namespace Cyberfusion\CoreApi\Models;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 
 class ClusterNewRelicPropertiesCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
-    public function __construct()
-    {
-    }
+    use Conditionable;
 
     public function getNewRelicApmLicenseKey(): string|null
     {
@@ -40,7 +39,7 @@ class ClusterNewRelicPropertiesCreateRequest extends CoreApiModel implements Cor
     {
         return (new self(
         ))
-            ->setNewRelicApmLicenseKey(Arr::get($data, 'new_relic_apm_license_key'))
-            ->setNewRelicInfrastructureLicenseKey(Arr::get($data, 'new_relic_infrastructure_license_key'));
+            ->when(Arr::has($data, 'new_relic_apm_license_key'), fn (self $model) => $model->setNewRelicApmLicenseKey(Arr::get($data, 'new_relic_apm_license_key')))
+            ->when(Arr::has($data, 'new_relic_infrastructure_license_key'), fn (self $model) => $model->setNewRelicInfrastructureLicenseKey(Arr::get($data, 'new_relic_infrastructure_license_key')));
     }
 }
