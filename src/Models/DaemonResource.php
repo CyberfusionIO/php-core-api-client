@@ -124,7 +124,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->length(min: 1, max: 65535)
-            ->regex('/^[a-zA-Z0-9-\._\$\/\ ]+$/')
+            ->regex('/^[ -~]+$/')
             ->assert($command);
         $this->setAttribute('command', $command);
         return $this;

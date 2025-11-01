@@ -64,7 +64,6 @@ enum SpecificationNameEnum: string
     case ClusterSupportsMetabaseNodes = 'Cluster supports Metabase nodes';
     case UNIXUserSupportsVirtualHosts = 'UNIX user supports virtual hosts';
     case UNIXUserSupportsMailDomains = 'UNIX user supports mail domains';
-    case UNIXUserSupportsBorgRepositories = 'UNIX user supports Borg repositories';
     case ClusterSupportsLoadBalancerServiceAccountServiceAccountToCluster = 'Cluster supports Load Balancer service account service account to cluster';
     case ClusterSupportsDomainRouters = 'Cluster supports domain routers';
 }

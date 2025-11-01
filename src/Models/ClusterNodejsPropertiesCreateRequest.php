@@ -35,22 +35,10 @@ class ClusterNodejsPropertiesCreateRequest extends CoreApiModel implements CoreA
         return $this;
     }
 
-    public function getNodejsVersion(): int|null
-    {
-        return $this->getAttribute('nodejs_version');
-    }
-
-    public function setNodejsVersion(?int $nodejsVersion): self
-    {
-        $this->setAttribute('nodejs_version', $nodejsVersion);
-        return $this;
-    }
-
     public static function fromArray(array $data): self
     {
         return (new self(
             nodejsVersions: Arr::get($data, 'nodejs_versions'),
-        ))
-            ->when(Arr::has($data, 'nodejs_version'), fn (self $model) => $model->setNodejsVersion(Arr::get($data, 'nodejs_version')));
+        ));
     }
 }

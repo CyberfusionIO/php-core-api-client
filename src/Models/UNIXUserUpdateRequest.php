@@ -69,6 +69,17 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getShellIsNamespaced(): bool|null
+    {
+        return $this->getAttribute('shell_is_namespaced');
+    }
+
+    public function setShellIsNamespaced(?bool $shellIsNamespaced): self
+    {
+        $this->setAttribute('shell_is_namespaced', $shellIsNamespaced);
+        return $this;
+    }
+
     public function getDescription(): string|null
     {
         return $this->getAttribute('description');
@@ -89,6 +100,7 @@ class UNIXUserUpdateRequest extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'record_usage_files'), fn (self $model) => $model->setRecordUsageFiles(Arr::get($data, 'record_usage_files')))
             ->when(Arr::has($data, 'default_php_version'), fn (self $model) => $model->setDefaultPhpVersion(Arr::get($data, 'default_php_version')))
             ->when(Arr::has($data, 'default_nodejs_version'), fn (self $model) => $model->setDefaultNodejsVersion(Arr::get($data, 'default_nodejs_version')))
+            ->when(Arr::has($data, 'shell_is_namespaced'), fn (self $model) => $model->setShellIsNamespaced(Arr::get($data, 'shell_is_namespaced')))
             ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')));
     }
 }

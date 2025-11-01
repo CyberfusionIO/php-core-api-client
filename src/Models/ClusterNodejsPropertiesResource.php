@@ -20,7 +20,6 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         array $nodejsVersions,
         int $clusterId,
         ClusterNodejsPropertiesIncludes $includes,
-        ?int $nodejsVersion = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -28,7 +27,6 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         $this->setNodejsVersions($nodejsVersions);
         $this->setClusterId($clusterId);
         $this->setIncludes($includes);
-        $this->setNodejsVersion($nodejsVersion);
     }
 
     public function getId(): int
@@ -61,17 +59,6 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
     public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
-        return $this;
-    }
-
-    public function getNodejsVersion(): int|null
-    {
-        return $this->getAttribute('nodejs_version');
-    }
-
-    public function setNodejsVersion(?int $nodejsVersion): self
-    {
-        $this->setAttribute('nodejs_version', $nodejsVersion);
         return $this;
     }
 
@@ -123,7 +110,6 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
             nodejsVersions: Arr::get($data, 'nodejs_versions'),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: ClusterNodejsPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
-            nodejsVersion: Arr::get($data, 'nodejs_version'),
         ));
     }
 }

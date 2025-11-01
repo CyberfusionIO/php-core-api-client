@@ -13,14 +13,14 @@ class DatabaseUsersSearchRequest extends CoreApiModel implements CoreApiModelCon
 {
     use Conditionable;
 
-    public function getPhpmyadminFirewallGroupsIds(): int|null
+    public function getPhpmyadminFirewallGroupId(): int|null
     {
-        return $this->getAttribute('phpmyadmin_firewall_groups_ids');
+        return $this->getAttribute('phpmyadmin_firewall_group_id');
     }
 
-    public function setPhpmyadminFirewallGroupsIds(?int $phpmyadminFirewallGroupsIds): self
+    public function setPhpmyadminFirewallGroupId(?int $phpmyadminFirewallGroupId): self
     {
-        $this->setAttribute('phpmyadmin_firewall_groups_ids', $phpmyadminFirewallGroupsIds);
+        $this->setAttribute('phpmyadmin_firewall_group_id', $phpmyadminFirewallGroupId);
         return $this;
     }
 
@@ -28,6 +28,6 @@ class DatabaseUsersSearchRequest extends CoreApiModel implements CoreApiModelCon
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'phpmyadmin_firewall_groups_ids'), fn (self $model) => $model->setPhpmyadminFirewallGroupsIds(Arr::get($data, 'phpmyadmin_firewall_groups_ids')));
+            ->when(Arr::has($data, 'phpmyadmin_firewall_group_id'), fn (self $model) => $model->setPhpmyadminFirewallGroupId(Arr::get($data, 'phpmyadmin_firewall_group_id')));
     }
 }

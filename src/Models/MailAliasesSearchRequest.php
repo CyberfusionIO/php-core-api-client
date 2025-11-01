@@ -46,14 +46,14 @@ class MailAliasesSearchRequest extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
-    public function getForwardEmailAddresses(): string|null
+    public function getForwardEmailAddress(): string|null
     {
-        return $this->getAttribute('forward_email_addresses');
+        return $this->getAttribute('forward_email_address');
     }
 
-    public function setForwardEmailAddresses(?string $forwardEmailAddresses): self
+    public function setForwardEmailAddress(?string $forwardEmailAddress): self
     {
-        $this->setAttribute('forward_email_addresses', $forwardEmailAddresses);
+        $this->setAttribute('forward_email_address', $forwardEmailAddress);
         return $this;
     }
 
@@ -64,6 +64,6 @@ class MailAliasesSearchRequest extends CoreApiModel implements CoreApiModelContr
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')))
             ->when(Arr::has($data, 'local_part'), fn (self $model) => $model->setLocalPart(Arr::get($data, 'local_part')))
             ->when(Arr::has($data, 'mail_domain_id'), fn (self $model) => $model->setMailDomainId(Arr::get($data, 'mail_domain_id')))
-            ->when(Arr::has($data, 'forward_email_addresses'), fn (self $model) => $model->setForwardEmailAddresses(Arr::get($data, 'forward_email_addresses')));
+            ->when(Arr::has($data, 'forward_email_address'), fn (self $model) => $model->setForwardEmailAddress(Arr::get($data, 'forward_email_address')));
     }
 }

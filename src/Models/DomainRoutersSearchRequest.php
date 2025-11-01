@@ -102,14 +102,14 @@ class DomainRoutersSearchRequest extends CoreApiModel implements CoreApiModelCon
         return $this;
     }
 
-    public function getFirewallGroupsIds(): int|null
+    public function getFirewallGroupId(): int|null
     {
-        return $this->getAttribute('firewall_groups_ids');
+        return $this->getAttribute('firewall_group_id');
     }
 
-    public function setFirewallGroupsIds(?int $firewallGroupsIds): self
+    public function setFirewallGroupId(?int $firewallGroupId): self
     {
-        $this->setAttribute('firewall_groups_ids', $firewallGroupsIds);
+        $this->setAttribute('firewall_group_id', $firewallGroupId);
         return $this;
     }
 
@@ -136,7 +136,7 @@ class DomainRoutersSearchRequest extends CoreApiModel implements CoreApiModelCon
             ->when(Arr::has($data, 'node_id'), fn (self $model) => $model->setNodeId(Arr::get($data, 'node_id')))
             ->when(Arr::has($data, 'certificate_id'), fn (self $model) => $model->setCertificateId(Arr::get($data, 'certificate_id')))
             ->when(Arr::has($data, 'security_txt_policy_id'), fn (self $model) => $model->setSecurityTxtPolicyId(Arr::get($data, 'security_txt_policy_id')))
-            ->when(Arr::has($data, 'firewall_groups_ids'), fn (self $model) => $model->setFirewallGroupsIds(Arr::get($data, 'firewall_groups_ids')))
+            ->when(Arr::has($data, 'firewall_group_id'), fn (self $model) => $model->setFirewallGroupId(Arr::get($data, 'firewall_group_id')))
             ->when(Arr::has($data, 'force_ssl'), fn (self $model) => $model->setForceSsl(Arr::get($data, 'force_ssl')));
     }
 }
