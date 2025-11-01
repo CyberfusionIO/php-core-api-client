@@ -24,22 +24,10 @@ class ClusterMetabasePropertiesUpdateRequest extends CoreApiModel implements Cor
         return $this;
     }
 
-    public function getMetabaseDatabasePassword(): string|null
-    {
-        return $this->getAttribute('metabase_database_password');
-    }
-
-    public function setMetabaseDatabasePassword(?string $metabaseDatabasePassword): self
-    {
-        $this->setAttribute('metabase_database_password', $metabaseDatabasePassword);
-        return $this;
-    }
-
     public static function fromArray(array $data): self
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'metabase_domain'), fn (self $model) => $model->setMetabaseDomain(Arr::get($data, 'metabase_domain')))
-            ->when(Arr::has($data, 'metabase_database_password'), fn (self $model) => $model->setMetabaseDatabasePassword(Arr::get($data, 'metabase_database_password')));
+            ->when(Arr::has($data, 'metabase_domain'), fn (self $model) => $model->setMetabaseDomain(Arr::get($data, 'metabase_domain')));
     }
 }

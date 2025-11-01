@@ -13,17 +13,6 @@ class ClustersNodejsPropertiesSearchRequest extends CoreApiModel implements Core
 {
     use Conditionable;
 
-    public function getNodejsVersion(): int|null
-    {
-        return $this->getAttribute('nodejs_version');
-    }
-
-    public function setNodejsVersion(?int $nodejsVersion): self
-    {
-        $this->setAttribute('nodejs_version', $nodejsVersion);
-        return $this;
-    }
-
     public function getNodejsVersions(): string|null
     {
         return $this->getAttribute('nodejs_versions');
@@ -50,7 +39,6 @@ class ClustersNodejsPropertiesSearchRequest extends CoreApiModel implements Core
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'nodejs_version'), fn (self $model) => $model->setNodejsVersion(Arr::get($data, 'nodejs_version')))
             ->when(Arr::has($data, 'nodejs_versions'), fn (self $model) => $model->setNodejsVersions(Arr::get($data, 'nodejs_versions')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));
     }
