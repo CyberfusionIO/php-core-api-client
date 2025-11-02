@@ -192,25 +192,35 @@ if ($response->failed()) {
 
 See the [Responses](https://docs.saloon.dev/the-basics/responses) documentation for more information.
 
-## Filtering/sorting data
+## Filtering data
 
-Most endpoints support filtering and sorting data.
-
-You can use the `Filter` and `Sort` classes to build the desired filter or sort.
-
-Specified a field that does not exist? No error will be thrown: the filter or sort is simply not applied. You are responsible for ensuring you are working with the right object. 
+Most endpoints support filtering the data. The endpoint that support filtering could be provided their own search models so you can easily determine on which fields filtering is possible. This prevents you from having to look up the fields in the documentation or using fields that are not supported.
 
 Code example:
 
 ```php
-use Cyberfusion\CoreApi\Support\Filter;
+use Cyberfusion\CoreApi\Models\MailAliasesSearchRequest;
+
+$filter = new MailAliasesSearchRequest();
+$filter->setLocalPart('info');
 
 $connector
-    ->virtualHosts()
-    ->listVirtualHosts(
-        filter: (new Filter())->add('unix_user_id', 1),
-        sort: (new Sort())->add('name', 'asc')
-    );
+    ->mailAliases()
+    ->listMailAliases($filter); // returns all mail aliases with 'info' as the local part
+```
+
+## Includes
+
+The Core API supports including related resources in the response. This prevents you from having to make multiple requests to retrieve related data.
+
+Code example:
+
+```php
+$connector
+    ->mailAliases()
+    ->listMailAliases(
+        includes: ['mail_domain']
+    ); // returns all mail aliases including their related mail domain
 ```
 
 ## Enums
