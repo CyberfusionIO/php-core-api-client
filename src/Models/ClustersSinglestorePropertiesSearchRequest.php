@@ -35,28 +35,6 @@ class ClustersSinglestorePropertiesSearchRequest extends CoreApiModel implements
         return $this;
     }
 
-    public function getSinglestoreLicenseKey(): string|null
-    {
-        return $this->getAttribute('singlestore_license_key');
-    }
-
-    public function setSinglestoreLicenseKey(?string $singlestoreLicenseKey): self
-    {
-        $this->setAttribute('singlestore_license_key', $singlestoreLicenseKey);
-        return $this;
-    }
-
-    public function getSinglestoreRootPassword(): string|null
-    {
-        return $this->getAttribute('singlestore_root_password');
-    }
-
-    public function setSinglestoreRootPassword(?string $singlestoreRootPassword): self
-    {
-        $this->setAttribute('singlestore_root_password', $singlestoreRootPassword);
-        return $this;
-    }
-
     public function getClusterId(): int|null
     {
         return $this->getAttribute('cluster_id');
@@ -74,8 +52,6 @@ class ClustersSinglestorePropertiesSearchRequest extends CoreApiModel implements
         ))
             ->when(Arr::has($data, 'singlestore_studio_domain'), fn (self $model) => $model->setSinglestoreStudioDomain(Arr::get($data, 'singlestore_studio_domain')))
             ->when(Arr::has($data, 'singlestore_api_domain'), fn (self $model) => $model->setSinglestoreApiDomain(Arr::get($data, 'singlestore_api_domain')))
-            ->when(Arr::has($data, 'singlestore_license_key'), fn (self $model) => $model->setSinglestoreLicenseKey(Arr::get($data, 'singlestore_license_key')))
-            ->when(Arr::has($data, 'singlestore_root_password'), fn (self $model) => $model->setSinglestoreRootPassword(Arr::get($data, 'singlestore_root_password')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));
     }
 }

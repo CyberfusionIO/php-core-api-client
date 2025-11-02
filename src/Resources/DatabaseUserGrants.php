@@ -18,9 +18,11 @@ class DatabaseUserGrants extends CoreApiResource
         return $this->connector->send(new CreateDatabaseUserGrant($databaseUserGrantCreateRequest));
     }
 
-    public function listDatabaseUserGrants(?DatabaseUserGrantsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListDatabaseUserGrants($includeFilters));
+    public function listDatabaseUserGrants(
+        ?DatabaseUserGrantsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListDatabaseUserGrants($includeFilters, $includes));
     }
 
     public function deleteDatabaseUserGrant(int $id): Response

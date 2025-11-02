@@ -18,6 +18,7 @@ class ListPassengerApps extends Request implements CoreApiRequestContract, Pagin
 
     public function __construct(
         private readonly ?PassengerAppsSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListPassengerApps extends Request implements CoreApiRequestContract, Pagin
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

@@ -18,6 +18,7 @@ class ListDatabases extends Request implements CoreApiRequestContract, Paginatab
 
     public function __construct(
         private readonly ?DatabasesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListDatabases extends Request implements CoreApiRequestContract, Paginatab
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

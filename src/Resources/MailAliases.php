@@ -21,14 +21,14 @@ class MailAliases extends CoreApiResource
         return $this->connector->send(new CreateMailAlias($mailAliasCreateRequest));
     }
 
-    public function listMailAliases(?MailAliasesSearchRequest $includeFilters = null): Paginator
+    public function listMailAliases(?MailAliasesSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListMailAliases($includeFilters));
+        return $this->connector->paginate(new ListMailAliases($includeFilters, $includes));
     }
 
-    public function readMailAlias(int $id): Response
+    public function readMailAlias(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMailAlias($id));
+        return $this->connector->send(new ReadMailAlias($id, $includes));
     }
 
     public function updateMailAlias(int $id, MailAliasUpdateRequest $mailAliasUpdateRequest): Response

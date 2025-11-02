@@ -21,14 +21,14 @@ class MailDomains extends CoreApiResource
         return $this->connector->send(new CreateMailDomain($mailDomainCreateRequest));
     }
 
-    public function listMailDomains(?MailDomainsSearchRequest $includeFilters = null): Paginator
+    public function listMailDomains(?MailDomainsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListMailDomains($includeFilters));
+        return $this->connector->paginate(new ListMailDomains($includeFilters, $includes));
     }
 
-    public function readMailDomain(int $id): Response
+    public function readMailDomain(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMailDomain($id));
+        return $this->connector->send(new ReadMailDomain($id, $includes));
     }
 
     public function updateMailDomain(int $id, MailDomainUpdateRequest $mailDomainUpdateRequest): Response

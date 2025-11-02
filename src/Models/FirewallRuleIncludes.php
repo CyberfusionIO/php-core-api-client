@@ -14,23 +14,23 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
     use Conditionable;
 
     public function __construct(
-        NodeResource $node,
-        ClusterResource $cluster,
+        ?NodeResource $node = null,
         ?FirewallGroupResource $firewallGroup = null,
         ?HAProxyListenResource $haproxyListen = null,
+        ?ClusterResource $cluster = null,
     ) {
         $this->setNode($node);
-        $this->setCluster($cluster);
         $this->setFirewallGroup($firewallGroup);
         $this->setHaproxyListen($haproxyListen);
+        $this->setCluster($cluster);
     }
 
-    public function getNode(): NodeResource
+    public function getNode(): NodeResource|null
     {
         return $this->getAttribute('node');
     }
 
-    public function setNode(NodeResource $node): self
+    public function setNode(?NodeResource $node): self
     {
         $this->setAttribute('node', $node);
         return $this;
@@ -58,12 +58,12 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -72,10 +72,10 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
-            node: NodeResource::fromArray(Arr::get($data, 'node')),
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            node: Arr::get($data, 'node') !== null ? NodeResource::fromArray(Arr::get($data, 'node')) : null,
             firewallGroup: Arr::get($data, 'firewall_group') !== null ? FirewallGroupResource::fromArray(Arr::get($data, 'firewall_group')) : null,
             haproxyListen: Arr::get($data, 'haproxy_listen') !== null ? HAProxyListenResource::fromArray(Arr::get($data, 'haproxy_listen')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

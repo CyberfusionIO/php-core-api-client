@@ -161,14 +161,14 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateCluster($clusterCreateRequest, $callbackUrl));
     }
 
-    public function listClusters(?ClustersSearchRequest $includeFilters = null): Paginator
+    public function listClusters(?ClustersSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListClusters($includeFilters));
+        return $this->connector->paginate(new ListClusters($includeFilters, $includes));
     }
 
-    public function readCluster(int $id): Response
+    public function readCluster(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCluster($id));
+        return $this->connector->send(new ReadCluster($id, $includes));
     }
 
     public function updateCluster(int $id, ClusterUpdateRequest $clusterUpdateRequest): Response

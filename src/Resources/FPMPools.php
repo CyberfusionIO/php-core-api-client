@@ -25,14 +25,14 @@ class FPMPools extends CoreApiResource
         return $this->connector->send(new CreateFPMPool($fPMPoolCreateRequest));
     }
 
-    public function listFPMPools(?FpmPoolsSearchRequest $includeFilters = null): Paginator
+    public function listFPMPools(?FpmPoolsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListFPMPools($includeFilters));
+        return $this->connector->paginate(new ListFPMPools($includeFilters, $includes));
     }
 
-    public function readFPMPool(int $id): Response
+    public function readFPMPool(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadFPMPool($id));
+        return $this->connector->send(new ReadFPMPool($id, $includes));
     }
 
     public function updateFPMPool(int $id, FPMPoolUpdateRequest $fPMPoolUpdateRequest): Response

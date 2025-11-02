@@ -21,14 +21,16 @@ class URLRedirects extends CoreApiResource
         return $this->connector->send(new CreateURLRedirect($uRLRedirectCreateRequest));
     }
 
-    public function listURLRedirects(?UrlRedirectsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListURLRedirects($includeFilters));
+    public function listURLRedirects(
+        ?UrlRedirectsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListURLRedirects($includeFilters, $includes));
     }
 
-    public function readURLRedirect(int $id): Response
+    public function readURLRedirect(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadURLRedirect($id));
+        return $this->connector->send(new ReadURLRedirect($id, $includes));
     }
 
     public function updateURLRedirect(int $id, URLRedirectUpdateRequest $uRLRedirectUpdateRequest): Response

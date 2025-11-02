@@ -19,13 +19,15 @@ class MariaDBEncryptionKeys extends CoreApiResource
         return $this->connector->send(new CreateMariaDBEncryptionKey($mariaDBEncryptionKeyCreateRequest));
     }
 
-    public function listMariaDBEncryptionKeys(?MariadbEncryptionKeysSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListMariaDBEncryptionKeys($includeFilters));
+    public function listMariaDBEncryptionKeys(
+        ?MariadbEncryptionKeysSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListMariaDBEncryptionKeys($includeFilters, $includes));
     }
 
-    public function readMariaDBEncryptionKey(int $id): Response
+    public function readMariaDBEncryptionKey(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMariaDBEncryptionKey($id));
+        return $this->connector->send(new ReadMariaDBEncryptionKey($id, $includes));
     }
 }

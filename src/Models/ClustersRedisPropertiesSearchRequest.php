@@ -13,17 +13,6 @@ class ClustersRedisPropertiesSearchRequest extends CoreApiModel implements CoreA
 {
     use Conditionable;
 
-    public function getRedisPassword(): string|null
-    {
-        return $this->getAttribute('redis_password');
-    }
-
-    public function setRedisPassword(?string $redisPassword): self
-    {
-        $this->setAttribute('redis_password', $redisPassword);
-        return $this;
-    }
-
     public function getRedisMemoryLimit(): int|null
     {
         return $this->getAttribute('redis_memory_limit');
@@ -50,7 +39,6 @@ class ClustersRedisPropertiesSearchRequest extends CoreApiModel implements CoreA
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'redis_password'), fn (self $model) => $model->setRedisPassword(Arr::get($data, 'redis_password')))
             ->when(Arr::has($data, 'redis_memory_limit'), fn (self $model) => $model->setRedisMemoryLimit(Arr::get($data, 'redis_memory_limit')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));
     }

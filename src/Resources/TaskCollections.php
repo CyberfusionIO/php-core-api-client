@@ -14,8 +14,8 @@ class TaskCollections extends CoreApiResource
         return $this->connector->send(new ListTaskCollectionResults($uuid));
     }
 
-    public function retryTaskCollection(string $uuid, ?string $callbackUrl = null): Response
+    public function retryTaskCollection(string $uuid, ?string $callbackUrl = null, array $includes = []): Response
     {
-        return $this->connector->send(new RetryTaskCollection($uuid, $callbackUrl));
+        return $this->connector->send(new RetryTaskCollection($uuid, $callbackUrl, $includes));
     }
 }

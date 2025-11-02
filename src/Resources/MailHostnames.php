@@ -21,14 +21,16 @@ class MailHostnames extends CoreApiResource
         return $this->connector->send(new CreateMailHostname($mailHostnameCreateRequest));
     }
 
-    public function listMailHostnames(?MailHostnamesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListMailHostnames($includeFilters));
+    public function listMailHostnames(
+        ?MailHostnamesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListMailHostnames($includeFilters, $includes));
     }
 
-    public function readMailHostname(int $id): Response
+    public function readMailHostname(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMailHostname($id));
+        return $this->connector->send(new ReadMailHostname($id, $includes));
     }
 
     public function updateMailHostname(int $id, MailHostnameUpdateRequest $mailHostnameUpdateRequest): Response

@@ -18,6 +18,7 @@ class ListRequestLogs extends Request implements CoreApiRequestContract, Paginat
 
     public function __construct(
         private readonly ?RequestLogsSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListRequestLogs extends Request implements CoreApiRequestContract, Paginat
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

@@ -18,6 +18,7 @@ class ListNodes extends Request implements CoreApiRequestContract, Paginatable
 
     public function __construct(
         private readonly ?NodesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListNodes extends Request implements CoreApiRequestContract, Paginatable
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

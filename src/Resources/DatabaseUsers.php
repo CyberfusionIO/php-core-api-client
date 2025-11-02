@@ -21,14 +21,16 @@ class DatabaseUsers extends CoreApiResource
         return $this->connector->send(new CreateDatabaseUser($databaseUserCreateRequest));
     }
 
-    public function listDatabaseUsers(?DatabaseUsersSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListDatabaseUsers($includeFilters));
+    public function listDatabaseUsers(
+        ?DatabaseUsersSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListDatabaseUsers($includeFilters, $includes));
     }
 
-    public function readDatabaseUser(int $id): Response
+    public function readDatabaseUser(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadDatabaseUser($id));
+        return $this->connector->send(new ReadDatabaseUser($id, $includes));
     }
 
     public function updateDatabaseUser(int $id, DatabaseUserUpdateRequest $databaseUserUpdateRequest): Response

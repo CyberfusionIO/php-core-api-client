@@ -23,14 +23,14 @@ class FTPUsers extends CoreApiResource
         return $this->connector->send(new CreateFTPUser($fTPUserCreateRequest));
     }
 
-    public function listFTPUsers(?FtpUsersSearchRequest $includeFilters = null): Paginator
+    public function listFTPUsers(?FtpUsersSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListFTPUsers($includeFilters));
+        return $this->connector->paginate(new ListFTPUsers($includeFilters, $includes));
     }
 
-    public function readFTPUser(int $id): Response
+    public function readFTPUser(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadFTPUser($id));
+        return $this->connector->send(new ReadFTPUser($id, $includes));
     }
 
     public function updateFTPUser(int $id, FTPUserUpdateRequest $fTPUserUpdateRequest): Response

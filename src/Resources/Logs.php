@@ -15,14 +15,14 @@ use Saloon\PaginationPlugin\Paginator;
 
 class Logs extends CoreApiResource
 {
-    public function listRequestLogs(?RequestLogsSearchRequest $includeFilters = null): Paginator
+    public function listRequestLogs(?RequestLogsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListRequestLogs($includeFilters));
+        return $this->connector->paginate(new ListRequestLogs($includeFilters, $includes));
     }
 
-    public function listObjectLogs(?ObjectLogsSearchRequest $includeFilters = null): Paginator
+    public function listObjectLogs(?ObjectLogsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListObjectLogs($includeFilters));
+        return $this->connector->paginate(new ListObjectLogs($includeFilters, $includes));
     }
 
     public function listAccessLogs(

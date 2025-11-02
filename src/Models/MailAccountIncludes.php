@@ -13,29 +13,29 @@ class MailAccountIncludes extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(MailDomainResource $mailDomain, ClusterResource $cluster)
+    public function __construct(?MailDomainResource $mailDomain = null, ?ClusterResource $cluster = null)
     {
         $this->setMailDomain($mailDomain);
         $this->setCluster($cluster);
     }
 
-    public function getMailDomain(): MailDomainResource
+    public function getMailDomain(): MailDomainResource|null
     {
         return $this->getAttribute('mail_domain');
     }
 
-    public function setMailDomain(MailDomainResource $mailDomain): self
+    public function setMailDomain(?MailDomainResource $mailDomain): self
     {
         $this->setAttribute('mail_domain', $mailDomain);
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -44,8 +44,8 @@ class MailAccountIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
-            mailDomain: MailDomainResource::fromArray(Arr::get($data, 'mail_domain')),
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            mailDomain: Arr::get($data, 'mail_domain') !== null ? MailDomainResource::fromArray(Arr::get($data, 'mail_domain')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

@@ -20,14 +20,16 @@ class HAProxyListensToNodes extends CoreApiResource
         return $this->connector->send(new CreateHAProxyListenToNode($hAProxyListenToNodeCreateRequest));
     }
 
-    public function listHAProxyListensToNodes(?HaproxyListensToNodesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListHAProxyListensToNodes($includeFilters));
+    public function listHAProxyListensToNodes(
+        ?HaproxyListensToNodesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListHAProxyListensToNodes($includeFilters, $includes));
     }
 
-    public function readHAProxyListenToNode(int $id): Response
+    public function readHAProxyListenToNode(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadHAProxyListenToNode($id));
+        return $this->connector->send(new ReadHAProxyListenToNode($id, $includes));
     }
 
     public function deleteHAProxyListenToNode(int $id): Response

@@ -18,6 +18,7 @@ class ListFPMPools extends Request implements CoreApiRequestContract, Paginatabl
 
     public function __construct(
         private readonly ?FpmPoolsSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListFPMPools extends Request implements CoreApiRequestContract, Paginatabl
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

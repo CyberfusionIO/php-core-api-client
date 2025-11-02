@@ -10,8 +10,8 @@ use Saloon\PaginationPlugin\Paginator;
 
 class Tombstones extends CoreApiResource
 {
-    public function listTombstones(?TombstonesSearchRequest $includeFilters = null): Paginator
+    public function listTombstones(?TombstonesSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListTombstones($includeFilters));
+        return $this->connector->paginate(new ListTombstones($includeFilters, $includes));
     }
 }

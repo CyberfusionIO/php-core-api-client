@@ -21,14 +21,16 @@ class RedisInstances extends CoreApiResource
         return $this->connector->send(new CreateRedisInstance($redisInstanceCreateRequest));
     }
 
-    public function listRedisInstances(?RedisInstancesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListRedisInstances($includeFilters));
+    public function listRedisInstances(
+        ?RedisInstancesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListRedisInstances($includeFilters, $includes));
     }
 
-    public function readRedisInstance(int $id): Response
+    public function readRedisInstance(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadRedisInstance($id));
+        return $this->connector->send(new ReadRedisInstance($id, $includes));
     }
 
     public function updateRedisInstance(int $id, RedisInstanceUpdateRequest $redisInstanceUpdateRequest): Response

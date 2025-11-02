@@ -13,41 +13,44 @@ class HAProxyListenToNodeIncludes extends CoreApiModel implements CoreApiModelCo
 {
     use Conditionable;
 
-    public function __construct(HAProxyListenResource $haproxyListen, NodeResource $node, ClusterResource $cluster)
-    {
+    public function __construct(
+        ?HAProxyListenResource $haproxyListen = null,
+        ?NodeResource $node = null,
+        ?ClusterResource $cluster = null,
+    ) {
         $this->setHaproxyListen($haproxyListen);
         $this->setNode($node);
         $this->setCluster($cluster);
     }
 
-    public function getHaproxyListen(): HAProxyListenResource
+    public function getHaproxyListen(): HAProxyListenResource|null
     {
         return $this->getAttribute('haproxy_listen');
     }
 
-    public function setHaproxyListen(HAProxyListenResource $haproxyListen): self
+    public function setHaproxyListen(?HAProxyListenResource $haproxyListen): self
     {
         $this->setAttribute('haproxy_listen', $haproxyListen);
         return $this;
     }
 
-    public function getNode(): NodeResource
+    public function getNode(): NodeResource|null
     {
         return $this->getAttribute('node');
     }
 
-    public function setNode(NodeResource $node): self
+    public function setNode(?NodeResource $node): self
     {
         $this->setAttribute('node', $node);
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -56,9 +59,9 @@ class HAProxyListenToNodeIncludes extends CoreApiModel implements CoreApiModelCo
     public static function fromArray(array $data): self
     {
         return (new self(
-            haproxyListen: HAProxyListenResource::fromArray(Arr::get($data, 'haproxy_listen')),
-            node: NodeResource::fromArray(Arr::get($data, 'node')),
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            haproxyListen: Arr::get($data, 'haproxy_listen') !== null ? HAProxyListenResource::fromArray(Arr::get($data, 'haproxy_listen')) : null,
+            node: Arr::get($data, 'node') !== null ? NodeResource::fromArray(Arr::get($data, 'node')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

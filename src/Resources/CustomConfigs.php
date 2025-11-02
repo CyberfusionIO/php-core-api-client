@@ -21,14 +21,16 @@ class CustomConfigs extends CoreApiResource
         return $this->connector->send(new CreateCustomConfig($customConfigCreateRequest));
     }
 
-    public function listCustomConfigs(?CustomConfigsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListCustomConfigs($includeFilters));
+    public function listCustomConfigs(
+        ?CustomConfigsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListCustomConfigs($includeFilters, $includes));
     }
 
-    public function readCustomConfig(int $id): Response
+    public function readCustomConfig(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCustomConfig($id));
+        return $this->connector->send(new ReadCustomConfig($id, $includes));
     }
 
     public function updateCustomConfig(int $id, CustomConfigUpdateRequest $customConfigUpdateRequest): Response

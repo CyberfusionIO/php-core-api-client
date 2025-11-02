@@ -13,10 +13,10 @@ class CertificateManagerIncludes extends CoreApiModel implements CoreApiModelCon
 {
     use Conditionable;
 
-    public function __construct(ClusterResource $cluster, ?CertificateResource $certificate = null)
+    public function __construct(?CertificateResource $certificate = null, ?ClusterResource $cluster = null)
     {
-        $this->setCluster($cluster);
         $this->setCertificate($certificate);
+        $this->setCluster($cluster);
     }
 
     public function getCertificate(): CertificateResource|null
@@ -30,12 +30,12 @@ class CertificateManagerIncludes extends CoreApiModel implements CoreApiModelCon
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -44,8 +44,8 @@ class CertificateManagerIncludes extends CoreApiModel implements CoreApiModelCon
     public static function fromArray(array $data): self
     {
         return (new self(
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
             certificate: Arr::get($data, 'certificate') !== null ? CertificateResource::fromArray(Arr::get($data, 'certificate')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }
