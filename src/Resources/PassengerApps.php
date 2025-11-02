@@ -23,14 +23,16 @@ class PassengerApps extends CoreApiResource
         return $this->connector->send(new CreateNodeJSPassengerApp($passengerAppCreateNodeJSRequest));
     }
 
-    public function listPassengerApps(?PassengerAppsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListPassengerApps($includeFilters));
+    public function listPassengerApps(
+        ?PassengerAppsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListPassengerApps($includeFilters, $includes));
     }
 
-    public function readPassengerApp(int $id): Response
+    public function readPassengerApp(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadPassengerApp($id));
+        return $this->connector->send(new ReadPassengerApp($id, $includes));
     }
 
     public function updatePassengerApp(int $id, PassengerAppUpdateRequest $passengerAppUpdateRequest): Response

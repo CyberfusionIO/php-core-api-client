@@ -15,12 +15,21 @@ class ReadRedisInstance extends Request implements CoreApiRequestContract
 
     public function __construct(
         private readonly int $id,
+        private readonly array $includes = [],
     ) {
     }
 
     public function resolveEndpoint(): string
     {
         return sprintf('/api/v1/redis-instances/%d', $this->id);
+    }
+
+    protected function defaultQuery(): array
+    {
+        $parameters = [];
+        $parameters['includes'] = implode(',', $this->includes);
+
+        return array_filter($parameters);
     }
 
     /**

@@ -13,17 +13,17 @@ class MariaDBEncryptionKeyIncludes extends CoreApiModel implements CoreApiModelC
 {
     use Conditionable;
 
-    public function __construct(ClusterResource $cluster)
+    public function __construct(?ClusterResource $cluster = null)
     {
         $this->setCluster($cluster);
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -32,7 +32,7 @@ class MariaDBEncryptionKeyIncludes extends CoreApiModel implements CoreApiModelC
     public static function fromArray(array $data): self
     {
         return (new self(
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

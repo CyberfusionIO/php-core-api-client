@@ -19,6 +19,7 @@ class RetryTaskCollection extends Request implements CoreApiRequestContract
     public function __construct(
         private readonly string $uuid,
         private readonly ?string $callbackUrl = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -31,6 +32,7 @@ class RetryTaskCollection extends Request implements CoreApiRequestContract
     {
         $parameters = [];
         $parameters['callback_url'] = $this->callbackUrl;
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

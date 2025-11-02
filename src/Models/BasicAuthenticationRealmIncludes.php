@@ -14,43 +14,43 @@ class BasicAuthenticationRealmIncludes extends CoreApiModel implements CoreApiMo
     use Conditionable;
 
     public function __construct(
-        HtpasswdFileResource $htpasswdFile,
-        VirtualHostResource $virtualHost,
-        ClusterResource $cluster,
+        ?HtpasswdFileResource $htpasswdFile = null,
+        ?VirtualHostResource $virtualHost = null,
+        ?ClusterResource $cluster = null,
     ) {
         $this->setHtpasswdFile($htpasswdFile);
         $this->setVirtualHost($virtualHost);
         $this->setCluster($cluster);
     }
 
-    public function getHtpasswdFile(): HtpasswdFileResource
+    public function getHtpasswdFile(): HtpasswdFileResource|null
     {
         return $this->getAttribute('htpasswd_file');
     }
 
-    public function setHtpasswdFile(HtpasswdFileResource $htpasswdFile): self
+    public function setHtpasswdFile(?HtpasswdFileResource $htpasswdFile): self
     {
         $this->setAttribute('htpasswd_file', $htpasswdFile);
         return $this;
     }
 
-    public function getVirtualHost(): VirtualHostResource
+    public function getVirtualHost(): VirtualHostResource|null
     {
         return $this->getAttribute('virtual_host');
     }
 
-    public function setVirtualHost(VirtualHostResource $virtualHost): self
+    public function setVirtualHost(?VirtualHostResource $virtualHost): self
     {
         $this->setAttribute('virtual_host', $virtualHost);
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -59,9 +59,9 @@ class BasicAuthenticationRealmIncludes extends CoreApiModel implements CoreApiMo
     public static function fromArray(array $data): self
     {
         return (new self(
-            htpasswdFile: HtpasswdFileResource::fromArray(Arr::get($data, 'htpasswd_file')),
-            virtualHost: VirtualHostResource::fromArray(Arr::get($data, 'virtual_host')),
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            htpasswdFile: Arr::get($data, 'htpasswd_file') !== null ? HtpasswdFileResource::fromArray(Arr::get($data, 'htpasswd_file')) : null,
+            virtualHost: Arr::get($data, 'virtual_host') !== null ? VirtualHostResource::fromArray(Arr::get($data, 'virtual_host')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

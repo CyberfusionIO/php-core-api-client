@@ -24,14 +24,16 @@ class BorgArchives extends CoreApiResource
         return $this->connector->send(new CreateBorgArchive($borgArchiveCreateRequest, $callbackUrl));
     }
 
-    public function listBorgArchives(?BorgArchivesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListBorgArchives($includeFilters));
+    public function listBorgArchives(
+        ?BorgArchivesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListBorgArchives($includeFilters, $includes));
     }
 
-    public function readBorgArchive(int $id): Response
+    public function readBorgArchive(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadBorgArchive($id));
+        return $this->connector->send(new ReadBorgArchive($id, $includes));
     }
 
     public function getBorgArchiveMetadata(int $id): Response

@@ -18,6 +18,7 @@ class ListFirewallGroups extends Request implements CoreApiRequestContract, Pagi
 
     public function __construct(
         private readonly ?FirewallGroupsSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListFirewallGroups extends Request implements CoreApiRequestContract, Pagi
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

@@ -19,14 +19,16 @@ class HostsEntries extends CoreApiResource
         return $this->connector->send(new CreateHostsEntry($hostsEntryCreateRequest));
     }
 
-    public function listHostsEntries(?HostsEntriesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListHostsEntries($includeFilters));
+    public function listHostsEntries(
+        ?HostsEntriesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListHostsEntries($includeFilters, $includes));
     }
 
-    public function readHostsEntry(int $id): Response
+    public function readHostsEntry(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadHostsEntry($id));
+        return $this->connector->send(new ReadHostsEntry($id, $includes));
     }
 
     public function deleteHostsEntry(int $id): Response

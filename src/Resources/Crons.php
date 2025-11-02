@@ -21,14 +21,14 @@ class Crons extends CoreApiResource
         return $this->connector->send(new CreateCron($cronCreateRequest));
     }
 
-    public function listCrons(?CronsSearchRequest $includeFilters = null): Paginator
+    public function listCrons(?CronsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListCrons($includeFilters));
+        return $this->connector->paginate(new ListCrons($includeFilters, $includes));
     }
 
-    public function readCron(int $id): Response
+    public function readCron(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCron($id));
+        return $this->connector->send(new ReadCron($id, $includes));
     }
 
     public function updateCron(int $id, CronUpdateRequest $cronUpdateRequest): Response

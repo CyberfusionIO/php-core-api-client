@@ -23,14 +23,16 @@ class CertificateManagers extends CoreApiResource
         return $this->connector->send(new CreateCertificateManager($certificateManagerCreateRequest));
     }
 
-    public function listCertificateManagers(?CertificateManagersSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListCertificateManagers($includeFilters));
+    public function listCertificateManagers(
+        ?CertificateManagersSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListCertificateManagers($includeFilters, $includes));
     }
 
-    public function readCertificateManager(int $id): Response
+    public function readCertificateManager(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCertificateManager($id));
+        return $this->connector->send(new ReadCertificateManager($id, $includes));
     }
 
     public function updateCertificateManager(

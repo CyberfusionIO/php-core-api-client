@@ -16,14 +16,14 @@ use Saloon\PaginationPlugin\Paginator;
 
 class Customers extends CoreApiResource
 {
-    public function listCustomers(?CustomersSearchRequest $includeFilters = null): Paginator
+    public function listCustomers(?CustomersSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListCustomers($includeFilters));
+        return $this->connector->paginate(new ListCustomers($includeFilters, $includes));
     }
 
-    public function readCustomer(int $id): Response
+    public function readCustomer(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCustomer($id));
+        return $this->connector->send(new ReadCustomer($id, $includes));
     }
 
     public function listIPAddressesForCustomer(int $id): Response

@@ -14,43 +14,43 @@ class DatabaseUserGrantIncludes extends CoreApiModel implements CoreApiModelCont
     use Conditionable;
 
     public function __construct(
-        ClusterResource $cluster,
-        DatabaseResource $database,
-        DatabaseUserResource $databaseUser,
+        ?ClusterResource $cluster = null,
+        ?DatabaseResource $database = null,
+        ?DatabaseUserResource $databaseUser = null,
     ) {
         $this->setCluster($cluster);
         $this->setDatabase($database);
         $this->setDatabaseUser($databaseUser);
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
     }
 
-    public function getDatabase(): DatabaseResource
+    public function getDatabase(): DatabaseResource|null
     {
         return $this->getAttribute('database');
     }
 
-    public function setDatabase(DatabaseResource $database): self
+    public function setDatabase(?DatabaseResource $database): self
     {
         $this->setAttribute('database', $database);
         return $this;
     }
 
-    public function getDatabaseUser(): DatabaseUserResource
+    public function getDatabaseUser(): DatabaseUserResource|null
     {
         return $this->getAttribute('database_user');
     }
 
-    public function setDatabaseUser(DatabaseUserResource $databaseUser): self
+    public function setDatabaseUser(?DatabaseUserResource $databaseUser): self
     {
         $this->setAttribute('database_user', $databaseUser);
         return $this;
@@ -59,9 +59,9 @@ class DatabaseUserGrantIncludes extends CoreApiModel implements CoreApiModelCont
     public static function fromArray(array $data): self
     {
         return (new self(
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
-            database: DatabaseResource::fromArray(Arr::get($data, 'database')),
-            databaseUser: DatabaseUserResource::fromArray(Arr::get($data, 'database_user')),
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
+            database: Arr::get($data, 'database') !== null ? DatabaseResource::fromArray(Arr::get($data, 'database')) : null,
+            databaseUser: Arr::get($data, 'database_user') !== null ? DatabaseUserResource::fromArray(Arr::get($data, 'database_user')) : null,
         ));
     }
 }

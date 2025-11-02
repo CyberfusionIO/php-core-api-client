@@ -19,14 +19,16 @@ class HAProxyListens extends CoreApiResource
         return $this->connector->send(new CreateHAProxyListen($hAProxyListenCreateRequest));
     }
 
-    public function listHAProxyListens(?HaproxyListensSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListHAProxyListens($includeFilters));
+    public function listHAProxyListens(
+        ?HaproxyListensSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListHAProxyListens($includeFilters, $includes));
     }
 
-    public function readHAProxyListen(int $id): Response
+    public function readHAProxyListen(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadHAProxyListen($id));
+        return $this->connector->send(new ReadHAProxyListen($id, $includes));
     }
 
     public function deleteHAProxyListen(int $id): Response

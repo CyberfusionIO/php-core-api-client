@@ -18,6 +18,7 @@ class ListTombstones extends Request implements CoreApiRequestContract, Paginata
 
     public function __construct(
         private readonly ?TombstonesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListTombstones extends Request implements CoreApiRequestContract, Paginata
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

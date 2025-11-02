@@ -21,14 +21,16 @@ class HtpasswdUsers extends CoreApiResource
         return $this->connector->send(new CreateHtpasswdUser($htpasswdUserCreateRequest));
     }
 
-    public function listHtpasswdUsers(?HtpasswdUsersSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListHtpasswdUsers($includeFilters));
+    public function listHtpasswdUsers(
+        ?HtpasswdUsersSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListHtpasswdUsers($includeFilters, $includes));
     }
 
-    public function readHtpasswdUser(int $id): Response
+    public function readHtpasswdUser(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadHtpasswdUser($id));
+        return $this->connector->send(new ReadHtpasswdUser($id, $includes));
     }
 
     public function updateHtpasswdUser(int $id, HtpasswdUserUpdateRequest $htpasswdUserUpdateRequest): Response

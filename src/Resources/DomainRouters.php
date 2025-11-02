@@ -12,9 +12,11 @@ use Saloon\PaginationPlugin\Paginator;
 
 class DomainRouters extends CoreApiResource
 {
-    public function listDomainRouters(?DomainRoutersSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListDomainRouters($includeFilters));
+    public function listDomainRouters(
+        ?DomainRoutersSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListDomainRouters($includeFilters, $includes));
     }
 
     public function updateDomainRouter(int $id, DomainRouterUpdateRequest $domainRouterUpdateRequest): Response

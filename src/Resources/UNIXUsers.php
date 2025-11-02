@@ -24,14 +24,14 @@ class UNIXUsers extends CoreApiResource
         return $this->connector->send(new CreateUNIXUser($uNIXUserCreateRequest));
     }
 
-    public function listUNIXUsers(?UnixUsersSearchRequest $includeFilters = null): Paginator
+    public function listUNIXUsers(?UnixUsersSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListUNIXUsers($includeFilters));
+        return $this->connector->paginate(new ListUNIXUsers($includeFilters, $includes));
     }
 
-    public function readUNIXUser(int $id): Response
+    public function readUNIXUser(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadUNIXUser($id));
+        return $this->connector->send(new ReadUNIXUser($id, $includes));
     }
 
     public function updateUNIXUser(int $id, UNIXUserUpdateRequest $uNIXUserUpdateRequest): Response

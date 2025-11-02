@@ -23,14 +23,16 @@ class VirtualHosts extends CoreApiResource
         return $this->connector->send(new CreateVirtualHost($virtualHostCreateRequest));
     }
 
-    public function listVirtualHosts(?VirtualHostsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListVirtualHosts($includeFilters));
+    public function listVirtualHosts(
+        ?VirtualHostsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListVirtualHosts($includeFilters, $includes));
     }
 
-    public function readVirtualHost(int $id): Response
+    public function readVirtualHost(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadVirtualHost($id));
+        return $this->connector->send(new ReadVirtualHost($id, $includes));
     }
 
     public function updateVirtualHost(int $id, VirtualHostUpdateRequest $virtualHostUpdateRequest): Response

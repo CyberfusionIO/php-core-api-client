@@ -13,29 +13,29 @@ class BorgArchiveIncludes extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(BorgRepositoryResource $borgRepository, ClusterResource $cluster)
+    public function __construct(?BorgRepositoryResource $borgRepository = null, ?ClusterResource $cluster = null)
     {
         $this->setBorgRepository($borgRepository);
         $this->setCluster($cluster);
     }
 
-    public function getBorgRepository(): BorgRepositoryResource
+    public function getBorgRepository(): BorgRepositoryResource|null
     {
         return $this->getAttribute('borg_repository');
     }
 
-    public function setBorgRepository(BorgRepositoryResource $borgRepository): self
+    public function setBorgRepository(?BorgRepositoryResource $borgRepository): self
     {
         $this->setAttribute('borg_repository', $borgRepository);
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -44,8 +44,8 @@ class BorgArchiveIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
-            borgRepository: BorgRepositoryResource::fromArray(Arr::get($data, 'borg_repository')),
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            borgRepository: Arr::get($data, 'borg_repository') !== null ? BorgRepositoryResource::fromArray(Arr::get($data, 'borg_repository')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

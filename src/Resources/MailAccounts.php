@@ -23,14 +23,16 @@ class MailAccounts extends CoreApiResource
         return $this->connector->send(new CreateMailAccount($mailAccountCreateRequest));
     }
 
-    public function listMailAccounts(?MailAccountsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListMailAccounts($includeFilters));
+    public function listMailAccounts(
+        ?MailAccountsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListMailAccounts($includeFilters, $includes));
     }
 
-    public function readMailAccount(int $id): Response
+    public function readMailAccount(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMailAccount($id));
+        return $this->connector->send(new ReadMailAccount($id, $includes));
     }
 
     public function updateMailAccount(int $id, MailAccountUpdateRequest $mailAccountUpdateRequest): Response

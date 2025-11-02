@@ -24,17 +24,6 @@ class ClustersMetabasePropertiesSearchRequest extends CoreApiModel implements Co
         return $this;
     }
 
-    public function getMetabaseDatabasePassword(): string|null
-    {
-        return $this->getAttribute('metabase_database_password');
-    }
-
-    public function setMetabaseDatabasePassword(?string $metabaseDatabasePassword): self
-    {
-        $this->setAttribute('metabase_database_password', $metabaseDatabasePassword);
-        return $this;
-    }
-
     public function getClusterId(): int|null
     {
         return $this->getAttribute('cluster_id');
@@ -51,7 +40,6 @@ class ClustersMetabasePropertiesSearchRequest extends CoreApiModel implements Co
         return (new self(
         ))
             ->when(Arr::has($data, 'metabase_domain'), fn (self $model) => $model->setMetabaseDomain(Arr::get($data, 'metabase_domain')))
-            ->when(Arr::has($data, 'metabase_database_password'), fn (self $model) => $model->setMetabaseDatabasePassword(Arr::get($data, 'metabase_database_password')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));
     }
 }

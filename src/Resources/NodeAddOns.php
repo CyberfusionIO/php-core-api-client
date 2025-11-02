@@ -22,9 +22,9 @@ class NodeAddOns extends CoreApiResource
         return $this->connector->send(new CreateNodeAddOn($nodeAddOnCreateRequest, $callbackUrl));
     }
 
-    public function listNodeAddOns(?NodeAddOnsSearchRequest $includeFilters = null): Paginator
+    public function listNodeAddOns(?NodeAddOnsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListNodeAddOns($includeFilters));
+        return $this->connector->paginate(new ListNodeAddOns($includeFilters, $includes));
     }
 
     public function getNodeAddOnProducts(string $baseUrl): Response
@@ -32,9 +32,9 @@ class NodeAddOns extends CoreApiResource
         return $this->connector->send(new GetNodeAddOnProducts($baseUrl));
     }
 
-    public function readNodeAddOn(int $id): Response
+    public function readNodeAddOn(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadNodeAddOn($id));
+        return $this->connector->send(new ReadNodeAddOn($id, $includes));
     }
 
     public function deleteNodeAddOn(int $id, ?string $callbackUrl = null): Response

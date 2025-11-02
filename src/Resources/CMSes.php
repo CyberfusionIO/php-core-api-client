@@ -38,14 +38,14 @@ class CMSes extends CoreApiResource
         return $this->connector->send(new CreateCMS($cMSCreateRequest));
     }
 
-    public function listCMSes(?CmsesSearchRequest $includeFilters = null): Paginator
+    public function listCMSes(?CmsesSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListCMSes($includeFilters));
+        return $this->connector->paginate(new ListCMSes($includeFilters, $includes));
     }
 
-    public function readCMS(int $id): Response
+    public function readCMS(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCMS($id));
+        return $this->connector->send(new ReadCMS($id, $includes));
     }
 
     public function deleteCMS(int $id): Response

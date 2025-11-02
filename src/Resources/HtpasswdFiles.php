@@ -19,14 +19,16 @@ class HtpasswdFiles extends CoreApiResource
         return $this->connector->send(new CreateHtpasswdFile($htpasswdFileCreateRequest));
     }
 
-    public function listHtpasswdFiles(?HtpasswdFilesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListHtpasswdFiles($includeFilters));
+    public function listHtpasswdFiles(
+        ?HtpasswdFilesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListHtpasswdFiles($includeFilters, $includes));
     }
 
-    public function readHtpasswdFile(int $id): Response
+    public function readHtpasswdFile(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadHtpasswdFile($id));
+        return $this->connector->send(new ReadHtpasswdFile($id, $includes));
     }
 
     public function deleteHtpasswdFile(int $id): Response

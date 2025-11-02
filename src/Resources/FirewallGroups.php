@@ -21,14 +21,16 @@ class FirewallGroups extends CoreApiResource
         return $this->connector->send(new CreateFirewallGroup($firewallGroupCreateRequest));
     }
 
-    public function listFirewallGroups(?FirewallGroupsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListFirewallGroups($includeFilters));
+    public function listFirewallGroups(
+        ?FirewallGroupsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListFirewallGroups($includeFilters, $includes));
     }
 
-    public function readFirewallGroup(int $id): Response
+    public function readFirewallGroup(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadFirewallGroup($id));
+        return $this->connector->send(new ReadFirewallGroup($id, $includes));
     }
 
     public function updateFirewallGroup(int $id, FirewallGroupUpdateRequest $firewallGroupUpdateRequest): Response

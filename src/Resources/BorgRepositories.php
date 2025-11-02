@@ -24,14 +24,16 @@ class BorgRepositories extends CoreApiResource
         return $this->connector->send(new CreateBorgRepository($borgRepositoryCreateRequest));
     }
 
-    public function listBorgRepositories(?BorgRepositoriesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListBorgRepositories($includeFilters));
+    public function listBorgRepositories(
+        ?BorgRepositoriesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListBorgRepositories($includeFilters, $includes));
     }
 
-    public function readBorgRepository(int $id): Response
+    public function readBorgRepository(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadBorgRepository($id));
+        return $this->connector->send(new ReadBorgRepository($id, $includes));
     }
 
     public function updateBorgRepository(int $id, BorgRepositoryUpdateRequest $borgRepositoryUpdateRequest): Response

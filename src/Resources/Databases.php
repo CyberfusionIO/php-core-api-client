@@ -25,14 +25,14 @@ class Databases extends CoreApiResource
         return $this->connector->send(new CreateDatabase($databaseCreateRequest));
     }
 
-    public function listDatabases(?DatabasesSearchRequest $includeFilters = null): Paginator
+    public function listDatabases(?DatabasesSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListDatabases($includeFilters));
+        return $this->connector->paginate(new ListDatabases($includeFilters, $includes));
     }
 
-    public function readDatabase(int $id): Response
+    public function readDatabase(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadDatabase($id));
+        return $this->connector->send(new ReadDatabase($id, $includes));
     }
 
     public function updateDatabase(int $id, DatabaseUpdateRequest $databaseUpdateRequest): Response

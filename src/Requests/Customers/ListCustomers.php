@@ -18,6 +18,7 @@ class ListCustomers extends Request implements CoreApiRequestContract, Paginatab
 
     public function __construct(
         private readonly ?CustomersSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListCustomers extends Request implements CoreApiRequestContract, Paginatab
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

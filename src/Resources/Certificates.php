@@ -19,14 +19,16 @@ class Certificates extends CoreApiResource
         return $this->connector->send(new CreateCertificate($certificateCreateRequest));
     }
 
-    public function listCertificates(?CertificatesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListCertificates($includeFilters));
+    public function listCertificates(
+        ?CertificatesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListCertificates($includeFilters, $includes));
     }
 
-    public function readCertificate(int $id): Response
+    public function readCertificate(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCertificate($id));
+        return $this->connector->send(new ReadCertificate($id, $includes));
     }
 
     public function deleteCertificate(int $id): Response

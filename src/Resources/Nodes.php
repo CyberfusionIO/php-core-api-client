@@ -26,9 +26,9 @@ class Nodes extends CoreApiResource
         return $this->connector->send(new CreateNodes($nodeCreateRequest, $callbackUrl, $amount));
     }
 
-    public function listNodes(?NodesSearchRequest $includeFilters = null): Paginator
+    public function listNodes(?NodesSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListNodes($includeFilters));
+        return $this->connector->paginate(new ListNodes($includeFilters, $includes));
     }
 
     public function getNodeProducts(string $baseUrl): Response
@@ -36,9 +36,9 @@ class Nodes extends CoreApiResource
         return $this->connector->send(new GetNodeProducts($baseUrl));
     }
 
-    public function readNode(int $id): Response
+    public function readNode(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadNode($id));
+        return $this->connector->send(new ReadNode($id, $includes));
     }
 
     public function updateNode(int $id, NodeUpdateRequest $nodeUpdateRequest): Response

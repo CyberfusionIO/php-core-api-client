@@ -26,14 +26,14 @@ class RootSSHKeys extends CoreApiResource
         return $this->connector->send(new CreatePrivateRootSSHKey($rootSSHKeyCreatePrivateRequest));
     }
 
-    public function listRootSSHKeys(?RootSshKeysSearchRequest $includeFilters = null): Paginator
+    public function listRootSSHKeys(?RootSshKeysSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListRootSSHKeys($includeFilters));
+        return $this->connector->paginate(new ListRootSSHKeys($includeFilters, $includes));
     }
 
-    public function readRootSSHKey(int $id): Response
+    public function readRootSSHKey(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadRootSSHKey($id));
+        return $this->connector->send(new ReadRootSSHKey($id, $includes));
     }
 
     public function deleteRootSSHKey(int $id): Response

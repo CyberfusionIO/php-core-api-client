@@ -24,14 +24,14 @@ class Daemons extends CoreApiResource
         return $this->connector->send(new CreateDaemon($daemonCreateRequest));
     }
 
-    public function listDaemons(?DaemonsSearchRequest $includeFilters = null): Paginator
+    public function listDaemons(?DaemonsSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListDaemons($includeFilters));
+        return $this->connector->paginate(new ListDaemons($includeFilters, $includes));
     }
 
-    public function readDaemon(int $id): Response
+    public function readDaemon(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadDaemon($id));
+        return $this->connector->send(new ReadDaemon($id, $includes));
     }
 
     public function updateDaemon(int $id, DaemonUpdateRequest $daemonUpdateRequest): Response

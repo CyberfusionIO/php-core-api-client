@@ -26,14 +26,14 @@ class SSHKeys extends CoreApiResource
         return $this->connector->send(new CreatePrivateSSHKey($sSHKeyCreatePrivateRequest));
     }
 
-    public function listSSHKeys(?SshKeysSearchRequest $includeFilters = null): Paginator
+    public function listSSHKeys(?SshKeysSearchRequest $includeFilters = null, array $includes = []): Paginator
     {
-        return $this->connector->paginate(new ListSSHKeys($includeFilters));
+        return $this->connector->paginate(new ListSSHKeys($includeFilters, $includes));
     }
 
-    public function readSSHKey(int $id): Response
+    public function readSSHKey(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadSSHKey($id));
+        return $this->connector->send(new ReadSSHKey($id, $includes));
     }
 
     public function deleteSSHKey(int $id): Response

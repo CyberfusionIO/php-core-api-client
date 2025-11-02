@@ -19,14 +19,16 @@ class FirewallRules extends CoreApiResource
         return $this->connector->send(new CreateFirewallRule($firewallRuleCreateRequest));
     }
 
-    public function listFirewallRules(?FirewallRulesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListFirewallRules($includeFilters));
+    public function listFirewallRules(
+        ?FirewallRulesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListFirewallRules($includeFilters, $includes));
     }
 
-    public function readFirewallRule(int $id): Response
+    public function readFirewallRule(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadFirewallRule($id));
+        return $this->connector->send(new ReadFirewallRule($id, $includes));
     }
 
     public function deleteFirewallRule(int $id): Response

@@ -18,6 +18,7 @@ class ListCustomConfigSnippets extends Request implements CoreApiRequestContract
 
     public function __construct(
         private readonly ?CustomConfigSnippetsSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListCustomConfigSnippets extends Request implements CoreApiRequestContract
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

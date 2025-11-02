@@ -20,14 +20,16 @@ class CustomConfigSnippets extends CoreApiResource
         return $this->connector->send(new CreateCustomConfigSnippet());
     }
 
-    public function listCustomConfigSnippets(?CustomConfigSnippetsSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListCustomConfigSnippets($includeFilters));
+    public function listCustomConfigSnippets(
+        ?CustomConfigSnippetsSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListCustomConfigSnippets($includeFilters, $includes));
     }
 
-    public function readCustomConfigSnippet(int $id): Response
+    public function readCustomConfigSnippet(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadCustomConfigSnippet($id));
+        return $this->connector->send(new ReadCustomConfigSnippet($id, $includes));
     }
 
     public function updateCustomConfigSnippet(

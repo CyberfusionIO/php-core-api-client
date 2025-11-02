@@ -24,13 +24,14 @@ class BasicAuthenticationRealms extends CoreApiResource
 
     public function listBasicAuthenticationRealms(
         ?BasicAuthenticationRealmsSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListBasicAuthenticationRealms($includeFilters));
+        return $this->connector->paginate(new ListBasicAuthenticationRealms($includeFilters, $includes));
     }
 
-    public function readBasicAuthenticationRealm(int $id): Response
+    public function readBasicAuthenticationRealm(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadBasicAuthenticationRealm($id));
+        return $this->connector->send(new ReadBasicAuthenticationRealm($id, $includes));
     }
 
     public function updateBasicAuthenticationRealm(

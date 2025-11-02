@@ -18,6 +18,7 @@ class ListBorgArchives extends Request implements CoreApiRequestContract, Pagina
 
     public function __construct(
         private readonly ?BorgArchivesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListBorgArchives extends Request implements CoreApiRequestContract, Pagina
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

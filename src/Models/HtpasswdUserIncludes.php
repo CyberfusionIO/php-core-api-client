@@ -13,29 +13,29 @@ class HtpasswdUserIncludes extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(HtpasswdFileResource $htpasswdFile, ClusterResource $cluster)
+    public function __construct(?HtpasswdFileResource $htpasswdFile = null, ?ClusterResource $cluster = null)
     {
         $this->setHtpasswdFile($htpasswdFile);
         $this->setCluster($cluster);
     }
 
-    public function getHtpasswdFile(): HtpasswdFileResource
+    public function getHtpasswdFile(): HtpasswdFileResource|null
     {
         return $this->getAttribute('htpasswd_file');
     }
 
-    public function setHtpasswdFile(HtpasswdFileResource $htpasswdFile): self
+    public function setHtpasswdFile(?HtpasswdFileResource $htpasswdFile): self
     {
         $this->setAttribute('htpasswd_file', $htpasswdFile);
         return $this;
     }
 
-    public function getCluster(): ClusterResource
+    public function getCluster(): ClusterResource|null
     {
         return $this->getAttribute('cluster');
     }
 
-    public function setCluster(ClusterResource $cluster): self
+    public function setCluster(?ClusterResource $cluster): self
     {
         $this->setAttribute('cluster', $cluster);
         return $this;
@@ -44,8 +44,8 @@ class HtpasswdUserIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
-            htpasswdFile: HtpasswdFileResource::fromArray(Arr::get($data, 'htpasswd_file')),
-            cluster: ClusterResource::fromArray(Arr::get($data, 'cluster')),
+            htpasswdFile: Arr::get($data, 'htpasswd_file') !== null ? HtpasswdFileResource::fromArray(Arr::get($data, 'htpasswd_file')) : null,
+            cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }
 }

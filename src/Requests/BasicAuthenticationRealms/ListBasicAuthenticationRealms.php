@@ -18,6 +18,7 @@ class ListBasicAuthenticationRealms extends Request implements CoreApiRequestCon
 
     public function __construct(
         private readonly ?BasicAuthenticationRealmsSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListBasicAuthenticationRealms extends Request implements CoreApiRequestCon
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

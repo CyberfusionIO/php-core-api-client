@@ -21,14 +21,16 @@ class SecurityTXTPolicies extends CoreApiResource
         return $this->connector->send(new CreateSecurityTxtPolicy($securityTXTPolicyCreateRequest));
     }
 
-    public function listSecurityTxtPolicies(?SecurityTxtPoliciesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListSecurityTxtPolicies($includeFilters));
+    public function listSecurityTxtPolicies(
+        ?SecurityTxtPoliciesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListSecurityTxtPolicies($includeFilters, $includes));
     }
 
-    public function readSecurityTxtPolicy(int $id): Response
+    public function readSecurityTxtPolicy(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadSecurityTxtPolicy($id));
+        return $this->connector->send(new ReadSecurityTxtPolicy($id, $includes));
     }
 
     public function updateSecurityTxtPolicy(
