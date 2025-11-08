@@ -19,18 +19,12 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
         int $clusterId,
         array $serverAliases,
         string $destinationUrl,
-        StatusCodeEnum $statusCode,
-        bool $keepQueryParameters,
-        bool $keepPath,
         ?string $description = null,
     ) {
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
         $this->setServerAliases($serverAliases);
         $this->setDestinationUrl($destinationUrl);
-        $this->setStatusCode($statusCode);
-        $this->setKeepQueryParameters($keepQueryParameters);
-        $this->setKeepPath($keepPath);
         $this->setDescription($description);
     }
 
@@ -141,10 +135,10 @@ class URLRedirectCreateRequest extends CoreApiModel implements CoreApiModelContr
             clusterId: Arr::get($data, 'cluster_id'),
             serverAliases: Arr::get($data, 'server_aliases'),
             destinationUrl: Arr::get($data, 'destination_url'),
-            statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
-            keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
-            keepPath: Arr::get($data, 'keep_path'),
             description: Arr::get($data, 'description'),
-        ));
+        ))
+            ->when(Arr::has($data, 'status_code'), fn (self $model) => $model->setStatusCode(StatusCodeEnum::tryFrom(Arr::get($data, 'status_code', 308))))
+            ->when(Arr::has($data, 'keep_query_parameters'), fn (self $model) => $model->setKeepQueryParameters(Arr::get($data, 'keep_query_parameters', true)))
+            ->when(Arr::has($data, 'keep_path'), fn (self $model) => $model->setKeepPath(Arr::get($data, 'keep_path', true)));
     }
 }

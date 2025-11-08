@@ -18,6 +18,7 @@ class ListNodeJSProperties extends Request implements CoreApiRequestContract, Pa
 
     public function __construct(
         private readonly ?ClustersNodejsPropertiesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListNodeJSProperties extends Request implements CoreApiRequestContract, Pa
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

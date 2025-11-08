@@ -15,7 +15,6 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
 
     public function __construct(
         string $name,
-        string $passphrase,
         ?int $unixUserId = null,
         ?int $databaseId = null,
         ?int $keepHourly = null,
@@ -25,7 +24,6 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
         ?int $keepYearly = null,
     ) {
         $this->setName($name);
-        $this->setPassphrase($passphrase);
         $this->setUnixUserId($unixUserId);
         $this->setDatabaseId($databaseId);
         $this->setKeepHourly($keepHourly);
@@ -50,24 +48,6 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
             ->regex('/^[a-z0-9-_]+$/')
             ->assert($name);
         $this->setAttribute('name', $name);
-        return $this;
-    }
-
-    public function getPassphrase(): string
-    {
-        return $this->getAttribute('passphrase');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setPassphrase(string $passphrase): self
-    {
-        Validator::create()
-            ->length(min: 24, max: 255)
-            ->regex('/^[ -~]+$/')
-            ->assert($passphrase);
-        $this->setAttribute('passphrase', $passphrase);
         return $this;
     }
 
@@ -152,7 +132,6 @@ class BorgRepositoryCreateRequest extends CoreApiModel implements CoreApiModelCo
     {
         return (new self(
             name: Arr::get($data, 'name'),
-            passphrase: Arr::get($data, 'passphrase'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             databaseId: Arr::get($data, 'database_id'),
             keepHourly: Arr::get($data, 'keep_hourly'),

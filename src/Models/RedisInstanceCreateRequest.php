@@ -14,20 +14,12 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
 {
     use Conditionable;
 
-    public function __construct(
-        string $name,
-        int $clusterId,
-        string $password,
-        int $memoryLimit,
-        int $maxDatabases,
-        RedisEvictionPolicyEnum $evictionPolicy,
-    ) {
+    public function __construct(string $name, int $clusterId, string $password, int $memoryLimit)
+    {
         $this->setName($name);
         $this->setClusterId($clusterId);
         $this->setPassword($password);
         $this->setMemoryLimit($memoryLimit);
-        $this->setMaxDatabases($maxDatabases);
-        $this->setEvictionPolicy($evictionPolicy);
     }
 
     public function getName(): string
@@ -117,8 +109,8 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
             clusterId: Arr::get($data, 'cluster_id'),
             password: Arr::get($data, 'password'),
             memoryLimit: Arr::get($data, 'memory_limit'),
-            maxDatabases: Arr::get($data, 'max_databases'),
-            evictionPolicy: RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')),
-        ));
+        ))
+            ->when(Arr::has($data, 'max_databases'), fn (self $model) => $model->setMaxDatabases(Arr::get($data, 'max_databases', 16)))
+            ->when(Arr::has($data, 'eviction_policy'), fn (self $model) => $model->setEvictionPolicy(RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy', 'volatile-lru'))));
     }
 }

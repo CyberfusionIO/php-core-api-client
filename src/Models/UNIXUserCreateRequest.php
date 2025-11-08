@@ -16,10 +16,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 
     public function __construct(
         string $username,
-        bool $shellIsNamespaced,
         int $clusterId,
-        ShellNameEnum $shellName,
-        bool $recordUsageFiles,
         ?string $virtualHostsDirectory = null,
         ?string $mailDomainsDirectory = null,
         ?string $password = null,
@@ -28,10 +25,7 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         ?string $description = null,
     ) {
         $this->setUsername($username);
-        $this->setShellIsNamespaced($shellIsNamespaced);
         $this->setClusterId($clusterId);
-        $this->setShellName($shellName);
-        $this->setRecordUsageFiles($recordUsageFiles);
         $this->setVirtualHostsDirectory($virtualHostsDirectory);
         $this->setMailDomainsDirectory($mailDomainsDirectory);
         $this->setPassword($password);
@@ -172,16 +166,16 @@ class UNIXUserCreateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             username: Arr::get($data, 'username'),
-            shellIsNamespaced: Arr::get($data, 'shell_is_namespaced'),
             clusterId: Arr::get($data, 'cluster_id'),
-            shellName: ShellNameEnum::tryFrom(Arr::get($data, 'shell_name')),
-            recordUsageFiles: Arr::get($data, 'record_usage_files'),
             virtualHostsDirectory: Arr::get($data, 'virtual_hosts_directory'),
             mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),
             password: Arr::get($data, 'password'),
             defaultPhpVersion: Arr::get($data, 'default_php_version'),
             defaultNodejsVersion: Arr::get($data, 'default_nodejs_version'),
             description: Arr::get($data, 'description'),
-        ));
+        ))
+            ->when(Arr::has($data, 'shell_is_namespaced'), fn (self $model) => $model->setShellIsNamespaced(Arr::get($data, 'shell_is_namespaced', true)))
+            ->when(Arr::has($data, 'shell_name'), fn (self $model) => $model->setShellName(ShellNameEnum::tryFrom(Arr::get($data, 'shell_name', 'Bash'))))
+            ->when(Arr::has($data, 'record_usage_files'), fn (self $model) => $model->setRecordUsageFiles(Arr::get($data, 'record_usage_files', false)));
     }
 }

@@ -17,20 +17,12 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
         string $name,
         string $version,
         int $unixUserId,
-        int $maxChildren,
-        int $maxRequests,
-        int $processIdleTimeout,
-        bool $isNamespaced,
         ?int $cpuLimit = null,
         ?int $logSlowRequestsThreshold = null,
     ) {
         $this->setName($name);
         $this->setVersion($version);
         $this->setUnixUserId($unixUserId);
-        $this->setMaxChildren($maxChildren);
-        $this->setMaxRequests($maxRequests);
-        $this->setProcessIdleTimeout($processIdleTimeout);
-        $this->setIsNamespaced($isNamespaced);
         $this->setCpuLimit($cpuLimit);
         $this->setLogSlowRequestsThreshold($logSlowRequestsThreshold);
     }
@@ -158,13 +150,13 @@ class FPMPoolCreateRequest extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             version: Arr::get($data, 'version'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-            maxChildren: Arr::get($data, 'max_children'),
-            maxRequests: Arr::get($data, 'max_requests'),
-            processIdleTimeout: Arr::get($data, 'process_idle_timeout'),
-            isNamespaced: Arr::get($data, 'is_namespaced'),
             cpuLimit: Arr::get($data, 'cpu_limit'),
             logSlowRequestsThreshold: Arr::get($data, 'log_slow_requests_threshold'),
         ))
+            ->when(Arr::has($data, 'max_children'), fn (self $model) => $model->setMaxChildren(Arr::get($data, 'max_children', 25)))
+            ->when(Arr::has($data, 'max_requests'), fn (self $model) => $model->setMaxRequests(Arr::get($data, 'max_requests', 20)))
+            ->when(Arr::has($data, 'process_idle_timeout'), fn (self $model) => $model->setProcessIdleTimeout(Arr::get($data, 'process_idle_timeout', 10)))
+            ->when(Arr::has($data, 'is_namespaced'), fn (self $model) => $model->setIsNamespaced(Arr::get($data, 'is_namespaced', true)))
             ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')));
     }
 }

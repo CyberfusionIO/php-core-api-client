@@ -18,6 +18,7 @@ class ListRedisProperties extends Request implements CoreApiRequestContract, Pag
 
     public function __construct(
         private readonly ?ClustersRedisPropertiesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListRedisProperties extends Request implements CoreApiRequestContract, Pag
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

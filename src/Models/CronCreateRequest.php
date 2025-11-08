@@ -18,25 +18,15 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
         int $unixUserId,
         string $command,
         string $schedule,
-        int $errorCount,
-        int $randomDelayMaxSeconds,
-        bool $lockingEnabled,
-        bool $isActive,
         ?int $nodeId = null,
         ?string $emailAddress = null,
-        ?int $timeoutSeconds = null,
     ) {
         $this->setName($name);
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
         $this->setSchedule($schedule);
-        $this->setErrorCount($errorCount);
-        $this->setRandomDelayMaxSeconds($randomDelayMaxSeconds);
-        $this->setLockingEnabled($lockingEnabled);
-        $this->setIsActive($isActive);
         $this->setNodeId($nodeId);
         $this->setEmailAddress($emailAddress);
-        $this->setTimeoutSeconds($timeoutSeconds);
     }
 
     public function getNodeId(): int|null
@@ -203,14 +193,14 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
             schedule: Arr::get($data, 'schedule'),
-            errorCount: Arr::get($data, 'error_count'),
-            randomDelayMaxSeconds: Arr::get($data, 'random_delay_max_seconds'),
-            lockingEnabled: Arr::get($data, 'locking_enabled'),
-            isActive: Arr::get($data, 'is_active'),
             nodeId: Arr::get($data, 'node_id'),
             emailAddress: Arr::get($data, 'email_address'),
-            timeoutSeconds: Arr::get($data, 'timeout_seconds'),
         ))
+            ->when(Arr::has($data, 'error_count'), fn (self $model) => $model->setErrorCount(Arr::get($data, 'error_count', 1)))
+            ->when(Arr::has($data, 'random_delay_max_seconds'), fn (self $model) => $model->setRandomDelayMaxSeconds(Arr::get($data, 'random_delay_max_seconds', 10)))
+            ->when(Arr::has($data, 'timeout_seconds'), fn (self $model) => $model->setTimeoutSeconds(Arr::get($data, 'timeout_seconds', 600)))
+            ->when(Arr::has($data, 'locking_enabled'), fn (self $model) => $model->setLockingEnabled(Arr::get($data, 'locking_enabled', true)))
+            ->when(Arr::has($data, 'is_active'), fn (self $model) => $model->setIsActive(Arr::get($data, 'is_active', true)))
             ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit')))
             ->when(Arr::has($data, 'cpu_limit'), fn (self $model) => $model->setCpuLimit(Arr::get($data, 'cpu_limit')));
     }

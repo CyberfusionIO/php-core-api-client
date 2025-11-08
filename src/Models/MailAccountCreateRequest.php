@@ -13,12 +13,11 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
 {
     use Conditionable;
 
-    public function __construct(string $localPart, int $mailDomainId, string $password, ?int $quota = null)
+    public function __construct(string $localPart, int $mailDomainId, string $password)
     {
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setPassword($password);
-        $this->setQuota($quota);
     }
 
     public function getLocalPart(): string
@@ -85,7 +84,7 @@ class MailAccountCreateRequest extends CoreApiModel implements CoreApiModelContr
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             password: Arr::get($data, 'password'),
-            quota: Arr::get($data, 'quota'),
-        ));
+        ))
+            ->when(Arr::has($data, 'quota'), fn (self $model) => $model->setQuota(Arr::get($data, 'quota')));
     }
 }

@@ -13,12 +13,11 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(string $username, int $unixUserId, string $password, string $directoryPath)
+    public function __construct(string $username, int $unixUserId, string $password)
     {
         $this->setUsername($username);
         $this->setUnixUserId($unixUserId);
         $this->setPassword($password);
-        $this->setDirectoryPath($directoryPath);
     }
 
     public function getUsername(): string
@@ -68,12 +67,12 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getDirectoryPath(): string
+    public function getDirectoryPath(): string|null
     {
         return $this->getAttribute('directory_path');
     }
 
-    public function setDirectoryPath(string $directoryPath): self
+    public function setDirectoryPath(?string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
         return $this;
@@ -85,7 +84,7 @@ class FTPUserCreateRequest extends CoreApiModel implements CoreApiModelContract
             username: Arr::get($data, 'username'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             password: Arr::get($data, 'password'),
-            directoryPath: Arr::get($data, 'directory_path'),
-        ));
+        ))
+            ->when(Arr::has($data, 'directory_path'), fn (self $model) => $model->setDirectoryPath(Arr::get($data, 'directory_path')));
     }
 }

@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
-use Cyberfusion\CoreApi\Enums\HostEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -24,7 +23,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         DatabaseUserIncludes $includes,
         ?string $hashedPassword = null,
-        ?HostEnum $host = null,
+        ?string $host = null,
         ?array $phpmyadminFirewallGroupsIds = null,
     ) {
         $this->setId($id);
@@ -112,12 +111,12 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getHost(): HostEnum|null
+    public function getHost(): string|null
     {
         return $this->getAttribute('host');
     }
 
-    public function setHost(?HostEnum $host): self
+    public function setHost(?string $host): self
     {
         $this->setAttribute('host', $host);
         return $this;
@@ -167,7 +166,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             includes: DatabaseUserIncludes::fromArray(Arr::get($data, 'includes')),
             hashedPassword: Arr::get($data, 'hashed_password'),
-            host: Arr::get($data, 'host') !== null ? HostEnum::tryFrom(Arr::get($data, 'host')) : null,
+            host: Arr::get($data, 'host'),
             phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),
         ));
     }

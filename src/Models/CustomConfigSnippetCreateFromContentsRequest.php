@@ -18,13 +18,11 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
         string $name,
         VirtualHostServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
-        bool $isDefault,
         string $contents,
     ) {
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
-        $this->setIsDefault($isDefault);
         $this->setContents($contents);
     }
 
@@ -103,8 +101,8 @@ class CustomConfigSnippetCreateFromContentsRequest extends CoreApiModel implemen
             name: Arr::get($data, 'name'),
             serverSoftwareName: VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
-            isDefault: Arr::get($data, 'is_default'),
             contents: Arr::get($data, 'contents'),
-        ));
+        ))
+            ->when(Arr::has($data, 'is_default'), fn (self $model) => $model->setIsDefault(Arr::get($data, 'is_default', false)));
     }
 }

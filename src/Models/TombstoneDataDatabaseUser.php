@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
-use Cyberfusion\CoreApi\Enums\HostEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,7 +19,7 @@ class TombstoneDataDatabaseUser extends CoreApiModel implements CoreApiModelCont
         string $name,
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
         TombstoneDataDatabaseUserIncludes $includes,
-        ?HostEnum $host = null,
+        ?string $host = null,
     ) {
         $this->setId($id);
         $this->setName($name);
@@ -69,12 +68,12 @@ class TombstoneDataDatabaseUser extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
-    public function getHost(): HostEnum|null
+    public function getHost(): string|null
     {
         return $this->getAttribute('host');
     }
 
-    public function setHost(?HostEnum $host): self
+    public function setHost(?string $host): self
     {
         $this->setAttribute('host', $host);
         return $this;
@@ -109,7 +108,7 @@ class TombstoneDataDatabaseUser extends CoreApiModel implements CoreApiModelCont
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             includes: TombstoneDataDatabaseUserIncludes::fromArray(Arr::get($data, 'includes')),
-            host: Arr::get($data, 'host') !== null ? HostEnum::tryFrom(Arr::get($data, 'host')) : null,
+            host: Arr::get($data, 'host'),
         ))
             ->when(Arr::has($data, 'data_type'), fn (self $model) => $model->setDataType(Arr::get($data, 'data_type', 'database_user')));
     }

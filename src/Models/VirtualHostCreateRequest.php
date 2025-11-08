@@ -18,26 +18,14 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         string $domain,
         string $publicRoot,
         int $unixUserId,
-        array $serverAliases,
         string $documentRoot,
         ?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null,
-        ?array $allowOverrideDirectives = null,
-        ?array $allowOverrideOptionDirectives = null,
-        ?int $fpmPoolId = null,
-        ?int $passengerAppId = null,
-        ?string $customConfig = null,
     ) {
         $this->setDomain($domain);
         $this->setPublicRoot($publicRoot);
         $this->setUnixUserId($unixUserId);
-        $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
         $this->setServerSoftwareName($serverSoftwareName);
-        $this->setAllowOverrideDirectives($allowOverrideDirectives);
-        $this->setAllowOverrideOptionDirectives($allowOverrideOptionDirectives);
-        $this->setFpmPoolId($fpmPoolId);
-        $this->setPassengerAppId($passengerAppId);
-        $this->setCustomConfig($customConfig);
     }
 
     public function getServerSoftwareName(): VirtualHostServerSoftwareNameEnum|null
@@ -116,8 +104,8 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
      */
     public function setServerAliases(array $serverAliases): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($serverAliases);
         $this->setAttribute('server_aliases', $serverAliases);
         return $this;
@@ -173,14 +161,14 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
             domain: Arr::get($data, 'domain'),
             publicRoot: Arr::get($data, 'public_root'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-            serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
             serverSoftwareName: Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null,
-            allowOverrideDirectives: Arr::get($data, 'allow_override_directives'),
-            allowOverrideOptionDirectives: Arr::get($data, 'allow_override_option_directives'),
-            fpmPoolId: Arr::get($data, 'fpm_pool_id'),
-            passengerAppId: Arr::get($data, 'passenger_app_id'),
-            customConfig: Arr::get($data, 'custom_config'),
-        ));
+        ))
+            ->when(Arr::has($data, 'allow_override_directives'), fn (self $model) => $model->setAllowOverrideDirectives(Arr::get($data, 'allow_override_directives')))
+            ->when(Arr::has($data, 'allow_override_option_directives'), fn (self $model) => $model->setAllowOverrideOptionDirectives(Arr::get($data, 'allow_override_option_directives')))
+            ->when(Arr::has($data, 'server_aliases'), fn (self $model) => $model->setServerAliases(Arr::get($data, 'server_aliases', [])))
+            ->when(Arr::has($data, 'fpm_pool_id'), fn (self $model) => $model->setFpmPoolId(Arr::get($data, 'fpm_pool_id')))
+            ->when(Arr::has($data, 'passenger_app_id'), fn (self $model) => $model->setPassengerAppId(Arr::get($data, 'passenger_app_id')))
+            ->when(Arr::has($data, 'custom_config'), fn (self $model) => $model->setCustomConfig(Arr::get($data, 'custom_config')));
     }
 }

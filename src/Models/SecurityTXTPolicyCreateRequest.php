@@ -13,26 +13,12 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
 {
     use Conditionable;
 
-    public function __construct(
-        int $clusterId,
-        string $expiresTimestamp,
-        array $emailContacts,
-        array $urlContacts,
-        array $encryptionKeyUrls,
-        array $acknowledgmentUrls,
-        array $policyUrls,
-        array $openingUrls,
-        array $preferredLanguages,
-    ) {
+    public function __construct(int $clusterId, string $expiresTimestamp, array $emailContacts, array $urlContacts)
+    {
         $this->setClusterId($clusterId);
         $this->setExpiresTimestamp($expiresTimestamp);
         $this->setEmailContacts($emailContacts);
         $this->setUrlContacts($urlContacts);
-        $this->setEncryptionKeyUrls($encryptionKeyUrls);
-        $this->setAcknowledgmentUrls($acknowledgmentUrls);
-        $this->setPolicyUrls($policyUrls);
-        $this->setOpeningUrls($openingUrls);
-        $this->setPreferredLanguages($preferredLanguages);
     }
 
     public function getClusterId(): int
@@ -101,8 +87,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
      */
     public function setEncryptionKeyUrls(array $encryptionKeyUrls): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($encryptionKeyUrls);
         $this->setAttribute('encryption_key_urls', $encryptionKeyUrls);
         return $this;
@@ -118,8 +104,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
      */
     public function setAcknowledgmentUrls(array $acknowledgmentUrls): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($acknowledgmentUrls);
         $this->setAttribute('acknowledgment_urls', $acknowledgmentUrls);
         return $this;
@@ -135,8 +121,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
      */
     public function setPolicyUrls(array $policyUrls): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($policyUrls);
         $this->setAttribute('policy_urls', $policyUrls);
         return $this;
@@ -152,8 +138,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
      */
     public function setOpeningUrls(array $openingUrls): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($openingUrls);
         $this->setAttribute('opening_urls', $openingUrls);
         return $this;
@@ -169,8 +155,8 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
      */
     public function setPreferredLanguages(array $preferredLanguages): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($preferredLanguages);
         $this->setAttribute('preferred_languages', $preferredLanguages);
         return $this;
@@ -183,11 +169,11 @@ class SecurityTXTPolicyCreateRequest extends CoreApiModel implements CoreApiMode
             expiresTimestamp: Arr::get($data, 'expires_timestamp'),
             emailContacts: Arr::get($data, 'email_contacts'),
             urlContacts: Arr::get($data, 'url_contacts'),
-            encryptionKeyUrls: Arr::get($data, 'encryption_key_urls'),
-            acknowledgmentUrls: Arr::get($data, 'acknowledgment_urls'),
-            policyUrls: Arr::get($data, 'policy_urls'),
-            openingUrls: Arr::get($data, 'opening_urls'),
-            preferredLanguages: Arr::get($data, 'preferred_languages'),
-        ));
+        ))
+            ->when(Arr::has($data, 'encryption_key_urls'), fn (self $model) => $model->setEncryptionKeyUrls(Arr::get($data, 'encryption_key_urls', [])))
+            ->when(Arr::has($data, 'acknowledgment_urls'), fn (self $model) => $model->setAcknowledgmentUrls(Arr::get($data, 'acknowledgment_urls', [])))
+            ->when(Arr::has($data, 'policy_urls'), fn (self $model) => $model->setPolicyUrls(Arr::get($data, 'policy_urls', [])))
+            ->when(Arr::has($data, 'opening_urls'), fn (self $model) => $model->setOpeningUrls(Arr::get($data, 'opening_urls', [])))
+            ->when(Arr::has($data, 'preferred_languages'), fn (self $model) => $model->setPreferredLanguages(Arr::get($data, 'preferred_languages', [])));
     }
 }

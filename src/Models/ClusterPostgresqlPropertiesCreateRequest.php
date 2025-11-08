@@ -13,11 +13,6 @@ class ClusterPostgresqlPropertiesCreateRequest extends CoreApiModel implements C
 {
     use Conditionable;
 
-    public function __construct(int $postgresqlVersion)
-    {
-        $this->setPostgresqlVersion($postgresqlVersion);
-    }
-
     public function getPostgresqlVersion(): int
     {
         return $this->getAttribute('postgresql_version');
@@ -54,8 +49,8 @@ class ClusterPostgresqlPropertiesCreateRequest extends CoreApiModel implements C
     public static function fromArray(array $data): self
     {
         return (new self(
-            postgresqlVersion: Arr::get($data, 'postgresql_version'),
         ))
+            ->when(Arr::has($data, 'postgresql_version'), fn (self $model) => $model->setPostgresqlVersion(Arr::get($data, 'postgresql_version', 15)))
             ->when(Arr::has($data, 'postgresql_backup_local_retention'), fn (self $model) => $model->setPostgresqlBackupLocalRetention(Arr::get($data, 'postgresql_backup_local_retention', 3)))
             ->when(Arr::has($data, 'postgresql_backup_interval'), fn (self $model) => $model->setPostgresqlBackupInterval(Arr::get($data, 'postgresql_backup_interval', 24)));
     }

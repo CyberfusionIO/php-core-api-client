@@ -19,15 +19,16 @@ class ListDatabaseUsages extends Request implements CoreApiRequestContract
     protected Method $method = Method::GET;
 
     public function __construct(
-        private readonly int $databaseId,
+        private readonly int $id,
         private readonly string $timestamp,
         private readonly ?TimeUnitEnum $timeUnit = null,
+        private readonly array $includes = [],
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return sprintf('/api/v1/databases/usages/%d', $this->databaseId);
+        return sprintf('/api/v1/databases/%d/usages', $this->id);
     }
 
     protected function defaultQuery(): array
@@ -35,6 +36,7 @@ class ListDatabaseUsages extends Request implements CoreApiRequestContract
         $parameters = [];
         $parameters['timestamp'] = $this->timestamp;
         $parameters['time_unit'] = $this->timeUnit;
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

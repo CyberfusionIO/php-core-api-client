@@ -18,6 +18,7 @@ class ListMeilisearchProperties extends Request implements CoreApiRequestContrac
 
     public function __construct(
         private readonly ?ClustersMeilisearchPropertiesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListMeilisearchProperties extends Request implements CoreApiRequestContrac
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

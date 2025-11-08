@@ -14,18 +14,11 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(
-        string $name,
-        DatabaseServerSoftwareNameEnum $serverSoftwareName,
-        int $clusterId,
-        bool $optimizingEnabled,
-        bool $backupsEnabled,
-    ) {
+    public function __construct(string $name, DatabaseServerSoftwareNameEnum $serverSoftwareName, int $clusterId)
+    {
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
-        $this->setOptimizingEnabled($optimizingEnabled);
-        $this->setBackupsEnabled($backupsEnabled);
     }
 
     public function getName(): string
@@ -96,8 +89,8 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
-            optimizingEnabled: Arr::get($data, 'optimizing_enabled'),
-            backupsEnabled: Arr::get($data, 'backups_enabled'),
-        ));
+        ))
+            ->when(Arr::has($data, 'optimizing_enabled'), fn (self $model) => $model->setOptimizingEnabled(Arr::get($data, 'optimizing_enabled', false)))
+            ->when(Arr::has($data, 'backups_enabled'), fn (self $model) => $model->setBackupsEnabled(Arr::get($data, 'backups_enabled', true)));
     }
 }

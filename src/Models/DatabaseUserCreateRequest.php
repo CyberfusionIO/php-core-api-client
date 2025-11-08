@@ -4,7 +4,6 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
-use Cyberfusion\CoreApi\Enums\HostEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,15 +19,11 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
         string $name,
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
-        ?HostEnum $host = null,
-        ?array $phpmyadminFirewallGroupsIds = null,
     ) {
         $this->setPassword($password);
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
-        $this->setHost($host);
-        $this->setPhpmyadminFirewallGroupsIds($phpmyadminFirewallGroupsIds);
     }
 
     public function getPassword(): string
@@ -78,17 +73,6 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
-    public function getHost(): HostEnum|null
-    {
-        return $this->getAttribute('host');
-    }
-
-    public function setHost(?HostEnum $host): self
-    {
-        $this->setAttribute('host', $host);
-        return $this;
-    }
-
     public function getClusterId(): int
     {
         return $this->getAttribute('cluster_id');
@@ -118,8 +102,7 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
-            host: Arr::get($data, 'host') !== null ? HostEnum::tryFrom(Arr::get($data, 'host')) : null,
-            phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),
-        ));
+        ))
+            ->when(Arr::has($data, 'phpmyadmin_firewall_groups_ids'), fn (self $model) => $model->setPhpmyadminFirewallGroupsIds(Arr::get($data, 'phpmyadmin_firewall_groups_ids', [])));
     }
 }

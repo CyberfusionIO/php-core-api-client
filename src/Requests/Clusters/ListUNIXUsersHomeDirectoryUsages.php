@@ -19,15 +19,16 @@ class ListUNIXUsersHomeDirectoryUsages extends Request implements CoreApiRequest
     protected Method $method = Method::GET;
 
     public function __construct(
-        private readonly int $clusterId,
+        private readonly int $id,
         private readonly string $timestamp,
         private readonly ?TimeUnitEnum $timeUnit = null,
+        private readonly array $includes = [],
     ) {
     }
 
     public function resolveEndpoint(): string
     {
-        return sprintf('/api/v1/clusters/unix-users-home-directories/usages/%d', $this->clusterId);
+        return sprintf('/api/v1/clusters/%d/usages/unix-users-home-directory', $this->id);
     }
 
     protected function defaultQuery(): array
@@ -35,6 +36,7 @@ class ListUNIXUsersHomeDirectoryUsages extends Request implements CoreApiRequest
         $parameters = [];
         $parameters['timestamp'] = $this->timestamp;
         $parameters['time_unit'] = $this->timeUnit;
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

@@ -46,10 +46,11 @@ class MailAccounts extends CoreApiResource
     }
 
     public function listMailAccountUsages(
-        int $mailAccountId,
+        int $id,
         string $timestamp,
         ?TimeUnitEnum $timeUnit = null,
+        array $includes = [],
     ): Response {
-        return $this->connector->send(new ListMailAccountUsages($mailAccountId, $timestamp, $timeUnit));
+        return $this->connector->send(new ListMailAccountUsages($id, $timestamp, $timeUnit, $includes));
     }
 }

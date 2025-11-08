@@ -247,9 +247,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateBorgProperties($id, $clusterBorgPropertiesCreateRequest));
     }
 
-    public function readBorgProperties(int $id): Response
+    public function readBorgProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadBorgProperties($id));
+        return $this->connector->send(new ReadBorgProperties($id, $includes));
     }
 
     public function updateBorgProperties(
@@ -266,9 +266,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateKernelCareProperties($id, $clusterKernelcarePropertiesCreateRequest));
     }
 
-    public function readKernelCareProperties(int $id): Response
+    public function readKernelCareProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadKernelCareProperties($id));
+        return $this->connector->send(new ReadKernelCareProperties($id, $includes));
     }
 
     public function updateKernelCareProperties(
@@ -285,9 +285,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateRedisProperties($id, $clusterRedisPropertiesCreateRequest));
     }
 
-    public function readRedisProperties(int $id): Response
+    public function readRedisProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadRedisProperties($id));
+        return $this->connector->send(new ReadRedisProperties($id, $includes));
     }
 
     public function updateRedisProperties(
@@ -304,9 +304,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateGrafanaProperties($id, $clusterGrafanaPropertiesCreateRequest));
     }
 
-    public function readGrafanaProperties(int $id): Response
+    public function readGrafanaProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadGrafanaProperties($id));
+        return $this->connector->send(new ReadGrafanaProperties($id, $includes));
     }
 
     public function updateGrafanaProperties(
@@ -323,9 +323,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateNodeJSProperties($id, $clusterNodejsPropertiesCreateRequest));
     }
 
-    public function readNodeJSProperties(int $id): Response
+    public function readNodeJSProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadNodeJSProperties($id));
+        return $this->connector->send(new ReadNodeJSProperties($id, $includes));
     }
 
     public function updateNodeJSProperties(
@@ -342,9 +342,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateElasticsearchProperties($id, $clusterElasticsearchPropertiesCreateRequest));
     }
 
-    public function readElasticsearchProperties(int $id): Response
+    public function readElasticsearchProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadElasticsearchProperties($id));
+        return $this->connector->send(new ReadElasticsearchProperties($id, $includes));
     }
 
     public function updateElasticsearchProperties(
@@ -361,9 +361,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateFirewallProperties($id, $clusterFirewallPropertiesCreateRequest));
     }
 
-    public function readFirewallProperties(int $id): Response
+    public function readFirewallProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadFirewallProperties($id));
+        return $this->connector->send(new ReadFirewallProperties($id, $includes));
     }
 
     public function updateFirewallProperties(
@@ -380,9 +380,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreatePostgreSQLProperties($id, $clusterPostgresqlPropertiesCreateRequest));
     }
 
-    public function readPostgreSQLProperties(int $id): Response
+    public function readPostgreSQLProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadPostgreSQLProperties($id));
+        return $this->connector->send(new ReadPostgreSQLProperties($id, $includes));
     }
 
     public function updatePostgreSQLProperties(
@@ -392,9 +392,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new UpdatePostgreSQLProperties($id, $clusterPostgresqlPropertiesUpdateRequest));
     }
 
-    public function readUNIXUsersProperties(int $id): Response
+    public function readUNIXUsersProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadUNIXUsersProperties($id));
+        return $this->connector->send(new ReadUNIXUsersProperties($id, $includes));
     }
 
     public function createMeilisearchProperties(
@@ -404,9 +404,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateMeilisearchProperties($id, $clusterMeilisearchPropertiesCreateRequest));
     }
 
-    public function readMeilisearchProperties(int $id): Response
+    public function readMeilisearchProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMeilisearchProperties($id));
+        return $this->connector->send(new ReadMeilisearchProperties($id, $includes));
     }
 
     public function updateMeilisearchProperties(
@@ -423,9 +423,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateMariaDBProperties($id, $clusterMariadbPropertiesCreateRequest));
     }
 
-    public function readMariaDBProperties(int $id): Response
+    public function readMariaDBProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMariaDBProperties($id));
+        return $this->connector->send(new ReadMariaDBProperties($id, $includes));
     }
 
     public function updateMariaDBProperties(
@@ -442,9 +442,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateMetabaseProperties($id, $clusterMetabasePropertiesCreateRequest));
     }
 
-    public function readMetabaseProperties(int $id): Response
+    public function readMetabaseProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadMetabaseProperties($id));
+        return $this->connector->send(new ReadMetabaseProperties($id, $includes));
     }
 
     public function updateMetabaseProperties(
@@ -461,9 +461,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateNewRelicProperties($id, $clusterNewRelicPropertiesCreateRequest));
     }
 
-    public function readNewRelicProperties(int $id): Response
+    public function readNewRelicProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadNewRelicProperties($id));
+        return $this->connector->send(new ReadNewRelicProperties($id, $includes));
     }
 
     public function updateNewRelicProperties(
@@ -480,9 +480,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateRabbitMQProperties($id, $clusterRabbitmqPropertiesCreateRequest));
     }
 
-    public function readRabbitMQProperties(int $id): Response
+    public function readRabbitMQProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadRabbitMQProperties($id));
+        return $this->connector->send(new ReadRabbitMQProperties($id, $includes));
     }
 
     public function updateRabbitMQProperties(
@@ -499,9 +499,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreatePHPProperties($id, $clusterPhpPropertiesCreateRequest));
     }
 
-    public function readPHPProperties(int $id): Response
+    public function readPHPProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadPHPProperties($id));
+        return $this->connector->send(new ReadPHPProperties($id, $includes));
     }
 
     public function updatePHPProperties(
@@ -511,9 +511,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new UpdatePHPProperties($id, $clusterPhpPropertiesUpdateRequest));
     }
 
-    public function readLoadBalancingProperties(int $id): Response
+    public function readLoadBalancingProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadLoadBalancingProperties($id));
+        return $this->connector->send(new ReadLoadBalancingProperties($id, $includes));
     }
 
     public function updateLoadBalancingProperties(
@@ -530,9 +530,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateOSProperties($id, $clusterOsPropertiesCreateRequest));
     }
 
-    public function readOSProperties(int $id): Response
+    public function readOSProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadOSProperties($id));
+        return $this->connector->send(new ReadOSProperties($id, $includes));
     }
 
     public function updateOSProperties(
@@ -542,101 +542,130 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new UpdateOSProperties($id, $clusterOsPropertiesUpdateRequest));
     }
 
-    public function listBorgProperties(?ClustersBorgPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListBorgProperties($includeFilters));
+    public function listBorgProperties(
+        ?ClustersBorgPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListBorgProperties($includeFilters, $includes));
     }
 
     public function listKernelCareProperties(
         ?ClustersKernelcarePropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListKernelCareProperties($includeFilters));
+        return $this->connector->paginate(new ListKernelCareProperties($includeFilters, $includes));
     }
 
-    public function listRedisProperties(?ClustersRedisPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListRedisProperties($includeFilters));
+    public function listRedisProperties(
+        ?ClustersRedisPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListRedisProperties($includeFilters, $includes));
     }
 
-    public function listGrafanaProperties(?ClustersGrafanaPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListGrafanaProperties($includeFilters));
+    public function listGrafanaProperties(
+        ?ClustersGrafanaPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListGrafanaProperties($includeFilters, $includes));
     }
 
-    public function listNodeJSProperties(?ClustersNodejsPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListNodeJSProperties($includeFilters));
+    public function listNodeJSProperties(
+        ?ClustersNodejsPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListNodeJSProperties($includeFilters, $includes));
     }
 
     public function listElasticsearchProperties(
         ?ClustersElasticsearchPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListElasticsearchProperties($includeFilters));
+        return $this->connector->paginate(new ListElasticsearchProperties($includeFilters, $includes));
     }
 
-    public function listFirewallProperties(?ClustersFirewallPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListFirewallProperties($includeFilters));
+    public function listFirewallProperties(
+        ?ClustersFirewallPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListFirewallProperties($includeFilters, $includes));
     }
 
     public function listPostgreSQLProperties(
         ?ClustersPostgresqlPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListPostgreSQLProperties($includeFilters));
+        return $this->connector->paginate(new ListPostgreSQLProperties($includeFilters, $includes));
     }
 
-    public function listMariaDBProperties(?ClustersMariadbPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListMariaDBProperties($includeFilters));
+    public function listMariaDBProperties(
+        ?ClustersMariadbPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListMariaDBProperties($includeFilters, $includes));
     }
 
     public function listUNIXUsersProperties(
         ?ClustersUnixUsersPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListUNIXUsersProperties($includeFilters));
+        return $this->connector->paginate(new ListUNIXUsersProperties($includeFilters, $includes));
     }
 
     public function listMeilisearchProperties(
         ?ClustersMeilisearchPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListMeilisearchProperties($includeFilters));
+        return $this->connector->paginate(new ListMeilisearchProperties($includeFilters, $includes));
     }
 
-    public function listMetabaseProperties(?ClustersMetabasePropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListMetabaseProperties($includeFilters));
+    public function listMetabaseProperties(
+        ?ClustersMetabasePropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListMetabaseProperties($includeFilters, $includes));
     }
 
-    public function listNewRelicProperties(?ClustersNewRelicPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListNewRelicProperties($includeFilters));
+    public function listNewRelicProperties(
+        ?ClustersNewRelicPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListNewRelicProperties($includeFilters, $includes));
     }
 
-    public function listRabbitMQProperties(?ClustersRabbitmqPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListRabbitMQProperties($includeFilters));
+    public function listRabbitMQProperties(
+        ?ClustersRabbitmqPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListRabbitMQProperties($includeFilters, $includes));
     }
 
-    public function listPHPProperties(?ClustersPhpPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListPHPProperties($includeFilters));
+    public function listPHPProperties(
+        ?ClustersPhpPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListPHPProperties($includeFilters, $includes));
     }
 
     public function listLoadBalancingProperties(
         ?ClustersLoadBalancingPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListLoadBalancingProperties($includeFilters));
+        return $this->connector->paginate(new ListLoadBalancingProperties($includeFilters, $includes));
     }
 
-    public function listOSProperties(?ClustersOsPropertiesSearchRequest $includeFilters = null): Paginator
-    {
-        return $this->connector->paginate(new ListOSProperties($includeFilters));
+    public function listOSProperties(
+        ?ClustersOsPropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
+    ): Paginator {
+        return $this->connector->paginate(new ListOSProperties($includeFilters, $includes));
     }
 
     public function listSingleStoreProperties(
         ?ClustersSinglestorePropertiesSearchRequest $includeFilters = null,
+        array $includes = [],
     ): Paginator {
-        return $this->connector->paginate(new ListSingleStoreProperties($includeFilters));
+        return $this->connector->paginate(new ListSingleStoreProperties($includeFilters, $includes));
     }
 
     public function createSingleStoreProperties(
@@ -646,9 +675,9 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new CreateSingleStoreProperties($id, $clusterSinglestorePropertiesCreateRequest));
     }
 
-    public function readSingleStoreProperties(int $id): Response
+    public function readSingleStoreProperties(int $id, array $includes = []): Response
     {
-        return $this->connector->send(new ReadSingleStoreProperties($id));
+        return $this->connector->send(new ReadSingleStoreProperties($id, $includes));
     }
 
     public function updateSingleStoreProperties(
@@ -664,10 +693,11 @@ class Clusters extends CoreApiResource
     }
 
     public function listUNIXUsersHomeDirectoryUsages(
-        int $clusterId,
+        int $id,
         string $timestamp,
         ?TimeUnitEnum $timeUnit = null,
+        array $includes = [],
     ): Response {
-        return $this->connector->send(new ListUNIXUsersHomeDirectoryUsages($clusterId, $timestamp, $timeUnit));
+        return $this->connector->send(new ListUNIXUsersHomeDirectoryUsages($id, $timestamp, $timeUnit, $includes));
     }
 }

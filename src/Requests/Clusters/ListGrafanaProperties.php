@@ -18,6 +18,7 @@ class ListGrafanaProperties extends Request implements CoreApiRequestContract, P
 
     public function __construct(
         private readonly ?ClustersGrafanaPropertiesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListGrafanaProperties extends Request implements CoreApiRequestContract, P
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

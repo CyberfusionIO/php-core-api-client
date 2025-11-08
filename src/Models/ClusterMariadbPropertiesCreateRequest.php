@@ -13,11 +13,6 @@ class ClusterMariadbPropertiesCreateRequest extends CoreApiModel implements Core
 {
     use Conditionable;
 
-    public function __construct(string $mariadbVersion)
-    {
-        $this->setMariadbVersion($mariadbVersion);
-    }
-
     public function getMariadbVersion(): string
     {
         return $this->getAttribute('mariadb_version');
@@ -54,8 +49,8 @@ class ClusterMariadbPropertiesCreateRequest extends CoreApiModel implements Core
     public static function fromArray(array $data): self
     {
         return (new self(
-            mariadbVersion: Arr::get($data, 'mariadb_version'),
         ))
+            ->when(Arr::has($data, 'mariadb_version'), fn (self $model) => $model->setMariadbVersion(Arr::get($data, 'mariadb_version', '11.4')))
             ->when(Arr::has($data, 'mariadb_backup_interval'), fn (self $model) => $model->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval', 24)))
             ->when(Arr::has($data, 'mariadb_backup_local_retention'), fn (self $model) => $model->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention', 3)));
     }
