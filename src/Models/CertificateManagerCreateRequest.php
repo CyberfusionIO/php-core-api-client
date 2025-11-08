@@ -14,16 +14,10 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
 {
     use Conditionable;
 
-    public function __construct(
-        array $commonNames,
-        CertificateProviderNameEnum $providerName,
-        int $clusterId,
-        ?string $requestCallbackUrl = null,
-    ) {
+    public function __construct(array $commonNames, int $clusterId)
+    {
         $this->setCommonNames($commonNames);
-        $this->setProviderName($providerName);
         $this->setClusterId($clusterId);
-        $this->setRequestCallbackUrl($requestCallbackUrl);
     }
 
     public function getCommonNames(): array
@@ -80,9 +74,9 @@ class CertificateManagerCreateRequest extends CoreApiModel implements CoreApiMod
     {
         return (new self(
             commonNames: Arr::get($data, 'common_names'),
-            providerName: CertificateProviderNameEnum::tryFrom(Arr::get($data, 'provider_name')),
             clusterId: Arr::get($data, 'cluster_id'),
-            requestCallbackUrl: Arr::get($data, 'request_callback_url'),
-        ));
+        ))
+            ->when(Arr::has($data, 'provider_name'), fn (self $model) => $model->setProviderName(CertificateProviderNameEnum::tryFrom(Arr::get($data, 'provider_name', 'lets_encrypt'))))
+            ->when(Arr::has($data, 'request_callback_url'), fn (self $model) => $model->setRequestCallbackUrl(Arr::get($data, 'request_callback_url')));
     }
 }

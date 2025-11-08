@@ -13,17 +13,6 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function getGroups(): array|null
-    {
-        return $this->getAttribute('groups');
-    }
-
-    public function setGroups(?array $groups): self
-    {
-        $this->setAttribute('groups', $groups);
-        return $this;
-    }
-
     public function getComment(): string|null
     {
         return $this->getAttribute('comment');
@@ -50,7 +39,6 @@ class NodeUpdateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'groups'), fn (self $model) => $model->setGroups(Arr::get($data, 'groups')))
             ->when(Arr::has($data, 'comment'), fn (self $model) => $model->setComment(Arr::get($data, 'comment')))
             ->when(Arr::has($data, 'load_balancer_health_checks_groups_pairs'), fn (self $model) => $model->setLoadBalancerHealthChecksGroupsPairs(Arr::get($data, 'load_balancer_health_checks_groups_pairs')));
     }

@@ -13,12 +13,10 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
 {
     use Conditionable;
 
-    public function __construct(string $domain, int $unixUserId, array $catchAllForwardEmailAddresses, bool $isLocal)
+    public function __construct(string $domain, int $unixUserId)
     {
         $this->setDomain($domain);
         $this->setUnixUserId($unixUserId);
-        $this->setCatchAllForwardEmailAddresses($catchAllForwardEmailAddresses);
-        $this->setIsLocal($isLocal);
     }
 
     public function getDomain(): string
@@ -53,8 +51,8 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
      */
     public function setCatchAllForwardEmailAddresses(array $catchAllForwardEmailAddresses): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($catchAllForwardEmailAddresses);
         $this->setAttribute('catch_all_forward_email_addresses', $catchAllForwardEmailAddresses);
         return $this;
@@ -76,8 +74,8 @@ class MailDomainCreateRequest extends CoreApiModel implements CoreApiModelContra
         return (new self(
             domain: Arr::get($data, 'domain'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-            catchAllForwardEmailAddresses: Arr::get($data, 'catch_all_forward_email_addresses'),
-            isLocal: Arr::get($data, 'is_local'),
-        ));
+        ))
+            ->when(Arr::has($data, 'catch_all_forward_email_addresses'), fn (self $model) => $model->setCatchAllForwardEmailAddresses(Arr::get($data, 'catch_all_forward_email_addresses', [])))
+            ->when(Arr::has($data, 'is_local'), fn (self $model) => $model->setIsLocal(Arr::get($data, 'is_local', true)));
     }
 }

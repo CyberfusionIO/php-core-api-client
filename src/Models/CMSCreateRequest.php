@@ -14,10 +14,9 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(CMSSoftwareNameEnum $softwareName, bool $isManuallyCreated, int $virtualHostId)
+    public function __construct(CMSSoftwareNameEnum $softwareName, int $virtualHostId)
     {
         $this->setSoftwareName($softwareName);
-        $this->setIsManuallyCreated($isManuallyCreated);
         $this->setVirtualHostId($virtualHostId);
     }
 
@@ -29,17 +28,6 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
     public function setSoftwareName(CMSSoftwareNameEnum $softwareName): self
     {
         $this->setAttribute('software_name', $softwareName);
-        return $this;
-    }
-
-    public function getIsManuallyCreated(): bool
-    {
-        return $this->getAttribute('is_manually_created');
-    }
-
-    public function setIsManuallyCreated(bool $isManuallyCreated): self
-    {
-        $this->setAttribute('is_manually_created', $isManuallyCreated);
         return $this;
     }
 
@@ -58,7 +46,6 @@ class CMSCreateRequest extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             softwareName: CMSSoftwareNameEnum::tryFrom(Arr::get($data, 'software_name')),
-            isManuallyCreated: Arr::get($data, 'is_manually_created'),
             virtualHostId: Arr::get($data, 'virtual_host_id'),
         ));
     }

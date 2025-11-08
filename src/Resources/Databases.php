@@ -59,8 +59,12 @@ class Databases extends CoreApiResource
         return $this->connector->send(new SyncDatabases($leftDatabaseId, $rightDatabaseId, $callbackUrl, $excludeTablesNames));
     }
 
-    public function listDatabaseUsages(int $databaseId, string $timestamp, ?TimeUnitEnum $timeUnit = null): Response
-    {
-        return $this->connector->send(new ListDatabaseUsages($databaseId, $timestamp, $timeUnit));
+    public function listDatabaseUsages(
+        int $id,
+        string $timestamp,
+        ?TimeUnitEnum $timeUnit = null,
+        array $includes = [],
+    ): Response {
+        return $this->connector->send(new ListDatabaseUsages($id, $timestamp, $timeUnit, $includes));
     }
 }

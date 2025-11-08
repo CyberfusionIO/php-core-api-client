@@ -13,10 +13,9 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
 {
     use Conditionable;
 
-    public function __construct(array $phpVersions, array $customPhpModulesNames, PHPSettings $phpSettings)
+    public function __construct(array $phpVersions, PHPSettings $phpSettings)
     {
         $this->setPhpVersions($phpVersions);
-        $this->setCustomPhpModulesNames($customPhpModulesNames);
         $this->setPhpSettings($phpSettings);
     }
 
@@ -47,8 +46,8 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
      */
     public function setCustomPhpModulesNames(array $customPhpModulesNames): self
     {
-        Validator::create()
-            ->unique()
+        Validator::optional(Validator::create()
+            ->unique())
             ->assert($customPhpModulesNames);
         $this->setAttribute('custom_php_modules_names', $customPhpModulesNames);
         return $this;
@@ -91,9 +90,9 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
     {
         return (new self(
             phpVersions: Arr::get($data, 'php_versions'),
-            customPhpModulesNames: Arr::get($data, 'custom_php_modules_names'),
             phpSettings: PHPSettings::fromArray(Arr::get($data, 'php_settings')),
         ))
+            ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names', [])))
             ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled', false)))
             ->when(Arr::has($data, 'php_sessions_spread_enabled'), fn (self $model) => $model->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled', true)));
     }

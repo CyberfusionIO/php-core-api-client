@@ -49,8 +49,12 @@ class UNIXUsers extends CoreApiResource
         return $this->connector->send(new CompareUNIXUsers($leftUnixUserId, $rightUnixUserId));
     }
 
-    public function listUNIXUserUsages(int $unixUserId, string $timestamp, ?TimeUnitEnum $timeUnit = null): Response
-    {
-        return $this->connector->send(new ListUNIXUserUsages($unixUserId, $timestamp, $timeUnit));
+    public function listUNIXUserUsages(
+        int $id,
+        string $timestamp,
+        ?TimeUnitEnum $timeUnit = null,
+        array $includes = [],
+    ): Response {
+        return $this->connector->send(new ListUNIXUserUsages($id, $timestamp, $timeUnit, $includes));
     }
 }

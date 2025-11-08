@@ -80,7 +80,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->length(min: 1, max: 255)
-            ->regex('/^[ -~]+$/')
+            ->regex('/^[a-zA-Z0-9.\/$=*]+$/')
             ->assert($hashedPassword);
         $this->setAttribute('hashed_password', $hashedPassword);
         return $this;

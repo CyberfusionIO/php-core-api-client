@@ -20,11 +20,6 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
         string $appRoot,
         int $unixUserId,
         PassengerEnvironmentEnum $environment,
-        ArrayObject $environmentVariables,
-        int $maxPoolSize,
-        int $maxRequests,
-        int $poolIdleTime,
-        bool $isNamespaced,
         string $nodejsVersion,
         string $startupFile,
         ?int $cpuLimit = null,
@@ -33,11 +28,6 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
         $this->setAppRoot($appRoot);
         $this->setUnixUserId($unixUserId);
         $this->setEnvironment($environment);
-        $this->setEnvironmentVariables($environmentVariables);
-        $this->setMaxPoolSize($maxPoolSize);
-        $this->setMaxRequests($maxRequests);
-        $this->setPoolIdleTime($poolIdleTime);
-        $this->setIsNamespaced($isNamespaced);
         $this->setNodejsVersion($nodejsVersion);
         $this->setStartupFile($startupFile);
         $this->setCpuLimit($cpuLimit);
@@ -195,14 +185,14 @@ class PassengerAppCreateNodeJSRequest extends CoreApiModel implements CoreApiMod
             appRoot: Arr::get($data, 'app_root'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             environment: PassengerEnvironmentEnum::tryFrom(Arr::get($data, 'environment')),
-            environmentVariables: new ArrayObject(Arr::get($data, 'environment_variables')),
-            maxPoolSize: Arr::get($data, 'max_pool_size'),
-            maxRequests: Arr::get($data, 'max_requests'),
-            poolIdleTime: Arr::get($data, 'pool_idle_time'),
-            isNamespaced: Arr::get($data, 'is_namespaced'),
             nodejsVersion: Arr::get($data, 'nodejs_version'),
             startupFile: Arr::get($data, 'startup_file'),
             cpuLimit: Arr::get($data, 'cpu_limit'),
-        ));
+        ))
+            ->when(Arr::has($data, 'environment_variables'), fn (self $model) => $model->setEnvironmentVariables(new ArrayObject(Arr::get($data, 'environment_variables', []))))
+            ->when(Arr::has($data, 'max_pool_size'), fn (self $model) => $model->setMaxPoolSize(Arr::get($data, 'max_pool_size', 10)))
+            ->when(Arr::has($data, 'max_requests'), fn (self $model) => $model->setMaxRequests(Arr::get($data, 'max_requests', 2000)))
+            ->when(Arr::has($data, 'pool_idle_time'), fn (self $model) => $model->setPoolIdleTime(Arr::get($data, 'pool_idle_time', 10)))
+            ->when(Arr::has($data, 'is_namespaced'), fn (self $model) => $model->setIsNamespaced(Arr::get($data, 'is_namespaced', true)));
     }
 }

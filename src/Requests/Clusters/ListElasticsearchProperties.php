@@ -18,6 +18,7 @@ class ListElasticsearchProperties extends Request implements CoreApiRequestContr
 
     public function __construct(
         private readonly ?ClustersElasticsearchPropertiesSearchRequest $includeFilters = null,
+        private readonly array $includes = [],
     ) {
     }
 
@@ -29,6 +30,7 @@ class ListElasticsearchProperties extends Request implements CoreApiRequestContr
     protected function defaultQuery(): array
     {
         $parameters = $this->includeFilters?->toArray() ?? [];
+        $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
     }

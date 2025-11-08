@@ -9,9 +9,6 @@ use Saloon\Enums\Method;
 use Saloon\Http\Response;
 use Saloon\Http\SoloRequest;
 
-/**
- * Get clusters common properties.
- */
 class GetCommonProperties extends SoloRequest implements CoreApiRequestContract
 {
     protected Method $method = Method::GET;

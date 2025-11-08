@@ -6,6 +6,7 @@ use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\NodeCreateRequest;
 use Cyberfusion\CoreApi\Models\NodeUpdateRequest;
 use Cyberfusion\CoreApi\Models\NodesSearchRequest;
+use Cyberfusion\CoreApi\Requests\Nodes\AddNodeGroups;
 use Cyberfusion\CoreApi\Requests\Nodes\CreateNodes;
 use Cyberfusion\CoreApi\Requests\Nodes\DeleteNode;
 use Cyberfusion\CoreApi\Requests\Nodes\GetNodeProducts;
@@ -54,5 +55,10 @@ class Nodes extends CoreApiResource
     public function upgradeOrDowngradeNode(int $id, string $product, ?string $callbackUrl = null): Response
     {
         return $this->connector->send(new UpgradeOrDowngradeNode($id, $product, $callbackUrl));
+    }
+
+    public function addNodeGroups(int $id, ?string $callbackUrl = null): Response
+    {
+        return $this->connector->send(new AddNodeGroups($id, $callbackUrl));
     }
 }
