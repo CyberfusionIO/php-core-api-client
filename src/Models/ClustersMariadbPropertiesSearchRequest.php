@@ -24,17 +24,6 @@ class ClustersMariadbPropertiesSearchRequest extends CoreApiModel implements Cor
         return $this;
     }
 
-    public function getMariadbClusterName(): string|null
-    {
-        return $this->getAttribute('mariadb_cluster_name');
-    }
-
-    public function setMariadbClusterName(?string $mariadbClusterName): self
-    {
-        $this->setAttribute('mariadb_cluster_name', $mariadbClusterName);
-        return $this;
-    }
-
     public function getMariadbBackupInterval(): int|null
     {
         return $this->getAttribute('mariadb_backup_interval');
@@ -73,7 +62,6 @@ class ClustersMariadbPropertiesSearchRequest extends CoreApiModel implements Cor
         return (new self(
         ))
             ->when(Arr::has($data, 'mariadb_version'), fn (self $model) => $model->setMariadbVersion(Arr::get($data, 'mariadb_version')))
-            ->when(Arr::has($data, 'mariadb_cluster_name'), fn (self $model) => $model->setMariadbClusterName(Arr::get($data, 'mariadb_cluster_name')))
             ->when(Arr::has($data, 'mariadb_backup_interval'), fn (self $model) => $model->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval')))
             ->when(Arr::has($data, 'mariadb_backup_local_retention'), fn (self $model) => $model->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));

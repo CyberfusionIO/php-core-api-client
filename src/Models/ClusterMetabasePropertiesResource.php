@@ -18,7 +18,6 @@ class ClusterMetabasePropertiesResource extends CoreApiModel implements CoreApiM
         string $createdAt,
         string $updatedAt,
         string $metabaseDomain,
-        string $metabaseDatabasePassword,
         int $clusterId,
         ClusterMetabasePropertiesIncludes $includes,
     ) {
@@ -26,7 +25,6 @@ class ClusterMetabasePropertiesResource extends CoreApiModel implements CoreApiM
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setMetabaseDomain($metabaseDomain);
-        $this->setMetabaseDatabasePassword($metabaseDatabasePassword);
         $this->setClusterId($clusterId);
         $this->setIncludes($includes);
     }
@@ -75,24 +73,6 @@ class ClusterMetabasePropertiesResource extends CoreApiModel implements CoreApiM
         return $this;
     }
 
-    public function getMetabaseDatabasePassword(): string
-    {
-        return $this->getAttribute('metabase_database_password');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setMetabaseDatabasePassword(string $metabaseDatabasePassword): self
-    {
-        Validator::create()
-            ->length(min: 24, max: 255)
-            ->regex('/^[ -~]+$/')
-            ->assert($metabaseDatabasePassword);
-        $this->setAttribute('metabase_database_password', $metabaseDatabasePassword);
-        return $this;
-    }
-
     public function getClusterId(): int
     {
         return $this->getAttribute('cluster_id');
@@ -122,7 +102,6 @@ class ClusterMetabasePropertiesResource extends CoreApiModel implements CoreApiM
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             metabaseDomain: Arr::get($data, 'metabase_domain'),
-            metabaseDatabasePassword: Arr::get($data, 'metabase_database_password'),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: ClusterMetabasePropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));

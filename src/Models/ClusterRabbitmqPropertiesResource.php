@@ -17,7 +17,6 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         int $id,
         string $createdAt,
         string $updatedAt,
-        string $rabbitmqErlangCookie,
         string $rabbitmqAdminPassword,
         string $rabbitmqManagementDomain,
         int $clusterId,
@@ -26,7 +25,6 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
-        $this->setRabbitmqErlangCookie($rabbitmqErlangCookie);
         $this->setRabbitmqAdminPassword($rabbitmqAdminPassword);
         $this->setRabbitmqManagementDomain($rabbitmqManagementDomain);
         $this->setClusterId($clusterId);
@@ -63,24 +61,6 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
     public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
-        return $this;
-    }
-
-    public function getRabbitmqErlangCookie(): string
-    {
-        return $this->getAttribute('rabbitmq_erlang_cookie');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setRabbitmqErlangCookie(string $rabbitmqErlangCookie): self
-    {
-        Validator::create()
-            ->length(min: 20, max: 20)
-            ->regex('/^[A-Z0-9]+$/')
-            ->assert($rabbitmqErlangCookie);
-        $this->setAttribute('rabbitmq_erlang_cookie', $rabbitmqErlangCookie);
         return $this;
     }
 
@@ -141,7 +121,6 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            rabbitmqErlangCookie: Arr::get($data, 'rabbitmq_erlang_cookie'),
             rabbitmqAdminPassword: Arr::get($data, 'rabbitmq_admin_password'),
             rabbitmqManagementDomain: Arr::get($data, 'rabbitmq_management_domain'),
             clusterId: Arr::get($data, 'cluster_id'),

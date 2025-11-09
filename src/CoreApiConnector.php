@@ -29,7 +29,7 @@ class CoreApiConnector extends Connector implements HasPagination
     use AlwaysThrowOnErrors;
     use HasTimeout;
 
-    private const VERSION = '2.6.0';
+    private const VERSION = '2.7.0';
 
     private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
 
@@ -365,11 +365,6 @@ class CoreApiConnector extends Connector implements HasPagination
     public function taskCollections(): Resources\TaskCollections
     {
         return new Resources\TaskCollections($this);
-    }
-
-    public function tombstones(): Resources\Tombstones
-    {
-        return new Resources\Tombstones($this);
     }
 
     public function UNIXUsers(): Resources\UNIXUsers

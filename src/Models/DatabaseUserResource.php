@@ -22,7 +22,6 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
         DatabaseUserIncludes $includes,
-        ?string $hashedPassword = null,
         ?string $host = null,
         ?array $phpmyadminFirewallGroupsIds = null,
     ) {
@@ -33,7 +32,6 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
         $this->setIncludes($includes);
-        $this->setHashedPassword($hashedPassword);
         $this->setHost($host);
         $this->setPhpmyadminFirewallGroupsIds($phpmyadminFirewallGroupsIds);
     }
@@ -68,17 +66,6 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
     public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
-        return $this;
-    }
-
-    public function getHashedPassword(): string|null
-    {
-        return $this->getAttribute('hashed_password');
-    }
-
-    public function setHashedPassword(?string $hashedPassword): self
-    {
-        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -165,7 +152,6 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: DatabaseUserIncludes::fromArray(Arr::get($data, 'includes')),
-            hashedPassword: Arr::get($data, 'hashed_password'),
             host: Arr::get($data, 'host'),
             phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),
         ));

@@ -17,7 +17,6 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         int $id,
         string $createdAt,
         string $updatedAt,
-        string $newRelicMariadbPassword,
         int $clusterId,
         ClusterNewRelicPropertiesIncludes $includes,
         ?string $newRelicApmLicenseKey = null,
@@ -26,7 +25,6 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
-        $this->setNewRelicMariadbPassword($newRelicMariadbPassword);
         $this->setClusterId($clusterId);
         $this->setIncludes($includes);
         $this->setNewRelicApmLicenseKey($newRelicApmLicenseKey);
@@ -63,24 +61,6 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
     public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
-        return $this;
-    }
-
-    public function getNewRelicMariadbPassword(): string
-    {
-        return $this->getAttribute('new_relic_mariadb_password');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setNewRelicMariadbPassword(string $newRelicMariadbPassword): self
-    {
-        Validator::create()
-            ->length(min: 24, max: 255)
-            ->regex('/^[ -~]+$/')
-            ->assert($newRelicMariadbPassword);
-        $this->setAttribute('new_relic_mariadb_password', $newRelicMariadbPassword);
         return $this;
     }
 
@@ -134,7 +114,6 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            newRelicMariadbPassword: Arr::get($data, 'new_relic_mariadb_password'),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: ClusterNewRelicPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
             newRelicApmLicenseKey: Arr::get($data, 'new_relic_apm_license_key'),

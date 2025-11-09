@@ -18,7 +18,6 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         string $createdAt,
         string $updatedAt,
         string $mariadbVersion,
-        string $mariadbClusterName,
         int $mariadbBackupInterval,
         int $mariadbBackupLocalRetention,
         int $clusterId,
@@ -28,7 +27,6 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setMariadbVersion($mariadbVersion);
-        $this->setMariadbClusterName($mariadbClusterName);
         $this->setMariadbBackupInterval($mariadbBackupInterval);
         $this->setMariadbBackupLocalRetention($mariadbBackupLocalRetention);
         $this->setClusterId($clusterId);
@@ -76,24 +74,6 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
     public function setMariadbVersion(string $mariadbVersion): self
     {
         $this->setAttribute('mariadb_version', $mariadbVersion);
-        return $this;
-    }
-
-    public function getMariadbClusterName(): string
-    {
-        return $this->getAttribute('mariadb_cluster_name');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setMariadbClusterName(string $mariadbClusterName): self
-    {
-        Validator::create()
-            ->length(min: 1, max: 64)
-            ->regex('/^[a-z.]+$/')
-            ->assert($mariadbClusterName);
-        $this->setAttribute('mariadb_cluster_name', $mariadbClusterName);
         return $this;
     }
 
@@ -148,7 +128,6 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             mariadbVersion: Arr::get($data, 'mariadb_version'),
-            mariadbClusterName: Arr::get($data, 'mariadb_cluster_name'),
             mariadbBackupInterval: Arr::get($data, 'mariadb_backup_interval'),
             mariadbBackupLocalRetention: Arr::get($data, 'mariadb_backup_local_retention'),
             clusterId: Arr::get($data, 'cluster_id'),
