@@ -17,7 +17,6 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         int $id,
         string $createdAt,
         string $updatedAt,
-        string $hashedPassword,
         string $localPart,
         int $mailDomainId,
         int $clusterId,
@@ -27,7 +26,6 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         $this->setId($id);
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
-        $this->setHashedPassword($hashedPassword);
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setClusterId($clusterId);
@@ -65,24 +63,6 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
     public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
-        return $this;
-    }
-
-    public function getHashedPassword(): string
-    {
-        return $this->getAttribute('hashed_password');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setHashedPassword(string $hashedPassword): self
-    {
-        Validator::create()
-            ->length(min: 1, max: 255)
-            ->regex('/^[a-zA-Z0-9.\/$=*]+$/')
-            ->assert($hashedPassword);
-        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -154,7 +134,6 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            hashedPassword: Arr::get($data, 'hashed_password'),
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             clusterId: Arr::get($data, 'cluster_id'),

@@ -18,10 +18,6 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         string $createdAt,
         string $updatedAt,
         string $name,
-        string $passphrase,
-        string $remoteHost,
-        string $remotePath,
-        string $remoteUsername,
         int $unixId,
         int $clusterId,
         BorgRepositoryIncludes $includes,
@@ -37,10 +33,6 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setName($name);
-        $this->setPassphrase($passphrase);
-        $this->setRemoteHost($remoteHost);
-        $this->setRemotePath($remotePath);
-        $this->setRemoteUsername($remoteUsername);
         $this->setUnixId($unixId);
         $this->setClusterId($clusterId);
         $this->setIncludes($includes);
@@ -101,64 +93,6 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
             ->regex('/^[a-z0-9-_]+$/')
             ->assert($name);
         $this->setAttribute('name', $name);
-        return $this;
-    }
-
-    public function getPassphrase(): string
-    {
-        return $this->getAttribute('passphrase');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setPassphrase(string $passphrase): self
-    {
-        Validator::create()
-            ->length(min: 24, max: 255)
-            ->regex('/^[ -~]+$/')
-            ->assert($passphrase);
-        $this->setAttribute('passphrase', $passphrase);
-        return $this;
-    }
-
-    public function getRemoteHost(): string
-    {
-        return $this->getAttribute('remote_host');
-    }
-
-    public function setRemoteHost(string $remoteHost): self
-    {
-        $this->setAttribute('remote_host', $remoteHost);
-        return $this;
-    }
-
-    public function getRemotePath(): string
-    {
-        return $this->getAttribute('remote_path');
-    }
-
-    public function setRemotePath(string $remotePath): self
-    {
-        $this->setAttribute('remote_path', $remotePath);
-        return $this;
-    }
-
-    public function getRemoteUsername(): string
-    {
-        return $this->getAttribute('remote_username');
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function setRemoteUsername(string $remoteUsername): self
-    {
-        Validator::create()
-            ->length(min: 1, max: 32)
-            ->regex('/^[a-z0-9-_]+$/')
-            ->assert($remoteUsername);
-        $this->setAttribute('remote_username', $remoteUsername);
         return $this;
     }
 
@@ -279,10 +213,6 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             name: Arr::get($data, 'name'),
-            passphrase: Arr::get($data, 'passphrase'),
-            remoteHost: Arr::get($data, 'remote_host'),
-            remotePath: Arr::get($data, 'remote_path'),
-            remoteUsername: Arr::get($data, 'remote_username'),
             unixId: Arr::get($data, 'unix_id'),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: BorgRepositoryIncludes::fromArray(Arr::get($data, 'includes')),

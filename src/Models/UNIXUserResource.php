@@ -27,7 +27,6 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
         ShellNameEnum $shellName,
         bool $recordUsageFiles,
         UNIXUserIncludes $includes,
-        ?string $hashedPassword = null,
         ?string $virtualHostsDirectory = null,
         ?string $mailDomainsDirectory = null,
         ?string $defaultPhpVersion = null,
@@ -46,7 +45,6 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
         $this->setShellName($shellName);
         $this->setRecordUsageFiles($recordUsageFiles);
         $this->setIncludes($includes);
-        $this->setHashedPassword($hashedPassword);
         $this->setVirtualHostsDirectory($virtualHostsDirectory);
         $this->setMailDomainsDirectory($mailDomainsDirectory);
         $this->setDefaultPhpVersion($defaultPhpVersion);
@@ -84,17 +82,6 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
     public function setUpdatedAt(string $updatedAt): self
     {
         $this->setAttribute('updated_at', $updatedAt);
-        return $this;
-    }
-
-    public function getHashedPassword(): string|null
-    {
-        return $this->getAttribute('hashed_password');
-    }
-
-    public function setHashedPassword(?string $hashedPassword): self
-    {
-        $this->setAttribute('hashed_password', $hashedPassword);
         return $this;
     }
 
@@ -274,7 +261,6 @@ class UNIXUserResource extends CoreApiModel implements CoreApiModelContract
             shellName: ShellNameEnum::tryFrom(Arr::get($data, 'shell_name')),
             recordUsageFiles: Arr::get($data, 'record_usage_files'),
             includes: UNIXUserIncludes::fromArray(Arr::get($data, 'includes')),
-            hashedPassword: Arr::get($data, 'hashed_password'),
             virtualHostsDirectory: Arr::get($data, 'virtual_hosts_directory'),
             mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),
             defaultPhpVersion: Arr::get($data, 'default_php_version'),
