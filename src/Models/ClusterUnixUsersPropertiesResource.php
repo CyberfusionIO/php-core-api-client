@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\UNIXUserHomeDirectoryEnum;
+use Cyberfusion\CoreApi\Enums\UnixUserHomeDirectoryEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -18,7 +18,7 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
         int $id,
         string $createdAt,
         string $updatedAt,
-        UNIXUserHomeDirectoryEnum $unixUsersHomeDirectory,
+        UnixUserHomeDirectoryEnum $unixUsersHomeDirectory,
         int $clusterId,
         ClusterUnixUsersPropertiesIncludes $includes,
     ) {
@@ -63,12 +63,12 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
         return $this;
     }
 
-    public function getUnixUsersHomeDirectory(): UNIXUserHomeDirectoryEnum
+    public function getUnixUsersHomeDirectory(): UnixUserHomeDirectoryEnum
     {
         return $this->getAttribute('unix_users_home_directory');
     }
 
-    public function setUnixUsersHomeDirectory(UNIXUserHomeDirectoryEnum $unixUsersHomeDirectory): self
+    public function setUnixUsersHomeDirectory(UnixUserHomeDirectoryEnum $unixUsersHomeDirectory): self
     {
         $this->setAttribute('unix_users_home_directory', $unixUsersHomeDirectory);
         return $this;
@@ -102,7 +102,7 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            unixUsersHomeDirectory: UNIXUserHomeDirectoryEnum::tryFrom(Arr::get($data, 'unix_users_home_directory')),
+            unixUsersHomeDirectory: UnixUserHomeDirectoryEnum::tryFrom(Arr::get($data, 'unix_users_home_directory')),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: ClusterUnixUsersPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));

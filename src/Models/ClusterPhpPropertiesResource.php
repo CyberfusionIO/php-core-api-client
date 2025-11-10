@@ -19,7 +19,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         string $updatedAt,
         array $phpVersions,
         array $customPhpModulesNames,
-        PHPSettings $phpSettings,
+        PhpSettings $phpSettings,
         bool $phpIoncubeEnabled,
         bool $phpSessionsSpreadEnabled,
         int $clusterId,
@@ -104,12 +104,12 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this;
     }
 
-    public function getPhpSettings(): PHPSettings
+    public function getPhpSettings(): PhpSettings
     {
         return $this->getAttribute('php_settings');
     }
 
-    public function setPhpSettings(PHPSettings $phpSettings): self
+    public function setPhpSettings(PhpSettings $phpSettings): self
     {
         $this->setAttribute('php_settings', $phpSettings);
         return $this;
@@ -167,7 +167,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
             updatedAt: Arr::get($data, 'updated_at'),
             phpVersions: Arr::get($data, 'php_versions'),
             customPhpModulesNames: Arr::get($data, 'custom_php_modules_names'),
-            phpSettings: PHPSettings::fromArray(Arr::get($data, 'php_settings')),
+            phpSettings: PhpSettings::fromArray(Arr::get($data, 'php_settings')),
             phpIoncubeEnabled: Arr::get($data, 'php_ioncube_enabled'),
             phpSessionsSpreadEnabled: Arr::get($data, 'php_sessions_spread_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),

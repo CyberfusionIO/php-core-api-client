@@ -3,20 +3,21 @@
 namespace Cyberfusion\CoreApi\Requests\Regions;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\CoreApiUnauthenticated;
 use Cyberfusion\CoreApi\Models\RegionResource;
 use Cyberfusion\CoreApi\Models\RegionsSearchRequest;
 use Illuminate\Support\Collection;
 use JsonException;
+use Saloon\Contracts\Authenticator;
 use Saloon\Enums\Method;
+use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Http\SoloRequest;
 
-class ListRegions extends SoloRequest implements CoreApiRequestContract
+class ListRegions extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::GET;
 
     public function __construct(
-        private readonly string $baseUrl,
         private readonly ?RegionsSearchRequest $includeFilters = null,
         private readonly array $includes = [],
     ) {
@@ -24,7 +25,7 @@ class ListRegions extends SoloRequest implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return $this->baseUrl . '/api/v1/regions';
+        return '/api/v1/regions';
     }
 
     protected function defaultQuery(): array
@@ -33,6 +34,11 @@ class ListRegions extends SoloRequest implements CoreApiRequestContract
         $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
+    }
+
+    public function defaultAuth(): ?Authenticator
+    {
+        return new CoreApiUnauthenticated();
     }
 
     /**

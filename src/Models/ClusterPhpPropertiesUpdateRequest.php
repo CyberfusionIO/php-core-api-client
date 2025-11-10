@@ -35,12 +35,12 @@ class ClusterPhpPropertiesUpdateRequest extends CoreApiModel implements CoreApiM
         return $this;
     }
 
-    public function getPhpSettings(): PHPSettings|null
+    public function getPhpSettings(): PhpSettings|null
     {
         return $this->getAttribute('php_settings');
     }
 
-    public function setPhpSettings(?PHPSettings $phpSettings): self
+    public function setPhpSettings(?PhpSettings $phpSettings): self
     {
         $this->setAttribute('php_settings', $phpSettings);
         return $this;
@@ -74,7 +74,7 @@ class ClusterPhpPropertiesUpdateRequest extends CoreApiModel implements CoreApiM
         ))
             ->when(Arr::has($data, 'php_versions'), fn (self $model) => $model->setPhpVersions(Arr::get($data, 'php_versions')))
             ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names')))
-            ->when(Arr::has($data, 'php_settings'), fn (self $model) => $model->setPhpSettings(Arr::get($data, 'php_settings') !== null ? PHPSettings::fromArray(Arr::get($data, 'php_settings')) : null))
+            ->when(Arr::has($data, 'php_settings'), fn (self $model) => $model->setPhpSettings(Arr::get($data, 'php_settings') !== null ? PhpSettings::fromArray(Arr::get($data, 'php_settings')) : null))
             ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled')))
             ->when(Arr::has($data, 'php_sessions_spread_enabled'), fn (self $model) => $model->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled')));
     }

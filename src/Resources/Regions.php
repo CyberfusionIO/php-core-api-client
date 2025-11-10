@@ -9,11 +9,8 @@ use Saloon\Http\Response;
 
 class Regions extends CoreApiResource
 {
-    public function listRegions(
-        string $baseUrl,
-        ?RegionsSearchRequest $includeFilters = null,
-        array $includes = [],
-    ): Response {
-        return $this->connector->send(new ListRegions($baseUrl, $includeFilters, $includes));
+    public function listRegions(?RegionsSearchRequest $includeFilters = null, array $includes = []): Response
+    {
+        return $this->connector->send(new ListRegions($includeFilters, $includes));
     }
 }

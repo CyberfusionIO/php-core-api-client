@@ -15,10 +15,10 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
 
     public function __construct(
         ?VirtualHostResource $virtualHost = null,
-        ?URLRedirectResource $urlRedirect = null,
+        ?UrlRedirectResource $urlRedirect = null,
         ?NodeResource $node = null,
         ?CertificateResource $certificate = null,
-        ?SecurityTXTPolicyResource $securityTxtPolicy = null,
+        ?SecurityTxtPolicyResource $securityTxtPolicy = null,
         ?ClusterResource $cluster = null,
     ) {
         $this->setVirtualHost($virtualHost);
@@ -40,12 +40,12 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getUrlRedirect(): URLRedirectResource|null
+    public function getUrlRedirect(): UrlRedirectResource|null
     {
         return $this->getAttribute('url_redirect');
     }
 
-    public function setUrlRedirect(?URLRedirectResource $urlRedirect): self
+    public function setUrlRedirect(?UrlRedirectResource $urlRedirect): self
     {
         $this->setAttribute('url_redirect', $urlRedirect);
         return $this;
@@ -73,12 +73,12 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getSecurityTxtPolicy(): SecurityTXTPolicyResource|null
+    public function getSecurityTxtPolicy(): SecurityTxtPolicyResource|null
     {
         return $this->getAttribute('security_txt_policy');
     }
 
-    public function setSecurityTxtPolicy(?SecurityTXTPolicyResource $securityTxtPolicy): self
+    public function setSecurityTxtPolicy(?SecurityTxtPolicyResource $securityTxtPolicy): self
     {
         $this->setAttribute('security_txt_policy', $securityTxtPolicy);
         return $this;
@@ -99,10 +99,10 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             virtualHost: Arr::get($data, 'virtual_host') !== null ? VirtualHostResource::fromArray(Arr::get($data, 'virtual_host')) : null,
-            urlRedirect: Arr::get($data, 'url_redirect') !== null ? URLRedirectResource::fromArray(Arr::get($data, 'url_redirect')) : null,
+            urlRedirect: Arr::get($data, 'url_redirect') !== null ? UrlRedirectResource::fromArray(Arr::get($data, 'url_redirect')) : null,
             node: Arr::get($data, 'node') !== null ? NodeResource::fromArray(Arr::get($data, 'node')) : null,
             certificate: Arr::get($data, 'certificate') !== null ? CertificateResource::fromArray(Arr::get($data, 'certificate')) : null,
-            securityTxtPolicy: Arr::get($data, 'security_txt_policy') !== null ? SecurityTXTPolicyResource::fromArray(Arr::get($data, 'security_txt_policy')) : null,
+            securityTxtPolicy: Arr::get($data, 'security_txt_policy') !== null ? SecurityTxtPolicyResource::fromArray(Arr::get($data, 'security_txt_policy')) : null,
             cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }

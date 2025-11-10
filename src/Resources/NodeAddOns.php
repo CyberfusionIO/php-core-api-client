@@ -27,9 +27,9 @@ class NodeAddOns extends CoreApiResource
         return $this->connector->paginate(new ListNodeAddOns($includeFilters, $includes));
     }
 
-    public function getNodeAddOnProducts(string $baseUrl): Response
+    public function getNodeAddOnProducts(): Response
     {
-        return $this->connector->send(new GetNodeAddOnProducts($baseUrl));
+        return $this->connector->send(new GetNodeAddOnProducts());
     }
 
     public function readNodeAddOn(int $id, array $includes = []): Response

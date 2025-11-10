@@ -14,7 +14,7 @@ class BorgRepositoryIncludes extends CoreApiModel implements CoreApiModelContrac
     use Conditionable;
 
     public function __construct(
-        ?UNIXUserResource $unixUser = null,
+        ?UnixUserResource $unixUser = null,
         ?DatabaseResource $database = null,
         ?ClusterResource $cluster = null,
     ) {
@@ -23,12 +23,12 @@ class BorgRepositoryIncludes extends CoreApiModel implements CoreApiModelContrac
         $this->setCluster($cluster);
     }
 
-    public function getUnixUser(): UNIXUserResource|null
+    public function getUnixUser(): UnixUserResource|null
     {
         return $this->getAttribute('unix_user');
     }
 
-    public function setUnixUser(?UNIXUserResource $unixUser): self
+    public function setUnixUser(?UnixUserResource $unixUser): self
     {
         $this->setAttribute('unix_user', $unixUser);
         return $this;
@@ -59,7 +59,7 @@ class BorgRepositoryIncludes extends CoreApiModel implements CoreApiModelContrac
     public static function fromArray(array $data): self
     {
         return (new self(
-            unixUser: Arr::get($data, 'unix_user') !== null ? UNIXUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
+            unixUser: Arr::get($data, 'unix_user') !== null ? UnixUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
             database: Arr::get($data, 'database') !== null ? DatabaseResource::fromArray(Arr::get($data, 'database')) : null,
             cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));

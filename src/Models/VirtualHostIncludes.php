@@ -15,8 +15,8 @@ class VirtualHostIncludes extends CoreApiModel implements CoreApiModelContract
 
     public function __construct(
         ?ClusterResource $cluster = null,
-        ?UNIXUserResource $unixUser = null,
-        ?FPMPoolResource $fpmPool = null,
+        ?UnixUserResource $unixUser = null,
+        ?FpmPoolResource $fpmPool = null,
         ?PassengerAppResource $passengerApp = null,
     ) {
         $this->setCluster($cluster);
@@ -36,23 +36,23 @@ class VirtualHostIncludes extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getUnixUser(): UNIXUserResource|null
+    public function getUnixUser(): UnixUserResource|null
     {
         return $this->getAttribute('unix_user');
     }
 
-    public function setUnixUser(?UNIXUserResource $unixUser): self
+    public function setUnixUser(?UnixUserResource $unixUser): self
     {
         $this->setAttribute('unix_user', $unixUser);
         return $this;
     }
 
-    public function getFpmPool(): FPMPoolResource|null
+    public function getFpmPool(): FpmPoolResource|null
     {
         return $this->getAttribute('fpm_pool');
     }
 
-    public function setFpmPool(?FPMPoolResource $fpmPool): self
+    public function setFpmPool(?FpmPoolResource $fpmPool): self
     {
         $this->setAttribute('fpm_pool', $fpmPool);
         return $this;
@@ -73,8 +73,8 @@ class VirtualHostIncludes extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
-            unixUser: Arr::get($data, 'unix_user') !== null ? UNIXUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
-            fpmPool: Arr::get($data, 'fpm_pool') !== null ? FPMPoolResource::fromArray(Arr::get($data, 'fpm_pool')) : null,
+            unixUser: Arr::get($data, 'unix_user') !== null ? UnixUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
+            fpmPool: Arr::get($data, 'fpm_pool') !== null ? FpmPoolResource::fromArray(Arr::get($data, 'fpm_pool')) : null,
             passengerApp: Arr::get($data, 'passenger_app') !== null ? PassengerAppResource::fromArray(Arr::get($data, 'passenger_app')) : null,
         ));
     }

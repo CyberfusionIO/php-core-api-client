@@ -16,7 +16,7 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
     public function __construct(
         ?NodeResource $node = null,
         ?FirewallGroupResource $firewallGroup = null,
-        ?HAProxyListenResource $haproxyListen = null,
+        ?HaproxyListenResource $haproxyListen = null,
         ?ClusterResource $cluster = null,
     ) {
         $this->setNode($node);
@@ -47,12 +47,12 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getHaproxyListen(): HAProxyListenResource|null
+    public function getHaproxyListen(): HaproxyListenResource|null
     {
         return $this->getAttribute('haproxy_listen');
     }
 
-    public function setHaproxyListen(?HAProxyListenResource $haproxyListen): self
+    public function setHaproxyListen(?HaproxyListenResource $haproxyListen): self
     {
         $this->setAttribute('haproxy_listen', $haproxyListen);
         return $this;
@@ -74,7 +74,7 @@ class FirewallRuleIncludes extends CoreApiModel implements CoreApiModelContract
         return (new self(
             node: Arr::get($data, 'node') !== null ? NodeResource::fromArray(Arr::get($data, 'node')) : null,
             firewallGroup: Arr::get($data, 'firewall_group') !== null ? FirewallGroupResource::fromArray(Arr::get($data, 'firewall_group')) : null,
-            haproxyListen: Arr::get($data, 'haproxy_listen') !== null ? HAProxyListenResource::fromArray(Arr::get($data, 'haproxy_listen')) : null,
+            haproxyListen: Arr::get($data, 'haproxy_listen') !== null ? HaproxyListenResource::fromArray(Arr::get($data, 'haproxy_listen')) : null,
             cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }

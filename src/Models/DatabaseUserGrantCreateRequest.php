@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\MariaDBPrivilegeEnum;
+use Cyberfusion\CoreApi\Enums\MariadbPrivilegeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -17,7 +17,7 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
     public function __construct(
         int $databaseId,
         int $databaseUserId,
-        MariaDBPrivilegeEnum $privilegeName,
+        MariadbPrivilegeEnum $privilegeName,
         ?string $tableName = null,
     ) {
         $this->setDatabaseId($databaseId);
@@ -59,12 +59,12 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
-    public function getPrivilegeName(): MariaDBPrivilegeEnum
+    public function getPrivilegeName(): MariadbPrivilegeEnum
     {
         return $this->getAttribute('privilege_name');
     }
 
-    public function setPrivilegeName(MariaDBPrivilegeEnum $privilegeName): self
+    public function setPrivilegeName(MariadbPrivilegeEnum $privilegeName): self
     {
         $this->setAttribute('privilege_name', $privilegeName);
         return $this;
@@ -75,7 +75,7 @@ class DatabaseUserGrantCreateRequest extends CoreApiModel implements CoreApiMode
         return (new self(
             databaseId: Arr::get($data, 'database_id'),
             databaseUserId: Arr::get($data, 'database_user_id'),
-            privilegeName: MariaDBPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')),
+            privilegeName: MariadbPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')),
             tableName: Arr::get($data, 'table_name'),
         ));
     }

@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\MariaDBPrivilegeEnum;
+use Cyberfusion\CoreApi\Enums\MariadbPrivilegeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -58,12 +58,12 @@ class DatabaseUserGrantsSearchRequest extends CoreApiModel implements CoreApiMod
         return $this;
     }
 
-    public function getPrivilegeName(): MariaDBPrivilegeEnum|null
+    public function getPrivilegeName(): MariadbPrivilegeEnum|null
     {
         return $this->getAttribute('privilege_name');
     }
 
-    public function setPrivilegeName(?MariaDBPrivilegeEnum $privilegeName): self
+    public function setPrivilegeName(?MariadbPrivilegeEnum $privilegeName): self
     {
         $this->setAttribute('privilege_name', $privilegeName);
         return $this;
@@ -77,6 +77,6 @@ class DatabaseUserGrantsSearchRequest extends CoreApiModel implements CoreApiMod
             ->when(Arr::has($data, 'database_id'), fn (self $model) => $model->setDatabaseId(Arr::get($data, 'database_id')))
             ->when(Arr::has($data, 'database_user_id'), fn (self $model) => $model->setDatabaseUserId(Arr::get($data, 'database_user_id')))
             ->when(Arr::has($data, 'table_name'), fn (self $model) => $model->setTableName(Arr::get($data, 'table_name')))
-            ->when(Arr::has($data, 'privilege_name'), fn (self $model) => $model->setPrivilegeName(Arr::get($data, 'privilege_name') !== null ? MariaDBPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')) : null));
+            ->when(Arr::has($data, 'privilege_name'), fn (self $model) => $model->setPrivilegeName(Arr::get($data, 'privilege_name') !== null ? MariadbPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')) : null));
     }
 }

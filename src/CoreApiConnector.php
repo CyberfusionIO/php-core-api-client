@@ -14,6 +14,8 @@ use Cyberfusion\CoreApi\Models\ValidationError;
 use Cyberfusion\CoreApi\Requests\Login\RequestAccessToken;
 use Illuminate\Support\Collection;
 use JsonException;
+use Saloon\Exceptions\Request\FatalRequestException;
+use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Http\Connector;
 use Saloon\Http\Request;
@@ -29,7 +31,7 @@ class CoreApiConnector extends Connector implements HasPagination
     use AlwaysThrowOnErrors;
     use HasTimeout;
 
-    private const VERSION = '2.7.0';
+    private const VERSION = '2.8.0';
 
     private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
 
@@ -55,8 +57,6 @@ class CoreApiConnector extends Connector implements HasPagination
     public function defaultHeaders(): array
     {
         return [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
             'User-Agent' => self::USER_AGENT,
         ];
     }
@@ -73,8 +73,8 @@ class CoreApiConnector extends Connector implements HasPagination
     }
 
     /**
-     * @throws AuthenticationException
-     * @throws JsonException
+     * @throws FatalRequestException
+     * @throws RequestException
      */
     public function defaultAuth(): AccessTokenAuthenticator
     {
@@ -84,16 +84,11 @@ class CoreApiConnector extends Connector implements HasPagination
                     username: $this->username,
                     password: $this->password,
                 ),
-                baseUrl: $this->baseUrl,
             );
 
-            $response = $request->send();
-
-            if ($response->failed()) {
-                throw new AuthenticationException($this->getFailedRequestDto($response));
-            }
-
-            $this->authenticatedUser = $response->dto();
+            $this->authenticatedUser = $this
+                ->send($request)
+                ->dto();
         }
 
         return new AccessTokenAuthenticator(
@@ -121,6 +116,7 @@ class CoreApiConnector extends Connector implements HasPagination
     /**
      * @throws RequestFailedException
      * @throws RequestValidationException
+     * @throws AuthenticationException
      */
     public function getRequestException(Response $response, ?Throwable $senderException): ?Throwable
     {
@@ -134,6 +130,10 @@ class CoreApiConnector extends Connector implements HasPagination
         }
 
         match ($response->status()) {
+            401, 403 => throw new AuthenticationException(
+                result: $dto,
+                previous: $senderException,
+            ),
             422 => throw new RequestValidationException(
                 response: $response,
                 errors: $dto,
@@ -182,9 +182,9 @@ class CoreApiConnector extends Connector implements HasPagination
         return new Resources\Clusters($this);
     }
 
-    public function cmses(): Resources\CMSes
+    public function cmses(): Resources\Cmses
     {
-        return new Resources\CMSes($this);
+        return new Resources\Cmses($this);
     }
 
     public function crons(): Resources\Crons
@@ -242,24 +242,24 @@ class CoreApiConnector extends Connector implements HasPagination
         return new Resources\FirewallRules($this);
     }
 
-    public function fpmPools(): Resources\FPMPools
+    public function fpmPools(): Resources\FpmPools
     {
-        return new Resources\FPMPools($this);
+        return new Resources\FpmPools($this);
     }
 
-    public function ftpUsers(): Resources\FTPUsers
+    public function ftpUsers(): Resources\FtpUsers
     {
-        return new Resources\FTPUsers($this);
+        return new Resources\FtpUsers($this);
     }
 
-    public function haProxyListens(): Resources\HAProxyListens
+    public function haProxyListens(): Resources\HaproxyListens
     {
-        return new Resources\HAProxyListens($this);
+        return new Resources\HaproxyListens($this);
     }
 
-    public function haProxyListensToNodes(): Resources\HAProxyListensToNodes
+    public function haProxyListensToNodes(): Resources\HaproxyListensToNodes
     {
-        return new Resources\HAProxyListensToNodes($this);
+        return new Resources\HaproxyListensToNodes($this);
     }
 
     public function health(): Resources\Health
@@ -317,9 +317,9 @@ class CoreApiConnector extends Connector implements HasPagination
         return new Resources\Malwares($this);
     }
 
-    public function mariaDBEncryptionKeys(): Resources\MariaDBEncryptionKeys
+    public function mariadbEncryptionKeys(): Resources\MariadbEncryptionKeys
     {
-        return new Resources\MariaDBEncryptionKeys($this);
+        return new Resources\MariadbEncryptionKeys($this);
     }
 
     public function nodeAddOns(): Resources\NodeAddOns
@@ -347,19 +347,19 @@ class CoreApiConnector extends Connector implements HasPagination
         return new Resources\Regions($this);
     }
 
-    public function rootSSHKeys(): Resources\RootSSHKeys
+    public function rootSshKeys(): Resources\RootSshKeys
     {
-        return new Resources\RootSSHKeys($this);
+        return new Resources\RootSshKeys($this);
     }
 
-    public function securityTXTPolicies(): Resources\SecurityTXTPolicies
+    public function securityTxtPolicies(): Resources\SecurityTxtPolicies
     {
-        return new Resources\SecurityTXTPolicies($this);
+        return new Resources\SecurityTxtPolicies($this);
     }
 
-    public function sshKeys(): Resources\SSHKeys
+    public function sshKeys(): Resources\SshKeys
     {
-        return new Resources\SSHKeys($this);
+        return new Resources\SshKeys($this);
     }
 
     public function taskCollections(): Resources\TaskCollections
@@ -367,14 +367,14 @@ class CoreApiConnector extends Connector implements HasPagination
         return new Resources\TaskCollections($this);
     }
 
-    public function UNIXUsers(): Resources\UNIXUsers
+    public function unixUsers(): Resources\UnixUsers
     {
-        return new Resources\UNIXUsers($this);
+        return new Resources\UnixUsers($this);
     }
 
-    public function URLRedirects(): Resources\URLRedirects
+    public function urlRedirects(): Resources\UrlRedirects
     {
-        return new Resources\URLRedirects($this);
+        return new Resources\UrlRedirects($this);
     }
 
     public function virtualHosts(): Resources\VirtualHosts
