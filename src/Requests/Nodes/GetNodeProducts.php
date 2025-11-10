@@ -3,28 +3,34 @@
 namespace Cyberfusion\CoreApi\Requests\Nodes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\CoreApiUnauthenticated;
 use Cyberfusion\CoreApi\Models\NodeProduct;
 use Illuminate\Support\Collection;
 use JsonException;
+use Saloon\Contracts\Authenticator;
 use Saloon\Enums\Method;
+use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Http\SoloRequest;
 
 /**
  * Get products for nodes.
  */
-class GetNodeProducts extends SoloRequest implements CoreApiRequestContract
+class GetNodeProducts extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::GET;
 
-    public function __construct(
-        private readonly string $baseUrl,
-    ) {
+    public function __construct()
+    {
     }
 
     public function resolveEndpoint(): string
     {
-        return $this->baseUrl . '/api/v1/nodes/products';
+        return '/api/v1/nodes/products';
+    }
+
+    public function defaultAuth(): ?Authenticator
+    {
+        return new CoreApiUnauthenticated();
     }
 
     /**

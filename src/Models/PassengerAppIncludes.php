@@ -13,18 +13,18 @@ class PassengerAppIncludes extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(?UNIXUserResource $unixUser = null, ?ClusterResource $cluster = null)
+    public function __construct(?UnixUserResource $unixUser = null, ?ClusterResource $cluster = null)
     {
         $this->setUnixUser($unixUser);
         $this->setCluster($cluster);
     }
 
-    public function getUnixUser(): UNIXUserResource|null
+    public function getUnixUser(): UnixUserResource|null
     {
         return $this->getAttribute('unix_user');
     }
 
-    public function setUnixUser(?UNIXUserResource $unixUser): self
+    public function setUnixUser(?UnixUserResource $unixUser): self
     {
         $this->setAttribute('unix_user', $unixUser);
         return $this;
@@ -44,7 +44,7 @@ class PassengerAppIncludes extends CoreApiModel implements CoreApiModelContract
     public static function fromArray(array $data): self
     {
         return (new self(
-            unixUser: Arr::get($data, 'unix_user') !== null ? UNIXUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
+            unixUser: Arr::get($data, 'unix_user') !== null ? UnixUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
             cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
         ));
     }

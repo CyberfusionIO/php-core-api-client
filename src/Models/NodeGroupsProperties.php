@@ -15,8 +15,8 @@ class NodeGroupsProperties extends CoreApiModel implements CoreApiModelContract
 
     public function __construct(
         ?NodeRedisGroupProperties $redis = null,
-        ?NodeMariaDBGroupProperties $mariaDB = null,
-        ?NodeRabbitMQGroupProperties $rabbitMQ = null,
+        ?NodeMariadbGroupProperties $mariaDB = null,
+        ?NodeRabbitmqGroupProperties $rabbitMQ = null,
     ) {
         $this->setRedis($redis);
         $this->setMariaDB($mariaDB);
@@ -34,23 +34,23 @@ class NodeGroupsProperties extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getMariaDB(): NodeMariaDBGroupProperties|null
+    public function getMariaDB(): NodeMariadbGroupProperties|null
     {
         return $this->getAttribute('MariaDB');
     }
 
-    public function setMariaDB(?NodeMariaDBGroupProperties $mariaDB): self
+    public function setMariaDB(?NodeMariadbGroupProperties $mariaDB): self
     {
         $this->setAttribute('MariaDB', $mariaDB);
         return $this;
     }
 
-    public function getRabbitMQ(): NodeRabbitMQGroupProperties|null
+    public function getRabbitMQ(): NodeRabbitmqGroupProperties|null
     {
         return $this->getAttribute('RabbitMQ');
     }
 
-    public function setRabbitMQ(?NodeRabbitMQGroupProperties $rabbitMQ): self
+    public function setRabbitMQ(?NodeRabbitmqGroupProperties $rabbitMQ): self
     {
         $this->setAttribute('RabbitMQ', $rabbitMQ);
         return $this;
@@ -60,8 +60,8 @@ class NodeGroupsProperties extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             redis: Arr::get($data, 'Redis') !== null ? NodeRedisGroupProperties::fromArray(Arr::get($data, 'Redis')) : null,
-            mariaDB: Arr::get($data, 'MariaDB') !== null ? NodeMariaDBGroupProperties::fromArray(Arr::get($data, 'MariaDB')) : null,
-            rabbitMQ: Arr::get($data, 'RabbitMQ') !== null ? NodeRabbitMQGroupProperties::fromArray(Arr::get($data, 'RabbitMQ')) : null,
+            mariaDB: Arr::get($data, 'MariaDB') !== null ? NodeMariadbGroupProperties::fromArray(Arr::get($data, 'MariaDB')) : null,
+            rabbitMQ: Arr::get($data, 'RabbitMQ') !== null ? NodeRabbitmqGroupProperties::fromArray(Arr::get($data, 'RabbitMQ')) : null,
         ));
     }
 }

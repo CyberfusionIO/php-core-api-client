@@ -13,7 +13,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
 {
     use Conditionable;
 
-    public function __construct(array $phpVersions, PHPSettings $phpSettings)
+    public function __construct(array $phpVersions, PhpSettings $phpSettings)
     {
         $this->setPhpVersions($phpVersions);
         $this->setPhpSettings($phpSettings);
@@ -53,12 +53,12 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
         return $this;
     }
 
-    public function getPhpSettings(): PHPSettings
+    public function getPhpSettings(): PhpSettings
     {
         return $this->getAttribute('php_settings');
     }
 
-    public function setPhpSettings(PHPSettings $phpSettings): self
+    public function setPhpSettings(PhpSettings $phpSettings): self
     {
         $this->setAttribute('php_settings', $phpSettings);
         return $this;
@@ -90,7 +90,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
     {
         return (new self(
             phpVersions: Arr::get($data, 'php_versions'),
-            phpSettings: PHPSettings::fromArray(Arr::get($data, 'php_settings')),
+            phpSettings: PhpSettings::fromArray(Arr::get($data, 'php_settings')),
         ))
             ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names', [])))
             ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled', false)))

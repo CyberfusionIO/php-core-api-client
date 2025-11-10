@@ -18,7 +18,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         int $id,
         string $createdAt,
         string $updatedAt,
-        HTTPRetryProperties $httpRetryProperties,
+        HttpRetryProperties $httpRetryProperties,
         LoadBalancingMethodEnum $loadBalancingMethod,
         int $clusterId,
         ClusterLoadBalancingPropertiesIncludes $includes,
@@ -65,12 +65,12 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this;
     }
 
-    public function getHttpRetryProperties(): HTTPRetryProperties
+    public function getHttpRetryProperties(): HttpRetryProperties
     {
         return $this->getAttribute('http_retry_properties');
     }
 
-    public function setHttpRetryProperties(HTTPRetryProperties $httpRetryProperties): self
+    public function setHttpRetryProperties(HttpRetryProperties $httpRetryProperties): self
     {
         $this->setAttribute('http_retry_properties', $httpRetryProperties);
         return $this;
@@ -115,7 +115,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
             id: Arr::get($data, 'id'),
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
-            httpRetryProperties: HTTPRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')),
+            httpRetryProperties: HttpRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')),
             loadBalancingMethod: LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method')),
             clusterId: Arr::get($data, 'cluster_id'),
             includes: ClusterLoadBalancingPropertiesIncludes::fromArray(Arr::get($data, 'includes')),

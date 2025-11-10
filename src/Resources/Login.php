@@ -10,9 +10,9 @@ use Saloon\Http\Response;
 
 class Login extends CoreApiResource
 {
-    public function requestAccessToken(BodyLoginAccessToken $bodyLoginAccessToken, string $baseUrl): Response
+    public function requestAccessToken(BodyLoginAccessToken $bodyLoginAccessToken): Response
     {
-        return $this->connector->send(new RequestAccessToken($bodyLoginAccessToken, $baseUrl));
+        return $this->connector->send(new RequestAccessToken($bodyLoginAccessToken));
     }
 
     public function testAccessToken(): Response

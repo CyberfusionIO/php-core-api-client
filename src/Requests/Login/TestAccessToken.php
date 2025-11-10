@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Requests\Login;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
-use Cyberfusion\CoreApi\Models\APIUserInfo;
+use Cyberfusion\CoreApi\Models\ApiUserInfo;
 use JsonException;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -23,10 +23,10 @@ class TestAccessToken extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns APIUserInfo
+     * @returns ApiUserInfo
      */
-    public function createDtoFromResponse(Response $response): APIUserInfo
+    public function createDtoFromResponse(Response $response): ApiUserInfo
     {
-        return APIUserInfo::fromArray($response->json());
+        return ApiUserInfo::fromArray($response->json());
     }
 }

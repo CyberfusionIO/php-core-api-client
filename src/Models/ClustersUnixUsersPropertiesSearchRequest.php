@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\UNIXUserHomeDirectoryEnum;
+use Cyberfusion\CoreApi\Enums\UnixUserHomeDirectoryEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -14,12 +14,12 @@ class ClustersUnixUsersPropertiesSearchRequest extends CoreApiModel implements C
 {
     use Conditionable;
 
-    public function getUnixUsersHomeDirectory(): UNIXUserHomeDirectoryEnum|null
+    public function getUnixUsersHomeDirectory(): UnixUserHomeDirectoryEnum|null
     {
         return $this->getAttribute('unix_users_home_directory');
     }
 
-    public function setUnixUsersHomeDirectory(?UNIXUserHomeDirectoryEnum $unixUsersHomeDirectory): self
+    public function setUnixUsersHomeDirectory(?UnixUserHomeDirectoryEnum $unixUsersHomeDirectory): self
     {
         $this->setAttribute('unix_users_home_directory', $unixUsersHomeDirectory);
         return $this;
@@ -40,7 +40,7 @@ class ClustersUnixUsersPropertiesSearchRequest extends CoreApiModel implements C
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'unix_users_home_directory'), fn (self $model) => $model->setUnixUsersHomeDirectory(Arr::get($data, 'unix_users_home_directory') !== null ? UNIXUserHomeDirectoryEnum::tryFrom(Arr::get($data, 'unix_users_home_directory')) : null))
+            ->when(Arr::has($data, 'unix_users_home_directory'), fn (self $model) => $model->setUnixUsersHomeDirectory(Arr::get($data, 'unix_users_home_directory') !== null ? UnixUserHomeDirectoryEnum::tryFrom(Arr::get($data, 'unix_users_home_directory')) : null))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));
     }
 }

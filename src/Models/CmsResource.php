@@ -1,0 +1,138 @@
+<?php
+
+namespace Cyberfusion\CoreApi\Models;
+
+use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\CmsSoftwareNameEnum;
+use Cyberfusion\CoreApi\Support\CoreApiModel;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
+use Respect\Validation\Exceptions\ValidationException;
+use Respect\Validation\Validator;
+
+class CmsResource extends CoreApiModel implements CoreApiModelContract
+{
+    use Conditionable;
+
+    public function __construct(
+        int $id,
+        string $createdAt,
+        string $updatedAt,
+        int $clusterId,
+        CmsSoftwareNameEnum $softwareName,
+        bool $isManuallyCreated,
+        int $virtualHostId,
+        CmsIncludes $includes,
+    ) {
+        $this->setId($id);
+        $this->setCreatedAt($createdAt);
+        $this->setUpdatedAt($updatedAt);
+        $this->setClusterId($clusterId);
+        $this->setSoftwareName($softwareName);
+        $this->setIsManuallyCreated($isManuallyCreated);
+        $this->setVirtualHostId($virtualHostId);
+        $this->setIncludes($includes);
+    }
+
+    public function getId(): int
+    {
+        return $this->getAttribute('id');
+    }
+
+    public function setId(int $id): self
+    {
+        $this->setAttribute('id', $id);
+        return $this;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->getAttribute('created_at');
+    }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->setAttribute('created_at', $createdAt);
+        return $this;
+    }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->getAttribute('updated_at');
+    }
+
+    public function setUpdatedAt(string $updatedAt): self
+    {
+        $this->setAttribute('updated_at', $updatedAt);
+        return $this;
+    }
+
+    public function getClusterId(): int
+    {
+        return $this->getAttribute('cluster_id');
+    }
+
+    public function setClusterId(int $clusterId): self
+    {
+        $this->setAttribute('cluster_id', $clusterId);
+        return $this;
+    }
+
+    public function getSoftwareName(): CmsSoftwareNameEnum
+    {
+        return $this->getAttribute('software_name');
+    }
+
+    public function setSoftwareName(CmsSoftwareNameEnum $softwareName): self
+    {
+        $this->setAttribute('software_name', $softwareName);
+        return $this;
+    }
+
+    public function getIsManuallyCreated(): bool
+    {
+        return $this->getAttribute('is_manually_created');
+    }
+
+    public function setIsManuallyCreated(bool $isManuallyCreated): self
+    {
+        $this->setAttribute('is_manually_created', $isManuallyCreated);
+        return $this;
+    }
+
+    public function getVirtualHostId(): int
+    {
+        return $this->getAttribute('virtual_host_id');
+    }
+
+    public function setVirtualHostId(int $virtualHostId): self
+    {
+        $this->setAttribute('virtual_host_id', $virtualHostId);
+        return $this;
+    }
+
+    public function getIncludes(): CmsIncludes
+    {
+        return $this->getAttribute('includes');
+    }
+
+    public function setIncludes(CmsIncludes $includes): self
+    {
+        $this->setAttribute('includes', $includes);
+        return $this;
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return (new self(
+            id: Arr::get($data, 'id'),
+            createdAt: Arr::get($data, 'created_at'),
+            updatedAt: Arr::get($data, 'updated_at'),
+            clusterId: Arr::get($data, 'cluster_id'),
+            softwareName: CmsSoftwareNameEnum::tryFrom(Arr::get($data, 'software_name')),
+            isManuallyCreated: Arr::get($data, 'is_manually_created'),
+            virtualHostId: Arr::get($data, 'virtual_host_id'),
+            includes: CmsIncludes::fromArray(Arr::get($data, 'includes')),
+        ));
+    }
+}

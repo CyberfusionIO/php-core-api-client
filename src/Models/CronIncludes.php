@@ -15,7 +15,7 @@ class CronIncludes extends CoreApiModel implements CoreApiModelContract
 
     public function __construct(
         ?ClusterResource $cluster = null,
-        ?UNIXUserResource $unixUser = null,
+        ?UnixUserResource $unixUser = null,
         ?NodeResource $node = null,
     ) {
         $this->setCluster($cluster);
@@ -34,12 +34,12 @@ class CronIncludes extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getUnixUser(): UNIXUserResource|null
+    public function getUnixUser(): UnixUserResource|null
     {
         return $this->getAttribute('unix_user');
     }
 
-    public function setUnixUser(?UNIXUserResource $unixUser): self
+    public function setUnixUser(?UnixUserResource $unixUser): self
     {
         $this->setAttribute('unix_user', $unixUser);
         return $this;
@@ -60,7 +60,7 @@ class CronIncludes extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             cluster: Arr::get($data, 'cluster') !== null ? ClusterResource::fromArray(Arr::get($data, 'cluster')) : null,
-            unixUser: Arr::get($data, 'unix_user') !== null ? UNIXUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
+            unixUser: Arr::get($data, 'unix_user') !== null ? UnixUserResource::fromArray(Arr::get($data, 'unix_user')) : null,
             node: Arr::get($data, 'node') !== null ? NodeResource::fromArray(Arr::get($data, 'node')) : null,
         ));
     }

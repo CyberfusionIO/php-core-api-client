@@ -103,6 +103,6 @@ class DatabaseUserCreateRequest extends CoreApiModel implements CoreApiModelCont
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
         ))
-            ->when(Arr::has($data, 'phpmyadmin_firewall_groups_ids'), fn (self $model) => $model->setPhpmyadminFirewallGroupsIds(Arr::get($data, 'phpmyadmin_firewall_groups_ids', [])));
+            ->when(Arr::has($data, 'phpmyadmin_firewall_groups_ids'), fn (self $model) => $model->setPhpmyadminFirewallGroupsIds(Arr::get($data, 'phpmyadmin_firewall_groups_ids')));
     }
 }

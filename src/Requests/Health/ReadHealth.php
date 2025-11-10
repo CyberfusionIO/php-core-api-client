@@ -3,27 +3,33 @@
 namespace Cyberfusion\CoreApi\Requests\Health;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
+use Cyberfusion\CoreApi\CoreApiUnauthenticated;
 use Cyberfusion\CoreApi\Models\HealthResource;
 use JsonException;
+use Saloon\Contracts\Authenticator;
 use Saloon\Enums\Method;
+use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Http\SoloRequest;
 
 /**
  * - If the `health` status is `up`, the API may be used. - If the `health` status is `maintenance`, the API may be functioning in a degraded state. In this case, we do not recommend using the API.
  */
-class ReadHealth extends SoloRequest implements CoreApiRequestContract
+class ReadHealth extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::GET;
 
-    public function __construct(
-        private readonly string $baseUrl,
-    ) {
+    public function __construct()
+    {
     }
 
     public function resolveEndpoint(): string
     {
-        return $this->baseUrl . '/api/v1/health';
+        return '/api/v1/health';
+    }
+
+    public function defaultAuth(): ?Authenticator
+    {
+        return new CoreApiUnauthenticated();
     }
 
     /**

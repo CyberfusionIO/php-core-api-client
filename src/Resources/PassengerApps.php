@@ -3,10 +3,10 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\CoreApiResource;
-use Cyberfusion\CoreApi\Models\PassengerAppCreateNodeJSRequest;
+use Cyberfusion\CoreApi\Models\PassengerAppCreateNodejsRequest;
 use Cyberfusion\CoreApi\Models\PassengerAppUpdateRequest;
 use Cyberfusion\CoreApi\Models\PassengerAppsSearchRequest;
-use Cyberfusion\CoreApi\Requests\PassengerApps\CreateNodeJSPassengerApp;
+use Cyberfusion\CoreApi\Requests\PassengerApps\CreateNodejsPassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\DeletePassengerApp;
 use Cyberfusion\CoreApi\Requests\PassengerApps\ListPassengerApps;
 use Cyberfusion\CoreApi\Requests\PassengerApps\ReadPassengerApp;
@@ -17,10 +17,10 @@ use Saloon\PaginationPlugin\Paginator;
 
 class PassengerApps extends CoreApiResource
 {
-    public function createNodeJSPassengerApp(
-        PassengerAppCreateNodeJSRequest $passengerAppCreateNodeJSRequest,
+    public function createNodejsPassengerApp(
+        PassengerAppCreateNodejsRequest $passengerAppCreateNodejsRequest,
     ): Response {
-        return $this->connector->send(new CreateNodeJSPassengerApp($passengerAppCreateNodeJSRequest));
+        return $this->connector->send(new CreateNodejsPassengerApp($passengerAppCreateNodejsRequest));
     }
 
     public function listPassengerApps(

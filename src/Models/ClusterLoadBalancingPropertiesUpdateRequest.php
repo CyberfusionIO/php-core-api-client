@@ -14,12 +14,12 @@ class ClusterLoadBalancingPropertiesUpdateRequest extends CoreApiModel implement
 {
     use Conditionable;
 
-    public function getHttpRetryProperties(): HTTPRetryProperties|null
+    public function getHttpRetryProperties(): HttpRetryProperties|null
     {
         return $this->getAttribute('http_retry_properties');
     }
 
-    public function setHttpRetryProperties(?HTTPRetryProperties $httpRetryProperties): self
+    public function setHttpRetryProperties(?HttpRetryProperties $httpRetryProperties): self
     {
         $this->setAttribute('http_retry_properties', $httpRetryProperties);
         return $this;
@@ -40,7 +40,7 @@ class ClusterLoadBalancingPropertiesUpdateRequest extends CoreApiModel implement
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'http_retry_properties'), fn (self $model) => $model->setHttpRetryProperties(Arr::get($data, 'http_retry_properties') !== null ? HTTPRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')) : null))
+            ->when(Arr::has($data, 'http_retry_properties'), fn (self $model) => $model->setHttpRetryProperties(Arr::get($data, 'http_retry_properties') !== null ? HttpRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')) : null))
             ->when(Arr::has($data, 'load_balancing_method'), fn (self $model) => $model->setLoadBalancingMethod(Arr::get($data, 'load_balancing_method') !== null ? LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method')) : null));
     }
 }

@@ -8,8 +8,8 @@ use Saloon\Http\Response;
 
 class Health extends CoreApiResource
 {
-    public function readHealth(string $baseUrl): Response
+    public function readHealth(): Response
     {
-        return $this->connector->send(new ReadHealth($baseUrl));
+        return $this->connector->send(new ReadHealth());
     }
 }

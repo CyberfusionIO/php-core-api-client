@@ -3,7 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\PHPExtensionEnum;
+use Cyberfusion\CoreApi\Enums\PhpExtensionEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -25,12 +25,12 @@ class ClustersPhpPropertiesSearchRequest extends CoreApiModel implements CoreApi
         return $this;
     }
 
-    public function getCustomPhpModulesNames(): PHPExtensionEnum|null
+    public function getCustomPhpModulesNames(): PhpExtensionEnum|null
     {
         return $this->getAttribute('custom_php_modules_names');
     }
 
-    public function setCustomPhpModulesNames(?PHPExtensionEnum $customPhpModulesNames): self
+    public function setCustomPhpModulesNames(?PhpExtensionEnum $customPhpModulesNames): self
     {
         $this->setAttribute('custom_php_modules_names', $customPhpModulesNames);
         return $this;
@@ -74,7 +74,7 @@ class ClustersPhpPropertiesSearchRequest extends CoreApiModel implements CoreApi
         return (new self(
         ))
             ->when(Arr::has($data, 'php_versions'), fn (self $model) => $model->setPhpVersions(Arr::get($data, 'php_versions')))
-            ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names') !== null ? PHPExtensionEnum::tryFrom(Arr::get($data, 'custom_php_modules_names')) : null))
+            ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names') !== null ? PhpExtensionEnum::tryFrom(Arr::get($data, 'custom_php_modules_names')) : null))
             ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled')))
             ->when(Arr::has($data, 'php_sessions_spread_enabled'), fn (self $model) => $model->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')));

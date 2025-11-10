@@ -32,9 +32,9 @@ class Nodes extends CoreApiResource
         return $this->connector->paginate(new ListNodes($includeFilters, $includes));
     }
 
-    public function getNodeProducts(string $baseUrl): Response
+    public function getNodeProducts(): Response
     {
-        return $this->connector->send(new GetNodeProducts($baseUrl));
+        return $this->connector->send(new GetNodeProducts());
     }
 
     public function readNode(int $id, array $includes = []): Response
