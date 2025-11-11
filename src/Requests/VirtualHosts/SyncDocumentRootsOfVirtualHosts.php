@@ -10,9 +10,9 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Sync one virtual host domain root to another. Usually used to clone websites/applications to and from separate production and staging environments. The right virtual host (destination) is made identical to the left virtual host (source), except excluded paths (`exclude_paths`).
+ * Sync one virtual host document root to another. Usually used to clone websites/applications to and from separate production and staging environments. The right virtual host (destination) is made identical to the left virtual host (source), except excluded paths (`exclude_paths`).
  */
-class SyncDomainRootsOfVirtualHosts extends Request implements CoreApiRequestContract
+class SyncDocumentRootsOfVirtualHosts extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::POST;
 
@@ -26,7 +26,7 @@ class SyncDomainRootsOfVirtualHosts extends Request implements CoreApiRequestCon
 
     public function resolveEndpoint(): string
     {
-        return sprintf('/api/v1/virtual-hosts/%d/domain-root/sync', $this->leftVirtualHostId);
+        return sprintf('/api/v1/virtual-hosts/%d/document-root/sync', $this->leftVirtualHostId);
     }
 
     protected function defaultQuery(): array

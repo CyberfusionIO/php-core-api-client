@@ -20,10 +20,8 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         int $unixUserId,
         VirtualHostServerSoftwareNameEnum $serverSoftwareName,
-        string $domainRoot,
         int $clusterId,
         string $domain,
-        string $publicRoot,
         array $serverAliases,
         string $documentRoot,
         VirtualHostIncludes $includes,
@@ -38,10 +36,8 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setUnixUserId($unixUserId);
         $this->setServerSoftwareName($serverSoftwareName);
-        $this->setDomainRoot($domainRoot);
         $this->setClusterId($clusterId);
         $this->setDomain($domain);
-        $this->setPublicRoot($publicRoot);
         $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
         $this->setIncludes($includes);
@@ -129,17 +125,6 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getDomainRoot(): string
-    {
-        return $this->getAttribute('domain_root');
-    }
-
-    public function setDomainRoot(string $domainRoot): self
-    {
-        $this->setAttribute('domain_root', $domainRoot);
-        return $this;
-    }
-
     public function getClusterId(): int
     {
         return $this->getAttribute('cluster_id');
@@ -159,17 +144,6 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
     public function setDomain(string $domain): self
     {
         $this->setAttribute('domain', $domain);
-        return $this;
-    }
-
-    public function getPublicRoot(): string
-    {
-        return $this->getAttribute('public_root');
-    }
-
-    public function setPublicRoot(string $publicRoot): self
-    {
-        $this->setAttribute('public_root', $publicRoot);
         return $this;
     }
 
@@ -253,10 +227,8 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             unixUserId: Arr::get($data, 'unix_user_id'),
             serverSoftwareName: VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
-            domainRoot: Arr::get($data, 'domain_root'),
             clusterId: Arr::get($data, 'cluster_id'),
             domain: Arr::get($data, 'domain'),
-            publicRoot: Arr::get($data, 'public_root'),
             serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
             includes: VirtualHostIncludes::fromArray(Arr::get($data, 'includes')),

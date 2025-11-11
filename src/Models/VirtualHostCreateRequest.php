@@ -16,15 +16,11 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
 
     public function __construct(
         string $domain,
-        string $publicRoot,
         int $unixUserId,
-        string $documentRoot,
         ?VirtualHostServerSoftwareNameEnum $serverSoftwareName = null,
     ) {
         $this->setDomain($domain);
-        $this->setPublicRoot($publicRoot);
         $this->setUnixUserId($unixUserId);
-        $this->setDocumentRoot($documentRoot);
         $this->setServerSoftwareName($serverSoftwareName);
     }
 
@@ -72,17 +68,6 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
-    public function getPublicRoot(): string
-    {
-        return $this->getAttribute('public_root');
-    }
-
-    public function setPublicRoot(string $publicRoot): self
-    {
-        $this->setAttribute('public_root', $publicRoot);
-        return $this;
-    }
-
     public function getUnixUserId(): int
     {
         return $this->getAttribute('unix_user_id');
@@ -111,12 +96,12 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
-    public function getDocumentRoot(): string
+    public function getDocumentRoot(): string|null
     {
         return $this->getAttribute('document_root');
     }
 
-    public function setDocumentRoot(string $documentRoot): self
+    public function setDocumentRoot(?string $documentRoot): self
     {
         $this->setAttribute('document_root', $documentRoot);
         return $this;
@@ -159,14 +144,13 @@ class VirtualHostCreateRequest extends CoreApiModel implements CoreApiModelContr
     {
         return (new self(
             domain: Arr::get($data, 'domain'),
-            publicRoot: Arr::get($data, 'public_root'),
             unixUserId: Arr::get($data, 'unix_user_id'),
-            documentRoot: Arr::get($data, 'document_root'),
             serverSoftwareName: Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null,
         ))
             ->when(Arr::has($data, 'allow_override_directives'), fn (self $model) => $model->setAllowOverrideDirectives(Arr::get($data, 'allow_override_directives')))
             ->when(Arr::has($data, 'allow_override_option_directives'), fn (self $model) => $model->setAllowOverrideOptionDirectives(Arr::get($data, 'allow_override_option_directives')))
             ->when(Arr::has($data, 'server_aliases'), fn (self $model) => $model->setServerAliases(Arr::get($data, 'server_aliases', [])))
+            ->when(Arr::has($data, 'document_root'), fn (self $model) => $model->setDocumentRoot(Arr::get($data, 'document_root')))
             ->when(Arr::has($data, 'fpm_pool_id'), fn (self $model) => $model->setFpmPoolId(Arr::get($data, 'fpm_pool_id')))
             ->when(Arr::has($data, 'passenger_app_id'), fn (self $model) => $model->setPassengerAppId(Arr::get($data, 'passenger_app_id')))
             ->when(Arr::has($data, 'custom_config'), fn (self $model) => $model->setCustomConfig(Arr::get($data, 'custom_config')));

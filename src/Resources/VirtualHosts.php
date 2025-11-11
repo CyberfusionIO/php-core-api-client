@@ -14,7 +14,7 @@ use Cyberfusion\CoreApi\Requests\VirtualHosts\ListAccessLogs;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ListErrorLogs;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ListVirtualHosts;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ReadVirtualHost;
-use Cyberfusion\CoreApi\Requests\VirtualHosts\SyncDomainRootsOfVirtualHosts;
+use Cyberfusion\CoreApi\Requests\VirtualHosts\SyncDocumentRootsOfVirtualHosts;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\UpdateVirtualHost;
 use Saloon\Http\Response;
 use Saloon\PaginationPlugin\Paginator;
@@ -53,13 +53,13 @@ class VirtualHosts extends CoreApiResource
         return $this->connector->send(new GetVirtualHostDocumentRoot($id));
     }
 
-    public function syncDomainRootsOfVirtualHosts(
+    public function syncDocumentRootsOfVirtualHosts(
         int $leftVirtualHostId,
         int $rightVirtualHostId,
         ?string $callbackUrl = null,
         ?array $excludePaths = null,
     ): Response {
-        return $this->connector->send(new SyncDomainRootsOfVirtualHosts($leftVirtualHostId, $rightVirtualHostId, $callbackUrl, $excludePaths));
+        return $this->connector->send(new SyncDocumentRootsOfVirtualHosts($leftVirtualHostId, $rightVirtualHostId, $callbackUrl, $excludePaths));
     }
 
     public function listAccessLogs(
