@@ -23,6 +23,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         int $htpasswdFileId,
         BasicAuthenticationRealmIncludes $includes,
         ?string $directoryPath = null,
+        ?string $uriPath = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -33,6 +34,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         $this->setHtpasswdFileId($htpasswdFileId);
         $this->setIncludes($includes);
         $this->setDirectoryPath($directoryPath);
+        $this->setUriPath($uriPath);
     }
 
     public function getId(): int
@@ -87,6 +89,17 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
     public function setDirectoryPath(?string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
+        return $this;
+    }
+
+    public function getUriPath(): string|null
+    {
+        return $this->getAttribute('uri_path');
+    }
+
+    public function setUriPath(?string $uriPath): self
+    {
+        $this->setAttribute('uri_path', $uriPath);
         return $this;
     }
 
@@ -153,6 +166,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
             includes: BasicAuthenticationRealmIncludes::fromArray(Arr::get($data, 'includes')),
             directoryPath: Arr::get($data, 'directory_path'),
+            uriPath: Arr::get($data, 'uri_path'),
         ));
     }
 }

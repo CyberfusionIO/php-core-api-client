@@ -13,12 +13,18 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
 {
     use Conditionable;
 
-    public function __construct(int $virtualHostId, string $name, int $htpasswdFileId, ?string $directoryPath = null)
-    {
+    public function __construct(
+        int $virtualHostId,
+        string $name,
+        int $htpasswdFileId,
+        ?string $directoryPath = null,
+        ?string $uriPath = null,
+    ) {
         $this->setVirtualHostId($virtualHostId);
         $this->setName($name);
         $this->setHtpasswdFileId($htpasswdFileId);
         $this->setDirectoryPath($directoryPath);
+        $this->setUriPath($uriPath);
     }
 
     public function getDirectoryPath(): string|null
@@ -29,6 +35,17 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
     public function setDirectoryPath(?string $directoryPath): self
     {
         $this->setAttribute('directory_path', $directoryPath);
+        return $this;
+    }
+
+    public function getUriPath(): string|null
+    {
+        return $this->getAttribute('uri_path');
+    }
+
+    public function setUriPath(?string $uriPath): self
+    {
+        $this->setAttribute('uri_path', $uriPath);
         return $this;
     }
 
@@ -79,6 +96,7 @@ class BasicAuthenticationRealmCreateRequest extends CoreApiModel implements Core
             name: Arr::get($data, 'name'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
             directoryPath: Arr::get($data, 'directory_path'),
+            uriPath: Arr::get($data, 'uri_path'),
         ));
     }
 }

@@ -36,17 +36,6 @@ class VirtualHostsSearchRequest extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
-    public function getDomainRoot(): string|null
-    {
-        return $this->getAttribute('domain_root');
-    }
-
-    public function setDomainRoot(?string $domainRoot): self
-    {
-        $this->setAttribute('domain_root', $domainRoot);
-        return $this;
-    }
-
     public function getClusterId(): int|null
     {
         return $this->getAttribute('cluster_id');
@@ -66,17 +55,6 @@ class VirtualHostsSearchRequest extends CoreApiModel implements CoreApiModelCont
     public function setDomain(?string $domain): self
     {
         $this->setAttribute('domain', $domain);
-        return $this;
-    }
-
-    public function getPublicRoot(): string|null
-    {
-        return $this->getAttribute('public_root');
-    }
-
-    public function setPublicRoot(?string $publicRoot): self
-    {
-        $this->setAttribute('public_root', $publicRoot);
         return $this;
     }
 
@@ -130,10 +108,8 @@ class VirtualHostsSearchRequest extends CoreApiModel implements CoreApiModelCont
         ))
             ->when(Arr::has($data, 'unix_user_id'), fn (self $model) => $model->setUnixUserId(Arr::get($data, 'unix_user_id')))
             ->when(Arr::has($data, 'server_software_name'), fn (self $model) => $model->setServerSoftwareName(Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null))
-            ->when(Arr::has($data, 'domain_root'), fn (self $model) => $model->setDomainRoot(Arr::get($data, 'domain_root')))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')))
             ->when(Arr::has($data, 'domain'), fn (self $model) => $model->setDomain(Arr::get($data, 'domain')))
-            ->when(Arr::has($data, 'public_root'), fn (self $model) => $model->setPublicRoot(Arr::get($data, 'public_root')))
             ->when(Arr::has($data, 'server_aliases'), fn (self $model) => $model->setServerAliases(Arr::get($data, 'server_aliases')))
             ->when(Arr::has($data, 'document_root'), fn (self $model) => $model->setDocumentRoot(Arr::get($data, 'document_root')))
             ->when(Arr::has($data, 'fpm_pool_id'), fn (self $model) => $model->setFpmPoolId(Arr::get($data, 'fpm_pool_id')))

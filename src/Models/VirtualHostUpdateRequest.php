@@ -102,17 +102,6 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
-    public function getPublicRoot(): string|null
-    {
-        return $this->getAttribute('public_root');
-    }
-
-    public function setPublicRoot(?string $publicRoot): self
-    {
-        $this->setAttribute('public_root', $publicRoot);
-        return $this;
-    }
-
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -124,7 +113,6 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
             ->when(Arr::has($data, 'custom_config'), fn (self $model) => $model->setCustomConfig(Arr::get($data, 'custom_config')))
             ->when(Arr::has($data, 'allow_override_directives'), fn (self $model) => $model->setAllowOverrideDirectives(Arr::get($data, 'allow_override_directives')))
             ->when(Arr::has($data, 'allow_override_option_directives'), fn (self $model) => $model->setAllowOverrideOptionDirectives(Arr::get($data, 'allow_override_option_directives')))
-            ->when(Arr::has($data, 'server_software_name'), fn (self $model) => $model->setServerSoftwareName(Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null))
-            ->when(Arr::has($data, 'public_root'), fn (self $model) => $model->setPublicRoot(Arr::get($data, 'public_root')));
+            ->when(Arr::has($data, 'server_software_name'), fn (self $model) => $model->setServerSoftwareName(Arr::get($data, 'server_software_name') !== null ? VirtualHostServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')) : null));
     }
 }
