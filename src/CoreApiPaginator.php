@@ -10,7 +10,7 @@ use Saloon\PaginationPlugin\PagedPaginator;
 
 class CoreApiPaginator extends PagedPaginator
 {
-    protected ?int $perPageLimit = 50;
+    protected ?int $perPageLimit = 100;
 
     protected int $currentPage = 1;
 
