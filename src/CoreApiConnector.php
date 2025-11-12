@@ -41,6 +41,8 @@ class CoreApiConnector extends Connector implements HasPagination
 
     protected ?TokenResource $authenticatedUser = null;
 
+    protected ?CarbonImmutable $accessTokenExpiresAt = null;
+
     public function __construct(
         public readonly string $username,
         public readonly string $password,
@@ -61,15 +63,15 @@ class CoreApiConnector extends Connector implements HasPagination
         ];
     }
 
-    private function getAccessTokenExpiration(): CarbonImmutable
+    private function isAccessTokenExpired(): bool
     {
-        if ($this->authenticatedUser === null) {
-            return Carbon::today()->toImmutable();
+        if ($this->accessTokenExpiresAt === null) {
+            return true;
         }
 
-        return Carbon::now()
-            ->addSeconds($this->authenticatedUser->getExpiresIn())
-            ->toImmutable();
+        return $this
+            ->accessTokenExpiresAt
+            ->isPast();
     }
 
     /**
@@ -78,7 +80,7 @@ class CoreApiConnector extends Connector implements HasPagination
      */
     public function defaultAuth(): AccessTokenAuthenticator
     {
-        if ($this->authenticatedUser === null || $this->getAccessTokenExpiration()->isPast()) {
+        if ($this->authenticatedUser === null || $this->isAccessTokenExpired()) {
             $request = new RequestAccessToken(
                 bodyLoginAccessToken: new BodyLoginAccessToken(
                     username: $this->username,
@@ -89,13 +91,16 @@ class CoreApiConnector extends Connector implements HasPagination
             $this->authenticatedUser = $this
                 ->send($request)
                 ->dto();
+            $this->accessTokenExpiresAt = Carbon::now()
+                ->addSeconds($this->authenticatedUser->getExpiresIn())
+                ->toImmutable();
         }
 
         return new AccessTokenAuthenticator(
             accessToken: $this
                 ->authenticatedUser
                 ->getAccessToken(),
-            expiresAt: $this->getAccessTokenExpiration(),
+            expiresAt: $this->accessTokenExpiresAt,
         );
     }
 
