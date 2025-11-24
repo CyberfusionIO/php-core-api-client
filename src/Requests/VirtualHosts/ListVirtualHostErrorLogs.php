@@ -4,7 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\VirtualHosts;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\Enums\LogSortOrderEnum;
-use Cyberfusion\CoreApi\Models\WebServerLogAccessResource;
+use Cyberfusion\CoreApi\Models\VirtualHostErrorLogResource;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Enums\Method;
@@ -12,9 +12,9 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * Every object is an HTTP request.
+ * Every object is a logged error.
  */
-class ListAccessLogs extends Request implements CoreApiRequestContract
+class ListVirtualHostErrorLogs extends Request implements CoreApiRequestContract
 {
     protected Method $method = Method::GET;
 
@@ -28,7 +28,7 @@ class ListAccessLogs extends Request implements CoreApiRequestContract
 
     public function resolveEndpoint(): string
     {
-        return sprintf('/api/v1/virtual-hosts/%d/logs/access', $this->id);
+        return sprintf('/api/v1/virtual-hosts/%d/logs/error', $this->id);
     }
 
     protected function defaultQuery(): array
@@ -43,10 +43,10 @@ class ListAccessLogs extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<WebServerLogAccessResource>
+     * @returns Collection<VirtualHostErrorLogResource>
      */
     public function createDtoFromResponse(Response $response): Collection
     {
-        return $response->collect()->map(fn (array $item) => WebServerLogAccessResource::fromArray($item));
+        return $response->collect()->map(fn (array $item) => VirtualHostErrorLogResource::fromArray($item));
     }
 }
