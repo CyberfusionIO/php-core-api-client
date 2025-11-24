@@ -19,13 +19,11 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         array $groups,
         ArrayObject $loadBalancerHealthChecksGroupsPairs,
-        ?string $comment = null,
     ) {
         $this->setProduct($product);
         $this->setClusterId($clusterId);
         $this->setGroups($groups);
         $this->setLoadBalancerHealthChecksGroupsPairs($loadBalancerHealthChecksGroupsPairs);
-        $this->setComment($comment);
     }
 
     public function getProduct(): string
@@ -103,7 +101,7 @@ class NodeCreateRequest extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             groups: Arr::get($data, 'groups'),
             loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
-            comment: Arr::get($data, 'comment'),
-        ));
+        ))
+            ->when(Arr::has($data, 'comment'), fn (self $model) => $model->setComment(Arr::get($data, 'comment')));
     }
 }

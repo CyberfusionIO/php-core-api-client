@@ -10,8 +10,8 @@ use Cyberfusion\CoreApi\Models\VirtualHostsSearchRequest;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\CreateVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\DeleteVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\GetVirtualHostDocumentRoot;
-use Cyberfusion\CoreApi\Requests\VirtualHosts\ListAccessLogs;
-use Cyberfusion\CoreApi\Requests\VirtualHosts\ListErrorLogs;
+use Cyberfusion\CoreApi\Requests\VirtualHosts\ListVirtualHostAccessLogs;
+use Cyberfusion\CoreApi\Requests\VirtualHosts\ListVirtualHostErrorLogs;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ListVirtualHosts;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\ReadVirtualHost;
 use Cyberfusion\CoreApi\Requests\VirtualHosts\SyncDocumentRootsOfVirtualHosts;
@@ -62,21 +62,21 @@ class VirtualHosts extends CoreApiResource
         return $this->connector->send(new SyncDocumentRootsOfVirtualHosts($leftVirtualHostId, $rightVirtualHostId, $callbackUrl, $excludePaths));
     }
 
-    public function listAccessLogs(
+    public function listVirtualHostAccessLogs(
         int $id,
         ?string $timestamp = null,
         ?LogSortOrderEnum $sort = null,
         ?int $limit = null,
     ): Response {
-        return $this->connector->send(new ListAccessLogs($id, $timestamp, $sort, $limit));
+        return $this->connector->send(new ListVirtualHostAccessLogs($id, $timestamp, $sort, $limit));
     }
 
-    public function listErrorLogs(
+    public function listVirtualHostErrorLogs(
         int $id,
         ?string $timestamp = null,
         ?LogSortOrderEnum $sort = null,
         ?int $limit = null,
     ): Response {
-        return $this->connector->send(new ListErrorLogs($id, $timestamp, $sort, $limit));
+        return $this->connector->send(new ListVirtualHostErrorLogs($id, $timestamp, $sort, $limit));
     }
 }
