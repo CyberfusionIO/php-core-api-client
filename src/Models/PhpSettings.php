@@ -91,6 +91,17 @@ class PhpSettings extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getSessionGcMaxlifetime(): int
+    {
+        return $this->getAttribute('session_gc_maxlifetime');
+    }
+
+    public function setSessionGcMaxlifetime(int $sessionGcMaxlifetime): self
+    {
+        $this->setAttribute('session_gc_maxlifetime', $sessionGcMaxlifetime);
+        return $this;
+    }
+
     public function getMaxExecutionTime(): int
     {
         return $this->getAttribute('max_execution_time');
@@ -189,6 +200,7 @@ class PhpSettings extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'short_open_tag'), fn (self $model) => $model->setShortOpenTag(Arr::get($data, 'short_open_tag', false)))
             ->when(Arr::has($data, 'error_reporting'), fn (self $model) => $model->setErrorReporting(Arr::get($data, 'error_reporting', 'E_ALL & ~E_DEPRECATED & ~E_STRICT')))
             ->when(Arr::has($data, 'opcache_memory_consumption'), fn (self $model) => $model->setOpcacheMemoryConsumption(Arr::get($data, 'opcache_memory_consumption', 192)))
+            ->when(Arr::has($data, 'session_gc_maxlifetime'), fn (self $model) => $model->setSessionGcMaxlifetime(Arr::get($data, 'session_gc_maxlifetime', 1440)))
             ->when(Arr::has($data, 'max_execution_time'), fn (self $model) => $model->setMaxExecutionTime(Arr::get($data, 'max_execution_time', 120)))
             ->when(Arr::has($data, 'max_file_uploads'), fn (self $model) => $model->setMaxFileUploads(Arr::get($data, 'max_file_uploads', 100)))
             ->when(Arr::has($data, 'memory_limit'), fn (self $model) => $model->setMemoryLimit(Arr::get($data, 'memory_limit', 256)))
