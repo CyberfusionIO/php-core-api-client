@@ -92,7 +92,7 @@ class ClusterPhpPropertiesCreateRequest extends CoreApiModel implements CoreApiM
             phpVersions: Arr::get($data, 'php_versions'),
             phpSettings: PhpSettings::fromArray(Arr::get($data, 'php_settings')),
         ))
-            ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names', [])))
+            ->when(Arr::has($data, 'custom_php_modules_names'), fn (self $model) => $model->setCustomPhpModulesNames(Arr::get($data, 'custom_php_modules_names', [ 'intl', 'bcmath',])))
             ->when(Arr::has($data, 'php_ioncube_enabled'), fn (self $model) => $model->setPhpIoncubeEnabled(Arr::get($data, 'php_ioncube_enabled', false)))
             ->when(Arr::has($data, 'php_sessions_spread_enabled'), fn (self $model) => $model->setPhpSessionsSpreadEnabled(Arr::get($data, 'php_sessions_spread_enabled', true)));
     }

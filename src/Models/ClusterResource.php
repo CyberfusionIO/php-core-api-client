@@ -21,6 +21,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         int $regionId,
         string $description,
         int $customerId,
+        bool $cephfsEnabled,
         ClusterIncludes $includes,
     ) {
         $this->setId($id);
@@ -30,6 +31,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         $this->setRegionId($regionId);
         $this->setDescription($description);
         $this->setCustomerId($customerId);
+        $this->setCephfsEnabled($cephfsEnabled);
         $this->setIncludes($includes);
     }
 
@@ -124,6 +126,17 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCephfsEnabled(): bool
+    {
+        return $this->getAttribute('cephfs_enabled');
+    }
+
+    public function setCephfsEnabled(bool $cephfsEnabled): self
+    {
+        $this->setAttribute('cephfs_enabled', $cephfsEnabled);
+        return $this;
+    }
+
     public function getIncludes(): ClusterIncludes
     {
         return $this->getAttribute('includes');
@@ -145,6 +158,7 @@ class ClusterResource extends CoreApiModel implements CoreApiModelContract
             regionId: Arr::get($data, 'region_id'),
             description: Arr::get($data, 'description'),
             customerId: Arr::get($data, 'customer_id'),
+            cephfsEnabled: Arr::get($data, 'cephfs_enabled'),
             includes: ClusterIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

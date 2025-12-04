@@ -31,7 +31,7 @@ class CoreApiConnector extends Connector implements HasPagination
     use AlwaysThrowOnErrors;
     use HasTimeout;
 
-    private const VERSION = '2.12.0';
+    private const VERSION = '2.13.0';
 
     private const USER_AGENT = 'php-core-api-client/' . self::VERSION;
 
