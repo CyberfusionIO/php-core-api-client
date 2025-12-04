@@ -2,7 +2,7 @@
 
 PHP client for the [Cyberfusion Core API](https://core-api.cyberfusion.io/).
 
-This client was built for and tested on the **1.261.0** version of the API.
+This client was built for and tested on the **1.262.0** version of the API.
 
 ## Support
 
