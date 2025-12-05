@@ -32,7 +32,7 @@ class ListLogs extends Request implements CoreApiRequestContract
     {
         $parameters = [];
         $parameters['timestamp'] = $this->timestamp;
-        $parameters['sort'] = $this->sort;
+        $parameters['sort'] = $this->sort?->value;
         $parameters['limit'] = $this->limit;
 
         return array_filter($parameters);
