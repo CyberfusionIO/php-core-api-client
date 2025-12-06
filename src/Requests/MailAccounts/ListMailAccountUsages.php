@@ -35,7 +35,7 @@ class ListMailAccountUsages extends Request implements CoreApiRequestContract
     {
         $parameters = [];
         $parameters['timestamp'] = $this->timestamp;
-        $parameters['time_unit'] = $this->timeUnit;
+        $parameters['time_unit'] = $this->timeUnit?->value;
         $parameters['includes'] = implode(',', $this->includes);
 
         return array_filter($parameters);
