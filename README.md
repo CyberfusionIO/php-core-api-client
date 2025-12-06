@@ -50,17 +50,19 @@ $connector = new CoreApiConnector(
     password: 'password' 
 );
 
-// Multiple resources, will take care of pagination for you
+// List multiple resources
 foreach ($connector->virtualHosts()->listVirtualHosts()->items() as $virtualHost) {
     echo $virtualHost->getDomain();
 }
 
-// Single resource
+// Read single resource
 $virtualHost = $connector
     ->virtualHosts()
     ->readVirtualHost(1)
     ->dto();
 ```
+
+For more ways to list multiple resources, see '[List multiple models from response](#list-multiple-models-from-response)'.
 
 ## Authentication
 
@@ -155,8 +157,11 @@ $virtualHost = $connector
 
 ### List multiple models from response
 
-This package handles the pagination for you, so you can easily list over all results. To retrieve multiple models, call 
-`items()` on the response. This returns a `Collection` of `CoreApiModel` instances.
+This package handles the pagination for you, so you can easily list all results. 
+New pages will be requested from the Core API until all items are retrieved.
+
+To retrieve multiple models and loop over them using a generator, call `items()` on the
+response. This returns a `Collection` of `CoreApiModel` instances.
 
 Code example:
 
@@ -166,7 +171,24 @@ foreach ($connector->virtualHosts()->listVirtualHosts()->items() as $virtualHost
 }
 ```
 
-This will keep requesting new pages from the Core API until all items are retrieved.
+Alternatively, to build a lazy collection:
+
+```php
+$virtualHosts = $connector
+    ->virtualHosts()
+    ->listVirtualHosts()
+    ->collect();
+```
+
+Or to load all DTOs into memory straight away, simply call `collect()` again:
+
+```php
+$virtualHosts = $connector
+    ->virtualHosts()
+    ->listVirtualHosts()
+    ->collect()
+    ->collect();
+```
 
 ### Throw exception on failure
 
