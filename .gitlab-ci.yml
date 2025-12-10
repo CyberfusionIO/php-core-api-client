@@ -4,7 +4,7 @@ stages:
   - testing
   - analysis
 
-image: lorisleiva/laravel-docker:8.4
+image: lorisleiva/laravel-docker:8.5
 
 composer:
   stage: preparation
