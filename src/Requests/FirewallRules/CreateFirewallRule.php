@@ -12,9 +12,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * The following combinations of attributes are unique: - `node_id` + `external_provider_name` + `service_name` - `node_id` + `external_provider_name` + `haproxy_listen_id` - `node_id` + `external_provider_name` + `port` - `node_id` + `firewall_group_id` + `service_name` - `node_id` + `firewall_group_id` + `haproxy_listen_id` - `node_id` + `firewall_group_id` + `port`
- */
 class CreateFirewallRule extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

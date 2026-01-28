@@ -10,6 +10,7 @@ enum DomainRouterCategoryEnum: string
     case Metabase = 'Metabase';
     case Kibana = 'Kibana';
     case RabbitMQManagement = 'RabbitMQ Management';
+    case N8n = 'n8n';
     case VirtualHost = 'Virtual Host';
     case URLRedirect = 'URL Redirect';
 }

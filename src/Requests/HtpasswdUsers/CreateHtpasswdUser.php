@@ -12,9 +12,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * The following combinations of attributes are unique: - `username` + `htpasswd_file_id`
- */
 class CreateHtpasswdUser extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

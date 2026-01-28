@@ -57,6 +57,17 @@ class ClustersSearchRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCephfsEnabled(): bool|null
+    {
+        return $this->getAttribute('cephfs_enabled');
+    }
+
+    public function setCephfsEnabled(?bool $cephfsEnabled): self
+    {
+        $this->setAttribute('cephfs_enabled', $cephfsEnabled);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -64,6 +75,7 @@ class ClustersSearchRequest extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'name'), fn (self $model) => $model->setName(Arr::get($data, 'name')))
             ->when(Arr::has($data, 'region_id'), fn (self $model) => $model->setRegionId(Arr::get($data, 'region_id')))
             ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')))
-            ->when(Arr::has($data, 'customer_id'), fn (self $model) => $model->setCustomerId(Arr::get($data, 'customer_id')));
+            ->when(Arr::has($data, 'customer_id'), fn (self $model) => $model->setCustomerId(Arr::get($data, 'customer_id')))
+            ->when(Arr::has($data, 'cephfs_enabled'), fn (self $model) => $model->setCephfsEnabled(Arr::get($data, 'cephfs_enabled')));
     }
 }

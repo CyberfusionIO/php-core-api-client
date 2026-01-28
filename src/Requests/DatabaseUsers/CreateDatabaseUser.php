@@ -13,7 +13,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Database users that were added, deleted or modified on the database server are not automatically added, deleted or modified in the API. You should keep the database users on the server and the database users in the API in sync manually. The following combinations of attributes are unique: - `name` + `cluster_id` + `host`
+ * Database users that were added, deleted or modified on the database server are not automatically added, deleted or modified in the API. You should keep the database users on the server and the database users in the API in sync manually.
  */
 class CreateDatabaseUser extends Request implements CoreApiRequestContract, HasBody
 {

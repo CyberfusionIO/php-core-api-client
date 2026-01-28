@@ -13,7 +13,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * The following combinations of attributes are unique: - `directory_path` + `uri_path` + `virtual_host_id` For Apache, basic authentication does not apply when the virtual host custom config contains a `Require` directive.
+ * For Apache, basic authentication does not apply when the virtual host custom config contains a `Require` directive.
  */
 class CreateBasicAuthenticationRealm extends Request implements CoreApiRequestContract, HasBody
 {

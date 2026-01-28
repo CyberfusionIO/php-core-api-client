@@ -13,7 +13,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * The following combinations of attributes are unique: - `username` + `cluster_id` > ⚠️ Disk usage by UNIX users is billed per GiB. > See https://cyberfusion.io/content/full-product-list for current prices. > Get current and past usage with the ['Read UNIX User Usages' endpoint](#tag/UNIX-Users/operation/read_unix_user_usages_api_v1_unix_users_usages__unix_user_id__get).
+ * > ⚠️ Disk usage by UNIX users is billed per GiB. > See https://cyberfusion.io/content/full-product-list for current prices. > Get current and past usage with the ['Read UNIX User Usages' endpoint](#tag/UNIX-Users/operation/read_unix_user_usages_api_v1_unix_users_usages__unix_user_id__get).
  */
 class CreateUnixUser extends Request implements CoreApiRequestContract, HasBody
 {
