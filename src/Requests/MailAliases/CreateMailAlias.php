@@ -12,9 +12,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * The following combinations of attributes are unique: - `local_part` + `mail_domain_id`
- */
 class CreateMailAlias extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

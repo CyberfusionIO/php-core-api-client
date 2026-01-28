@@ -12,9 +12,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * The following combinations of attributes are unique: - `domain`
- */
 class CreateMailHostname extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

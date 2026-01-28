@@ -26,6 +26,7 @@ enum SpecificationNameEnum: string
     case ClusterSupportsFPMPools = 'Cluster supports FPM pools';
     case ClusterSupportsPassengerApps = 'Cluster supports Passenger apps';
     case ClusterSupportsRedisInstances = 'Cluster supports Redis instances';
+    case ClusterSupportsN8nInstances = 'Cluster supports n8n instances';
     case ClusterSupportsUNIXUsers = 'Cluster supports UNIX users';
     case ClusterSupportsFirewallRules = 'Cluster supports firewall rules';
     case ClusterSupportsFirewallGroups = 'Cluster supports firewall groups';
@@ -35,6 +36,7 @@ enum SpecificationNameEnum: string
     case ClusterSupportsGhostscriptNodes = 'Cluster supports Ghostscript nodes';
     case ClusterSupportsLibreOfficeNodes = 'Cluster supports LibreOffice nodes';
     case ClusterSupportsPuppeteerNodes = 'Cluster supports Puppeteer nodes';
+    case ClusterSupportsN8nNodes = 'Cluster supports n8n nodes';
     case ClusterSupportsClamAVNodes = 'Cluster supports ClamAV nodes';
     case ClusterSupportsGNUMailutilsNodes = 'Cluster supports GNU Mailutils nodes';
     case ClusterSupportsWkhtmltopdfNodes = 'Cluster supports wkhtmltopdf nodes';

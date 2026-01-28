@@ -13,7 +13,7 @@ use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
 /**
- * Database user grants that were added, deleted or modified on the database server are not automatically added, deleted or modified in the API. You should keep the database user grants on the server and the database user grants in the API in sync manually. The following combinations of attributes are unique: - `database_id` + `database_user_id` + `table_name` + `privilege_name`
+ * Database user grants that were added, deleted or modified on the database server are not automatically added, deleted or modified in the API. You should keep the database user grants on the server and the database user grants in the API in sync manually.
  */
 class CreateDatabaseUserGrant extends Request implements CoreApiRequestContract, HasBody
 {

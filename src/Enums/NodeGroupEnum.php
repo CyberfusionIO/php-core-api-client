@@ -24,6 +24,7 @@ enum NodeGroupEnum: string
     case GNUMailutils = 'GNU Mailutils';
     case ClamAV = 'ClamAV';
     case Puppeteer = 'Puppeteer';
+    case N8n = 'n8n';
     case LibreOffice = 'LibreOffice';
     case Ghostscript = 'Ghostscript';
     case FFmpeg = 'FFmpeg';

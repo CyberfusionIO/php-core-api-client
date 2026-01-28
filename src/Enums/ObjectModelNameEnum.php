@@ -35,6 +35,7 @@ enum ObjectModelNameEnum: string
     case MailDomain = 'MailDomain';
     case Node = 'Node';
     case RedisInstance = 'RedisInstance';
+    case N8nInstance = 'N8nInstance';
     case DomainRouter = 'DomainRouter';
     case MailHostname = 'MailHostname';
     case Certificate = 'Certificate';

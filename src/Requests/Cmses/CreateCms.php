@@ -12,9 +12,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * The following combinations of attributes are unique: - `virtual_host_id`
- */
 class CreateCms extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

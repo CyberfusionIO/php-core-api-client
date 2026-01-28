@@ -12,9 +12,6 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-/**
- * The following combinations of attributes are unique: - `name` + `cluster_id` - `port` + `cluster_id` - `socket_path` + `cluster_id`
- */
 class CreateHaproxyListen extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;
