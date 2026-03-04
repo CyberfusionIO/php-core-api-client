@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         string $name,
         int $unixId,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         BorgRepositoryIncludes $includes,
         ?int $keepHourly = null,
         ?int $keepDaily = null,
@@ -35,6 +37,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         $this->setName($name);
         $this->setUnixId($unixId);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setKeepHourly($keepHourly);
         $this->setKeepDaily($keepDaily);
@@ -195,6 +198,17 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): BorgRepositoryIncludes
     {
         return $this->getAttribute('includes');
@@ -215,6 +229,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
             name: Arr::get($data, 'name'),
             unixId: Arr::get($data, 'unix_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: BorgRepositoryIncludes::fromArray(Arr::get($data, 'includes')),
             keepHourly: Arr::get($data, 'keep_hourly'),
             keepDaily: Arr::get($data, 'keep_daily'),

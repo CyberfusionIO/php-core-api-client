@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         string $domain,
         int $clusterId,
         int $certificateId,
+        DeploymentStatusEnum $deploymentStatus,
         MailHostnameIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         $this->setDomain($domain);
         $this->setClusterId($clusterId);
         $this->setCertificateId($certificateId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -97,6 +100,17 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): MailHostnameIncludes
     {
         return $this->getAttribute('includes');
@@ -117,6 +131,7 @@ class MailHostnameResource extends CoreApiModel implements CoreApiModelContract
             domain: Arr::get($data, 'domain'),
             clusterId: Arr::get($data, 'cluster_id'),
             certificateId: Arr::get($data, 'certificate_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: MailHostnameIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

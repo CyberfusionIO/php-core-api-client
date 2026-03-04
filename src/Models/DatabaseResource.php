@@ -4,6 +4,7 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -23,6 +24,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         bool $optimizingEnabled,
         bool $backupsEnabled,
+        DeploymentStatusEnum $deploymentStatus,
         DatabaseIncludes $includes,
     ) {
         $this->setId($id);
@@ -33,6 +35,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setOptimizingEnabled($optimizingEnabled);
         $this->setBackupsEnabled($backupsEnabled);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -131,6 +134,17 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): DatabaseIncludes
     {
         return $this->getAttribute('includes');
@@ -153,6 +167,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             optimizingEnabled: Arr::get($data, 'optimizing_enabled'),
             backupsEnabled: Arr::get($data, 'backups_enabled'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DatabaseIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

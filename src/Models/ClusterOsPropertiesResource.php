@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class ClusterOsPropertiesResource extends CoreApiModel implements CoreApiModelCo
         string $updatedAt,
         bool $automaticUpgradesEnabled,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterOsPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class ClusterOsPropertiesResource extends CoreApiModel implements CoreApiModelCo
         $this->setUpdatedAt($updatedAt);
         $this->setAutomaticUpgradesEnabled($automaticUpgradesEnabled);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -84,6 +87,17 @@ class ClusterOsPropertiesResource extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterOsPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -103,6 +117,7 @@ class ClusterOsPropertiesResource extends CoreApiModel implements CoreApiModelCo
             updatedAt: Arr::get($data, 'updated_at'),
             automaticUpgradesEnabled: Arr::get($data, 'automatic_upgrades_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterOsPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

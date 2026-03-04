@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\MeilisearchEnvironmentEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -23,6 +24,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         MeilisearchEnvironmentEnum $meilisearchEnvironment,
         int $meilisearchBackupInterval,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterMeilisearchPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -33,6 +35,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         $this->setMeilisearchEnvironment($meilisearchEnvironment);
         $this->setMeilisearchBackupInterval($meilisearchBackupInterval);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -131,6 +134,17 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterMeilisearchPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -153,6 +167,7 @@ class ClusterMeilisearchPropertiesResource extends CoreApiModel implements CoreA
             meilisearchEnvironment: MeilisearchEnvironmentEnum::tryFrom(Arr::get($data, 'meilisearch_environment')),
             meilisearchBackupInterval: Arr::get($data, 'meilisearch_backup_interval'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterMeilisearchPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

@@ -4,6 +4,7 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\DatabaseServerSoftwareNameEnum;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -21,6 +22,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         string $name,
         DatabaseServerSoftwareNameEnum $serverSoftwareName,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         DatabaseUserIncludes $includes,
         ?string $host = null,
         ?array $phpmyadminFirewallGroupsIds = null,
@@ -31,6 +33,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         $this->setName($name);
         $this->setServerSoftwareName($serverSoftwareName);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setHost($host);
         $this->setPhpmyadminFirewallGroupsIds($phpmyadminFirewallGroupsIds);
@@ -131,6 +134,17 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): DatabaseUserIncludes
     {
         return $this->getAttribute('includes');
@@ -151,6 +165,7 @@ class DatabaseUserResource extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             serverSoftwareName: DatabaseServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DatabaseUserIncludes::fromArray(Arr::get($data, 'includes')),
             host: Arr::get($data, 'host'),
             phpmyadminFirewallGroupsIds: Arr::get($data, 'phpmyadmin_firewall_groups_ids'),

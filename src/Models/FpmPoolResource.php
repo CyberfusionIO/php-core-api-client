@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -25,6 +26,8 @@ class FpmPoolResource extends CoreApiModel implements CoreApiModelContract
         int $maxRequests,
         int $processIdleTimeout,
         bool $isNamespaced,
+        FpmPoolPhpSettings $phpSettings,
+        DeploymentStatusEnum $deploymentStatus,
         FpmPoolIncludes $includes,
         ?int $cpuLimit = null,
         ?int $logSlowRequestsThreshold = null,
@@ -41,6 +44,8 @@ class FpmPoolResource extends CoreApiModel implements CoreApiModelContract
         $this->setMaxRequests($maxRequests);
         $this->setProcessIdleTimeout($processIdleTimeout);
         $this->setIsNamespaced($isNamespaced);
+        $this->setPhpSettings($phpSettings);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setCpuLimit($cpuLimit);
         $this->setLogSlowRequestsThreshold($logSlowRequestsThreshold);
@@ -208,6 +213,28 @@ class FpmPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getPhpSettings(): FpmPoolPhpSettings
+    {
+        return $this->getAttribute('php_settings');
+    }
+
+    public function setPhpSettings(FpmPoolPhpSettings $phpSettings): self
+    {
+        $this->setAttribute('php_settings', $phpSettings);
+        return $this;
+    }
+
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): FpmPoolIncludes
     {
         return $this->getAttribute('includes');
@@ -233,6 +260,8 @@ class FpmPoolResource extends CoreApiModel implements CoreApiModelContract
             maxRequests: Arr::get($data, 'max_requests'),
             processIdleTimeout: Arr::get($data, 'process_idle_timeout'),
             isNamespaced: Arr::get($data, 'is_namespaced'),
+            phpSettings: FpmPoolPhpSettings::fromArray(Arr::get($data, 'php_settings')),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: FpmPoolIncludes::fromArray(Arr::get($data, 'includes')),
             cpuLimit: Arr::get($data, 'cpu_limit'),
             logSlowRequestsThreshold: Arr::get($data, 'log_slow_requests_threshold'),

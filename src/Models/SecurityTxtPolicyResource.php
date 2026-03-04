@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -26,6 +27,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         array $policyUrls,
         array $openingUrls,
         array $preferredLanguages,
+        DeploymentStatusEnum $deploymentStatus,
         SecurityTxtPolicyIncludes $includes,
     ) {
         $this->setId($id);
@@ -40,6 +42,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         $this->setPolicyUrls($policyUrls);
         $this->setOpeningUrls($openingUrls);
         $this->setPreferredLanguages($preferredLanguages);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -217,6 +220,17 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): SecurityTxtPolicyIncludes
     {
         return $this->getAttribute('includes');
@@ -243,6 +257,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
             policyUrls: Arr::get($data, 'policy_urls'),
             openingUrls: Arr::get($data, 'opening_urls'),
             preferredLanguages: Arr::get($data, 'preferred_languages'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: SecurityTxtPolicyIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

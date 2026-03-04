@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\StatusCodeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -25,6 +26,7 @@ class UrlRedirectResource extends CoreApiModel implements CoreApiModelContract
         StatusCodeEnum $statusCode,
         bool $keepQueryParameters,
         bool $keepPath,
+        DeploymentStatusEnum $deploymentStatus,
         UrlRedirectIncludes $includes,
         ?string $description = null,
     ) {
@@ -38,6 +40,7 @@ class UrlRedirectResource extends CoreApiModel implements CoreApiModelContract
         $this->setStatusCode($statusCode);
         $this->setKeepQueryParameters($keepQueryParameters);
         $this->setKeepPath($keepPath);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setDescription($description);
     }
@@ -175,6 +178,17 @@ class UrlRedirectResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): UrlRedirectIncludes
     {
         return $this->getAttribute('includes');
@@ -199,6 +213,7 @@ class UrlRedirectResource extends CoreApiModel implements CoreApiModelContract
             statusCode: StatusCodeEnum::tryFrom(Arr::get($data, 'status_code')),
             keepQueryParameters: Arr::get($data, 'keep_query_parameters'),
             keepPath: Arr::get($data, 'keep_path'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: UrlRedirectIncludes::fromArray(Arr::get($data, 'includes')),
             description: Arr::get($data, 'description'),
         ));

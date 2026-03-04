@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\MariadbPrivilegeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -22,6 +23,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
         int $databaseId,
         int $databaseUserId,
         MariadbPrivilegeEnum $privilegeName,
+        DeploymentStatusEnum $deploymentStatus,
         DatabaseUserGrantIncludes $includes,
         ?string $tableName = null,
     ) {
@@ -32,6 +34,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
         $this->setDatabaseId($databaseId);
         $this->setDatabaseUserId($databaseUserId);
         $this->setPrivilegeName($privilegeName);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setTableName($tableName);
     }
@@ -124,6 +127,17 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): DatabaseUserGrantIncludes
     {
         return $this->getAttribute('includes');
@@ -145,6 +159,7 @@ class DatabaseUserGrantResource extends CoreApiModel implements CoreApiModelCont
             databaseId: Arr::get($data, 'database_id'),
             databaseUserId: Arr::get($data, 'database_user_id'),
             privilegeName: MariadbPrivilegeEnum::tryFrom(Arr::get($data, 'privilege_name')),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DatabaseUserGrantIncludes::fromArray(Arr::get($data, 'includes')),
             tableName: Arr::get($data, 'table_name'),
         ));

@@ -87,7 +87,6 @@ use Cyberfusion\CoreApi\Requests\Clusters\GetNodesDependencies;
 use Cyberfusion\CoreApi\Requests\Clusters\GetNodesSpecifications;
 use Cyberfusion\CoreApi\Requests\Clusters\ListAdvancedSpecifications;
 use Cyberfusion\CoreApi\Requests\Clusters\ListBorgProperties;
-use Cyberfusion\CoreApi\Requests\Clusters\ListClusterDeploymentsResults;
 use Cyberfusion\CoreApi\Requests\Clusters\ListClusters;
 use Cyberfusion\CoreApi\Requests\Clusters\ListElasticsearchProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\ListFirewallProperties;
@@ -218,11 +217,6 @@ class Clusters extends CoreApiResource
     public function getIpAddressesProductsForClusters(): Response
     {
         return $this->connector->send(new GetIpAddressesProductsForClusters());
-    }
-
-    public function listClusterDeploymentsResults(int $id, ?bool $getNonRunning = null): Response
-    {
-        return $this->connector->send(new ListClusterDeploymentsResults($id, $getNonRunning));
     }
 
     public function getNodesSpecifications(int $id): Response

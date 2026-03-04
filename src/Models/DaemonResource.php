@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -22,6 +23,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         int $unixUserId,
         string $command,
         array $nodesIds,
+        DeploymentStatusEnum $deploymentStatus,
         DaemonIncludes $includes,
         ?int $memoryLimit = null,
         ?int $cpuLimit = null,
@@ -34,6 +36,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         $this->setUnixUserId($unixUserId);
         $this->setCommand($command);
         $this->setNodesIds($nodesIds);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setMemoryLimit($memoryLimit);
         $this->setCpuLimit($cpuLimit);
@@ -169,6 +172,17 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): DaemonIncludes
     {
         return $this->getAttribute('includes');
@@ -191,6 +205,7 @@ class DaemonResource extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             command: Arr::get($data, 'command'),
             nodesIds: Arr::get($data, 'nodes_ids'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DaemonIncludes::fromArray(Arr::get($data, 'includes')),
             memoryLimit: Arr::get($data, 'memory_limit'),
             cpuLimit: Arr::get($data, 'cpu_limit'),

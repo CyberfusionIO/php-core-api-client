@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\DomainRouterCategoryEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -22,6 +23,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         DomainRouterCategoryEnum $category,
         int $clusterId,
         bool $forceSsl,
+        DeploymentStatusEnum $deploymentStatus,
         DomainRouterIncludes $includes,
         ?int $virtualHostId = null,
         ?int $urlRedirectId = null,
@@ -37,6 +39,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         $this->setCategory($category);
         $this->setClusterId($clusterId);
         $this->setForceSsl($forceSsl);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setVirtualHostId($virtualHostId);
         $this->setUrlRedirectId($urlRedirectId);
@@ -189,6 +192,17 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): DomainRouterIncludes
     {
         return $this->getAttribute('includes');
@@ -210,6 +224,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
             category: DomainRouterCategoryEnum::tryFrom(Arr::get($data, 'category')),
             clusterId: Arr::get($data, 'cluster_id'),
             forceSsl: Arr::get($data, 'force_ssl'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DomainRouterIncludes::fromArray(Arr::get($data, 'includes')),
             virtualHostId: Arr::get($data, 'virtual_host_id'),
             urlRedirectId: Arr::get($data, 'url_redirect_id'),

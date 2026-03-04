@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -21,6 +22,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         int $postgresqlBackupLocalRetention,
         int $postgresqlBackupInterval,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterPostgresqlPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -30,6 +32,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         $this->setPostgresqlBackupLocalRetention($postgresqlBackupLocalRetention);
         $this->setPostgresqlBackupInterval($postgresqlBackupInterval);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -110,6 +113,17 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterPostgresqlPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -131,6 +145,7 @@ class ClusterPostgresqlPropertiesResource extends CoreApiModel implements CoreAp
             postgresqlBackupLocalRetention: Arr::get($data, 'postgresql_backup_local_retention'),
             postgresqlBackupInterval: Arr::get($data, 'postgresql_backup_interval'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterPostgresqlPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

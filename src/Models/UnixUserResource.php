@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\ShellNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -26,6 +27,7 @@ class UnixUserResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         ShellNameEnum $shellName,
         bool $recordUsageFiles,
+        DeploymentStatusEnum $deploymentStatus,
         UnixUserIncludes $includes,
         ?string $virtualHostsDirectory = null,
         ?string $mailDomainsDirectory = null,
@@ -44,6 +46,7 @@ class UnixUserResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setShellName($shellName);
         $this->setRecordUsageFiles($recordUsageFiles);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setVirtualHostsDirectory($virtualHostsDirectory);
         $this->setMailDomainsDirectory($mailDomainsDirectory);
@@ -235,6 +238,17 @@ class UnixUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): UnixUserIncludes
     {
         return $this->getAttribute('includes');
@@ -260,6 +274,7 @@ class UnixUserResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             shellName: ShellNameEnum::tryFrom(Arr::get($data, 'shell_name')),
             recordUsageFiles: Arr::get($data, 'record_usage_files'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: UnixUserIncludes::fromArray(Arr::get($data, 'includes')),
             virtualHostsDirectory: Arr::get($data, 'virtual_hosts_directory'),
             mailDomainsDirectory: Arr::get($data, 'mail_domains_directory'),

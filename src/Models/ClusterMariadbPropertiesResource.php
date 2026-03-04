@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -21,6 +22,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         int $mariadbBackupInterval,
         int $mariadbBackupLocalRetention,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterMariadbPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -30,6 +32,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         $this->setMariadbBackupInterval($mariadbBackupInterval);
         $this->setMariadbBackupLocalRetention($mariadbBackupLocalRetention);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -110,6 +113,17 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterMariadbPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -131,6 +145,7 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
             mariadbBackupInterval: Arr::get($data, 'mariadb_backup_interval'),
             mariadbBackupLocalRetention: Arr::get($data, 'mariadb_backup_local_retention'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterMariadbPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

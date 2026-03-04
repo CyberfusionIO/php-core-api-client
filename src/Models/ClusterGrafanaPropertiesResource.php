@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         string $updatedAt,
         string $grafanaDomain,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterGrafanaPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         $this->setUpdatedAt($updatedAt);
         $this->setGrafanaDomain($grafanaDomain);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -84,6 +87,17 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterGrafanaPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -103,6 +117,7 @@ class ClusterGrafanaPropertiesResource extends CoreApiModel implements CoreApiMo
             updatedAt: Arr::get($data, 'updated_at'),
             grafanaDomain: Arr::get($data, 'grafana_domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterGrafanaPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

@@ -5,6 +5,7 @@ namespace Cyberfusion\CoreApi\Resources;
 use Cyberfusion\CoreApi\CoreApiResource;
 use Cyberfusion\CoreApi\Models\FpmPoolCreateRequest;
 use Cyberfusion\CoreApi\Models\FpmPoolUpdateRequest;
+use Cyberfusion\CoreApi\Models\FpmPoolUpdateSettingsRequest;
 use Cyberfusion\CoreApi\Models\FpmPoolsSearchRequest;
 use Cyberfusion\CoreApi\Requests\FpmPools\CreateFpmPool;
 use Cyberfusion\CoreApi\Requests\FpmPools\DeleteFpmPool;
@@ -14,6 +15,7 @@ use Cyberfusion\CoreApi\Requests\FpmPools\ReadFpmPool;
 use Cyberfusion\CoreApi\Requests\FpmPools\ReloadFpmPool;
 use Cyberfusion\CoreApi\Requests\FpmPools\RestartFpmPool;
 use Cyberfusion\CoreApi\Requests\FpmPools\UpdateFpmPool;
+use Cyberfusion\CoreApi\Requests\FpmPools\UpdateFpmPoolSettings;
 use Cyberfusion\CoreApi\Requests\FpmPools\UpdateFpmPoolVersion;
 use Saloon\Http\Response;
 use Saloon\PaginationPlugin\Paginator;
@@ -43,6 +45,13 @@ class FpmPools extends CoreApiResource
     public function deleteFpmPool(int $id): Response
     {
         return $this->connector->send(new DeleteFpmPool($id));
+    }
+
+    public function updateFpmPoolSettings(
+        int $id,
+        FpmPoolUpdateSettingsRequest $fpmPoolUpdateSettingsRequest,
+    ): Response {
+        return $this->connector->send(new UpdateFpmPoolSettings($id, $fpmPoolUpdateSettingsRequest));
     }
 
     public function restartFpmPool(int $id, ?string $callbackUrl = null): Response

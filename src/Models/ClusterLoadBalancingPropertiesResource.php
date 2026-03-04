@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\LoadBalancingMethodEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -21,6 +22,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         HttpRetryProperties $httpRetryProperties,
         LoadBalancingMethodEnum $loadBalancingMethod,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterLoadBalancingPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -29,6 +31,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         $this->setHttpRetryProperties($httpRetryProperties);
         $this->setLoadBalancingMethod($loadBalancingMethod);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -98,6 +101,17 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterLoadBalancingPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -118,6 +132,7 @@ class ClusterLoadBalancingPropertiesResource extends CoreApiModel implements Cor
             httpRetryProperties: HttpRetryProperties::fromArray(Arr::get($data, 'http_retry_properties')),
             loadBalancingMethod: LoadBalancingMethodEnum::tryFrom(Arr::get($data, 'load_balancing_method')),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterLoadBalancingPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

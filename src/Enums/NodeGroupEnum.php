@@ -17,10 +17,8 @@ enum NodeGroupEnum: string
     case HAProxy = 'HAProxy';
     case Redis = 'Redis';
     case Composer = 'Composer';
-    case WPCLI = 'WP-CLI';
     case KernelCare = 'KernelCare';
     case ImageMagick = 'ImageMagick';
-    case Wkhtmltopdf = 'wkhtmltopdf';
     case GNUMailutils = 'GNU Mailutils';
     case ClamAV = 'ClamAV';
     case Puppeteer = 'Puppeteer';

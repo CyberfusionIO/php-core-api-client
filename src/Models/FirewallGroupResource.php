@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
         string $name,
         int $clusterId,
         array $ipNetworks,
+        DeploymentStatusEnum $deploymentStatus,
         FirewallGroupIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
         $this->setName($name);
         $this->setClusterId($clusterId);
         $this->setIpNetworks($ipNetworks);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -110,6 +113,17 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): FirewallGroupIncludes
     {
         return $this->getAttribute('includes');
@@ -130,6 +144,7 @@ class FirewallGroupResource extends CoreApiModel implements CoreApiModelContract
             name: Arr::get($data, 'name'),
             clusterId: Arr::get($data, 'cluster_id'),
             ipNetworks: Arr::get($data, 'ip_networks'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: FirewallGroupIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

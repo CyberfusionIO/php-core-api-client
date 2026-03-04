@@ -4,6 +4,7 @@ namespace Cyberfusion\CoreApi\Models;
 
 use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\PassengerAppTypeEnum;
 use Cyberfusion\CoreApi\Enums\PassengerEnvironmentEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
@@ -32,6 +33,7 @@ class PassengerAppResource extends CoreApiModel implements CoreApiModelContract
         int $maxRequests,
         int $poolIdleTime,
         bool $isNamespaced,
+        DeploymentStatusEnum $deploymentStatus,
         PassengerAppIncludes $includes,
         ?int $cpuLimit = null,
         ?string $nodejsVersion = null,
@@ -52,6 +54,7 @@ class PassengerAppResource extends CoreApiModel implements CoreApiModelContract
         $this->setMaxRequests($maxRequests);
         $this->setPoolIdleTime($poolIdleTime);
         $this->setIsNamespaced($isNamespaced);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setCpuLimit($cpuLimit);
         $this->setNodejsVersion($nodejsVersion);
@@ -241,6 +244,17 @@ class PassengerAppResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): PassengerAppIncludes
     {
         return $this->getAttribute('includes');
@@ -292,6 +306,7 @@ class PassengerAppResource extends CoreApiModel implements CoreApiModelContract
             maxRequests: Arr::get($data, 'max_requests'),
             poolIdleTime: Arr::get($data, 'pool_idle_time'),
             isNamespaced: Arr::get($data, 'is_namespaced'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: PassengerAppIncludes::fromArray(Arr::get($data, 'includes')),
             cpuLimit: Arr::get($data, 'cpu_limit'),
             nodejsVersion: Arr::get($data, 'nodejs_version'),

@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         string $rabbitmqAdminPassword,
         string $rabbitmqManagementDomain,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterRabbitmqPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setRabbitmqAdminPassword($rabbitmqAdminPassword);
         $this->setRabbitmqManagementDomain($rabbitmqManagementDomain);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -104,6 +107,17 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterRabbitmqPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -124,6 +138,7 @@ class ClusterRabbitmqPropertiesResource extends CoreApiModel implements CoreApiM
             rabbitmqAdminPassword: Arr::get($data, 'rabbitmq_admin_password'),
             rabbitmqManagementDomain: Arr::get($data, 'rabbitmq_management_domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterRabbitmqPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

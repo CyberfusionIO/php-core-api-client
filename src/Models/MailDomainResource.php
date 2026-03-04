@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -22,6 +23,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         int $unixUserId,
         array $catchAllForwardEmailAddresses,
         bool $isLocal,
+        DeploymentStatusEnum $deploymentStatus,
         MailDomainIncludes $includes,
     ) {
         $this->setId($id);
@@ -32,6 +34,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         $this->setUnixUserId($unixUserId);
         $this->setCatchAllForwardEmailAddresses($catchAllForwardEmailAddresses);
         $this->setIsLocal($isLocal);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -129,6 +132,17 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): MailDomainIncludes
     {
         return $this->getAttribute('includes');
@@ -151,6 +165,7 @@ class MailDomainResource extends CoreApiModel implements CoreApiModelContract
             unixUserId: Arr::get($data, 'unix_user_id'),
             catchAllForwardEmailAddresses: Arr::get($data, 'catch_all_forward_email_addresses'),
             isLocal: Arr::get($data, 'is_local'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: MailDomainIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

@@ -4,6 +4,7 @@ namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Enums\CustomConfigServerSoftwareNameEnum;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -22,6 +23,7 @@ class CustomConfigResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $contents,
         CustomConfigServerSoftwareNameEnum $serverSoftwareName,
+        DeploymentStatusEnum $deploymentStatus,
         CustomConfigIncludes $includes,
     ) {
         $this->setId($id);
@@ -31,6 +33,7 @@ class CustomConfigResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setContents($contents);
         $this->setServerSoftwareName($serverSoftwareName);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -125,6 +128,17 @@ class CustomConfigResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): CustomConfigIncludes
     {
         return $this->getAttribute('includes');
@@ -146,6 +160,7 @@ class CustomConfigResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             contents: Arr::get($data, 'contents'),
             serverSoftwareName: CustomConfigServerSoftwareNameEnum::tryFrom(Arr::get($data, 'server_software_name')),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: CustomConfigIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

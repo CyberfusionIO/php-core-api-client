@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class HaproxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         int $clusterId,
         int $haproxyListenId,
         int $nodeId,
+        DeploymentStatusEnum $deploymentStatus,
         HaproxyListenToNodeIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class HaproxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         $this->setClusterId($clusterId);
         $this->setHaproxyListenId($haproxyListenId);
         $this->setNodeId($nodeId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -97,6 +100,17 @@ class HaproxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): HaproxyListenToNodeIncludes
     {
         return $this->getAttribute('includes');
@@ -117,6 +131,7 @@ class HaproxyListenToNodeResource extends CoreApiModel implements CoreApiModelCo
             clusterId: Arr::get($data, 'cluster_id'),
             haproxyListenId: Arr::get($data, 'haproxy_listen_id'),
             nodeId: Arr::get($data, 'node_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: HaproxyListenToNodeIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

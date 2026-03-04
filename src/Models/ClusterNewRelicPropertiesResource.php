@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -18,6 +19,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         string $createdAt,
         string $updatedAt,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterNewRelicPropertiesIncludes $includes,
         ?string $newRelicApmLicenseKey = null,
         ?string $newRelicInfrastructureLicenseKey = null,
@@ -26,6 +28,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setNewRelicApmLicenseKey($newRelicApmLicenseKey);
         $this->setNewRelicInfrastructureLicenseKey($newRelicInfrastructureLicenseKey);
@@ -97,6 +100,17 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterNewRelicPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -115,6 +129,7 @@ class ClusterNewRelicPropertiesResource extends CoreApiModel implements CoreApiM
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterNewRelicPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
             newRelicApmLicenseKey: Arr::get($data, 'new_relic_apm_license_key'),
             newRelicInfrastructureLicenseKey: Arr::get($data, 'new_relic_infrastructure_license_key'),

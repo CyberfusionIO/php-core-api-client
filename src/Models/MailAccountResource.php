@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         string $localPart,
         int $mailDomainId,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         MailAccountIncludes $includes,
         ?int $quota = null,
     ) {
@@ -29,6 +31,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setQuota($quota);
     }
@@ -117,6 +120,17 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): MailAccountIncludes
     {
         return $this->getAttribute('includes');
@@ -137,6 +151,7 @@ class MailAccountResource extends CoreApiModel implements CoreApiModelContract
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: MailAccountIncludes::fromArray(Arr::get($data, 'includes')),
             quota: Arr::get($data, 'quota'),
         ));

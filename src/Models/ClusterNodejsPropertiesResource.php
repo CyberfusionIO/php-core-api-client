@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         string $updatedAt,
         array $nodejsVersions,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterNodejsPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         $this->setUpdatedAt($updatedAt);
         $this->setNodejsVersions($nodejsVersions);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -90,6 +93,17 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterNodejsPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -109,6 +123,7 @@ class ClusterNodejsPropertiesResource extends CoreApiModel implements CoreApiMod
             updatedAt: Arr::get($data, 'updated_at'),
             nodejsVersions: Arr::get($data, 'nodejs_versions'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterNodejsPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

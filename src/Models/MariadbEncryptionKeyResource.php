@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class MariadbEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         int $identifier,
         string $key,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         MariadbEncryptionKeyIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class MariadbEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         $this->setIdentifier($identifier);
         $this->setKey($key);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -104,6 +107,17 @@ class MariadbEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): MariadbEncryptionKeyIncludes
     {
         return $this->getAttribute('includes');
@@ -124,6 +138,7 @@ class MariadbEncryptionKeyResource extends CoreApiModel implements CoreApiModelC
             identifier: Arr::get($data, 'identifier'),
             key: Arr::get($data, 'key'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: MariadbEncryptionKeyIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

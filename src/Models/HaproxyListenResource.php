@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\LoadBalancingMethodEnum;
 use Cyberfusion\CoreApi\Enums\NodeGroupEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
@@ -23,6 +24,7 @@ class HaproxyListenResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         NodeGroupEnum $nodesGroup,
         int $destinationClusterId,
+        DeploymentStatusEnum $deploymentStatus,
         HaproxyListenIncludes $includes,
         ?array $nodesIds = null,
         ?int $port = null,
@@ -35,6 +37,7 @@ class HaproxyListenResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setNodesGroup($nodesGroup);
         $this->setDestinationClusterId($destinationClusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setNodesIds($nodesIds);
         $this->setPort($port);
@@ -169,6 +172,17 @@ class HaproxyListenResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): HaproxyListenIncludes
     {
         return $this->getAttribute('includes');
@@ -190,6 +204,7 @@ class HaproxyListenResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             nodesGroup: NodeGroupEnum::tryFrom(Arr::get($data, 'nodes_group')),
             destinationClusterId: Arr::get($data, 'destination_cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: HaproxyListenIncludes::fromArray(Arr::get($data, 'includes')),
             nodesIds: Arr::get($data, 'nodes_ids'),
             port: Arr::get($data, 'port'),
