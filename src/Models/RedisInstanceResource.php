@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\RedisEvictionPolicyEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -25,6 +26,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         int $memoryLimit,
         int $maxDatabases,
         RedisEvictionPolicyEnum $evictionPolicy,
+        DeploymentStatusEnum $deploymentStatus,
         RedisInstanceIncludes $includes,
     ) {
         $this->setId($id);
@@ -37,6 +39,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         $this->setMemoryLimit($memoryLimit);
         $this->setMaxDatabases($maxDatabases);
         $this->setEvictionPolicy($evictionPolicy);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -164,6 +167,17 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): RedisInstanceIncludes
     {
         return $this->getAttribute('includes');
@@ -188,6 +202,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
             memoryLimit: Arr::get($data, 'memory_limit'),
             maxDatabases: Arr::get($data, 'max_databases'),
             evictionPolicy: RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: RedisInstanceIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

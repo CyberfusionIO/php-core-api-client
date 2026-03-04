@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         string $updatedAt,
         string $kernelcareLicenseKey,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterKernelcarePropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         $this->setUpdatedAt($updatedAt);
         $this->setKernelcareLicenseKey($kernelcareLicenseKey);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -91,6 +94,17 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterKernelcarePropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -110,6 +124,7 @@ class ClusterKernelcarePropertiesResource extends CoreApiModel implements CoreAp
             updatedAt: Arr::get($data, 'updated_at'),
             kernelcareLicenseKey: Arr::get($data, 'kernelcare_license_key'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterKernelcarePropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

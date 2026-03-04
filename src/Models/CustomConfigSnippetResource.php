@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -23,6 +24,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         string $contents,
         int $clusterId,
         bool $isDefault,
+        DeploymentStatusEnum $deploymentStatus,
         CustomConfigSnippetIncludes $includes,
     ) {
         $this->setId($id);
@@ -33,6 +35,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         $this->setContents($contents);
         $this->setClusterId($clusterId);
         $this->setIsDefault($isDefault);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -138,6 +141,17 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): CustomConfigSnippetIncludes
     {
         return $this->getAttribute('includes');
@@ -160,6 +174,7 @@ class CustomConfigSnippetResource extends CoreApiModel implements CoreApiModelCo
             contents: Arr::get($data, 'contents'),
             clusterId: Arr::get($data, 'cluster_id'),
             isDefault: Arr::get($data, 'is_default'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: CustomConfigSnippetIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

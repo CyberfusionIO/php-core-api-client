@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -27,6 +28,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         int $randomDelayMaxSeconds,
         bool $lockingEnabled,
         bool $isActive,
+        DeploymentStatusEnum $deploymentStatus,
         CronIncludes $includes,
         ?string $emailAddress = null,
         ?int $timeoutSeconds = null,
@@ -46,6 +48,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         $this->setRandomDelayMaxSeconds($randomDelayMaxSeconds);
         $this->setLockingEnabled($lockingEnabled);
         $this->setIsActive($isActive);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setEmailAddress($emailAddress);
         $this->setTimeoutSeconds($timeoutSeconds);
@@ -254,6 +257,17 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): CronIncludes
     {
         return $this->getAttribute('includes');
@@ -281,6 +295,7 @@ class CronResource extends CoreApiModel implements CoreApiModelContract
             randomDelayMaxSeconds: Arr::get($data, 'random_delay_max_seconds'),
             lockingEnabled: Arr::get($data, 'locking_enabled'),
             isActive: Arr::get($data, 'is_active'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: CronIncludes::fromArray(Arr::get($data, 'includes')),
             emailAddress: Arr::get($data, 'email_address'),
             timeoutSeconds: Arr::get($data, 'timeout_seconds'),

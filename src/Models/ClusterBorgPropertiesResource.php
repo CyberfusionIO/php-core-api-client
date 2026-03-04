@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         string $updatedAt,
         bool $automaticBorgRepositoriesPruneEnabled,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterBorgPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         $this->setUpdatedAt($updatedAt);
         $this->setAutomaticBorgRepositoriesPruneEnabled($automaticBorgRepositoriesPruneEnabled);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -84,6 +87,17 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterBorgPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -103,6 +117,7 @@ class ClusterBorgPropertiesResource extends CoreApiModel implements CoreApiModel
             updatedAt: Arr::get($data, 'updated_at'),
             automaticBorgRepositoriesPruneEnabled: Arr::get($data, 'automatic_borg_repositories_prune_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterBorgPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

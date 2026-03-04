@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -21,6 +22,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         string $localPart,
         int $mailDomainId,
         array $forwardEmailAddresses,
+        DeploymentStatusEnum $deploymentStatus,
         MailAliasIncludes $includes,
     ) {
         $this->setId($id);
@@ -30,6 +32,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         $this->setLocalPart($localPart);
         $this->setMailDomainId($mailDomainId);
         $this->setForwardEmailAddresses($forwardEmailAddresses);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -123,6 +126,17 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): MailAliasIncludes
     {
         return $this->getAttribute('includes');
@@ -144,6 +158,7 @@ class MailAliasResource extends CoreApiModel implements CoreApiModelContract
             localPart: Arr::get($data, 'local_part'),
             mailDomainId: Arr::get($data, 'mail_domain_id'),
             forwardEmailAddresses: Arr::get($data, 'forward_email_addresses'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: MailAliasIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

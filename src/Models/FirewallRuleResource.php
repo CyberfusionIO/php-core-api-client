@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\FirewallRuleExternalProviderNameEnum;
 use Cyberfusion\CoreApi\Enums\FirewallRuleServiceNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
@@ -21,6 +22,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         int $clusterId,
         int $nodeId,
+        DeploymentStatusEnum $deploymentStatus,
         FirewallRuleIncludes $includes,
         ?int $firewallGroupId = null,
         ?FirewallRuleExternalProviderNameEnum $externalProviderName = null,
@@ -33,6 +35,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setNodeId($nodeId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setFirewallGroupId($firewallGroupId);
         $this->setExternalProviderName($externalProviderName);
@@ -151,6 +154,17 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): FirewallRuleIncludes
     {
         return $this->getAttribute('includes');
@@ -170,6 +184,7 @@ class FirewallRuleResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             nodeId: Arr::get($data, 'node_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: FirewallRuleIncludes::fromArray(Arr::get($data, 'includes')),
             firewallGroupId: Arr::get($data, 'firewall_group_id'),
             externalProviderName: Arr::get($data, 'external_provider_name') !== null ? FirewallRuleExternalProviderNameEnum::tryFrom(Arr::get($data, 'external_provider_name')) : null,

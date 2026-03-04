@@ -27,6 +27,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         ?CauserTypeEnum $causerType = null,
         ?int $causerId = null,
         ?int $customerId = null,
+        ?\ArrayObject $changes = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -39,6 +40,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         $this->setCauserType($causerType);
         $this->setCauserId($causerId);
         $this->setCustomerId($customerId);
+        $this->setChanges($changes);
     }
 
     public function getId(): int
@@ -151,6 +153,17 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getChanges(): \ArrayObject|null
+    {
+        return $this->getAttribute('changes');
+    }
+
+    public function setChanges(?\ArrayObject $changes): self
+    {
+        $this->setAttribute('changes', $changes);
+        return $this;
+    }
+
     public function getIncludes(): ObjectLogIncludes
     {
         return $this->getAttribute('includes');
@@ -176,6 +189,7 @@ class ObjectLogResource extends CoreApiModel implements CoreApiModelContract
             causerType: Arr::get($data, 'causer_type') !== null ? CauserTypeEnum::tryFrom(Arr::get($data, 'causer_type')) : null,
             causerId: Arr::get($data, 'causer_id'),
             customerId: Arr::get($data, 'customer_id'),
+            changes: Arr::get($data, 'changes'),
         ));
     }
 }

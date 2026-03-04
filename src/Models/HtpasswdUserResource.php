@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $username,
         int $htpasswdFileId,
+        DeploymentStatusEnum $deploymentStatus,
         HtpasswdUserIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setUsername($username);
         $this->setHtpasswdFileId($htpasswdFileId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -104,6 +107,17 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): HtpasswdUserIncludes
     {
         return $this->getAttribute('includes');
@@ -124,6 +138,7 @@ class HtpasswdUserResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             username: Arr::get($data, 'username'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: HtpasswdUserIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

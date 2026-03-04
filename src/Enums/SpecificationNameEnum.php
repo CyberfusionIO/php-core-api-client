@@ -39,7 +39,6 @@ enum SpecificationNameEnum: string
     case ClusterSupportsN8nNodes = 'Cluster supports n8n nodes';
     case ClusterSupportsClamAVNodes = 'Cluster supports ClamAV nodes';
     case ClusterSupportsGNUMailutilsNodes = 'Cluster supports GNU Mailutils nodes';
-    case ClusterSupportsWkhtmltopdfNodes = 'Cluster supports wkhtmltopdf nodes';
     case ClusterSupportsImageMagickNodes = 'Cluster supports ImageMagick nodes';
     case ClusterSupportsHAProxyNodes = 'Cluster supports HAProxy nodes';
     case ClusterSupportsProFTPDNodes = 'Cluster supports ProFTPD nodes';
@@ -52,7 +51,6 @@ enum SpecificationNameEnum: string
     case ClusterSupportsPostgreSQLNodes = 'Cluster supports PostgreSQL nodes';
     case ClusterSupportsPHPNodes = 'Cluster supports PHP nodes';
     case ClusterSupportsComposerNodes = 'Cluster supports Composer nodes';
-    case ClusterSupportsWPCLINodes = 'Cluster supports WP-CLI nodes';
     case ClusterSupportsNodeJSNodes = 'Cluster supports NodeJS nodes';
     case ClusterSupportsPassengerNodes = 'Cluster supports Passenger nodes';
     case ClusterSupportsKernelCareNodes = 'Cluster supports KernelCare nodes';

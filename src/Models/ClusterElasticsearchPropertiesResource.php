@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         string $elasticsearchDefaultUsersPassword,
         string $kibanaDomain,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterElasticsearchPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         $this->setElasticsearchDefaultUsersPassword($elasticsearchDefaultUsersPassword);
         $this->setKibanaDomain($kibanaDomain);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -104,6 +107,17 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterElasticsearchPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -124,6 +138,7 @@ class ClusterElasticsearchPropertiesResource extends CoreApiModel implements Cor
             elasticsearchDefaultUsersPassword: Arr::get($data, 'elasticsearch_default_users_password'),
             kibanaDomain: Arr::get($data, 'kibana_domain'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterElasticsearchPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

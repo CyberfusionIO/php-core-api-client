@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class ClusterFirewallPropertiesResource extends CoreApiModel implements CoreApiM
         string $updatedAt,
         bool $firewallRulesExternalProvidersEnabled,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterFirewallPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class ClusterFirewallPropertiesResource extends CoreApiModel implements CoreApiM
         $this->setUpdatedAt($updatedAt);
         $this->setFirewallRulesExternalProvidersEnabled($firewallRulesExternalProvidersEnabled);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -84,6 +87,17 @@ class ClusterFirewallPropertiesResource extends CoreApiModel implements CoreApiM
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterFirewallPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -103,6 +117,7 @@ class ClusterFirewallPropertiesResource extends CoreApiModel implements CoreApiM
             updatedAt: Arr::get($data, 'updated_at'),
             firewallRulesExternalProvidersEnabled: Arr::get($data, 'firewall_rules_external_providers_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterFirewallPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

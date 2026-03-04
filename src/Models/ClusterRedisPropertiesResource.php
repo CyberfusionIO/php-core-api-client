@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         string $redisPassword,
         int $redisMemoryLimit,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterRedisPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         $this->setRedisPassword($redisPassword);
         $this->setRedisMemoryLimit($redisMemoryLimit);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -104,6 +107,17 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterRedisPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -124,6 +138,7 @@ class ClusterRedisPropertiesResource extends CoreApiModel implements CoreApiMode
             redisPassword: Arr::get($data, 'redis_password'),
             redisMemoryLimit: Arr::get($data, 'redis_memory_limit'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterRedisPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

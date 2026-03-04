@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -22,6 +23,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         string $singlestoreLicenseKey,
         string $singlestoreRootPassword,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterSinglestorePropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -32,6 +34,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         $this->setSinglestoreLicenseKey($singlestoreLicenseKey);
         $this->setSinglestoreRootPassword($singlestoreRootPassword);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -137,6 +140,17 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterSinglestorePropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -159,6 +173,7 @@ class ClusterSinglestorePropertiesResource extends CoreApiModel implements CoreA
             singlestoreLicenseKey: Arr::get($data, 'singlestore_license_key'),
             singlestoreRootPassword: Arr::get($data, 'singlestore_root_password'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterSinglestorePropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

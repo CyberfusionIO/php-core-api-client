@@ -4,6 +4,7 @@ namespace Cyberfusion\CoreApi\Models;
 
 use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -25,6 +26,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         ArrayObject $loadBalancerHealthChecksGroupsPairs,
         NodeGroupsProperties $groupsProperties,
         bool $isReady,
+        DeploymentStatusEnum $deploymentStatus,
         NodeIncludes $includes,
         ?string $comment = null,
     ) {
@@ -38,6 +40,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         $this->setLoadBalancerHealthChecksGroupsPairs($loadBalancerHealthChecksGroupsPairs);
         $this->setGroupsProperties($groupsProperties);
         $this->setIsReady($isReady);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setComment($comment);
     }
@@ -176,6 +179,17 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): NodeIncludes
     {
         return $this->getAttribute('includes');
@@ -200,6 +214,7 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
             loadBalancerHealthChecksGroupsPairs: new ArrayObject(Arr::get($data, 'load_balancer_health_checks_groups_pairs')),
             groupsProperties: NodeGroupsProperties::fromArray(Arr::get($data, 'groups_properties')),
             isReady: Arr::get($data, 'is_ready'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: NodeIncludes::fromArray(Arr::get($data, 'includes')),
             comment: Arr::get($data, 'comment'),
         ));

@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class SshKeyResource extends CoreApiModel implements CoreApiModelContract
         int $clusterId,
         string $name,
         int $unixUserId,
+        DeploymentStatusEnum $deploymentStatus,
         SshKeyIncludes $includes,
         ?string $publicKey = null,
         ?string $privateKey = null,
@@ -31,6 +33,7 @@ class SshKeyResource extends CoreApiModel implements CoreApiModelContract
         $this->setClusterId($clusterId);
         $this->setName($name);
         $this->setUnixUserId($unixUserId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setPublicKey($publicKey);
         $this->setPrivateKey($privateKey);
@@ -143,6 +146,17 @@ class SshKeyResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): SshKeyIncludes
     {
         return $this->getAttribute('includes');
@@ -163,6 +177,7 @@ class SshKeyResource extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
             name: Arr::get($data, 'name'),
             unixUserId: Arr::get($data, 'unix_user_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: SshKeyIncludes::fromArray(Arr::get($data, 'includes')),
             publicKey: Arr::get($data, 'public_key'),
             privateKey: Arr::get($data, 'private_key'),

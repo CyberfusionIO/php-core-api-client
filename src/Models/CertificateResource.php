@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -24,6 +25,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         string $caChain,
         string $privateKey,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         CertificateIncludes $includes,
     ) {
         $this->setId($id);
@@ -36,6 +38,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         $this->setCaChain($caChain);
         $this->setPrivateKey($privateKey);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -176,6 +179,17 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): CertificateIncludes
     {
         return $this->getAttribute('includes');
@@ -200,6 +214,7 @@ class CertificateResource extends CoreApiModel implements CoreApiModelContract
             caChain: Arr::get($data, 'ca_chain'),
             privateKey: Arr::get($data, 'private_key'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: CertificateIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

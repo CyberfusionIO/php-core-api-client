@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -19,6 +20,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         int $clusterId,
         int $unixUserId,
+        DeploymentStatusEnum $deploymentStatus,
         HtpasswdFileIncludes $includes,
     ) {
         $this->setId($id);
@@ -26,6 +28,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setUnixUserId($unixUserId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -84,6 +87,17 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): HtpasswdFileIncludes
     {
         return $this->getAttribute('includes');
@@ -103,6 +117,7 @@ class HtpasswdFileResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             unixUserId: Arr::get($data, 'unix_user_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: HtpasswdFileIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

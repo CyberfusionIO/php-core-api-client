@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -23,6 +24,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         bool $phpIoncubeEnabled,
         bool $phpSessionsSpreadEnabled,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterPhpPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -34,6 +36,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         $this->setPhpIoncubeEnabled($phpIoncubeEnabled);
         $this->setPhpSessionsSpreadEnabled($phpSessionsSpreadEnabled);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -148,6 +151,17 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterPhpPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -171,6 +185,7 @@ class ClusterPhpPropertiesResource extends CoreApiModel implements CoreApiModelC
             phpIoncubeEnabled: Arr::get($data, 'php_ioncube_enabled'),
             phpSessionsSpreadEnabled: Arr::get($data, 'php_sessions_spread_enabled'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterPhpPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

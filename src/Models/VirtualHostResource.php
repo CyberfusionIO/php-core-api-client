@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\VirtualHostServerSoftwareNameEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -24,6 +25,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         string $domain,
         array $serverAliases,
         string $documentRoot,
+        DeploymentStatusEnum $deploymentStatus,
         VirtualHostIncludes $includes,
         ?array $allowOverrideDirectives = null,
         ?array $allowOverrideOptionDirectives = null,
@@ -40,6 +42,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         $this->setDomain($domain);
         $this->setServerAliases($serverAliases);
         $this->setDocumentRoot($documentRoot);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setAllowOverrideDirectives($allowOverrideDirectives);
         $this->setAllowOverrideOptionDirectives($allowOverrideOptionDirectives);
@@ -208,6 +211,17 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): VirtualHostIncludes
     {
         return $this->getAttribute('includes');
@@ -231,6 +245,7 @@ class VirtualHostResource extends CoreApiModel implements CoreApiModelContract
             domain: Arr::get($data, 'domain'),
             serverAliases: Arr::get($data, 'server_aliases'),
             documentRoot: Arr::get($data, 'document_root'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: VirtualHostIncludes::fromArray(Arr::get($data, 'includes')),
             allowOverrideDirectives: Arr::get($data, 'allow_override_directives'),
             allowOverrideOptionDirectives: Arr::get($data, 'allow_override_option_directives'),

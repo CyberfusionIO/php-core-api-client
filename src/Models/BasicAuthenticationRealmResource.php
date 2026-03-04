@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -21,6 +22,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         int $virtualHostId,
         string $name,
         int $htpasswdFileId,
+        DeploymentStatusEnum $deploymentStatus,
         BasicAuthenticationRealmIncludes $includes,
         ?string $directoryPath = null,
         ?string $uriPath = null,
@@ -32,6 +34,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         $this->setVirtualHostId($virtualHostId);
         $this->setName($name);
         $this->setHtpasswdFileId($htpasswdFileId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setDirectoryPath($directoryPath);
         $this->setUriPath($uriPath);
@@ -143,6 +146,17 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): BasicAuthenticationRealmIncludes
     {
         return $this->getAttribute('includes');
@@ -164,6 +178,7 @@ class BasicAuthenticationRealmResource extends CoreApiModel implements CoreApiMo
             virtualHostId: Arr::get($data, 'virtual_host_id'),
             name: Arr::get($data, 'name'),
             htpasswdFileId: Arr::get($data, 'htpasswd_file_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: BasicAuthenticationRealmIncludes::fromArray(Arr::get($data, 'includes')),
             directoryPath: Arr::get($data, 'directory_path'),
             uriPath: Arr::get($data, 'uri_path'),

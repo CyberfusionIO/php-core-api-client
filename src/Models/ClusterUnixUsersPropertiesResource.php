@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Enums\UnixUserHomeDirectoryEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -20,6 +21,7 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
         string $updatedAt,
         UnixUserHomeDirectoryEnum $unixUsersHomeDirectory,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         ClusterUnixUsersPropertiesIncludes $includes,
     ) {
         $this->setId($id);
@@ -27,6 +29,7 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
         $this->setUpdatedAt($updatedAt);
         $this->setUnixUsersHomeDirectory($unixUsersHomeDirectory);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -85,6 +88,17 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): ClusterUnixUsersPropertiesIncludes
     {
         return $this->getAttribute('includes');
@@ -104,6 +118,7 @@ class ClusterUnixUsersPropertiesResource extends CoreApiModel implements CoreApi
             updatedAt: Arr::get($data, 'updated_at'),
             unixUsersHomeDirectory: UnixUserHomeDirectoryEnum::tryFrom(Arr::get($data, 'unix_users_home_directory')),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: ClusterUnixUsersPropertiesIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

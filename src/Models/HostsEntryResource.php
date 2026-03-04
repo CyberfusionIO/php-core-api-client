@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         int $nodeId,
         string $hostName,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         HostsEntryIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         $this->setNodeId($nodeId);
         $this->setHostName($hostName);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -97,6 +100,17 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): HostsEntryIncludes
     {
         return $this->getAttribute('includes');
@@ -117,6 +131,7 @@ class HostsEntryResource extends CoreApiModel implements CoreApiModelContract
             nodeId: Arr::get($data, 'node_id'),
             hostName: Arr::get($data, 'host_name'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: HostsEntryIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }
