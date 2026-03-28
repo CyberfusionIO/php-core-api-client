@@ -21,7 +21,7 @@ Saloon provides easy-to-use functionality (sane defaults), _and_ full control (c
 
 This client can be used in any PHP project and with any framework.
 
-This client requires PHP 8.1 or higher. It uses [Guzzle](https://github.com/guzzle/guzzle) via the [Saloon package](https://docs.saloon.dev/). The client uses specific Laravel components, but the Laravel framework is not required.
+This client requires PHP 8.2 or higher. It uses [Guzzle](https://github.com/guzzle/guzzle) via the [Saloon package](https://docs.saloon.dev/). The client uses specific Laravel components, but the Laravel framework is not required.
 
 ## Composer
 

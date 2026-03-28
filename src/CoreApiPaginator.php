@@ -21,15 +21,14 @@ class CoreApiPaginator extends PagedPaginator
 
     protected function getPageItems(Response $response, Request $request): array
     {
-        if (method_exists($request, 'createDtoFromResponse')) {
-            $dto = $response->dto();
-
-            return $dto instanceof Collection
-                ? $dto->all()
-                : $dto;
+        $dto = $response->dto();
+        if ($dto === null) {
+            return [];
         }
 
-        return $response->json();
+        return $dto instanceof Collection
+            ? $dto->all()
+            : $dto;
     }
 
     protected function getTotalPages(Response $response): int

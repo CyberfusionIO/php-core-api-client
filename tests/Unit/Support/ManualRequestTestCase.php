@@ -47,7 +47,6 @@ class ManualRequestTestCase extends RequestTestCase
 
         $this->assertFalse($response->failed());
         $this->assertSame($response->getRequest()->getMethod(), Method::POST);
-        $this->assertIsArray($response->json());
         $this->assertArrayHasKey('success', $response->json());
     }
 }
