@@ -26,9 +26,9 @@ class CertificateHelperTest extends TestCase
         );
 
         $this->assertSame(
-            expected: $expected,
-            actual: $result,
-            message: sprintf(
+            $expected,
+            $result,
+            sprintf(
                 'Certificate validation expected `%s`, but got `%s`',
                 $expected ? 'true' : 'false',
                 $result ? 'true' : 'false',
@@ -57,8 +57,8 @@ test
     public function test_formatting(mixed $source, mixed $expected): void
     {
         $this->assertSame(
-            expected: $expected,
-            actual: CertificateHelper::format($source),
+            $expected,
+            CertificateHelper::format($source),
         );
     }
 }
