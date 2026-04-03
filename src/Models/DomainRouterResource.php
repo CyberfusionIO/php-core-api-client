@@ -27,6 +27,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         DomainRouterIncludes $includes,
         ?int $virtualHostId = null,
         ?int $urlRedirectId = null,
+        ?int $n8nInstanceId = null,
         ?int $nodeId = null,
         ?int $certificateId = null,
         ?int $securityTxtPolicyId = null,
@@ -43,6 +44,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         $this->setIncludes($includes);
         $this->setVirtualHostId($virtualHostId);
         $this->setUrlRedirectId($urlRedirectId);
+        $this->setN8nInstanceId($n8nInstanceId);
         $this->setNodeId($nodeId);
         $this->setCertificateId($certificateId);
         $this->setSecurityTxtPolicyId($securityTxtPolicyId);
@@ -112,6 +114,17 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
     public function setUrlRedirectId(?int $urlRedirectId): self
     {
         $this->setAttribute('url_redirect_id', $urlRedirectId);
+        return $this;
+    }
+
+    public function getN8nInstanceId(): int|null
+    {
+        return $this->getAttribute('n8n_instance_id');
+    }
+
+    public function setN8nInstanceId(?int $n8nInstanceId): self
+    {
+        $this->setAttribute('n8n_instance_id', $n8nInstanceId);
         return $this;
     }
 
@@ -228,6 +241,7 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
             includes: DomainRouterIncludes::fromArray(Arr::get($data, 'includes')),
             virtualHostId: Arr::get($data, 'virtual_host_id'),
             urlRedirectId: Arr::get($data, 'url_redirect_id'),
+            n8nInstanceId: Arr::get($data, 'n8n_instance_id'),
             nodeId: Arr::get($data, 'node_id'),
             certificateId: Arr::get($data, 'certificate_id'),
             securityTxtPolicyId: Arr::get($data, 'security_txt_policy_id'),

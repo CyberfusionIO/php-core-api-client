@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\Iso3166Alpha2CountryCodeEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -13,10 +14,15 @@ class RegionResource extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(int $id, string $name, RegionIncludes $includes)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        Iso3166Alpha2CountryCodeEnum $iso3166Alpha2CountryCode,
+        RegionIncludes $includes,
+    ) {
         $this->setId($id);
         $this->setName($name);
+        $this->setIso3166Alpha2CountryCode($iso3166Alpha2CountryCode);
         $this->setIncludes($includes);
     }
 
@@ -49,6 +55,17 @@ class RegionResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIso3166Alpha2CountryCode(): Iso3166Alpha2CountryCodeEnum
+    {
+        return $this->getAttribute('iso_3166_alpha_2_country_code');
+    }
+
+    public function setIso3166Alpha2CountryCode(Iso3166Alpha2CountryCodeEnum $iso3166Alpha2CountryCode): self
+    {
+        $this->setAttribute('iso_3166_alpha_2_country_code', $iso3166Alpha2CountryCode);
+        return $this;
+    }
+
     public function getIncludes(): RegionIncludes
     {
         return $this->getAttribute('includes');
@@ -65,6 +82,7 @@ class RegionResource extends CoreApiModel implements CoreApiModelContract
         return (new self(
             id: Arr::get($data, 'id'),
             name: Arr::get($data, 'name'),
+            iso3166Alpha2CountryCode: Iso3166Alpha2CountryCodeEnum::tryFrom(Arr::get($data, 'iso_3166_alpha_2_country_code')),
             includes: RegionIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

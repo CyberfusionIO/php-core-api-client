@@ -14,6 +14,17 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
 {
     use Conditionable;
 
+    public function getDomain(): string|null
+    {
+        return $this->getAttribute('domain');
+    }
+
+    public function setDomain(?string $domain): self
+    {
+        $this->setAttribute('domain', $domain);
+        return $this;
+    }
+
     public function getServerAliases(): array|null
     {
         return $this->getAttribute('server_aliases');
@@ -106,6 +117,7 @@ class VirtualHostUpdateRequest extends CoreApiModel implements CoreApiModelContr
     {
         return (new self(
         ))
+            ->when(Arr::has($data, 'domain'), fn (self $model) => $model->setDomain(Arr::get($data, 'domain')))
             ->when(Arr::has($data, 'server_aliases'), fn (self $model) => $model->setServerAliases(Arr::get($data, 'server_aliases')))
             ->when(Arr::has($data, 'document_root'), fn (self $model) => $model->setDocumentRoot(Arr::get($data, 'document_root')))
             ->when(Arr::has($data, 'fpm_pool_id'), fn (self $model) => $model->setFpmPoolId(Arr::get($data, 'fpm_pool_id')))

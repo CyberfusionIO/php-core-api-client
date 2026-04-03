@@ -81,7 +81,7 @@ class CronCreateRequest extends CoreApiModel implements CoreApiModelContract
     {
         Validator::create()
             ->length(min: 1, max: 65535)
-            ->regex('/^[ -~]+$/')
+            ->regex('/^[!-~](?:[ -~]*[!-~])?$/')
             ->assert($command);
         $this->setAttribute('command', $command);
         return $this;

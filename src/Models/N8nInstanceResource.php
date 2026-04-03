@@ -3,6 +3,7 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
+use Cyberfusion\CoreApi\Enums\DeploymentStatusEnum;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -20,6 +21,7 @@ class N8nInstanceResource extends CoreApiModel implements CoreApiModelContract
         string $domain,
         string $name,
         int $clusterId,
+        DeploymentStatusEnum $deploymentStatus,
         N8nInstanceIncludes $includes,
     ) {
         $this->setId($id);
@@ -28,6 +30,7 @@ class N8nInstanceResource extends CoreApiModel implements CoreApiModelContract
         $this->setDomain($domain);
         $this->setName($name);
         $this->setClusterId($clusterId);
+        $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
 
@@ -104,6 +107,17 @@ class N8nInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getDeploymentStatus(): DeploymentStatusEnum
+    {
+        return $this->getAttribute('deployment_status');
+    }
+
+    public function setDeploymentStatus(DeploymentStatusEnum $deploymentStatus): self
+    {
+        $this->setAttribute('deployment_status', $deploymentStatus);
+        return $this;
+    }
+
     public function getIncludes(): N8nInstanceIncludes
     {
         return $this->getAttribute('includes');
@@ -124,6 +138,7 @@ class N8nInstanceResource extends CoreApiModel implements CoreApiModelContract
             domain: Arr::get($data, 'domain'),
             name: Arr::get($data, 'name'),
             clusterId: Arr::get($data, 'cluster_id'),
+            deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: N8nInstanceIncludes::fromArray(Arr::get($data, 'includes')),
         ));
     }

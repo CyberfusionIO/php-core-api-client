@@ -69,4 +69,6 @@ enum ObjectModelNameEnum: string
     case ClustersLoadBalancingProperties = 'ClustersLoadBalancingProperties';
     case ClustersFirewallProperties = 'ClustersFirewallProperties';
     case ClustersOsProperties = 'ClustersOsProperties';
+    case Project = 'Project';
+    case ProjectEnvironment = 'ProjectEnvironment';
 }
