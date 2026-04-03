@@ -66,4 +66,5 @@ enum SpecificationNameEnum: string
     case UNIXUserSupportsMailDomains = 'UNIX user supports mail domains';
     case ClusterSupportsLoadBalancerServiceAccountServiceAccountToCluster = 'Cluster supports Load Balancer service account service account to cluster';
     case ClusterSupportsDomainRouters = 'Cluster supports domain routers';
+    case ClusterSupportsProjects = 'Cluster supports projects';
 }

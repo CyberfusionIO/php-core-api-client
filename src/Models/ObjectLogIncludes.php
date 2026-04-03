@@ -13,26 +13,8 @@ class ObjectLogIncludes extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(?CustomerResource $customer = null)
-    {
-        $this->setCustomer($customer);
-    }
-
-    public function getCustomer(): CustomerResource|null
-    {
-        return $this->getAttribute('customer');
-    }
-
-    public function setCustomer(?CustomerResource $customer): self
-    {
-        $this->setAttribute('customer', $customer);
-        return $this;
-    }
-
     public static function fromArray(array $data): self
     {
-        return (new self(
-            customer: Arr::get($data, 'customer') !== null ? CustomerResource::fromArray(Arr::get($data, 'customer')) : null,
-        ));
+        return new self();
     }
 }

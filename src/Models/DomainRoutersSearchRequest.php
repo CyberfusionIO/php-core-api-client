@@ -47,6 +47,17 @@ class DomainRoutersSearchRequest extends CoreApiModel implements CoreApiModelCon
         return $this;
     }
 
+    public function getN8nInstanceId(): int|null
+    {
+        return $this->getAttribute('n8n_instance_id');
+    }
+
+    public function setN8nInstanceId(?int $n8nInstanceId): self
+    {
+        $this->setAttribute('n8n_instance_id', $n8nInstanceId);
+        return $this;
+    }
+
     public function getCategory(): DomainRouterCategoryEnum|null
     {
         return $this->getAttribute('category');
@@ -131,6 +142,7 @@ class DomainRoutersSearchRequest extends CoreApiModel implements CoreApiModelCon
             ->when(Arr::has($data, 'domain'), fn (self $model) => $model->setDomain(Arr::get($data, 'domain')))
             ->when(Arr::has($data, 'virtual_host_id'), fn (self $model) => $model->setVirtualHostId(Arr::get($data, 'virtual_host_id')))
             ->when(Arr::has($data, 'url_redirect_id'), fn (self $model) => $model->setUrlRedirectId(Arr::get($data, 'url_redirect_id')))
+            ->when(Arr::has($data, 'n8n_instance_id'), fn (self $model) => $model->setN8nInstanceId(Arr::get($data, 'n8n_instance_id')))
             ->when(Arr::has($data, 'category'), fn (self $model) => $model->setCategory(Arr::get($data, 'category') !== null ? DomainRouterCategoryEnum::tryFrom(Arr::get($data, 'category')) : null))
             ->when(Arr::has($data, 'cluster_id'), fn (self $model) => $model->setClusterId(Arr::get($data, 'cluster_id')))
             ->when(Arr::has($data, 'node_id'), fn (self $model) => $model->setNodeId(Arr::get($data, 'node_id')))

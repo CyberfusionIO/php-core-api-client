@@ -12,6 +12,9 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
+/**
+ * Create Borg properties. Borg properties are automatically created when creating the cluster, so using this endpoint is no longer needed.
+ */
 class CreateBorgProperties extends Request implements CoreApiRequestContract, HasBody
 {
     use HasJsonBody;

@@ -19,6 +19,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         string $createdAt,
         string $updatedAt,
         int $clusterId,
+        string $name,
         string $expiresTimestamp,
         array $emailContacts,
         array $urlContacts,
@@ -27,6 +28,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         array $policyUrls,
         array $openingUrls,
         array $preferredLanguages,
+        bool $isDefault,
         DeploymentStatusEnum $deploymentStatus,
         SecurityTxtPolicyIncludes $includes,
     ) {
@@ -34,6 +36,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         $this->setCreatedAt($createdAt);
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
+        $this->setName($name);
         $this->setExpiresTimestamp($expiresTimestamp);
         $this->setEmailContacts($emailContacts);
         $this->setUrlContacts($urlContacts);
@@ -42,6 +45,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         $this->setPolicyUrls($policyUrls);
         $this->setOpeningUrls($openingUrls);
         $this->setPreferredLanguages($preferredLanguages);
+        $this->setIsDefault($isDefault);
         $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
     }
@@ -87,6 +91,24 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
     public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->getAttribute('name');
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function setName(string $name): self
+    {
+        Validator::create()
+            ->length(min: 1, max: 32)
+            ->regex('/^[a-zA-Z0-9-_ ]+$/')
+            ->assert($name);
+        $this->setAttribute('name', $name);
         return $this;
     }
 
@@ -220,6 +242,17 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getIsDefault(): bool
+    {
+        return $this->getAttribute('is_default');
+    }
+
+    public function setIsDefault(bool $isDefault): self
+    {
+        $this->setAttribute('is_default', $isDefault);
+        return $this;
+    }
+
     public function getDeploymentStatus(): DeploymentStatusEnum
     {
         return $this->getAttribute('deployment_status');
@@ -249,6 +282,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
             createdAt: Arr::get($data, 'created_at'),
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
+            name: Arr::get($data, 'name'),
             expiresTimestamp: Arr::get($data, 'expires_timestamp'),
             emailContacts: Arr::get($data, 'email_contacts'),
             urlContacts: Arr::get($data, 'url_contacts'),
@@ -257,6 +291,7 @@ class SecurityTxtPolicyResource extends CoreApiModel implements CoreApiModelCont
             policyUrls: Arr::get($data, 'policy_urls'),
             openingUrls: Arr::get($data, 'opening_urls'),
             preferredLanguages: Arr::get($data, 'preferred_languages'),
+            isDefault: Arr::get($data, 'is_default'),
             deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: SecurityTxtPolicyIncludes::fromArray(Arr::get($data, 'includes')),
         ));

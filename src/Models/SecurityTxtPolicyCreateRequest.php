@@ -13,12 +13,20 @@ class SecurityTxtPolicyCreateRequest extends CoreApiModel implements CoreApiMode
 {
     use Conditionable;
 
-    public function __construct(int $clusterId, string $expiresTimestamp, array $emailContacts, array $urlContacts)
-    {
+    public function __construct(
+        int $clusterId,
+        string $name,
+        string $expiresTimestamp,
+        array $emailContacts,
+        array $urlContacts,
+        bool $isDefault,
+    ) {
         $this->setClusterId($clusterId);
+        $this->setName($name);
         $this->setExpiresTimestamp($expiresTimestamp);
         $this->setEmailContacts($emailContacts);
         $this->setUrlContacts($urlContacts);
+        $this->setIsDefault($isDefault);
     }
 
     public function getClusterId(): int
@@ -29,6 +37,24 @@ class SecurityTxtPolicyCreateRequest extends CoreApiModel implements CoreApiMode
     public function setClusterId(int $clusterId): self
     {
         $this->setAttribute('cluster_id', $clusterId);
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->getAttribute('name');
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function setName(string $name): self
+    {
+        Validator::create()
+            ->length(min: 1, max: 32)
+            ->regex('/^[a-zA-Z0-9-_ ]+$/')
+            ->assert($name);
+        $this->setAttribute('name', $name);
         return $this;
     }
 
@@ -162,13 +188,26 @@ class SecurityTxtPolicyCreateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
+    public function getIsDefault(): bool
+    {
+        return $this->getAttribute('is_default');
+    }
+
+    public function setIsDefault(bool $isDefault): self
+    {
+        $this->setAttribute('is_default', $isDefault);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
             clusterId: Arr::get($data, 'cluster_id'),
+            name: Arr::get($data, 'name'),
             expiresTimestamp: Arr::get($data, 'expires_timestamp'),
             emailContacts: Arr::get($data, 'email_contacts'),
             urlContacts: Arr::get($data, 'url_contacts'),
+            isDefault: Arr::get($data, 'is_default'),
         ))
             ->when(Arr::has($data, 'encryption_key_urls'), fn (self $model) => $model->setEncryptionKeyUrls(Arr::get($data, 'encryption_key_urls', [])))
             ->when(Arr::has($data, 'acknowledgment_urls'), fn (self $model) => $model->setAcknowledgmentUrls(Arr::get($data, 'acknowledgment_urls', [])))

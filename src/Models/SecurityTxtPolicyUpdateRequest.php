@@ -13,6 +13,17 @@ class SecurityTxtPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
 {
     use Conditionable;
 
+    public function getName(): string|null
+    {
+        return $this->getAttribute('name');
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->setAttribute('name', $name);
+        return $this;
+    }
+
     public function getExpiresTimestamp(): string|null
     {
         return $this->getAttribute('expires_timestamp');
@@ -101,10 +112,22 @@ class SecurityTxtPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
         return $this;
     }
 
+    public function getIsDefault(): bool|null
+    {
+        return $this->getAttribute('is_default');
+    }
+
+    public function setIsDefault(?bool $isDefault): self
+    {
+        $this->setAttribute('is_default', $isDefault);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
         ))
+            ->when(Arr::has($data, 'name'), fn (self $model) => $model->setName(Arr::get($data, 'name')))
             ->when(Arr::has($data, 'expires_timestamp'), fn (self $model) => $model->setExpiresTimestamp(Arr::get($data, 'expires_timestamp')))
             ->when(Arr::has($data, 'email_contacts'), fn (self $model) => $model->setEmailContacts(Arr::get($data, 'email_contacts')))
             ->when(Arr::has($data, 'url_contacts'), fn (self $model) => $model->setUrlContacts(Arr::get($data, 'url_contacts')))
@@ -112,6 +135,7 @@ class SecurityTxtPolicyUpdateRequest extends CoreApiModel implements CoreApiMode
             ->when(Arr::has($data, 'acknowledgment_urls'), fn (self $model) => $model->setAcknowledgmentUrls(Arr::get($data, 'acknowledgment_urls')))
             ->when(Arr::has($data, 'policy_urls'), fn (self $model) => $model->setPolicyUrls(Arr::get($data, 'policy_urls')))
             ->when(Arr::has($data, 'opening_urls'), fn (self $model) => $model->setOpeningUrls(Arr::get($data, 'opening_urls')))
-            ->when(Arr::has($data, 'preferred_languages'), fn (self $model) => $model->setPreferredLanguages(Arr::get($data, 'preferred_languages')));
+            ->when(Arr::has($data, 'preferred_languages'), fn (self $model) => $model->setPreferredLanguages(Arr::get($data, 'preferred_languages')))
+            ->when(Arr::has($data, 'is_default'), fn (self $model) => $model->setIsDefault(Arr::get($data, 'is_default')));
     }
 }

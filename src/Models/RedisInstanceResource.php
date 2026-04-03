@@ -156,6 +156,17 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getProjectEnvironmentId(): int|null
+    {
+        return $this->getAttribute('project_environment_id');
+    }
+
+    public function setProjectEnvironmentId(?int $projectEnvironmentId): self
+    {
+        $this->setAttribute('project_environment_id', $projectEnvironmentId);
+        return $this;
+    }
+
     public function getEvictionPolicy(): RedisEvictionPolicyEnum
     {
         return $this->getAttribute('eviction_policy');
@@ -204,6 +215,7 @@ class RedisInstanceResource extends CoreApiModel implements CoreApiModelContract
             evictionPolicy: RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy')),
             deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: RedisInstanceIncludes::fromArray(Arr::get($data, 'includes')),
-        ));
+        ))
+            ->when(Arr::has($data, 'project_environment_id'), fn (self $model) => $model->setProjectEnvironmentId(Arr::get($data, 'project_environment_id')));
     }
 }

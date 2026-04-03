@@ -2,6 +2,7 @@
 
 namespace Cyberfusion\CoreApi\Models;
 
+use ArrayObject;
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
@@ -53,12 +54,36 @@ class ValidationError extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getInput(): string
+    {
+        return $this->getAttribute('input');
+    }
+
+    public function setInput(string $input): self
+    {
+        $this->setAttribute('input', $input);
+        return $this;
+    }
+
+    public function getCtx(): ArrayObject
+    {
+        return $this->getAttribute('ctx');
+    }
+
+    public function setCtx(ArrayObject $ctx): self
+    {
+        $this->setAttribute('ctx', $ctx);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
             loc: Arr::get($data, 'loc'),
             msg: Arr::get($data, 'msg'),
             type: Arr::get($data, 'type'),
-        ));
+        ))
+            ->when(Arr::has($data, 'input'), fn (self $model) => $model->setInput(Arr::get($data, 'input')))
+            ->when(Arr::has($data, 'ctx'), fn (self $model) => $model->setCtx(new ArrayObject(Arr::get($data, 'ctx'))));
     }
 }

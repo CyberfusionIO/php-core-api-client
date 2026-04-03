@@ -26,6 +26,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         TaskCollectionTypeEnum $collectionType,
         string $reference,
         TaskCollectionIncludes $includes,
+        ?string $requestId = null,
         ?int $clusterId = null,
     ) {
         $this->setId($id);
@@ -38,6 +39,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         $this->setCollectionType($collectionType);
         $this->setReference($reference);
         $this->setIncludes($includes);
+        $this->setRequestId($requestId);
         $this->setClusterId($clusterId);
     }
 
@@ -136,6 +138,17 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getRequestId(): string|null
+    {
+        return $this->getAttribute('request_id');
+    }
+
+    public function setRequestId(?string $requestId): self
+    {
+        $this->setAttribute('request_id', $requestId);
+        return $this;
+    }
+
     public function getClusterId(): int|null
     {
         return $this->getAttribute('cluster_id');
@@ -189,6 +202,7 @@ class TaskCollectionResource extends CoreApiModel implements CoreApiModelContrac
             collectionType: TaskCollectionTypeEnum::tryFrom(Arr::get($data, 'collection_type')),
             reference: Arr::get($data, 'reference'),
             includes: TaskCollectionIncludes::fromArray(Arr::get($data, 'includes')),
+            requestId: Arr::get($data, 'request_id'),
             clusterId: Arr::get($data, 'cluster_id'),
         ));
     }

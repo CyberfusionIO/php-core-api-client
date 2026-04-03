@@ -26,6 +26,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         bool $backupsEnabled,
         DeploymentStatusEnum $deploymentStatus,
         DatabaseIncludes $includes,
+        ?int $projectEnvironmentId = null,
     ) {
         $this->setId($id);
         $this->setCreatedAt($createdAt);
@@ -37,6 +38,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         $this->setBackupsEnabled($backupsEnabled);
         $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
+        $this->setProjectEnvironmentId($projectEnvironmentId);
     }
 
     public function getId(): int
@@ -134,6 +136,17 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getProjectEnvironmentId(): int|null
+    {
+        return $this->getAttribute('project_environment_id');
+    }
+
+    public function setProjectEnvironmentId(?int $projectEnvironmentId): self
+    {
+        $this->setAttribute('project_environment_id', $projectEnvironmentId);
+        return $this;
+    }
+
     public function getDeploymentStatus(): DeploymentStatusEnum
     {
         return $this->getAttribute('deployment_status');
@@ -169,6 +182,7 @@ class DatabaseResource extends CoreApiModel implements CoreApiModelContract
             backupsEnabled: Arr::get($data, 'backups_enabled'),
             deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DatabaseIncludes::fromArray(Arr::get($data, 'includes')),
+            projectEnvironmentId: Arr::get($data, 'project_environment_id'),
         ));
     }
 }
