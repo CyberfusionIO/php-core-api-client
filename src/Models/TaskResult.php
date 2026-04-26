@@ -104,6 +104,39 @@ class TaskResult extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getStartedAt(): string|null
+    {
+        return $this->getAttribute('started_at');
+    }
+
+    public function setStartedAt(?string $startedAt): self
+    {
+        $this->setAttribute('started_at', $startedAt);
+        return $this;
+    }
+
+    public function getCompletedAt(): string|null
+    {
+        return $this->getAttribute('completed_at');
+    }
+
+    public function setCompletedAt(?string $completedAt): self
+    {
+        $this->setAttribute('completed_at', $completedAt);
+        return $this;
+    }
+
+    public function getDurationHumanReadable(): string|null
+    {
+        return $this->getAttribute('duration_human_readable');
+    }
+
+    public function setDurationHumanReadable(?string $durationHumanReadable): self
+    {
+        $this->setAttribute('duration_human_readable', $durationHumanReadable);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -113,6 +146,9 @@ class TaskResult extends CoreApiModel implements CoreApiModelContract
             retries: Arr::get($data, 'retries'),
             freeFormData: new ArrayObject(Arr::get($data, 'free_form_data')),
             message: Arr::get($data, 'message'),
-        ));
+        ))
+            ->when(Arr::has($data, 'started_at'), fn (self $model) => $model->setStartedAt(Arr::get($data, 'started_at')))
+            ->when(Arr::has($data, 'completed_at'), fn (self $model) => $model->setCompletedAt(Arr::get($data, 'completed_at')))
+            ->when(Arr::has($data, 'duration_human_readable'), fn (self $model) => $model->setDurationHumanReadable(Arr::get($data, 'duration_human_readable')));
     }
 }

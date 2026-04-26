@@ -69,6 +69,17 @@ class RequestLogsSearchRequest extends CoreApiModel implements CoreApiModelContr
         return $this;
     }
 
+    public function getCorrelationId(): string|null
+    {
+        return $this->getAttribute('correlation_id');
+    }
+
+    public function setCorrelationId(?string $correlationId): self
+    {
+        $this->setAttribute('correlation_id', $correlationId);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -77,6 +88,7 @@ class RequestLogsSearchRequest extends CoreApiModel implements CoreApiModelContr
             ->when(Arr::has($data, 'path'), fn (self $model) => $model->setPath(Arr::get($data, 'path')))
             ->when(Arr::has($data, 'method'), fn (self $model) => $model->setMethod(Arr::get($data, 'method') !== null ? HTTPMethod::tryFrom(Arr::get($data, 'method')) : null))
             ->when(Arr::has($data, 'api_user_id'), fn (self $model) => $model->setApiUserId(Arr::get($data, 'api_user_id')))
-            ->when(Arr::has($data, 'request_id'), fn (self $model) => $model->setRequestId(Arr::get($data, 'request_id')));
+            ->when(Arr::has($data, 'request_id'), fn (self $model) => $model->setRequestId(Arr::get($data, 'request_id')))
+            ->when(Arr::has($data, 'correlation_id'), fn (self $model) => $model->setCorrelationId(Arr::get($data, 'correlation_id')));
     }
 }

@@ -51,6 +51,9 @@ enum ObjectModelNameEnum: string
     case ServiceAccount = 'ServiceAccount';
     case ServiceAccountServer = 'ServiceAccountServer';
     case CustomConfig = 'CustomConfig';
+    case CustomConfigSnippet = 'CustomConfigSnippet';
+    case FirewallGroup = 'FirewallGroup';
+    case FtpUser = 'FtpUser';
     case ClustersPhpProperties = 'ClustersPhpProperties';
     case ClustersNodejsProperties = 'ClustersNodejsProperties';
     case ClustersBorgProperties = 'ClustersBorgProperties';

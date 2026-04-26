@@ -16,6 +16,7 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
     public function __construct(
         ?VirtualHostResource $virtualHost = null,
         ?UrlRedirectResource $urlRedirect = null,
+        ?N8nInstanceResource $n8nInstance = null,
         ?NodeResource $node = null,
         ?CertificateResource $certificate = null,
         ?SecurityTxtPolicyResource $securityTxtPolicy = null,
@@ -23,6 +24,7 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
     ) {
         $this->setVirtualHost($virtualHost);
         $this->setUrlRedirect($urlRedirect);
+        $this->setN8nInstance($n8nInstance);
         $this->setNode($node);
         $this->setCertificate($certificate);
         $this->setSecurityTxtPolicy($securityTxtPolicy);
@@ -48,6 +50,17 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
     public function setUrlRedirect(?UrlRedirectResource $urlRedirect): self
     {
         $this->setAttribute('url_redirect', $urlRedirect);
+        return $this;
+    }
+
+    public function getN8nInstance(): N8nInstanceResource|null
+    {
+        return $this->getAttribute('n8n_instance');
+    }
+
+    public function setN8nInstance(?N8nInstanceResource $n8nInstance): self
+    {
+        $this->setAttribute('n8n_instance', $n8nInstance);
         return $this;
     }
 
@@ -100,6 +113,7 @@ class DomainRouterIncludes extends CoreApiModel implements CoreApiModelContract
         return (new self(
             virtualHost: Arr::get($data, 'virtual_host') !== null ? VirtualHostResource::fromArray(Arr::get($data, 'virtual_host')) : null,
             urlRedirect: Arr::get($data, 'url_redirect') !== null ? UrlRedirectResource::fromArray(Arr::get($data, 'url_redirect')) : null,
+            n8nInstance: Arr::get($data, 'n8n_instance') !== null ? N8nInstanceResource::fromArray(Arr::get($data, 'n8n_instance')) : null,
             node: Arr::get($data, 'node') !== null ? NodeResource::fromArray(Arr::get($data, 'node')) : null,
             certificate: Arr::get($data, 'certificate') !== null ? CertificateResource::fromArray(Arr::get($data, 'certificate')) : null,
             securityTxtPolicy: Arr::get($data, 'security_txt_policy') !== null ? SecurityTxtPolicyResource::fromArray(Arr::get($data, 'security_txt_policy')) : null,
