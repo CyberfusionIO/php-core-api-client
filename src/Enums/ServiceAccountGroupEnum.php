@@ -10,6 +10,5 @@ enum ServiceAccountGroupEnum: string
     case MailProxy = 'Mail Proxy';
     case MailGateway = 'Mail Gateway';
     case InternetRouter = 'Internet Router';
-    case StorageRouter = 'Storage Router';
     case PhpMyAdmin = 'phpMyAdmin';
 }

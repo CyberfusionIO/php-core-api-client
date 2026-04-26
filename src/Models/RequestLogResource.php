@@ -25,6 +25,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         ArrayObject $queryParameters,
         int $apiUserId,
         string $requestId,
+        string $correlationId,
         RequestLogIncludes $includes,
         mixed $body = null,
     ) {
@@ -37,6 +38,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         $this->setQueryParameters($queryParameters);
         $this->setApiUserId($apiUserId);
         $this->setRequestId($requestId);
+        $this->setCorrelationId($correlationId);
         $this->setIncludes($includes);
         $this->setBody($body);
     }
@@ -151,6 +153,17 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCorrelationId(): string
+    {
+        return $this->getAttribute('correlation_id');
+    }
+
+    public function setCorrelationId(string $correlationId): self
+    {
+        $this->setAttribute('correlation_id', $correlationId);
+        return $this;
+    }
+
     public function getIncludes(): RequestLogIncludes
     {
         return $this->getAttribute('includes');
@@ -174,6 +187,7 @@ class RequestLogResource extends CoreApiModel implements CoreApiModelContract
             queryParameters: new ArrayObject(Arr::get($data, 'query_parameters')),
             apiUserId: Arr::get($data, 'api_user_id'),
             requestId: Arr::get($data, 'request_id'),
+            correlationId: Arr::get($data, 'correlation_id'),
             includes: RequestLogIncludes::fromArray(Arr::get($data, 'includes')),
             body: Arr::get($data, 'body'),
         ));

@@ -68,6 +68,17 @@ class ClustersSearchRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getNfsEnabled(): bool|null
+    {
+        return $this->getAttribute('nfs_enabled');
+    }
+
+    public function setNfsEnabled(?bool $nfsEnabled): self
+    {
+        $this->setAttribute('nfs_enabled', $nfsEnabled);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -76,6 +87,7 @@ class ClustersSearchRequest extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'region_id'), fn (self $model) => $model->setRegionId(Arr::get($data, 'region_id')))
             ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')))
             ->when(Arr::has($data, 'customer_id'), fn (self $model) => $model->setCustomerId(Arr::get($data, 'customer_id')))
-            ->when(Arr::has($data, 'cephfs_enabled'), fn (self $model) => $model->setCephfsEnabled(Arr::get($data, 'cephfs_enabled')));
+            ->when(Arr::has($data, 'cephfs_enabled'), fn (self $model) => $model->setCephfsEnabled(Arr::get($data, 'cephfs_enabled')))
+            ->when(Arr::has($data, 'nfs_enabled'), fn (self $model) => $model->setNfsEnabled(Arr::get($data, 'nfs_enabled')));
     }
 }
