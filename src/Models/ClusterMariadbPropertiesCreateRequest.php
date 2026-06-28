@@ -50,7 +50,7 @@ class ClusterMariadbPropertiesCreateRequest extends CoreApiModel implements Core
     {
         return (new self(
         ))
-            ->when(Arr::has($data, 'mariadb_version'), fn (self $model) => $model->setMariadbVersion(Arr::get($data, 'mariadb_version', '11.4')))
+            ->when(Arr::has($data, 'mariadb_version'), fn (self $model) => $model->setMariadbVersion(Arr::get($data, 'mariadb_version', '11.8')))
             ->when(Arr::has($data, 'mariadb_backup_interval'), fn (self $model) => $model->setMariadbBackupInterval(Arr::get($data, 'mariadb_backup_interval', 24)))
             ->when(Arr::has($data, 'mariadb_backup_local_retention'), fn (self $model) => $model->setMariadbBackupLocalRetention(Arr::get($data, 'mariadb_backup_local_retention', 3)));
     }

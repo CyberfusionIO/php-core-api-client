@@ -5,6 +5,7 @@ namespace Cyberfusion\CoreApi\Enums;
 enum ServiceAccountGroupEnum: string
 {
     case SecurityTXTPolicyServer = 'Security TXT Policy Server';
+    case CarbonTXTServer = 'Carbon TXT Server';
     case LoadBalancer = 'Load Balancer';
     case Borg = 'Borg';
     case MailProxy = 'Mail Proxy';

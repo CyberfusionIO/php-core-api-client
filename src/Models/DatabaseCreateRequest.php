@@ -83,6 +83,17 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCreateBorgRepository(): bool
+    {
+        return $this->getAttribute('create_borg_repository');
+    }
+
+    public function setCreateBorgRepository(bool $createBorgRepository): self
+    {
+        $this->setAttribute('create_borg_repository', $createBorgRepository);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -91,6 +102,7 @@ class DatabaseCreateRequest extends CoreApiModel implements CoreApiModelContract
             clusterId: Arr::get($data, 'cluster_id'),
         ))
             ->when(Arr::has($data, 'optimizing_enabled'), fn (self $model) => $model->setOptimizingEnabled(Arr::get($data, 'optimizing_enabled', false)))
-            ->when(Arr::has($data, 'backups_enabled'), fn (self $model) => $model->setBackupsEnabled(Arr::get($data, 'backups_enabled', true)));
+            ->when(Arr::has($data, 'backups_enabled'), fn (self $model) => $model->setBackupsEnabled(Arr::get($data, 'backups_enabled', true)))
+            ->when(Arr::has($data, 'create_borg_repository'), fn (self $model) => $model->setCreateBorgRepository(Arr::get($data, 'create_borg_repository', false)));
     }
 }

@@ -111,6 +111,6 @@ class RedisInstanceCreateRequest extends CoreApiModel implements CoreApiModelCon
             memoryLimit: Arr::get($data, 'memory_limit'),
         ))
             ->when(Arr::has($data, 'max_databases'), fn (self $model) => $model->setMaxDatabases(Arr::get($data, 'max_databases', 16)))
-            ->when(Arr::has($data, 'eviction_policy'), fn (self $model) => $model->setEvictionPolicy(RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy', 'volatile-lru'))));
+            ->when(Arr::has($data, 'eviction_policy'), fn (self $model) => $model->setEvictionPolicy(RedisEvictionPolicyEnum::tryFrom(Arr::get($data, 'eviction_policy', 'allkeys-lfu'))));
     }
 }

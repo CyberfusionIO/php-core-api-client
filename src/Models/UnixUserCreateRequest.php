@@ -149,6 +149,17 @@ class UnixUserCreateRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCreateBorgRepository(): bool
+    {
+        return $this->getAttribute('create_borg_repository');
+    }
+
+    public function setCreateBorgRepository(bool $createBorgRepository): self
+    {
+        $this->setAttribute('create_borg_repository', $createBorgRepository);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -163,6 +174,7 @@ class UnixUserCreateRequest extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'record_usage_files'), fn (self $model) => $model->setRecordUsageFiles(Arr::get($data, 'record_usage_files', false)))
             ->when(Arr::has($data, 'default_php_version'), fn (self $model) => $model->setDefaultPhpVersion(Arr::get($data, 'default_php_version')))
             ->when(Arr::has($data, 'default_nodejs_version'), fn (self $model) => $model->setDefaultNodejsVersion(Arr::get($data, 'default_nodejs_version')))
-            ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')));
+            ->when(Arr::has($data, 'description'), fn (self $model) => $model->setDescription(Arr::get($data, 'description')))
+            ->when(Arr::has($data, 'create_borg_repository'), fn (self $model) => $model->setCreateBorgRepository(Arr::get($data, 'create_borg_repository', false)));
     }
 }

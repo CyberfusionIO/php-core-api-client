@@ -13,7 +13,7 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(string $name, int $borgArchiveId, bool $existsOnServer, ?string $contentsPath = null)
+    public function __construct(string $name, int $borgArchiveId, bool $existsOnServer, string $contentsPath)
     {
         $this->setName($name);
         $this->setBorgArchiveId($borgArchiveId);
@@ -61,12 +61,12 @@ class BorgArchiveMetadata extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getContentsPath(): string|null
+    public function getContentsPath(): string
     {
         return $this->getAttribute('contents_path');
     }
 
-    public function setContentsPath(?string $contentsPath): self
+    public function setContentsPath(string $contentsPath): self
     {
         $this->setAttribute('contents_path', $contentsPath);
         return $this;

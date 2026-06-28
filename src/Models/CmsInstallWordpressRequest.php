@@ -204,7 +204,7 @@ class CmsInstallWordpressRequest extends CoreApiModel implements CoreApiModelCon
     public function setVersion(string $version): self
     {
         Validator::create()
-            ->length(min: 1, max: 6)
+            ->length(min: 1, max: 20)
             ->regex('/^[0-9.]+$/')
             ->assert($version);
         $this->setAttribute('version', $version);

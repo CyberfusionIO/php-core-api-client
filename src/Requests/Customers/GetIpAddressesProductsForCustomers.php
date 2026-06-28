@@ -4,7 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Customers;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\CoreApiUnauthenticated;
-use Cyberfusion\CoreApi\Models\IpAddressProduct;
+use Cyberfusion\CoreApi\Models\ProductResource;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Authenticator;
@@ -35,10 +35,10 @@ class GetIpAddressesProductsForCustomers extends Request implements CoreApiReque
 
     /**
      * @throws JsonException
-     * @returns Collection<IpAddressProduct>
+     * @returns Collection<ProductResource>
      */
     public function createDtoFromResponse(Response $response): Collection
     {
-        return $response->collect()->map(fn (array $item) => IpAddressProduct::fromArray($item));
+        return $response->collect()->map(fn (array $item) => ProductResource::fromArray($item));
     }
 }

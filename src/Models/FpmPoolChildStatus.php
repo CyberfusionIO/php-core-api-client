@@ -3,7 +3,6 @@
 namespace Cyberfusion\CoreApi\Models;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiModelContract;
-use Cyberfusion\CoreApi\Enums\HTTPMethod;
 use Cyberfusion\CoreApi\Support\CoreApiModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Conditionable;
@@ -16,16 +15,16 @@ class FpmPoolChildStatus extends CoreApiModel implements CoreApiModelContract
 
     public function __construct(
         int $currentRequestDuration,
-        HTTPMethod $httpMethod,
+        string $httpMethod,
         string $httpUri,
-        string $script,
         ?string $basicAuthenticationUser = null,
+        ?string $script = null,
     ) {
         $this->setCurrentRequestDuration($currentRequestDuration);
         $this->setHttpMethod($httpMethod);
         $this->setHttpUri($httpUri);
-        $this->setScript($script);
         $this->setBasicAuthenticationUser($basicAuthenticationUser);
+        $this->setScript($script);
     }
 
     public function getCurrentRequestDuration(): int
@@ -39,12 +38,12 @@ class FpmPoolChildStatus extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getHttpMethod(): HTTPMethod
+    public function getHttpMethod(): string
     {
         return $this->getAttribute('http_method');
     }
 
-    public function setHttpMethod(HTTPMethod $httpMethod): self
+    public function setHttpMethod(string $httpMethod): self
     {
         $this->setAttribute('http_method', $httpMethod);
         return $this;
@@ -72,12 +71,12 @@ class FpmPoolChildStatus extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
-    public function getScript(): string
+    public function getScript(): string|null
     {
         return $this->getAttribute('script');
     }
 
-    public function setScript(string $script): self
+    public function setScript(?string $script): self
     {
         $this->setAttribute('script', $script);
         return $this;
@@ -87,10 +86,10 @@ class FpmPoolChildStatus extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             currentRequestDuration: Arr::get($data, 'current_request_duration'),
-            httpMethod: HTTPMethod::tryFrom(Arr::get($data, 'http_method')),
+            httpMethod: Arr::get($data, 'http_method'),
             httpUri: Arr::get($data, 'http_uri'),
-            script: Arr::get($data, 'script'),
             basicAuthenticationUser: Arr::get($data, 'basic_authentication_user'),
+            script: Arr::get($data, 'script'),
         ));
     }
 }

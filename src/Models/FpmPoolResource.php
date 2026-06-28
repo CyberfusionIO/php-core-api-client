@@ -119,8 +119,15 @@ class FpmPoolResource extends CoreApiModel implements CoreApiModelContract
         return $this->getAttribute('version');
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function setVersion(string $version): self
     {
+        Validator::create()
+            ->length(min: 3, max: 4)
+            ->regex('/^[0-9]{1,2}\.[0-9]{1,2}$/')
+            ->assert($version);
         $this->setAttribute('version', $version);
         return $this;
     }

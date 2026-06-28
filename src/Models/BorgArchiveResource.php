@@ -19,6 +19,7 @@ class BorgArchiveResource extends CoreApiModel implements CoreApiModelContract
         string $updatedAt,
         int $clusterId,
         int $borgRepositoryId,
+        bool $isManuallyCreated,
         string $name,
         BorgArchiveIncludes $includes,
     ) {
@@ -27,6 +28,7 @@ class BorgArchiveResource extends CoreApiModel implements CoreApiModelContract
         $this->setUpdatedAt($updatedAt);
         $this->setClusterId($clusterId);
         $this->setBorgRepositoryId($borgRepositoryId);
+        $this->setIsManuallyCreated($isManuallyCreated);
         $this->setName($name);
         $this->setIncludes($includes);
     }
@@ -86,6 +88,17 @@ class BorgArchiveResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getIsManuallyCreated(): bool
+    {
+        return $this->getAttribute('is_manually_created');
+    }
+
+    public function setIsManuallyCreated(bool $isManuallyCreated): self
+    {
+        $this->setAttribute('is_manually_created', $isManuallyCreated);
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->getAttribute('name');
@@ -123,6 +136,7 @@ class BorgArchiveResource extends CoreApiModel implements CoreApiModelContract
             updatedAt: Arr::get($data, 'updated_at'),
             clusterId: Arr::get($data, 'cluster_id'),
             borgRepositoryId: Arr::get($data, 'borg_repository_id'),
+            isManuallyCreated: Arr::get($data, 'is_manually_created'),
             name: Arr::get($data, 'name'),
             includes: BorgArchiveIncludes::fromArray(Arr::get($data, 'includes')),
         ));

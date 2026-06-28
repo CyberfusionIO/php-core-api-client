@@ -74,8 +74,14 @@ class ClusterMariadbPropertiesResource extends CoreApiModel implements CoreApiMo
         return $this->getAttribute('mariadb_version');
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function setMariadbVersion(string $mariadbVersion): self
     {
+        Validator::create()
+            ->regex('/^[0-9]{1,2}\.[0-9]{1,2}$/')
+            ->assert($mariadbVersion);
         $this->setAttribute('mariadb_version', $mariadbVersion);
         return $this;
     }

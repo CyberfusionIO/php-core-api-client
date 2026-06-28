@@ -10,7 +10,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 
 /**
- * This endpoint supports only WordPress CMSes.
+ * This endpoint supports only WordPress CMSes. Use the equivalent POST endpoint instead.
  */
 class GetCmsOneTimeLogin extends Request implements CoreApiRequestContract
 {

@@ -12,6 +12,7 @@ use Cyberfusion\CoreApi\Requests\Daemons\DeleteDaemon;
 use Cyberfusion\CoreApi\Requests\Daemons\ListDaemons;
 use Cyberfusion\CoreApi\Requests\Daemons\ListLogs;
 use Cyberfusion\CoreApi\Requests\Daemons\ReadDaemon;
+use Cyberfusion\CoreApi\Requests\Daemons\ReadDaemonMetricsExperimental;
 use Cyberfusion\CoreApi\Requests\Daemons\RestartDaemon;
 use Cyberfusion\CoreApi\Requests\Daemons\UpdateDaemon;
 use Saloon\Http\Response;
@@ -51,6 +52,11 @@ class Daemons extends CoreApiResource
         ?int $limit = null,
     ): Response {
         return $this->connector->send(new ListLogs($id, $timestamp, $sort, $limit));
+    }
+
+    public function readDaemonMetricsExperimental(int $id, string $startTimestamp, string $endTimestamp): Response
+    {
+        return $this->connector->send(new ReadDaemonMetricsExperimental($id, $startTimestamp, $endTimestamp));
     }
 
     public function restartDaemon(int $id, ?string $callbackUrl = null): Response

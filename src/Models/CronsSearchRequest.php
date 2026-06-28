@@ -90,6 +90,28 @@ class CronsSearchRequest extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getCommand(): string|null
+    {
+        return $this->getAttribute('command');
+    }
+
+    public function setCommand(?string $command): self
+    {
+        $this->setAttribute('command', $command);
+        return $this;
+    }
+
+    public function getSchedule(): string|null
+    {
+        return $this->getAttribute('schedule');
+    }
+
+    public function setSchedule(?string $schedule): self
+    {
+        $this->setAttribute('schedule', $schedule);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -100,6 +122,8 @@ class CronsSearchRequest extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'unix_user_id'), fn (self $model) => $model->setUnixUserId(Arr::get($data, 'unix_user_id')))
             ->when(Arr::has($data, 'email_address'), fn (self $model) => $model->setEmailAddress(Arr::get($data, 'email_address')))
             ->when(Arr::has($data, 'locking_enabled'), fn (self $model) => $model->setLockingEnabled(Arr::get($data, 'locking_enabled')))
-            ->when(Arr::has($data, 'is_active'), fn (self $model) => $model->setIsActive(Arr::get($data, 'is_active')));
+            ->when(Arr::has($data, 'is_active'), fn (self $model) => $model->setIsActive(Arr::get($data, 'is_active')))
+            ->when(Arr::has($data, 'command'), fn (self $model) => $model->setCommand(Arr::get($data, 'command')))
+            ->when(Arr::has($data, 'schedule'), fn (self $model) => $model->setSchedule(Arr::get($data, 'schedule')));
     }
 }
