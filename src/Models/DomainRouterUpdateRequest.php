@@ -68,6 +68,28 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
         return $this;
     }
 
+    public function getQuicEnabled(): bool|null
+    {
+        return $this->getAttribute('quic_enabled');
+    }
+
+    public function setQuicEnabled(?bool $quicEnabled): self
+    {
+        $this->setAttribute('quic_enabled', $quicEnabled);
+        return $this;
+    }
+
+    public function getIsStandardsScanEnabled(): bool|null
+    {
+        return $this->getAttribute('is_standards_scan_enabled');
+    }
+
+    public function setIsStandardsScanEnabled(?bool $isStandardsScanEnabled): self
+    {
+        $this->setAttribute('is_standards_scan_enabled', $isStandardsScanEnabled);
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         return (new self(
@@ -76,6 +98,8 @@ class DomainRouterUpdateRequest extends CoreApiModel implements CoreApiModelCont
             ->when(Arr::has($data, 'certificate_id'), fn (self $model) => $model->setCertificateId(Arr::get($data, 'certificate_id')))
             ->when(Arr::has($data, 'security_txt_policy_id'), fn (self $model) => $model->setSecurityTxtPolicyId(Arr::get($data, 'security_txt_policy_id')))
             ->when(Arr::has($data, 'firewall_groups_ids'), fn (self $model) => $model->setFirewallGroupsIds(Arr::get($data, 'firewall_groups_ids')))
-            ->when(Arr::has($data, 'force_ssl'), fn (self $model) => $model->setForceSsl(Arr::get($data, 'force_ssl')));
+            ->when(Arr::has($data, 'force_ssl'), fn (self $model) => $model->setForceSsl(Arr::get($data, 'force_ssl')))
+            ->when(Arr::has($data, 'quic_enabled'), fn (self $model) => $model->setQuicEnabled(Arr::get($data, 'quic_enabled')))
+            ->when(Arr::has($data, 'is_standards_scan_enabled'), fn (self $model) => $model->setIsStandardsScanEnabled(Arr::get($data, 'is_standards_scan_enabled')));
     }
 }

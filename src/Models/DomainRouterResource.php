@@ -23,6 +23,8 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         DomainRouterCategoryEnum $category,
         int $clusterId,
         bool $forceSsl,
+        bool $quicEnabled,
+        bool $isStandardsScanEnabled,
         DeploymentStatusEnum $deploymentStatus,
         DomainRouterIncludes $includes,
         ?int $virtualHostId = null,
@@ -40,6 +42,8 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         $this->setCategory($category);
         $this->setClusterId($clusterId);
         $this->setForceSsl($forceSsl);
+        $this->setQuicEnabled($quicEnabled);
+        $this->setIsStandardsScanEnabled($isStandardsScanEnabled);
         $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setVirtualHostId($virtualHostId);
@@ -205,6 +209,28 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getQuicEnabled(): bool
+    {
+        return $this->getAttribute('quic_enabled');
+    }
+
+    public function setQuicEnabled(bool $quicEnabled): self
+    {
+        $this->setAttribute('quic_enabled', $quicEnabled);
+        return $this;
+    }
+
+    public function getIsStandardsScanEnabled(): bool
+    {
+        return $this->getAttribute('is_standards_scan_enabled');
+    }
+
+    public function setIsStandardsScanEnabled(bool $isStandardsScanEnabled): self
+    {
+        $this->setAttribute('is_standards_scan_enabled', $isStandardsScanEnabled);
+        return $this;
+    }
+
     public function getDeploymentStatus(): DeploymentStatusEnum
     {
         return $this->getAttribute('deployment_status');
@@ -237,6 +263,8 @@ class DomainRouterResource extends CoreApiModel implements CoreApiModelContract
             category: DomainRouterCategoryEnum::tryFrom(Arr::get($data, 'category')),
             clusterId: Arr::get($data, 'cluster_id'),
             forceSsl: Arr::get($data, 'force_ssl'),
+            quicEnabled: Arr::get($data, 'quic_enabled'),
+            isStandardsScanEnabled: Arr::get($data, 'is_standards_scan_enabled'),
             deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: DomainRouterIncludes::fromArray(Arr::get($data, 'includes')),
             virtualHostId: Arr::get($data, 'virtual_host_id'),

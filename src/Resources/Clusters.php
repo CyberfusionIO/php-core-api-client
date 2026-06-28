@@ -78,8 +78,6 @@ use Cyberfusion\CoreApi\Requests\Clusters\CreateRabbitmqProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\CreateRedisProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\CreateSinglestoreProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\DeleteIpAddressForCluster;
-use Cyberfusion\CoreApi\Requests\Clusters\DisableL3DdosProtectionForIpAddress;
-use Cyberfusion\CoreApi\Requests\Clusters\EnableL3DdosProtectionForIpAddress;
 use Cyberfusion\CoreApi\Requests\Clusters\GenerateInnodbReport;
 use Cyberfusion\CoreApi\Requests\Clusters\GetCommonProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\GetIpAddressesProductsForClusters;
@@ -110,6 +108,8 @@ use Cyberfusion\CoreApi\Requests\Clusters\ListUnixUsersHomeDirectoryUsages;
 use Cyberfusion\CoreApi\Requests\Clusters\ListUnixUsersProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\ReadBorgProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\ReadCluster;
+use Cyberfusion\CoreApi\Requests\Clusters\ReadDaemonsMetricsExperimental;
+use Cyberfusion\CoreApi\Requests\Clusters\ReadDatabaseUsersMetricsExperimental;
 use Cyberfusion\CoreApi\Requests\Clusters\ReadElasticsearchProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\ReadFirewallProperties;
 use Cyberfusion\CoreApi\Requests\Clusters\ReadGrafanaProperties;
@@ -175,6 +175,19 @@ class Clusters extends CoreApiResource
         return $this->connector->send(new UpdateCluster($id, $clusterUpdateRequest));
     }
 
+    public function readDaemonsMetricsExperimental(int $id, string $startTimestamp, string $endTimestamp): Response
+    {
+        return $this->connector->send(new ReadDaemonsMetricsExperimental($id, $startTimestamp, $endTimestamp));
+    }
+
+    public function readDatabaseUsersMetricsExperimental(
+        int $id,
+        string $startTimestamp,
+        string $endTimestamp,
+    ): Response {
+        return $this->connector->send(new ReadDatabaseUsersMetricsExperimental($id, $startTimestamp, $endTimestamp));
+    }
+
     public function getNodesDependencies(int $id): Response
     {
         return $this->connector->send(new GetNodesDependencies($id));
@@ -196,22 +209,6 @@ class Clusters extends CoreApiResource
     public function deleteIpAddressForCluster(int $id, string $ipAddress, ?string $callbackUrl = null): Response
     {
         return $this->connector->send(new DeleteIpAddressForCluster($id, $ipAddress, $callbackUrl));
-    }
-
-    public function enableL3DdosProtectionForIpAddress(
-        int $id,
-        string $ipAddress,
-        ?string $callbackUrl = null,
-    ): Response {
-        return $this->connector->send(new EnableL3DdosProtectionForIpAddress($id, $ipAddress, $callbackUrl));
-    }
-
-    public function disableL3DdosProtectionForIpAddress(
-        int $id,
-        string $ipAddress,
-        ?string $callbackUrl = null,
-    ): Response {
-        return $this->connector->send(new DisableL3DdosProtectionForIpAddress($id, $ipAddress, $callbackUrl));
     }
 
     public function getIpAddressesProductsForClusters(): Response

@@ -4,7 +4,7 @@ namespace Cyberfusion\CoreApi\Requests\Nodes;
 
 use Cyberfusion\CoreApi\Contracts\CoreApiRequestContract;
 use Cyberfusion\CoreApi\CoreApiUnauthenticated;
-use Cyberfusion\CoreApi\Models\NodeProduct;
+use Cyberfusion\CoreApi\Models\ProductResource;
 use Illuminate\Support\Collection;
 use JsonException;
 use Saloon\Contracts\Authenticator;
@@ -35,10 +35,10 @@ class GetNodeProducts extends Request implements CoreApiRequestContract
 
     /**
      * @throws JsonException
-     * @returns Collection<NodeProduct>
+     * @returns Collection<ProductResource>
      */
     public function createDtoFromResponse(Response $response): Collection
     {
-        return $response->collect()->map(fn (array $item) => NodeProduct::fromArray($item));
+        return $response->collect()->map(fn (array $item) => ProductResource::fromArray($item));
     }
 }

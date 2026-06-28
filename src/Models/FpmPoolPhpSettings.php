@@ -79,6 +79,17 @@ class FpmPoolPhpSettings extends CoreApiModel implements CoreApiModelContract
         return $this;
     }
 
+    public function getOpcacheInternedStringsBuffer(): int
+    {
+        return $this->getAttribute('opcache_interned_strings_buffer');
+    }
+
+    public function setOpcacheInternedStringsBuffer(int $opcacheInternedStringsBuffer): self
+    {
+        $this->setAttribute('opcache_interned_strings_buffer', $opcacheInternedStringsBuffer);
+        return $this;
+    }
+
     public function getSessionGcMaxlifetime(): int
     {
         return $this->getAttribute('session_gc_maxlifetime');
@@ -188,6 +199,7 @@ class FpmPoolPhpSettings extends CoreApiModel implements CoreApiModelContract
             ->when(Arr::has($data, 'short_open_tag'), fn (self $model) => $model->setShortOpenTag(Arr::get($data, 'short_open_tag')))
             ->when(Arr::has($data, 'error_reporting'), fn (self $model) => $model->setErrorReporting(Arr::get($data, 'error_reporting')))
             ->when(Arr::has($data, 'opcache_memory_consumption'), fn (self $model) => $model->setOpcacheMemoryConsumption(Arr::get($data, 'opcache_memory_consumption')))
+            ->when(Arr::has($data, 'opcache_interned_strings_buffer'), fn (self $model) => $model->setOpcacheInternedStringsBuffer(Arr::get($data, 'opcache_interned_strings_buffer')))
             ->when(Arr::has($data, 'session_gc_maxlifetime'), fn (self $model) => $model->setSessionGcMaxlifetime(Arr::get($data, 'session_gc_maxlifetime')))
             ->when(Arr::has($data, 'max_execution_time'), fn (self $model) => $model->setMaxExecutionTime(Arr::get($data, 'max_execution_time')))
             ->when(Arr::has($data, 'max_file_uploads'), fn (self $model) => $model->setMaxFileUploads(Arr::get($data, 'max_file_uploads')))

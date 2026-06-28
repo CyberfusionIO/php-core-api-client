@@ -74,4 +74,7 @@ enum ObjectModelNameEnum: string
     case ClustersOsProperties = 'ClustersOsProperties';
     case Project = 'Project';
     case ProjectEnvironment = 'ProjectEnvironment';
+    case Product = 'Product';
+    case Tombstone = 'Tombstone';
+    case Malware = 'Malware';
 }

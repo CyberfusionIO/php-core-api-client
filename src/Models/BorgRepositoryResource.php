@@ -21,6 +21,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         string $name,
         int $unixId,
         int $clusterId,
+        string $frequency,
         DeploymentStatusEnum $deploymentStatus,
         BorgRepositoryIncludes $includes,
         ?int $keepHourly = null,
@@ -37,6 +38,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         $this->setName($name);
         $this->setUnixId($unixId);
         $this->setClusterId($clusterId);
+        $this->setFrequency($frequency);
         $this->setDeploymentStatus($deploymentStatus);
         $this->setIncludes($includes);
         $this->setKeepHourly($keepHourly);
@@ -198,6 +200,17 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
         return $this;
     }
 
+    public function getFrequency(): string
+    {
+        return $this->getAttribute('frequency');
+    }
+
+    public function setFrequency(string $frequency): self
+    {
+        $this->setAttribute('frequency', $frequency);
+        return $this;
+    }
+
     public function getDeploymentStatus(): DeploymentStatusEnum
     {
         return $this->getAttribute('deployment_status');
@@ -229,6 +242,7 @@ class BorgRepositoryResource extends CoreApiModel implements CoreApiModelContrac
             name: Arr::get($data, 'name'),
             unixId: Arr::get($data, 'unix_id'),
             clusterId: Arr::get($data, 'cluster_id'),
+            frequency: Arr::get($data, 'frequency'),
             deploymentStatus: DeploymentStatusEnum::tryFrom(Arr::get($data, 'deployment_status')),
             includes: BorgRepositoryIncludes::fromArray(Arr::get($data, 'includes')),
             keepHourly: Arr::get($data, 'keep_hourly'),

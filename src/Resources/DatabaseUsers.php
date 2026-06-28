@@ -10,6 +10,7 @@ use Cyberfusion\CoreApi\Requests\DatabaseUsers\CreateDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\DeleteDatabaseUser;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\ListDatabaseUsers;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\ReadDatabaseUser;
+use Cyberfusion\CoreApi\Requests\DatabaseUsers\ReadDatabaseUserMetrics;
 use Cyberfusion\CoreApi\Requests\DatabaseUsers\UpdateDatabaseUser;
 use Saloon\Http\Response;
 use Saloon\PaginationPlugin\Paginator;
@@ -41,5 +42,10 @@ class DatabaseUsers extends CoreApiResource
     public function deleteDatabaseUser(int $id): Response
     {
         return $this->connector->send(new DeleteDatabaseUser($id));
+    }
+
+    public function readDatabaseUserMetrics(int $id, string $startTimestamp, string $endTimestamp): Response
+    {
+        return $this->connector->send(new ReadDatabaseUserMetrics($id, $startTimestamp, $endTimestamp));
     }
 }

@@ -100,8 +100,8 @@ class NodeResource extends CoreApiModel implements CoreApiModelContract
     public function setProduct(string $product): self
     {
         Validator::create()
-            ->length(min: 1, max: 2)
-            ->regex('/^[A-Z]+$/')
+            ->length(min: 1, max: 64)
+            ->regex('/^[a-zA-Z0-9 ]+$/')
             ->assert($product);
         $this->setAttribute('product', $product);
         return $this;

@@ -3,19 +3,27 @@
 namespace Cyberfusion\CoreApi\Resources;
 
 use Cyberfusion\CoreApi\CoreApiResource;
+use Cyberfusion\CoreApi\Models\CmsAutoInstallWordpressRequest;
 use Cyberfusion\CoreApi\Models\CmsConfigurationConstantUpdateRequest;
+use Cyberfusion\CoreApi\Models\CmsConfigureRedisRequest;
 use Cyberfusion\CoreApi\Models\CmsCreateRequest;
 use Cyberfusion\CoreApi\Models\CmsInstallNextcloudRequest;
 use Cyberfusion\CoreApi\Models\CmsInstallWordpressRequest;
 use Cyberfusion\CoreApi\Models\CmsOptionUpdateRequest;
 use Cyberfusion\CoreApi\Models\CmsUserCredentialsUpdateRequest;
 use Cyberfusion\CoreApi\Models\CmsesSearchRequest;
+use Cyberfusion\CoreApi\Requests\Cmses\AutoInstallWordpress;
+use Cyberfusion\CoreApi\Requests\Cmses\ConfigureRedis;
 use Cyberfusion\CoreApi\Requests\Cmses\CreateCms;
+use Cyberfusion\CoreApi\Requests\Cmses\CreateRecommendedCmsDatabaseIndexes;
 use Cyberfusion\CoreApi\Requests\Cmses\DeleteCms;
 use Cyberfusion\CoreApi\Requests\Cmses\DisableCmsPlugin;
 use Cyberfusion\CoreApi\Requests\Cmses\EnableCmsPlugin;
+use Cyberfusion\CoreApi\Requests\Cmses\GenerateCmsOneTimeLogin;
 use Cyberfusion\CoreApi\Requests\Cmses\GetCmsOneTimeLogin;
 use Cyberfusion\CoreApi\Requests\Cmses\GetCmsPlugins;
+use Cyberfusion\CoreApi\Requests\Cmses\GetCmsWoocommerceHpos;
+use Cyberfusion\CoreApi\Requests\Cmses\GetRecommendedCmsDatabaseIndexes;
 use Cyberfusion\CoreApi\Requests\Cmses\InstallCmsTheme;
 use Cyberfusion\CoreApi\Requests\Cmses\InstallNextcloud;
 use Cyberfusion\CoreApi\Requests\Cmses\InstallWordpress;
@@ -61,6 +69,14 @@ class Cmses extends CoreApiResource
         return $this->connector->send(new InstallWordpress($id, $cmsInstallWordpressRequest, $callbackUrl));
     }
 
+    public function autoInstallWordpress(
+        int $id,
+        CmsAutoInstallWordpressRequest $cmsAutoInstallWordpressRequest,
+        ?string $callbackUrl = null,
+    ): Response {
+        return $this->connector->send(new AutoInstallWordpress($id, $cmsAutoInstallWordpressRequest, $callbackUrl));
+    }
+
     public function installNextcloud(
         int $id,
         CmsInstallNextcloudRequest $cmsInstallNextcloudRequest,
@@ -69,14 +85,37 @@ class Cmses extends CoreApiResource
         return $this->connector->send(new InstallNextcloud($id, $cmsInstallNextcloudRequest, $callbackUrl));
     }
 
+    public function configureRedis(
+        int $id,
+        CmsConfigureRedisRequest $cmsConfigureRedisRequest,
+        ?string $callbackUrl = null,
+    ): Response {
+        return $this->connector->send(new ConfigureRedis($id, $cmsConfigureRedisRequest, $callbackUrl));
+    }
+
     public function getCmsOneTimeLogin(int $id): Response
     {
         return $this->connector->send(new GetCmsOneTimeLogin($id));
     }
 
+    public function generateCmsOneTimeLogin(int $id): Response
+    {
+        return $this->connector->send(new GenerateCmsOneTimeLogin($id));
+    }
+
     public function getCmsPlugins(int $id): Response
     {
         return $this->connector->send(new GetCmsPlugins($id));
+    }
+
+    public function getRecommendedCmsDatabaseIndexes(int $id): Response
+    {
+        return $this->connector->send(new GetRecommendedCmsDatabaseIndexes($id));
+    }
+
+    public function createRecommendedCmsDatabaseIndexes(int $id): Response
+    {
+        return $this->connector->send(new CreateRecommendedCmsDatabaseIndexes($id));
     }
 
     public function updateCmsOption(int $id, string $name, CmsOptionUpdateRequest $cmsOptionUpdateRequest): Response
@@ -137,5 +176,10 @@ class Cmses extends CoreApiResource
     public function installCmsTheme(int $id): Response
     {
         return $this->connector->send(new InstallCmsTheme($id));
+    }
+
+    public function getCmsWoocommerceHpos(int $id): Response
+    {
+        return $this->connector->send(new GetCmsWoocommerceHpos($id));
     }
 }

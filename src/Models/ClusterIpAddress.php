@@ -13,10 +13,9 @@ class ClusterIpAddress extends CoreApiModel implements CoreApiModelContract
 {
     use Conditionable;
 
-    public function __construct(string $ipAddress, bool $l3DdosProtectionEnabled, ?string $dnsName = null)
+    public function __construct(string $ipAddress, ?string $dnsName = null)
     {
         $this->setIpAddress($ipAddress);
-        $this->setL3DdosProtectionEnabled($l3DdosProtectionEnabled);
         $this->setDnsName($dnsName);
     }
 
@@ -57,8 +56,8 @@ class ClusterIpAddress extends CoreApiModel implements CoreApiModelContract
     {
         return (new self(
             ipAddress: Arr::get($data, 'ip_address'),
-            l3DdosProtectionEnabled: Arr::get($data, 'l3_ddos_protection_enabled'),
             dnsName: Arr::get($data, 'dns_name'),
-        ));
+        ))
+            ->when(Arr::has($data, 'l3_ddos_protection_enabled'), fn (self $model) => $model->setL3DdosProtectionEnabled(Arr::get($data, 'l3_ddos_protection_enabled', false)));
     }
 }
